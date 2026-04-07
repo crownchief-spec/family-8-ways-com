@@ -1,0 +1,158 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import PortfolioCard from '../../components/PortfolioCard.astro';
+import { entrySlug } from '../../lib/slug';
+import { site } from '../../site.config';
+import { hrefForPortfolioLocation } from '../../lib/locationLinks';
+
+export async function getStaticPaths() {
+  const items = await getCollection('portfolio', ({ data }) => !data.draft);
+  return Promise.all(
+    items.map(async (item) => ({
+      params: { slug: entrySlug(item) },
+      props: { item },
+    })),
+  );
+}
+
+const { item } = Astro.props;
+const { Content } = await render(item);
+
+const all = await getCollection('portfolio', ({ data }) => !data.draft);
+const others = all.filter((p) => entrySlug(p) !== entrySlug(item));
+const related = others
+  .filter(
+    (p) =>
+      p.data.location === item.data.location ||
+      p.data.tags.some((t) => item.data.tags.includes(t)),
+  )
+  .slice(0, 3);
+
+const title = `${item.data.title}｜作品集`;
+const desc = item.data.excerpt;
+const gallery = [item.data.cover, ...item.data.gallery].filter(
+  (v, i, a) => a.indexOf(v) === i,
+);
+---
+
+<Layout title={title} description={desc} ogImage={item.data.cover}>
+  <article>
+    <section class="hero" style="min-height: 360px; margin-bottom: 0; border-radius: 0;">
+      <div class="hero__bg" style={`background-image: url('${item.data.cover}')`}></div>
+      <div class="hero__overlay"></div>
+      <div class="hero__inner" style="padding-bottom: var(--space-xl);">
+        <p class="hero__eyebrow">{item.data.location}{item.data.country ? ` · ${item.data.country}` : ''}</p>
+        <h1 class="hero__title" style="max-width: 24ch;">{item.data.title}</h1>
+        <p class="hero__sub">
+          {item.data.category.join('、')}
+          {item.data.season ? ` · ${item.data.season}` : ''}
+        </p>
+        <div class="hero__tags" style="display:flex; flex-wrap:wrap; gap:0.35rem; margin-top:0.75rem;">
+          {item.data.tags.map((t) => (
+            <span class="tag">{t}</span>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <div class="container section prose">
+      <Content />
+    </div>
+
+    <div class="container section">
+      <h2 class="h2">精選照片</h2>
+      <div class="gallery">
+        {
+          gallery.map((src) => (
+            <figure class="gallery__item">
+              <img src={src} alt="" loading="lazy" decoding="async" width="900" height="600" />
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="container section card card--flat">
+      <h2 class="h2">延伸閱讀</h2>
+      <ul class="prose">
+        <li>
+          <a href={hrefForPortfolioLocation(item.data.location)}>類似地區與拍攝建議</a>
+        </li>
+        <li><a href="/portfolio">更多作品集</a></li>
+        <li><a href="/services">服務方案</a></li>
+      </ul>
+    </div>
+
+    {
+      related.length > 0 && (
+        <div class="container section">
+          <h2 class="h2">類似作品</h2>
+          <div class="grid-3">
+            {related.map((p) => (
+              <PortfolioCard
+                href={`/portfolio/${entrySlug(p)}`}
+                title={p.data.title}
+                excerpt={p.data.excerpt}
+                location={p.data.location}
+                tags={[...p.data.category, ...p.data.tags].slice(0, 4)}
+                cover={p.data.cover}
+              />
+            ))}
+          </div>
+        </div>
+      )
+    }
+
+    <div class="container section cta-mini">
+      <h2 class="h2">想拍類似風格，歡迎詢問</h2>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href={site.lineUrl} target="_blank" rel="noopener noreferrer">加 Line 詢問</a>
+        <a class="btn btn--secondary" href="/contact">預約拍攝</a>
+      </div>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .hero__eyebrow {
+    font-size: 0.9rem;
+    opacity: 0.95;
+    margin: 0 0 var(--space-sm);
+    letter-spacing: 0.08em;
+  }
+
+  .gallery {
+    display: grid;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+  }
+
+  @media (min-width: 720px) {
+    .gallery {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .gallery__item {
+    margin: 0;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--color-line);
+  }
+
+  .gallery__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 3 / 2;
+  }
+
+  .cta-mini {
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-2xl);
+    background: var(--color-paper);
+  }
+</style>

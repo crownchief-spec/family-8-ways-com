@@ -1,0 +1,207 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site } from '../site.config';
+
+const title = '親子寫真服務方案｜小巴老師';
+const desc =
+  '從台灣包車旅拍到海外親子旅拍，從親子互動、孕婦寶寶到三代同堂，依照你們的旅行方式與家庭狀態安排最適合的拍攝。';
+---
+
+<Layout title={title} description={desc}>
+  <section
+    class="hero"
+    style="min-height: 320px; margin-bottom: 0; border-radius: 0;"
+  >
+    <div
+      class="hero__bg"
+      style="background-image: url('/images/heroes/B2E1E483-DB34-4688-90FE-21665D818ADC_4_5005_c-e6fdf905-3c4c-426b-bb98-2074f2c8c69f.png');"
+    >
+    </div>
+    <div class="hero__overlay"></div>
+    <div class="hero__inner" style="padding-bottom: var(--space-xl);">
+      <h1 class="hero__title" style="max-width: none;">親子寫真服務方案</h1>
+      <p class="hero__sub" style="max-width: 60ch;">{desc}</p>
+    </div>
+  </section>
+
+  <div class="container section">
+    <h2 class="h2">我們提供的拍攝類型</h2>
+    <p class="lead">我們主要提供以下類型的家庭與親子攝影服務，風格皆以自然互動、全外拍、旅拍感與故事感為核心。</p>
+    <ul class="prose">
+      <li>親子寫真</li>
+      <li>家庭寫真</li>
+      <li>台灣包車旅拍</li>
+      <li>海外旅拍</li>
+      <li>孕婦寫真</li>
+      <li>寶寶寫真</li>
+      <li>三代同堂家庭照</li>
+      <li>生日派對／家庭聚會</li>
+      <li>畢業照／成長紀錄</li>
+    </ul>
+  </div>
+
+  <div class="container section" style="background: var(--color-paper); margin: 0; padding-block: var(--space-xl);">
+    <div class="container">
+      <h2 class="h2">這樣的家庭很適合我們</h2>
+      <ul class="prose">
+        <li>喜歡自然互動，不喜歡太制式、太僵硬的棚拍</li>
+        <li>想把旅行與拍照結合，而不是只拍幾張定格照</li>
+        <li>希望孩子能在玩樂中完成拍攝</li>
+        <li>想一次留下家人互動、風景氛圍與旅行記憶</li>
+        <li>希望有完整照片與更有故事感的畫面</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container section">
+    <h2 class="h2">方案卡片</h2>
+    <div class="grid-2">
+      <article class="card card--flat">
+        <h3 class="h3">台灣半天旅拍</h3>
+        <p class="muted">
+          適合輕鬆散步、單一地點或一小段行程安排，適合年紀較小的孩子或希望節奏簡單的家庭。
+        </p>
+        <p class="h3" style="margin-top: var(--space-md); font-size: 1rem;">包含內容</p>
+        <ul class="muted" style="margin:0;">
+          <li>拍攝時間：約半天</li>
+          <li>適合 1 個主要地點</li>
+          <li>自然互動引導</li>
+          <li>照片精修與完整交件依方案說明</li>
+        </ul>
+      </article>
+      <article class="card card--flat" id="fullday">
+        <h3 class="h3">台灣全天旅拍</h3>
+        <p class="muted">
+          適合想把旅遊與攝影完整結合的家庭，能安排多個場景，拍到更多互動、風景與生活感。
+        </p>
+        <p class="h3" style="margin-top: var(--space-md); font-size: 1rem;">包含內容</p>
+        <ul class="muted" style="margin:0;">
+          <li>拍攝時間：約一天</li>
+          <li>可規劃一日行程</li>
+          <li>可搭配包車或接送</li>
+          <li>可搭配微電影 MV</li>
+        </ul>
+      </article>
+      <article class="card card--flat" id="overseas">
+        <h3 class="h3">海外旅拍</h3>
+        <p class="muted">
+          依照你們的旅遊日期安排，適合日本、海島與海外城市家庭旅行拍攝。
+        </p>
+        <p class="h3" style="margin-top: var(--space-md); font-size: 1rem;">包含內容</p>
+        <ul class="muted" style="margin:0;">
+          <li>一日或多日安排</li>
+          <li>可依季節建議地區</li>
+          <li>可依家庭成員安排節奏</li>
+          <li>適合櫻花、海邊、和服、玩雪、古都街景等主題</li>
+        </ul>
+      </article>
+      <article class="card card--flat">
+        <h3 class="h3">客製化家庭紀錄</h3>
+        <p class="muted">
+          適合生日派對、露營、民宿包棟、三代同堂聚會、寶寶紀錄等特殊需求。
+        </p>
+      </article>
+    </div>
+  </div>
+
+  <div class="container section">
+    <h2 class="h2">你們會收到什麼？</h2>
+    <p class="lead">我們希望交給你們的不只是幾張代表作，而是完整的家庭回憶。</p>
+    <ul class="prose">
+      <li>照片檔案交付</li>
+      <li>至少 200 張以上成品依方案調整</li>
+      <li>完整雲端交件</li>
+      <li>全天方案可搭配微電影 MV</li>
+      <li>可依需求加購影片、相本或其他延伸成品</li>
+    </ul>
+  </div>
+
+  <div class="container section">
+    <h2 class="h2">拍攝流程</h2>
+    <ol class="prose">
+      <li><strong>詢問需求：</strong>先透過 Line 或表單聯絡，告訴我們日期、人數、孩子年齡、地區與想拍的風格。</li>
+      <li><strong>建議方案：</strong>依照你們的家庭狀態與旅行需求，提供適合的方案、地點與時段建議。</li>
+      <li><strong>確認拍攝：</strong>確認日期、方案與拍攝流程，必要時協助整理拍攝建議與準備事項。</li>
+      <li><strong>當天拍攝：</strong>以自然互動方式引導，讓孩子與家人能在輕鬆狀態下留下真實畫面。</li>
+      <li><strong>後製交件：</strong>整理與後製完成後，透過雲端交付完整照片與相關成品。</li>
+    </ol>
+  </div>
+
+  <div class="container section">
+    <h2 class="h2">價格說明</h2>
+    <p class="muted">
+      台灣半天旅拍：依地區與內容調整 · 台灣全天旅拍：依行程安排 · 海外旅拍：依國家、天數與日期客製 · 特殊客製案：依需求報價
+    </p>
+    <div style="overflow-x: auto; margin-top: var(--space-md);">
+      <table class="price-table">
+        <thead>
+          <tr>
+            <th>方案</th>
+            <th>參考區間（可依實際需求調整）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>台灣半天旅拍</td>
+            <td>NT$ 5,800–8,300 起（依地區與內容）</td>
+          </tr>
+          <tr>
+            <td>台灣全天旅拍</td>
+            <td>NT$ 14,800 起（依行程）</td>
+          </tr>
+          <tr>
+            <td>海外一日</td>
+            <td>NT$ 14,800 起</td>
+          </tr>
+          <tr>
+            <td>海外第二日</td>
+            <td>NT$ 9,800 起</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted" style="margin-top: var(--space-md); font-size: 0.92rem;">
+      實際費用依地區、日期、天數與拍攝內容調整，歡迎直接詢問。
+    </p>
+  </div>
+
+  <div class="container section cta-block">
+    <h2 class="h2">想知道你們適合哪一種方案？</h2>
+    <div class="hero__actions">
+      <a class="btn btn--primary" href={site.lineUrl} target="_blank" rel="noopener noreferrer">加 Line 詢問</a>
+      <a class="btn btn--secondary" href="/contact">預約拍攝</a>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .price-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .price-table th,
+  .price-table td {
+    padding: 0.85rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .price-table th {
+    background: var(--color-sage-soft);
+    font-weight: 600;
+  }
+
+  .cta-block {
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    padding: var(--space-xl);
+    background: linear-gradient(120deg, var(--color-sage-soft), var(--color-paper));
+    margin-bottom: var(--space-2xl);
+  }
+</style>

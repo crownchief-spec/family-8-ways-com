@@ -1,0 +1,87 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+const title = '爸媽推薦｜小巴老師親子寫真';
+const desc =
+  '拍攝結束後，最讓我在意的不是一句「照片很漂亮」，而是客人會說：「這真的就是我們家平常的樣子。」';
+
+const items = await getCollection('reviews', ({ data }) => !data.draft);
+const sorted = items.sort((a, b) => a.data.sort - b.data.sort);
+const rendered = await Promise.all(sorted.map((e) => render(e)));
+---
+
+<Layout title={title} description={desc}>
+  <section class="hero" style="min-height: 280px; margin-bottom: 0; border-radius: 0;">
+    <div
+      class="hero__bg"
+      style="background-image: url('/images/heroes/A74350DF-E5CD-445F-A344-FD76C876E897_4_5005_c-76553d0b-a86c-4dc9-9c2c-2c2799e6edae.png');"
+    >
+    </div>
+    <div class="hero__overlay"></div>
+    <div class="hero__inner" style="padding-bottom: var(--space-xl);">
+      <h1 class="hero__title" style="max-width: none;">爸媽推薦</h1>
+      <p class="hero__sub" style="max-width: 54ch;">{desc}</p>
+    </div>
+  </section>
+
+  <div class="container section">
+    <div class="rev-grid">
+      {
+        sorted.map((entry, i) => {
+          const { Content } = rendered[i];
+          return (
+            <article class="rev card card--flat">
+              {entry.data.photo && (
+                <div class="rev__photo">
+                  <img src={entry.data.photo} alt="" loading="lazy" decoding="async" width="800" height="520" />
+                </div>
+              )}
+              <div class="rev__body">
+                <h2 class="h3">{entry.data.title}</h2>
+                <p class="muted" style="margin:0 0 var(--space-sm); font-size:0.92rem;">
+                  {entry.data.location} · {entry.data.type}
+                </p>
+                <div class="prose" style="font-size:0.98rem;">
+                  <Content />
+                </div>
+              </div>
+            </article>
+          );
+        })
+      }
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .rev-grid {
+    display: grid;
+    gap: var(--space-lg);
+    margin-top: var(--space-md);
+  }
+
+  .rev {
+    display: grid;
+    gap: var(--space-md);
+    padding: 0;
+    overflow: hidden;
+  }
+
+  @media (min-width: 800px) {
+    .rev {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    }
+  }
+
+  .rev__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    min-height: 220px;
+  }
+
+  .rev__body {
+    padding: var(--space-lg);
+  }
+</style>

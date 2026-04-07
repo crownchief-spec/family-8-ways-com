@@ -1,0 +1,258 @@
+---
+import { createHash } from 'node:crypto';
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { entrySlug } from '../../lib/slug';
+import { site } from '../../site.config';
+
+function sha256(s: string) {
+  return createHash('sha256').update(s, 'utf8').digest('hex');
+}
+
+export async function getStaticPaths() {
+  const items = await getCollection('clients', ({ data }) => !data.draft);
+  return Promise.all(
+    items.map(async (item) => {
+      const slug = entrySlug(item);
+      const passwordHash =
+        item.data.password_protected && item.data.password ? sha256(item.data.password) : null;
+      return {
+        params: { slug },
+        props: { item, passwordHash },
+      };
+    }),
+  );
+}
+
+const { item, passwordHash } = Astro.props;
+const { Content } = await render(item);
+const slug = entrySlug(item);
+const title = `${item.data.client_name}｜客戶專屬頁`;
+const desc = `專案：${item.data.project_type}（${item.data.shoot_date}）`;
+---
+
+<Layout title={title} description={desc} noIndex={item.data.password_protected} ogImage={item.data.cover}>
+  <article class="client-page">
+    <section class="hero" style="min-height: 280px; margin-bottom: 0; border-radius: 0;">
+      {
+        item.data.cover ? (
+          <div class="hero__bg" style={`background-image: url('${item.data.cover}')`}></div>
+        ) : (
+          <div
+            class="hero__bg"
+            style="background-image: url('/images/heroes/E1D93DD6-3E79-4133-95D8-08341C0F501C_4_5005_c-1b8ca6e5-60f8-4eae-8f1a-03d9550dde06.png');"
+          ></div>
+        )
+      }
+      <div class="hero__overlay"></div>
+      <div class="hero__inner" style="padding-bottom: var(--space-xl);">
+        <p class="hero__eyebrow">{item.data.project_type}</p>
+        <h1 class="hero__title" style="max-width: none;">{item.data.client_name}</h1>
+        <p class="hero__sub">拍攝日期：{item.data.shoot_date}</p>
+      </div>
+    </section>
+
+    <div
+      class="container section"
+      data-pw-root
+      data-pw-hash={passwordHash ?? ''}
+      data-pw-slug={slug}
+    >
+      {
+        passwordHash ? (
+          <form class="card card--flat pw-gate" data-pw-form>
+            <p class="h3">此頁面需輸入密碼</p>
+            <label class="field">
+              <span class="muted">密碼</span>
+              <input type="password" name="password" autocomplete="current-password" required />
+            </label>
+            <button class="btn btn--primary" type="submit">解鎖頁面</button>
+            <p class="muted pw-error" data-pw-error hidden>密碼不正確，請再試一次或與我聯絡。</p>
+          </form>
+        ) : null
+      }
+
+      <div data-pw-content class:list={{ 'is-locked': !!passwordHash }}>
+        <section class="section" style="padding-top: 0;">
+          <h2 class="h2">專案狀態</h2>
+          <p style="margin: 0;"><strong>目前狀態：</strong>{item.data.status}</p>
+          {
+            item.data.estimated_delivery && (
+              <p class="muted" style="margin: 0.5rem 0 0;">
+                <strong>預計交件：</strong>
+                {item.data.estimated_delivery}
+              </p>
+            )
+          }
+        </section>
+
+        {
+          item.data.shoot_includes?.length ? (
+            <section class="section" style="padding-top: 0;">
+              <h2 class="h2">本次拍攝內容</h2>
+              <ul class="prose">
+                {item.data.shoot_includes.map((line) => (
+                  <li>{line}</li>
+                ))}
+              </ul>
+            </section>
+          ) : null
+        }
+
+        <section class="section" style="padding-top: 0;">
+          <h2 class="h2">重要連結</h2>
+          <ul class="prose link-list">
+            {
+              item.data.gallery_link && (
+                <li>
+                  <a href={item.data.gallery_link} target="_blank" rel="noopener noreferrer">
+                    雲端相簿
+                  </a>
+                </li>
+              )
+            }
+            {
+              item.data.download_link && (
+                <li>
+                  <a href={item.data.download_link} target="_blank" rel="noopener noreferrer">
+                    下載連結
+                  </a>
+                </li>
+              )
+            }
+            {
+              item.data.video_link && (
+                <li>
+                  <a href={item.data.video_link} target="_blank" rel="noopener noreferrer">
+                    影片連結
+                  </a>
+                </li>
+              )
+            }
+            {
+              item.data.proof_link && (
+                <li>
+                  <a href={item.data.proof_link} target="_blank" rel="noopener noreferrer">
+                    校稿連結
+                  </a>
+                </li>
+              )
+            }
+          </ul>
+          {
+            !item.data.gallery_link &&
+              !item.data.download_link &&
+              !item.data.video_link &&
+              !item.data.proof_link && <p class="muted">連結將於檔案就緒後更新，或由另訊提供。</p>
+          }
+        </section>
+
+        {
+          item.data.notes && (
+            <section class="section card card--flat" style="padding-top: var(--space-md);">
+              <h2 class="h2">注意事項</h2>
+              <p class="muted" style="margin: 0;">{item.data.notes}</p>
+            </section>
+          )
+        }
+
+        <section class="section prose">
+          <h2 class="h2">其他說明</h2>
+          <Content />
+        </section>
+
+        <section class="section card card--flat">
+          <h2 class="h2">延伸推薦</h2>
+          <ul class="prose">
+            <li><a href="/portfolio">類似作品風格</a></li>
+            <li><a href="/services">服務方案</a></li>
+            <li><a href="/contact">再次預約</a></li>
+          </ul>
+          <div class="hero__actions" style="margin-top: var(--space-md);">
+            <a class="btn btn--primary" href={site.lineUrl} target="_blank" rel="noopener noreferrer">
+              聯絡小巴老師
+            </a>
+          </div>
+        </section>
+      </div>
+    </div>
+  </article>
+</Layout>
+
+<script>
+  (function () {
+    const root = document.querySelector('[data-pw-root]');
+    if (!(root instanceof HTMLElement)) return;
+    const hash = root.dataset.pwHash || '';
+    const slug = root.dataset.pwSlug || '';
+    const form = root.querySelector('[data-pw-form]');
+    const content = root.querySelector('[data-pw-content]');
+    const err = root.querySelector('[data-pw-error]');
+    const key = 'client_unlock_' + slug;
+
+    async function sha256Hex(message) {
+      const buf = new TextEncoder().encode(message);
+      const digest = await crypto.subtle.digest('SHA-256', buf);
+      return Array.from(new Uint8Array(digest))
+        .map((b) => b.toString(16).padStart(2, '0'))
+        .join('');
+    }
+
+    function unlock() {
+      if (content instanceof HTMLElement) content.classList.remove('is-locked');
+      if (form instanceof HTMLElement) form.hidden = true;
+    }
+
+    if (!hash) return;
+
+    if (sessionStorage.getItem(key) === hash) unlock();
+
+    if (!(form instanceof HTMLFormElement)) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const pw = String(fd.get('password') || '');
+      const entered = await sha256Hex(pw);
+      if (entered === hash) {
+        sessionStorage.setItem(key, hash);
+        if (err instanceof HTMLElement) err.hidden = true;
+        unlock();
+      } else if (err instanceof HTMLElement) {
+        err.hidden = false;
+      }
+    });
+  })();
+</script>
+
+<style>
+  .hero__eyebrow {
+    margin: 0 0 var(--space-sm);
+    letter-spacing: 0.06em;
+    font-size: 0.9rem;
+    opacity: 0.95;
+  }
+
+  .pw-gate {
+    max-width: 420px;
+    padding: var(--space-lg);
+    margin-bottom: var(--space-lg);
+  }
+
+  .pw-gate .field {
+    display: grid;
+    gap: 0.35rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .pw-gate input {
+    font: inherit;
+    padding: 0.55rem 0.75rem;
+    border: 1px solid var(--color-line);
+    border-radius: 8px;
+  }
+
+  .is-locked {
+    display: none;
+  }
+</style>

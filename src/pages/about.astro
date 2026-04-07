@@ -1,0 +1,63 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site } from '../site.config';
+
+const title = '關於小巴老師｜親子寫真攝影師';
+const desc =
+  '15 年全職攝影經驗，50+ 趟海外拍攝，擅長把家庭照拍成有風景、有互動、有情緒的旅行故事。';
+---
+
+<Layout title={title} description={desc}>
+  <section class="hero" style="min-height: 320px; margin-bottom: 0; border-radius: 0;">
+    <div
+      class="hero__bg"
+      style="background-image: url('/images/heroes/1FED9920-888F-4A05-BA5F-E8FCBE1D143F_4_5005_c-b3958e88-8ccb-403c-92dc-1fc4f7770927.png');"
+    >
+    </div>
+    <div class="hero__overlay"></div>
+    <div class="hero__inner" style="padding-bottom: var(--space-xl);">
+      <h1 class="hero__title" style="max-width: none;">關於小巴老師</h1>
+      <p class="hero__sub" style="max-width: 52ch;">{desc}</p>
+    </div>
+  </section>
+
+  <div class="container section prose">
+    <h2 class="h2">我是誰</h2>
+    <p>
+      我是小巴老師，也是一位長期專注在親子、家庭、旅拍與自然互動攝影的全職攝影師。我喜歡的不只是畫面漂亮，而是家人之間真正的相處方式：牽手、奔跑、聊天、安靜地看著彼此、陪孩子玩。這些當下，往往才是多年後最值得回看的部分。
+    </p>
+
+    <h2 class="h2">我的拍攝理念</h2>
+    <p>
+      我相信親子寫真不應該只是把人站好、笑一笑，而是應該讓拍攝像一次旅行、一段散步、一場陪伴。所以我的大部分作品都以全外拍方式進行，讓家人在真實環境中互動，照片才會自然、耐看，也更像你們自己。
+    </p>
+
+    <h2 class="h2">我的經歷</h2>
+    <ul>
+      <li>15 年全職攝影經驗</li>
+      <li>50+ 趟海外拍攝經歷</li>
+      <li>長期拍攝親子、家庭與旅拍主題</li>
+      <li>商業與品牌攝影經驗</li>
+      <li>同時能做照片與影片紀錄</li>
+    </ul>
+
+    <h2 class="h2">為什麼很多家庭喜歡這種風格</h2>
+    <p>
+      因為孩子不需要一直被要求站好，爸媽也不需要擔心自己不會擺姿勢。拍攝比較像一起玩、一起走，然後在這個過程中，把家人最真實的樣子留下來。
+    </p>
+  </div>
+
+  <div class="container section cta-mini">
+    <div class="hero__actions">
+      <a class="btn btn--primary" href="/portfolio">看作品</a>
+      <a class="btn btn--secondary" href="/contact">預約拍攝</a>
+      <a class="btn btn--ghost" href={site.lineUrl} target="_blank" rel="noopener noreferrer">加 Line</a>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .cta-mini {
+    padding-bottom: var(--space-2xl);
+  }
+</style>

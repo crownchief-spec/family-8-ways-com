@@ -1,0 +1,181 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PortfolioCard from '../../components/PortfolioCard.astro';
+import { getCollection } from 'astro:content';
+import { entrySlug } from '../../lib/slug';
+
+const title = '作品集｜小巴老師親子寫真';
+const desc =
+  '從台灣森林草地、海邊、日暮，到海外櫻花、古都、海島與雪地，這裡收錄的是我們最重要的家庭故事。';
+
+const items = await getCollection('portfolio', ({ data }) => !data.draft);
+const sorted = items.sort((a, b) => (a.data.date < b.data.date ? 1 : -1));
+
+const typeLabels = [
+  '親子寫真',
+  '家庭寫真',
+  '孕婦寫真',
+  '寶寶寫真',
+  '三代同堂',
+  '生日派對',
+  '畢業照 / 成長紀錄',
+];
+
+const themeLabels = [
+  '草地 / 森林',
+  '黃昏 / 日暮',
+  '海邊 / 玩水',
+  '和服 / 韓服 / 旗袍',
+  '夜拍 / 聖誕節 / 煙火',
+  '室內 / 飯店 / villa',
+  '櫻花 / 繡球花',
+  '楓葉 / 銀杏 / 落羽松',
+  '雨中 / 水中',
+  '寶寶 / 三代同堂',
+];
+
+const regions = [...new Set(sorted.map((i) => i.data.location))].sort();
+---
+
+<Layout title={title} description={desc}>
+  <section class="hero" style="min-height: 280px; margin-bottom: 0; border-radius: 0;">
+    <div
+      class="hero__bg"
+      style="background-image: url('/images/heroes/EBB8EB3F-C43D-4EF6-9BE1-C931D1C9579C_4_5005_c-a81bbe88-5a77-470b-9107-2d70339a154b.png');"
+    >
+    </div>
+    <div class="hero__overlay"></div>
+    <div class="hero__inner" style="padding-bottom: var(--space-xl);">
+      <h1 class="hero__title" style="max-width: none;">作品集</h1>
+      <p class="hero__sub" style="max-width: 62ch;">{desc}</p>
+    </div>
+  </section>
+
+  <div class="container section">
+    <h2 class="h2">依拍攝類型瀏覽</h2>
+    <div class="chips" data-filter-group="type">
+      <button type="button" class="chip is-active" data-value="all">全部</button>
+      {typeLabels.map((t) => (
+        <button type="button" class="chip" data-value={t}>
+          {t}
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <div class="container section" style="padding-top: 0;">
+    <h2 class="h2">依場景主題瀏覽</h2>
+    <div class="chips chips--wrap" data-filter-group="theme">
+      <button type="button" class="chip is-active" data-value="all">全部</button>
+      {themeLabels.map((t) => (
+        <button type="button" class="chip" data-value={t}>
+          {t}
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <div class="container section" style="padding-top: 0;">
+    <h2 class="h2">依地區瀏覽</h2>
+    <div class="chips" data-filter-group="region">
+      <button type="button" class="chip is-active" data-value="all">全部</button>
+      {regions.map((r) => (
+        <button type="button" class="chip" data-value={r}>
+          {r}
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <div class="container section" style="padding-top: 0;">
+    <div class="grid-2" id="portfolio-grid">
+      {
+        sorted.map((p) => {
+          const slug = entrySlug(p);
+          const typeStr = p.data.category.join(' ');
+          const tagStr = p.data.tags.join(' ');
+          return (
+            <div
+              class="pf-item"
+              data-type={typeStr}
+              data-tags={`${tagStr} ${typeStr}`}
+              data-region={p.data.location}
+            >
+              <PortfolioCard
+                href={`/portfolio/${slug}`}
+                title={p.data.title}
+                excerpt={p.data.excerpt}
+                location={p.data.location}
+                tags={[...p.data.category, ...p.data.tags]}
+                cover={p.data.cover}
+              />
+            </div>
+          );
+        })
+      }
+    </div>
+    <p class="muted" id="portfolio-empty" hidden style="text-align:center;padding:2rem;">
+      此條件目前沒有作品，試試其他篩選組合。
+    </p>
+  </div>
+</Layout>
+
+<style>
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: var(--space-md);
+  }
+
+  .chips--wrap {
+    max-width: 100%;
+  }
+</style>
+
+<script>
+  const groups = {
+    type: 'all',
+    theme: 'all',
+    region: 'all',
+  } as Record<string, string>;
+
+  function applyFilters() {
+    const items = document.querySelectorAll<HTMLElement>('.pf-item');
+    let n = 0;
+    items.forEach((el) => {
+      const types = el.dataset.type ?? '';
+      const region = el.dataset.region ?? '';
+      const tags = el.dataset.tags ?? '';
+
+      let ok = true;
+      if (groups.type !== 'all' && !types.includes(groups.type)) ok = false;
+      if (groups.region !== 'all' && region !== groups.region) ok = false;
+      if (groups.theme !== 'all') {
+        const parts = groups.theme.split('/').map((p) => p.trim());
+        const blob = `${tags} ${types}`;
+        if (!parts.some((part) => blob.includes(part))) ok = false;
+      }
+      el.toggleAttribute('hidden', !ok);
+      if (ok) n++;
+    });
+    const empty = document.getElementById('portfolio-empty');
+    if (empty) empty.hidden = n !== 0;
+  }
+
+  document.querySelectorAll('[data-filter-group]').forEach((wrap) => {
+    wrap.addEventListener('click', (e) => {
+      const t = e.target as HTMLElement;
+      const btn = t.closest('button[data-value]') as HTMLButtonElement | null;
+      if (!btn) return;
+      const g = wrap.getAttribute('data-filter-group');
+      if (!g) return;
+      groups[g] = btn.dataset.value ?? 'all';
+      wrap.querySelectorAll('.chip').forEach((c) => c.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      applyFilters();
+    });
+  });
+
+  applyFilters();
+</script>

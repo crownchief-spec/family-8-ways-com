@@ -1,0 +1,103 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { entrySlug } from '../../lib/slug';
+
+const title = '地區拍攝｜台灣與海外親子旅拍';
+const desc =
+  '每個地區都有適合的家庭旅拍方式。從台灣一日包車，到日本櫻花、沖繩海邊、京都古都，我們把常見地區與拍攝建議整理在這裡。';
+
+const locs = await getCollection('locations', ({ data }) => !data.draft);
+const taiwan = locs
+  .filter((l) => l.data.region === 'taiwan')
+  .sort((a, b) => a.data.sort - b.data.sort);
+const overseas = locs
+  .filter((l) => l.data.region === 'overseas')
+  .sort((a, b) => a.data.sort - b.data.sort);
+---
+
+<Layout title={title} description={desc}>
+  <section class="hero" style="min-height: 300px; margin-bottom: 0; border-radius: 0;">
+    <div
+      class="hero__bg"
+      style="background-image: url('/images/heroes/0C9D650A-C924-4A4B-B1AF-78FD927CCA4A_4_5005_c-eaddf468-c465-49a5-a6d5-251d9fdc27be.png');"
+    >
+    </div>
+    <div class="hero__overlay"></div>
+    <div class="hero__inner" style="padding-bottom: var(--space-xl);">
+      <h1 class="hero__title" style="max-width: none;">地區拍攝</h1>
+      <p class="hero__sub" style="max-width: 58ch;">{desc}</p>
+    </div>
+  </section>
+
+  <div class="container section">
+    <h2 class="h2">台灣地區</h2>
+    <div class="loc-grid">
+      {
+        taiwan.map((l) => (
+          <a class="loc-card card card--flat" href={`/locations/${entrySlug(l)}`}>
+            <span class="loc-card__title">{l.data.title}</span>
+            {l.data.subtitle && <span class="loc-card__sub muted">{l.data.subtitle}</span>}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="container section">
+    <h2 class="h2">海外地區</h2>
+    <div class="loc-grid">
+      {
+        overseas.map((l) => (
+          <a class="loc-card card card--flat" href={`/locations/${entrySlug(l)}`}>
+            <span class="loc-card__title">{l.data.title}</span>
+            {l.data.subtitle && <span class="loc-card__sub muted">{l.data.subtitle}</span>}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .loc-grid {
+    display: grid;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+  }
+
+  @media (min-width: 720px) {
+    .loc-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .loc-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .loc-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    text-decoration: none;
+    color: inherit;
+    padding: var(--space-lg);
+    transition: transform 0.12s ease;
+  }
+
+  .loc-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .loc-card__title {
+    font-weight: 650;
+  }
+
+  .loc-card__sub {
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+</style>

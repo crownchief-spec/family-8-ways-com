@@ -1,0 +1,322 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PortfolioCard from '../components/PortfolioCard.astro';
+import { site } from '../site.config';
+import { getCollection } from 'astro:content';
+import { entrySlug } from '../lib/slug';
+
+const pageTitle = `${site.shortName}｜親子寫真・家庭旅拍`;
+const pageDesc =
+  '台灣包車旅拍、海外親子旅拍、全外拍自然互動風格。小巴老師 15 年全職攝影、50+ 趟海外拍攝，照片全給，可加值微電影 MV。';
+
+const portfolios = await getCollection('portfolio', ({ data }) => !data.draft);
+const featured = portfolios
+  .filter((p) => p.data.featured)
+  .sort((a, b) => (a.data.date < b.data.date ? 1 : -1))
+  .slice(0, 8);
+
+const faqAll = await getCollection('faq', ({ data }) => !data.draft);
+const faqHome = faqAll.sort((a, b) => a.data.sort - b.data.sort).slice(0, 5);
+
+const heroBg =
+  '/images/heroes/4C1CF73E-D3C2-4C63-A4F6-F0B9DC3DC43D_4_5005_c-d5934577-e0b2-4f5a-bb34-326c2423a37d.png';
+
+const features = [
+  {
+    title: '全外拍自然互動',
+    body: '不是僵硬棚拍，而是在風景中陪孩子玩、陪家人走路、聊天、擁抱，把最自然的互動畫面留下來。',
+  },
+  {
+    title: '台灣包車旅拍',
+    body: '適合港澳來台旅遊家庭，也適合台灣家庭安排一日輕旅行，把拍照和旅行真正結合。',
+  },
+  {
+    title: '海外親子旅拍',
+    body: '從日本櫻花、沖繩海邊、京都和服，到北海道玩雪、東南亞海島，都能依照你們的旅遊日期客製安排。',
+  },
+  {
+    title: '照片全給＋微電影紀錄',
+    body: '完整保留回憶，不只是一張張照片，也可以透過影片把互動與聲音留下來。',
+  },
+];
+
+const shootTypes = [
+  {
+    title: '親子寫真',
+    desc: '適合日常互動、自然玩樂、戶外散步感的拍攝。',
+    href: '/portfolio',
+  },
+  {
+    title: '家庭旅拍',
+    desc: '把一次旅行，變成未來全家人都會反覆看的故事。',
+    href: '/portfolio',
+  },
+  {
+    title: '海外旅拍',
+    desc: '把櫻花、海灘、古都街景與家人的笑容，一起留下來。',
+    href: '/services#overseas',
+  },
+  {
+    title: '孕婦 / 寶寶 / 三代同堂',
+    desc: '把家庭不同階段的重要時刻，好好記錄下來。',
+    href: '/services',
+  },
+];
+
+const hotSpots = [
+  { label: '台北親子寫真', href: '/locations/taipei' },
+  { label: '淡水親子旅拍', href: '/locations/tamsui' },
+  { label: '宜蘭家庭寫真', href: '/locations/yilan' },
+  { label: '台中親子旅拍', href: '/locations/taichung' },
+  { label: '沖繩親子旅拍', href: '/locations/okinawa' },
+  { label: '京都大阪奈良親子寫真', href: '/locations/kansai' },
+];
+
+const homeReviews = [
+  {
+    quote: '原本很擔心小孩不受控，結果整個拍攝過程像在玩，照片卻非常自然，完全是我們想要的樣子。',
+    who: '親子家庭',
+    where: '宜蘭・家庭旅拍',
+  },
+  {
+    quote: '不是只有拍人物，連整個旅行的氛圍都一起被記錄下來，照片很像真正的家庭故事。',
+    who: '海外旅遊家庭',
+    where: '沖繩・親子旅拍',
+  },
+  {
+    quote: '從前期溝通、地點建議到當天引導都很安心，成品比我們原本想像的更完整。',
+    who: '新手爸媽',
+    where: '台北・親子寫真',
+  },
+];
+---
+
+<Layout title={pageTitle} description={pageDesc} ogImage={heroBg}>
+  <section class="hero">
+    <div class="hero__bg" style={`background-image: url('${heroBg}')`}></div>
+    <div class="hero__overlay"></div>
+    <div class="hero__inner">
+      <p class="hero__eyebrow">親子寫真・家庭旅拍</p>
+      <h1 class="hero__title">把家庭照拍成風景明信片，也拍成孩子長大後還想再看的故事</h1>
+      <div class="hero__sub">
+        <p>台灣包車旅拍、海外親子旅拍、全外拍自然互動風格</p>
+        <p>小巴老師，15 年全職攝影經驗，累積 50+ 趟海外拍攝經歷</p>
+        <p>照片全給，並可加值或搭配微電影 MV 紀錄</p>
+      </div>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="/services">查看服務方案</a>
+        <a class="btn btn--secondary" href="/portfolio">看精選作品</a>
+        <a class="btn btn--ghost" style="border-color: rgba(255,255,255,.55); color:#fff" href={site.lineUrl} target="_blank" rel="noopener noreferrer">
+          加 Line 詢問
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container">
+    <h2 class="h2">為什麼許多家庭會選擇小巴老師</h2>
+    <p class="lead">把拍攝變成陪伴，讓你們像旅行一樣自然。</p>
+    <div class="grid-2" style="margin-top: var(--space-lg);">
+      {
+        features.map((f) => (
+          <article class="card card--flat">
+            <h3 class="h3">{f.title}</h3>
+            <p class="muted" style="margin:0;">{f.body}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section container" style="background: var(--color-paper); margin: 0; padding-inline: 0;">
+    <div class="container">
+      <h2 class="h2">你想留下的是哪一種回憶？</h2>
+      <div class="grid-2" style="margin-top: var(--space-lg);">
+        {
+          shootTypes.map((s) => (
+            <a class="stype card" href={s.href} style="text-decoration:none; color:inherit;">
+              <h3 class="h3">{s.title}</h3>
+              <p class="muted" style="margin:0;">
+                {s.desc}
+              </p>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section container">
+    <h2 class="h2">精選作品</h2>
+    <p class="lead">從台灣到海外，從森林到海邊，從親子互動到三代同堂，以下是幾組最能代表我們風格的作品。</p>
+    <div class="grid-2" style="margin-top: var(--space-lg);">
+      {
+        featured.map((p) => (
+          <PortfolioCard
+            href={`/portfolio/${entrySlug(p)}`}
+            title={p.data.title}
+            excerpt={p.data.excerpt}
+            location={p.data.location}
+            tags={[...p.data.category, ...p.data.tags].slice(0, 6)}
+            cover={p.data.cover}
+          />
+        ))
+      }
+    </div>
+    <p style="margin-top: var(--space-lg); text-align: center;">
+      <a class="btn btn--secondary" href="/portfolio">看更多作品</a>
+    </p>
+  </section>
+
+  <section class="section container">
+    <h2 class="h2">熱門拍攝地區</h2>
+    <div class="hotgrid">
+      {hotSpots.map((s) => (
+        <a class="hotgrid__item card card--flat" href={s.href}>
+          {s.label}
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="section container">
+    <h2 class="h2">爸媽怎麼說</h2>
+    <div class="grid-3" style="margin-top: var(--space-lg);">
+      {
+        homeReviews.map((r) => (
+          <blockquote class="card card--flat">
+            <p style="margin:0 0 var(--space-sm); font-size:1.02rem;">「{r.quote}」</p>
+            <footer class="muted" style="font-size:0.9rem;">
+              {r.who}・{r.where}
+            </footer>
+          </blockquote>
+        ))
+      }
+    </div>
+    <p style="margin-top: var(--space-lg); text-align: center;">
+      <a class="btn btn--secondary" href="/reviews">看更多爸媽推薦</a>
+    </p>
+  </section>
+
+  <section class="section container">
+    <h2 class="h2">服務方案簡介</h2>
+    <div class="grid-3" style="margin-top: var(--space-lg);">
+      <article class="card card--flat">
+        <h3 class="h3">台灣旅拍</h3>
+        <p class="muted" style="margin:0;">半天／全天。可安排包車接送、景點動線建議、自然互動拍攝。</p>
+      </article>
+      <article class="card card--flat">
+        <h3 class="h3">海外旅拍</h3>
+        <p class="muted" style="margin:0;">依你們旅遊日期安排。可拍一日或多日，適合日本、海島與城市風格拍攝。</p>
+      </article>
+      <article class="card card--flat">
+        <h3 class="h3">成品交付</h3>
+        <p class="muted" style="margin:0;">照片檔案全給。可搭配微電影 MV，完整保留家庭互動回憶。</p>
+      </article>
+    </div>
+    <p style="margin-top: var(--space-lg); text-align: center;">
+      <a class="btn btn--primary" href="/services">查看完整服務方案</a>
+    </p>
+  </section>
+
+  <section class="section container">
+    <h2 class="h2">常見問題</h2>
+    <ul class="faqmini">
+      {
+        faqHome.map((f) => (
+          <li>
+            <a href={`/faq#${entrySlug(f)}`}>{f.data.title}</a>
+          </li>
+        ))
+      }
+    </ul>
+    <p style="margin-top: var(--space-md);">
+      <a class="btn btn--secondary" href="/faq">查看完整 FAQ</a>
+    </p>
+  </section>
+
+  <section class="section container cta-block">
+    <h2 class="h2">準備好安排你們的家庭旅拍了嗎？</h2>
+    <p class="lead" style="max-width: 52ch;">
+      不論是台灣一日旅拍、海外旅行拍攝、孕婦與寶寶紀錄，或只是想先聊聊適合你們的拍攝方式，都歡迎直接與我聯絡。
+    </p>
+    <div class="hero__actions" style="margin-top: var(--space-md);">
+      <a class="btn btn--primary" href={site.lineUrl} target="_blank" rel="noopener noreferrer">加 Line 詢問</a>
+      <a class="btn btn--secondary" href="/contact">預約拍攝</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .hero__eyebrow {
+    letter-spacing: 0.12em;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    opacity: 0.95;
+    margin: 0 0 var(--space-sm);
+  }
+
+  .hero__title {
+    font-size: clamp(1.85rem, 4.2vw, 3rem);
+    line-height: 1.2;
+    font-weight: 700;
+    margin: 0 0 var(--space-md);
+    max-width: 22ch;
+  }
+
+  .hero__sub {
+    font-size: 1.02rem;
+    opacity: 0.95;
+    max-width: 48ch;
+  }
+
+  .hero__sub p {
+    margin: 0.35rem 0;
+  }
+
+  .hotgrid {
+    display: grid;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+  }
+
+  @media (min-width: 720px) {
+    .hotgrid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hotgrid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .hotgrid__item {
+    padding: var(--space-lg);
+    text-align: center;
+    font-weight: 600;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .faqmini {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-md) 0 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .faqmini a {
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .cta-block {
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    padding: var(--space-xl);
+    background: linear-gradient(120deg, var(--color-sage-soft), var(--color-paper));
+  }
+</style>

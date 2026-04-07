@@ -1,0 +1,56 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+import { entrySlug } from '../lib/slug';
+
+const title = '常見問題｜親子寫真＆家庭旅拍';
+const desc = '第一次拍親子寫真或安排家庭旅拍，可以先從這裡開始看。';
+
+const items = await getCollection('faq', ({ data }) => !data.draft);
+const sorted = items.sort((a, b) => a.data.sort - b.data.sort);
+const rendered = await Promise.all(sorted.map((e) => render(e)));
+---
+
+<Layout title={title} description={desc}>
+  <section class="hero" style="min-height: 260px; margin-bottom: 0; border-radius: 0;">
+    <div
+      class="hero__bg"
+      style="background-image: url('/images/heroes/D6646178-E581-45D7-A68B-532A8D642D42_4_5005_c-4fe85b39-aa7e-40e8-a347-c5d73fd8da5e.png');"
+    >
+    </div>
+    <div class="hero__overlay"></div>
+    <div class="hero__inner" style="padding-bottom: var(--space-xl);">
+      <h1 class="hero__title" style="max-width: none;">常見問題</h1>
+      <p class="hero__sub" style="max-width: 52ch;">{desc}</p>
+    </div>
+  </section>
+
+  <div class="container section faq-page">
+    {
+      sorted.map((entry, i) => {
+        const { Content } = rendered[i];
+        const id = entrySlug(entry);
+        return (
+          <section class="faq-item card card--flat" id={id}>
+            <h2 class="h3">{entry.data.title}</h2>
+            <div class="prose muted">
+              <Content />
+            </div>
+          </section>
+        );
+      })
+    }
+  </div>
+</Layout>
+
+<style>
+  .faq-page {
+    display: grid;
+    gap: var(--space-md);
+    padding-bottom: var(--space-2xl);
+  }
+
+  .faq-item {
+    scroll-margin-top: 5rem;
+  }
+</style>

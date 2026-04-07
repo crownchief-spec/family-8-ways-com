@@ -1,0 +1,161 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { entrySlug } from '../../lib/slug';
+
+const title = '客戶專屬頁面｜查詢專案與交件';
+const desc =
+  '請輸入你的學校名稱、客戶名稱、家庭名稱或拍攝專案名稱，查找你的專屬頁面。';
+
+const clients = await getCollection('clients', ({ data }) => !data.draft);
+const list = clients.map((c) => ({
+  slug: entrySlug(c),
+  title: c.data.title,
+  clientName: c.data.client_name,
+  projectType: c.data.project_type,
+}));
+const recent = [...list].slice(0, 4);
+---
+
+<Layout title={title} description={desc} noIndex>
+  <section class="hero" style="min-height: 280px; margin-bottom: 0; border-radius: 0;">
+    <div
+      class="hero__bg"
+      style="background-image: url('/images/heroes/A81859A1-5D2A-4920-AF37-59F319869BC7_4_5005_c-8ebc47dc-9ff1-4529-a4b0-06f0db6d92eb.png');"
+    >
+    </div>
+    <div class="hero__overlay"></div>
+    <div class="hero__inner" style="padding-bottom: var(--space-xl);">
+      <h1 class="hero__title" style="max-width: none;">客戶專屬頁面</h1>
+      <p class="hero__sub" style="max-width: 52ch;">{desc}</p>
+    </div>
+  </section>
+
+  <div class="container section">
+    <label class="search-label" for="client-q">
+      <span class="h3">搜尋專案</span>
+      <input
+        id="client-q"
+        name="q"
+        type="search"
+        autocomplete="off"
+        placeholder="請輸入學校名稱、家庭名稱或專案名稱"
+      />
+    </label>
+    <ul class="results" id="client-results" aria-live="polite"></ul>
+    <p class="muted hint" id="client-empty" hidden>找不到符合的專案，請直接與我聯絡確認名稱。</p>
+  </div>
+
+  <div class="container section">
+    <h2 class="h3">說明</h2>
+    <ul class="prose muted">
+      <li>若你的專屬頁面有設定密碼，進入後需輸入密碼。</li>
+      <li>若找不到頁面，請直接與我聯絡。</li>
+      <li>專屬頁面可用於查看交件進度、相簿、下載連結與重要通知。</li>
+    </ul>
+  </div>
+
+  <div class="container section">
+    <h2 class="h3">最近更新</h2>
+    <ul class="recent">
+      {
+        recent.map((r) => (
+          <li>
+            <a href={`/clients/${r.slug}`}>{r.title}</a>
+            <span class="muted"> · {r.clientName}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Layout>
+
+<script
+  define:vars={{
+    clientList: list,
+  }}
+>
+  const input = document.getElementById('client-q');
+  const listEl = document.getElementById('client-results');
+  const emptyEl = document.getElementById('client-empty');
+
+  function norm(s) {
+    return s.trim().toLowerCase();
+  }
+
+  function render(items) {
+    if (!listEl || !emptyEl) return;
+    listEl.innerHTML = '';
+    emptyEl.hidden = items.length > 0;
+    items.forEach((c) => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = `/clients/${c.slug}`;
+      a.textContent = c.title;
+      li.appendChild(a);
+      const meta = document.createElement('span');
+      meta.className = 'muted';
+      meta.textContent = ` · ${c.clientName} · ${c.projectType}`;
+      li.appendChild(meta);
+      listEl.appendChild(li);
+    });
+  }
+
+  function filter(q: string) {
+    const n = norm(q);
+    if (!n) return clientList;
+    return clientList.filter(
+      (c) =>
+        norm(c.title).includes(n) ||
+        norm(c.clientName).includes(n) ||
+        norm(c.projectType).includes(n),
+    );
+  }
+
+  input?.addEventListener('input', () => {
+    render(filter(input.value));
+  });
+
+  render(clientList);
+</script>
+
+<style>
+  .search-label {
+    display: grid;
+    gap: var(--space-sm);
+  }
+
+  .search-label input {
+    font: inherit;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--color-line);
+    background: var(--color-paper);
+  }
+
+  .results {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-md) 0 0;
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .results a {
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .results a:hover {
+    text-decoration: underline;
+  }
+
+  .recent {
+    margin: 0;
+    padding-left: 1.1rem;
+  }
+
+  .hint {
+    margin-top: var(--space-sm);
+  }
+</style>
