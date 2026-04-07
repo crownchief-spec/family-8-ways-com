@@ -1,13 +1,9 @@
 ---
-import { createHash } from 'node:crypto';
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import { sha256Hex } from '../../lib/password-hash';
 import { entrySlug } from '../../lib/slug';
 import { site } from '../../site.config';
-
-function sha256(s: string) {
-  return createHash('sha256').update(s, 'utf8').digest('hex');
-}
 
 export async function getStaticPaths() {
   const items = await getCollection('clients', ({ data }) => !data.draft);
@@ -15,7 +11,7 @@ export async function getStaticPaths() {
     items.map(async (item) => {
       const slug = entrySlug(item);
       const passwordHash =
-        item.data.password_protected && item.data.password ? sha256(item.data.password) : null;
+        item.data.password_protected && item.data.password ? sha256Hex(item.data.password) : null;
       return {
         params: { slug },
         props: { item, passwordHash },
