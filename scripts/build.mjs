@@ -15,6 +15,7 @@ const ROOT = join(__dirname, '..');
 
 const cfg = loadSiteConfig();
 const { site } = cfg;
+const INTERNAL_FALLBACK_IMAGE = '/assets/images/og/default.svg';
 
 function injectSite(html) {
   return html
@@ -78,14 +79,23 @@ function loadFixed(name) {
   return injectSite(readFileSync(p, 'utf8'));
 }
 
+function normalizeImageSource(src, fallback = INTERNAL_FALLBACK_IMAGE) {
+  if (!src || typeof src !== 'string') return fallback;
+  const trimmed = src.trim();
+  // 僅接受站內相對路徑，避免引用外部圖源。
+  if (trimmed.startsWith('/')) return trimmed;
+  return fallback;
+}
+
 function cardHtml(href, title, excerpt, location, tags, cover) {
+  const safeCover = normalizeImageSource(cover);
   const alt = `${title}｜${location} 親子寫真與家庭寫真`;
   const tagSpans = tags
     .slice(0, 4)
     .map((t) => `<span class="tag">${escapeHtml(t)}</span>`)
     .join('');
   return `<a class="pcard" href="${escapeHtml(href)}">
-  <div class="pcard__media"><img src="${escapeHtml(cover)}" alt="${escapeHtml(alt)}" title="${escapeHtml(alt)}" loading="lazy" width="640" height="420" /></div>
+  <div class="pcard__media"><img src="${escapeHtml(safeCover)}" alt="${escapeHtml(alt)}" title="${escapeHtml(alt)}" loading="lazy" width="640" height="420" /></div>
   <div class="pcard__body">
     <p class="pcard__loc muted">${escapeHtml(location)}</p>
     <h3 class="pcard__title">${escapeHtml(title)}</h3>
@@ -178,7 +188,10 @@ function buildCasePages(entries) {
   for (const e of sorted) {
     const slug = slugOf(e);
     const htmlBody = marked.parse(e.bodyMd);
-    const gallery = [e.data.cover, ...(e.data.gallery || [])].filter((v, i, a) => a.indexOf(v) === i);
+    const cover = normalizeImageSource(e.data.cover);
+    const gallery = [cover, ...(e.data.gallery || []).map((src) => normalizeImageSource(src, cover))].filter(
+      (v, i, a) => a.indexOf(v) === i,
+    );
     const gal = gallery
       .map(
         (src, i) =>
@@ -188,7 +201,7 @@ function buildCasePages(entries) {
     const locHref = hrefForPortfolioLocation(e.data.location);
     const article = `<article>
 <section class="hero" style="min-height:360px;margin-bottom:0;border-radius:0;">
-<div class="hero__bg" style="background-image:url('${escapeHtml(e.data.cover)}')"></div>
+<div class="hero__bg" style="background-image:url('${escapeHtml(cover)}')"></div>
 <div class="hero__overlay"></div>
 <div class="hero__inner" style="padding-bottom:var(--space-xl);">
 <p class="hero__eyebrow">${escapeHtml(e.data.location)}${e.data.country ? ` · ${escapeHtml(e.data.country)}` : ''}</p>
@@ -213,7 +226,7 @@ function buildCasePages(entries) {
         description: e.data.excerpt,
         canonical: `${site.url}/case/${slug}.html`,
         body: article,
-        ogImage: e.data.cover,
+        ogImage: cover,
       }),
     );
   }
@@ -259,7 +272,7 @@ function buildLocationPages(entries) {
   );
 
   for (const e of list) {
-    const hero = e.data.cover || '/assets/images/home/family-portrait-fuji-snow-location-default-011.png';
+    const hero = normalizeImageSource(e.data.cover, '/assets/images/home/family-portrait-fuji-snow-location-default-011.png');
     const body = `<section class="hero" style="min-height:340px;margin-bottom:0;border-radius:0;">
 <div class="hero__bg" style="background-image:url('${escapeHtml(hero)}')"></div>
 <div class="hero__overlay"></div>
@@ -315,7 +328,7 @@ function buildClientPages(entries) {
     const passwordHash =
       e.data.password_protected && e.data.password ? sha256(e.data.password) : '';
     const htmlContent = marked.parse(e.bodyMd);
-    const cover = e.data.cover || '/assets/images/home/child-portrait-yukata-client-page-010.png';
+    const cover = normalizeImageSource(e.data.cover, '/assets/images/home/child-portrait-yukata-client-page-010.png');
     const gate = passwordHash
       ? `<form class="card card--flat pw-gate" data-pw-form><p class="h3">此頁面需輸入密碼</p><label class="field"><span class="muted">密碼</span><input type="password" name="password" autocomplete="current-password" required /></label><button class="btn btn--primary" type="submit">解鎖頁面</button><p class="muted pw-error" data-pw-error hidden>密碼不正確。</p></form>`
       : '';
@@ -375,8 +388,9 @@ function buildReviewsPage(entries) {
   const blocks = sorted
     .map((e) => {
       const inner = marked.parse(e.bodyMd);
-      const photo = e.data.photo
-        ? `<div class="rev__photo"><img src="${escapeHtml(e.data.photo)}" alt="${escapeHtml(e.data.title)}｜${escapeHtml(e.data.location)} 親子寫真推薦" loading="lazy" width="800" height="520" /></div>`
+      const reviewPhoto = normalizeImageSource(e.data.photo);
+      const photo = reviewPhoto
+        ? `<div class="rev__photo"><img src="${escapeHtml(reviewPhoto)}" alt="${escapeHtml(e.data.title)}｜${escapeHtml(e.data.location)} 親子寫真推薦" loading="lazy" width="800" height="520" /></div>`
         : '';
       return `<article class="rev card card--flat">${photo}<div class="rev__body"><h2 class="h3">${escapeHtml(e.data.title)}</h2>
 <p class="muted" style="margin:0 0 var(--space-sm);font-size:0.92rem;">${escapeHtml(e.data.location)} · ${escapeHtml(e.data.type)}</p>
