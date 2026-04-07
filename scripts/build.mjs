@@ -15,7 +15,41 @@ const ROOT = join(__dirname, '..');
 
 const cfg = loadSiteConfig();
 const { site } = cfg;
-const INTERNAL_FALLBACK_IMAGE = '/assets/images/og/default.svg';
+const INTERNAL_FALLBACK_IMAGE =
+  '/public/images/wix-import/taiwan-taipei-family-portrait/taiwan-taipei-family-portrait-outdoor-lifestyle-01.jpg';
+
+const CASE_IMAGE_BY_SLUG = {
+  'three-generations-family':
+    '/public/images/wix-import/theme-three-generation-grandparent-family/theme-three-generation-grandparent-family-outdoor-lifestyle-01.jpg',
+  'okinawa-family-trip':
+    '/public/images/wix-import/japan-okinawa-beach-family/japan-okinawa-beach-family-outdoor-lifestyle-01.jpg',
+  'kyoto-kimono-family':
+    '/public/images/wix-import/theme-kimono-hanbok-costume-family/theme-kimono-hanbok-costume-family-outdoor-lifestyle-01.jpg',
+  'taipei-family-portrait':
+    '/public/images/wix-import/taiwan-taipei-family-portrait/taiwan-taipei-family-portrait-outdoor-lifestyle-01.jpg',
+  'yilan-forest-family':
+    '/public/images/wix-import/taiwan-yilan-family-portrait/taiwan-yilan-family-portrait-outdoor-lifestyle-01.jpg',
+  'taichung-golden-hour':
+    '/public/images/wix-import/taiwan-taichung-family-portrait/taiwan-taichung-family-portrait-outdoor-lifestyle-01.jpg',
+  'tamsui-riverside':
+    '/public/images/wix-import/taiwan-tamsui-tamsui-river-family/taiwan-tamsui-tamsui-river-family-outdoor-lifestyle-01.jpg',
+  'baby-park-outdoor':
+    '/public/images/wix-import/taiwan-animal-farm-family/taiwan-animal-farm-family-outdoor-lifestyle-01.jpg',
+  'hong-kong-family-taiwan-trip':
+    '/public/images/wix-import/taiwan-taipei-family-portrait/taiwan-taipei-family-portrait-outdoor-lifestyle-02.jpg',
+};
+
+const REVIEW_IMAGE_BY_LOCATION = {
+  宜蘭: '/public/images/wix-import/taiwan-yilan-family-portrait/taiwan-yilan-family-portrait-outdoor-lifestyle-02.jpg',
+  沖繩: '/public/images/wix-import/japan-okinawa-beach-family/japan-okinawa-beach-family-outdoor-lifestyle-02.jpg',
+  台北: '/public/images/wix-import/taiwan-taipei-family-portrait/taiwan-taipei-family-portrait-outdoor-lifestyle-03.jpg',
+  台中: '/public/images/wix-import/taiwan-taichung-family-portrait/taiwan-taichung-family-portrait-outdoor-lifestyle-02.jpg',
+};
+
+const CLIENT_IMAGE_BY_SLUG = {
+  'demo-client-1': '/public/images/wix-import/japan-okinawa-beach-family/japan-okinawa-beach-family-outdoor-lifestyle-03.jpg',
+  'demo-client-2': '/public/images/wix-import/taiwan-birthday-party-family/taiwan-birthday-party-family-outdoor-lifestyle-01.jpg',
+};
 
 function injectSite(html) {
   return html
@@ -82,6 +116,8 @@ function loadFixed(name) {
 function normalizeImageSource(src, fallback = INTERNAL_FALLBACK_IMAGE) {
   if (!src || typeof src !== 'string') return fallback;
   const trimmed = src.trim();
+  // 舊內容常用 /images/...，實際檔案在 /public/images/...
+  if (trimmed.startsWith('/images/')) return `/public${trimmed}`;
   // 僅接受站內相對路徑，避免引用外部圖源。
   if (trimmed.startsWith('/')) return trimmed;
   return fallback;
@@ -188,8 +224,9 @@ function buildCasePages(entries) {
   for (const e of sorted) {
     const slug = slugOf(e);
     const htmlBody = marked.parse(e.bodyMd);
-    const cover = normalizeImageSource(e.data.cover);
-    const gallery = [cover, ...(e.data.gallery || []).map((src) => normalizeImageSource(src, cover))].filter(
+    const caseFallback = CASE_IMAGE_BY_SLUG[slug] || INTERNAL_FALLBACK_IMAGE;
+    const cover = normalizeImageSource(e.data.cover, caseFallback);
+    const gallery = [cover, ...(e.data.gallery || []).map((src) => normalizeImageSource(src, caseFallback))].filter(
       (v, i, a) => a.indexOf(v) === i,
     );
     const gal = gallery
@@ -272,7 +309,10 @@ function buildLocationPages(entries) {
   );
 
   for (const e of list) {
-    const hero = normalizeImageSource(e.data.cover, '/assets/images/home/family-portrait-fuji-snow-location-default-011.png');
+    const hero = normalizeImageSource(
+      e.data.cover,
+      '/public/images/wix-import/taiwan-taipei-family-portrait/taiwan-taipei-family-portrait-outdoor-lifestyle-04.jpg',
+    );
     const body = `<section class="hero" style="min-height:340px;margin-bottom:0;border-radius:0;">
 <div class="hero__bg" style="background-image:url('${escapeHtml(hero)}')"></div>
 <div class="hero__overlay"></div>
@@ -328,7 +368,7 @@ function buildClientPages(entries) {
     const passwordHash =
       e.data.password_protected && e.data.password ? sha256(e.data.password) : '';
     const htmlContent = marked.parse(e.bodyMd);
-    const cover = normalizeImageSource(e.data.cover, '/assets/images/home/child-portrait-yukata-client-page-010.png');
+    const cover = normalizeImageSource(e.data.cover, CLIENT_IMAGE_BY_SLUG[slug] || INTERNAL_FALLBACK_IMAGE);
     const gate = passwordHash
       ? `<form class="card card--flat pw-gate" data-pw-form><p class="h3">此頁面需輸入密碼</p><label class="field"><span class="muted">密碼</span><input type="password" name="password" autocomplete="current-password" required /></label><button class="btn btn--primary" type="submit">解鎖頁面</button><p class="muted pw-error" data-pw-error hidden>密碼不正確。</p></form>`
       : '';
@@ -388,7 +428,7 @@ function buildReviewsPage(entries) {
   const blocks = sorted
     .map((e) => {
       const inner = marked.parse(e.bodyMd);
-      const reviewPhoto = normalizeImageSource(e.data.photo);
+      const reviewPhoto = normalizeImageSource(e.data.photo, REVIEW_IMAGE_BY_LOCATION[e.data.location] || INTERNAL_FALLBACK_IMAGE);
       const photo = reviewPhoto
         ? `<div class="rev__photo"><img src="${escapeHtml(reviewPhoto)}" alt="${escapeHtml(e.data.title)}｜${escapeHtml(e.data.location)} 親子寫真推薦" loading="lazy" width="800" height="520" /></div>`
         : '';
