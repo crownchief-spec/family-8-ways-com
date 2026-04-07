@@ -9,11 +9,20 @@ interface Props {
 }
 
 const { href, title, excerpt, location, tags, cover } = Astro.props;
+const seoImageAlt = `${title}｜${location} 親子寫真與家庭寫真`;
 ---
 
 <a class="pcard" href={href}>
   <div class="pcard__media">
-    <img src={cover} alt="" loading="lazy" decoding="async" width="640" height="420" />
+    <img
+      src={cover}
+      alt={seoImageAlt}
+      title={seoImageAlt}
+      loading="lazy"
+      decoding="async"
+      width="640"
+      height="420"
+    />
   </div>
   <div class="pcard__body">
     <p class="pcard__loc muted">{location}</p>

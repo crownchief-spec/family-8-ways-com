@@ -64,9 +64,17 @@ const gallery = [item.data.cover, ...item.data.gallery].filter(
       <h2 class="h2">精選照片</h2>
       <div class="gallery">
         {
-          gallery.map((src) => (
+          gallery.map((src, i) => (
             <figure class="gallery__item">
-              <img src={src} alt="" loading="lazy" decoding="async" width="900" height="600" />
+              <img
+                src={src}
+                alt={`${item.data.title} 第 ${i + 1} 張｜親子寫真與家庭寫真`}
+                title={`${item.data.location} 親子寫真家庭寫真作品圖 ${i + 1}`}
+                loading="lazy"
+                decoding="async"
+                width="900"
+                height="600"
+              />
             </figure>
           ))
         }

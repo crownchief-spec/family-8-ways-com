@@ -19,6 +19,8 @@ const typeLabels = [
   '三代同堂',
   '生日派對',
   '畢業照 / 成長紀錄',
+  '香港家庭來台拍攝',
+  '台灣旅行跟拍',
 ];
 
 const themeLabels = [
@@ -41,7 +43,7 @@ const regions = [...new Set(sorted.map((i) => i.data.location))].sort();
   <section class="hero" style="min-height: 280px; margin-bottom: 0; border-radius: 0;">
     <div
       class="hero__bg"
-      style="background-image: url('/images/heroes/EBB8EB3F-C43D-4EF6-9BE1-C931D1C9579C_4_5005_c-a81bbe88-5a77-470b-9107-2d70339a154b.png');"
+      style="background-image: url('/images/heroes/child-portrait-kimono-portfolio-hero-004.png');"
     >
     </div>
     <div class="hero__overlay"></div>
@@ -52,7 +54,12 @@ const regions = [...new Set(sorted.map((i) => i.data.location))].sort();
   </section>
 
   <div class="container section">
-    <h2 class="h2">依拍攝類型瀏覽</h2>
+    <h2 class="h2">依你喜歡的方式來看作品</h2>
+    <div class="prose muted">
+      <p>我一直很喜歡用「故事」來看每一次拍攝。因為每一組家庭、每一次旅行、每一段陪伴，其實都不一樣。有些照片很熱鬧，有些很安靜；有些像旅行日記，有些像一封很溫柔的明信片，但它們共同的地方是：都很真實。</p>
+      <p>你可以用拍攝類型、地區或場景主題來看。如果你還不確定自己喜歡哪一種風格，也可以先從幾個熱門作品開始看。</p>
+    </div>
+    <h3 class="h3" style="margin-top: var(--space-lg);">依拍攝類型</h3>
     <div class="chips" data-filter-group="type">
       <button type="button" class="chip is-active" data-value="all">全部</button>
       {typeLabels.map((t) => (
@@ -64,7 +71,7 @@ const regions = [...new Set(sorted.map((i) => i.data.location))].sort();
   </div>
 
   <div class="container section" style="padding-top: 0;">
-    <h2 class="h2">依場景主題瀏覽</h2>
+    <h3 class="h3">依場景主題</h3>
     <div class="chips chips--wrap" data-filter-group="theme">
       <button type="button" class="chip is-active" data-value="all">全部</button>
       {themeLabels.map((t) => (
@@ -76,7 +83,7 @@ const regions = [...new Set(sorted.map((i) => i.data.location))].sort();
   </div>
 
   <div class="container section" style="padding-top: 0;">
-    <h2 class="h2">依地區瀏覽</h2>
+    <h3 class="h3">依地區</h3>
     <div class="chips" data-filter-group="region">
       <button type="button" class="chip is-active" data-value="all">全部</button>
       {regions.map((r) => (
@@ -88,6 +95,8 @@ const regions = [...new Set(sorted.map((i) => i.data.location))].sort();
   </div>
 
   <div class="container section" style="padding-top: 0;">
+    <h2 class="h2">最新作品與精選案例</h2>
+    <p class="lead">以下是近期與精選的親子、家庭與旅拍作品。你可以先從喜歡的地點或風格開始看，也可以先看香港家庭來台拍攝的案例。</p>
     <div class="grid-2" id="portfolio-grid">
       {
         sorted.map((p) => {

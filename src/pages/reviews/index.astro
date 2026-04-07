@@ -15,7 +15,7 @@ const rendered = await Promise.all(sorted.map((e) => render(e)));
   <section class="hero" style="min-height: 280px; margin-bottom: 0; border-radius: 0;">
     <div
       class="hero__bg"
-      style="background-image: url('/images/heroes/A74350DF-E5CD-445F-A344-FD76C876E897_4_5005_c-76553d0b-a86c-4dc9-9c2c-2c2799e6edae.png');"
+      style="background-image: url('/images/heroes/family-portrait-japanese-kimono-reviews-006.png');"
     >
     </div>
     <div class="hero__overlay"></div>
@@ -26,6 +26,10 @@ const rendered = await Promise.all(sorted.map((e) => render(e)));
   </section>
 
   <div class="container section">
+    <div class="prose muted">
+      <p>每一組推薦文字，對我來說都很珍貴。因為那代表照片不只是好看，而是真的有把你們當下的互動與感覺留下來。</p>
+      <p>有些爸媽會說，小朋友本來很難控制，但拍起來卻很自然；有些家庭會說，原本只是想簡單拍幾張紀念，結果最後像多了一整段很值得保存的回憶。</p>
+    </div>
     <div class="rev-grid">
       {
         sorted.map((entry, i) => {
@@ -34,7 +38,15 @@ const rendered = await Promise.all(sorted.map((e) => render(e)));
             <article class="rev card card--flat">
               {entry.data.photo && (
                 <div class="rev__photo">
-                  <img src={entry.data.photo} alt="" loading="lazy" decoding="async" width="800" height="520" />
+                  <img
+                    src={entry.data.photo}
+                    alt={`${entry.data.title}｜${entry.data.location} 親子寫真與家庭寫真推薦`}
+                    title={`${entry.data.location} 親子寫真與家庭寫真客戶推薦`}
+                    loading="lazy"
+                    decoding="async"
+                    width="800"
+                    height="520"
+                  />
                 </div>
               )}
               <div class="rev__body">

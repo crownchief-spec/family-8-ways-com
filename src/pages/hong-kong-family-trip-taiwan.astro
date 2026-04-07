@@ -1,0 +1,87 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site } from '../site.config';
+
+const title = '香港家庭來台旅行，也可以輕鬆安排一組親子寫真';
+const desc = '不用一直擺姿勢，不用拍一整天。只要 1-2 小時，就能留下很不一樣的家庭回憶。';
+---
+
+<Layout title={title} description={desc}>
+  <section class="hero" style="min-height: 320px; margin-bottom: 0; border-radius: 0;">
+    <div class="hero__bg" style="background-image: url('/images/heroes/family-portrait-kimono-clients-index-009.png');"></div>
+    <div class="hero__overlay"></div>
+    <div class="hero__inner" style="padding-bottom: var(--space-xl);">
+      <h1 class="hero__title" style="max-width: 24ch;">香港家庭來台旅行，也可以輕鬆安排一組親子寫真</h1>
+      <p class="hero__sub" style="max-width: 52ch;">{desc}</p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="/services">查看服務方案</a>
+        <a class="btn btn--secondary" href={site.whatsappUrl} target="_blank" rel="noopener noreferrer">直接 WhatsApp 詢問</a>
+        <a class="btn btn--ghost" style="border-color: rgba(255,255,255,.55); color:#fff" href={site.lineUrl} target="_blank" rel="noopener noreferrer">加 Line 詢問</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container prose">
+    <h2 class="h2">很多香港家長，最擔心的是這些事</h2>
+    <p>很多香港家庭來台灣旅行時，心裡其實都會有幾個顧慮：小朋友不受控怎麼辦？會不會很趕？旅行本來就已經很累了，還要再安排拍照，會不會更辛苦？</p>
+    <p>我的拍攝方式不是那種要一直擺姿勢、一直配合鏡頭的模式。你們不需要把拍照當成額外的工作，也不需要一直要求孩子乖乖站好。</p>
+    <ul>
+      <li>不用一直擺姿勢</li>
+      <li>可以邊玩邊拍</li>
+      <li>小朋友自然就好</li>
+    </ul>
+  </section>
+
+  <section class="section container prose">
+    <h2 class="h2">香港家庭最適合怎麼安排？</h2>
+    <p>對很多香港家庭來說，最舒服的安排方式，通常不是排得很滿，而是在旅行中留一小段時間，讓拍攝自然發生。不需要一整天，有時候只要 1-2 小時，就已經足夠留下很漂亮的家庭照片。</p>
+    <ul>
+      <li>台北市區 1-2 小時輕鬆拍攝</li>
+      <li>平溪 / 天燈 / 自然景點半天安排</li>
+      <li>宜蘭半日或一日旅行拍攝</li>
+      <li>來台第一天接機後安排</li>
+      <li>離台前最後一天安排</li>
+    </ul>
+  </section>
+
+  <section class="section container prose">
+    <h2 class="h2">不是刻意擺拍，而是旅行中的自然回憶</h2>
+    <p>很多香港家庭喜歡這種拍法，因為不會太累，也不會讓孩子很抗拒。孩子可以走、可以玩、可以慢慢熟悉攝影師，爸媽也不需要一直擔心自己不會擺姿勢。</p>
+    <p>最後留下來的照片，通常會更自然。因為那不是演出來的，而是真的屬於你們一家人的畫面。</p>
+  </section>
+
+  <section class="section container card card--flat">
+    <h2 class="h2">香港家庭可直接這樣聯絡我</h2>
+    <ul class="prose">
+      <li>Line ID：0911252302</li>
+      <li>WeChat：{site.wechat}</li>
+      <li>WhatsApp：+886 911252302</li>
+    </ul>
+    <p class="muted">可直接傳旅行日期、大人與小孩人數、孩子年齡、想拍地點與想拍時長，我會幫你們快速評估。</p>
+  </section>
+
+  <section class="section container">
+    <h2 class="h2">香港家庭來台拍攝案例</h2>
+    <p class="lead">有些是一段輕鬆的半天，有些只是旅行中順便安排的 1-2 小時，但最後留下來的照片，往往都比原本想像的更完整。</p>
+    <p><a class="btn btn--secondary" href="/portfolio">查看作品卡片</a></p>
+  </section>
+
+  <section class="section container cta-block">
+    <h2 class="h2">如果你們最近會來台灣旅行，歡迎先跟我聊聊</h2>
+    <p class="muted">不需要先完全決定要怎麼拍。只要先把大概行程與家庭成員告訴我，我會幫你們判斷最適合的安排。</p>
+    <div class="hero__actions">
+      <a class="btn btn--primary" href={site.whatsappUrl} target="_blank" rel="noopener noreferrer">直接 WhatsApp 詢問</a>
+      <a class="btn btn--secondary" href={site.lineUrl} target="_blank" rel="noopener noreferrer">加 Line 詢問</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .cta-block {
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    padding: var(--space-xl);
+    background: linear-gradient(120deg, var(--color-sage-soft), var(--color-paper));
+    margin-bottom: var(--space-2xl);
+  }
+</style>

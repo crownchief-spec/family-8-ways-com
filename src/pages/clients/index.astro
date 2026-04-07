@@ -5,7 +5,7 @@ import { entrySlug } from '../../lib/slug';
 
 const title = '客戶專屬頁面｜查詢專案與交件';
 const desc =
-  '請輸入你的學校名稱、客戶名稱、家庭名稱或拍攝專案名稱，查找你的專屬頁面。';
+  '請輸入學校名稱、家庭名稱、客戶名稱或拍攝專案名稱，查找你的專屬頁面。';
 
 const clients = await getCollection('clients', ({ data }) => !data.draft);
 const list = clients.map((c) => ({
@@ -21,7 +21,7 @@ const recent = [...list].slice(0, 4);
   <section class="hero" style="min-height: 280px; margin-bottom: 0; border-radius: 0;">
     <div
       class="hero__bg"
-      style="background-image: url('/images/heroes/A81859A1-5D2A-4920-AF37-59F319869BC7_4_5005_c-8ebc47dc-9ff1-4529-a4b0-06f0db6d92eb.png');"
+      style="background-image: url('/images/heroes/family-portrait-kimono-clients-index-009.png');"
     >
     </div>
     <div class="hero__overlay"></div>
@@ -32,6 +32,8 @@ const recent = [...list].slice(0, 4);
   </section>
 
   <div class="container section">
+    <h2 class="h3">這裡可以做什麼？</h2>
+    <p class="muted">這個頁面是提供給已預約或已拍攝完成的客戶使用。你可以在這裡查看自己的專屬拍攝頁面、交件進度、相簿連結、下載資訊與重要通知。</p>
     <label class="search-label" for="client-q">
       <span class="h3">搜尋專案</span>
       <input
@@ -49,9 +51,11 @@ const recent = [...list].slice(0, 4);
   <div class="container section">
     <h2 class="h3">說明</h2>
     <ul class="prose muted">
-      <li>若你的專屬頁面有設定密碼，進入後需輸入密碼。</li>
-      <li>若找不到頁面，請直接與我聯絡。</li>
-      <li>專屬頁面可用於查看交件進度、相簿、下載連結與重要通知。</li>
+      <li>可查看交件進度</li>
+      <li>可查看相簿 / 下載連結</li>
+      <li>可查看拍攝注意事項</li>
+      <li>若設定密碼，需輸入密碼後進入</li>
+      <li>找不到頁面可直接聯絡我</li>
     </ul>
   </div>
 
@@ -101,7 +105,7 @@ const recent = [...list].slice(0, 4);
     });
   }
 
-  function filter(q: string) {
+  function filter(q) {
     const n = norm(q);
     if (!n) return clientList;
     return clientList.filter(

@@ -1,21 +1,53 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getCollection, render } from 'astro:content';
-import { entrySlug } from '../lib/slug';
+const faqs = [
+  {
+    q: '小朋友怕生怎麼辦？',
+    a: '不用擔心，我的拍攝方式本來就不是一直要求孩子看鏡頭，而是透過走路、玩樂、互動慢慢建立熟悉感。大多數孩子只要一放鬆，照片就會自然很多。',
+  },
+  {
+    q: '下雨怎麼辦？',
+    a: '會依照地點與拍攝內容討論是否延期、改時段，或改成室內 / 半室內空間拍攝。如果是外景行程，也會盡量協調最適合的安排方式。',
+  },
+  {
+    q: '會給多少照片？',
+    a: '會依方案與拍攝內容交付完整成品，重點是保留家庭當天最完整的回憶，而不是只給少量精選。半天方案至少 100 張以上，全天方案至少 200 張以上。',
+  },
+  {
+    q: '有影片嗎？',
+    a: '可以。依方案與需求可搭配微電影 MV。全天方案是比較常見的影片方案，也可依內容加入空拍或其他特色畫面。',
+  },
+  {
+    q: '香港家庭來台旅遊，也適合拍嗎？',
+    a: '很適合。如果你們行程比較緊湊，也可以安排 1-2 小時的輕鬆拍攝，不會太影響整體旅行安排。',
+  },
+  {
+    q: '需要一直擺姿勢嗎？',
+    a: '不需要。拍攝會以自然互動為主，爸媽和孩子只要做自己就好。很多時候，越不像在拍照，反而越容易拍出真正好看的畫面。',
+  },
+  {
+    q: '海外客人可以怎麼付款？',
+    a: '可以使用 PayPal、WeChat Pay、WISE，或依情況協調其他方式。',
+  },
+  {
+    q: '有提供相本嗎？',
+    a: '目前以數位照片與影片交付為主，不另外提供相本與紙本照片。如果你們有印製需求，也可以自行使用推薦平台製作。',
+  },
+  {
+    q: '要怎麼預約？',
+    a: '直接透過 Line、WhatsApp、WeChat 或網站表單聯絡，提供日期、人數、孩子年齡、地點與需求即可。確認方案與時段後，完成訂金付款即正式保留拍攝檔期。',
+  },
+];
 
 const title = '常見問題｜親子寫真＆家庭旅拍';
 const desc = '第一次拍親子寫真或安排家庭旅拍，可以先從這裡開始看。';
-
-const items = await getCollection('faq', ({ data }) => !data.draft);
-const sorted = items.sort((a, b) => a.data.sort - b.data.sort);
-const rendered = await Promise.all(sorted.map((e) => render(e)));
 ---
 
 <Layout title={title} description={desc}>
   <section class="hero" style="min-height: 260px; margin-bottom: 0; border-radius: 0;">
     <div
       class="hero__bg"
-      style="background-image: url('/images/heroes/D6646178-E581-45D7-A68B-532A8D642D42_4_5005_c-4fe85b39-aa7e-40e8-a347-c5d73fd8da5e.png');"
+      style="background-image: url('/images/heroes/family-portrait-snowboard-winter-faq-007.png');"
     >
     </div>
     <div class="hero__overlay"></div>
@@ -26,20 +58,12 @@ const rendered = await Promise.all(sorted.map((e) => render(e)));
   </section>
 
   <div class="container section faq-page">
-    {
-      sorted.map((entry, i) => {
-        const { Content } = rendered[i];
-        const id = entrySlug(entry);
-        return (
-          <section class="faq-item card card--flat" id={id}>
-            <h2 class="h3">{entry.data.title}</h2>
-            <div class="prose muted">
-              <Content />
-            </div>
-          </section>
-        );
-      })
-    }
+    {faqs.map((item) => (
+      <section class="faq-item card card--flat">
+        <h2 class="h3">{item.q}</h2>
+        <p class="muted" style="margin:0;">{item.a}</p>
+      </section>
+    ))}
   </div>
 </Layout>
 

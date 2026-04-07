@@ -19,7 +19,7 @@ const faqAll = await getCollection('faq', ({ data }) => !data.draft);
 const faqHome = faqAll.sort((a, b) => a.data.sort - b.data.sort).slice(0, 5);
 
 const heroBg =
-  '/images/heroes/4C1CF73E-D3C2-4C63-A4F6-F0B9DC3DC43D_4_5005_c-d5934577-e0b2-4f5a-bb34-326c2423a37d.png';
+  '/images/heroes/family-portrait-kimono-hero-home-taiwan-japan-001.png';
 
 const features = [
   {
@@ -63,6 +63,12 @@ const shootTypes = [
   },
 ];
 
+const hkHighlights = [
+  '台北 / 平溪 / 自然景點可安排',
+  '可用 Line / WhatsApp / WeChat 聯絡',
+  '適合香港家庭來台親子遊',
+];
+
 const hotSpots = [
   { label: '台北親子寫真', href: '/locations/taipei' },
   { label: '淡水親子旅拍', href: '/locations/tamsui' },
@@ -99,13 +105,14 @@ const homeReviews = [
       <p class="hero__eyebrow">親子寫真・家庭旅拍</p>
       <h1 class="hero__title">把家庭照拍成風景明信片，也拍成孩子長大後還想再看的故事</h1>
       <div class="hero__sub">
-        <p>台灣包車旅拍、海外親子旅拍、全外拍自然互動風格</p>
-        <p>小巴老師，15 年全職攝影經驗，累積 50+ 趟海外拍攝經歷</p>
-        <p>照片全給，並可加值或搭配微電影 MV 紀錄</p>
+        <p>台灣包車旅拍、海外親子旅拍、全外拍自然互動風格。</p>
+        <p>小巴老師，15 年全職攝影經驗，長期專注親子寫真、家庭旅拍與商業攝影。</p>
+        <p>照片完整交付，並可搭配微電影 MV，留下不只是畫面，而是一段真正屬於你們的家庭回憶。</p>
       </div>
       <div class="hero__actions">
         <a class="btn btn--primary" href="/services">查看服務方案</a>
         <a class="btn btn--secondary" href="/portfolio">看精選作品</a>
+        <a class="btn btn--secondary" href="/hong-kong-family-trip-taiwan">香港家庭來台拍攝</a>
         <a class="btn btn--ghost" style="border-color: rgba(255,255,255,.55); color:#fff" href={site.lineUrl} target="_blank" rel="noopener noreferrer">
           加 Line 詢問
         </a>
@@ -114,8 +121,16 @@ const homeReviews = [
   </section>
 
   <section class="section container">
-    <h2 class="h2">為什麼許多家庭會選擇小巴老師</h2>
-    <p class="lead">把拍攝變成陪伴，讓你們像旅行一樣自然。</p>
+    <h2 class="h2">其實拍親子寫真，可以很輕鬆</h2>
+    <div class="prose muted">
+      <p>很多爸媽在拍攝前都會擔心：小朋友不受控怎麼辦？會不會很趕？會不會整個過程很累？其實，我一直很相信，真正好看的親子照片，通常都不是刻意擺出來的。不是每個人站好、一起看鏡頭、一起笑，而是在陪孩子走路、玩耍、抱抱、聊天、看風景的過程裡，自然留下來的。</p>
+      <p>所以我的拍攝方式，一直都不是那種很傳統、很有壓力的攝影流程。不需要一直擺姿勢，不需要孩子一直配合大人，小朋友自然就好。很多時候，最好的畫面，反而都是沒有刻意的時候。</p>
+      <p>對我來說，親子寫真不是在完成一個任務，而是在旅行、散步、陪伴的過程中，把一家人真正的樣子留下來。</p>
+    </div>
+  </section>
+
+  <section class="section container">
+    <h2 class="h2">為什麼很多家庭會選擇小巴老師</h2>
     <div class="grid-2" style="margin-top: var(--space-lg);">
       {
         features.map((f) => (
@@ -146,9 +161,24 @@ const homeReviews = [
     </div>
   </section>
 
+  <section class="section container card">
+    <h2 class="h2">香港家庭來台旅行，也很適合順便拍一組照片</h2>
+    <div class="prose muted">
+      <p>很多香港家長來台灣旅行的時候，本來只是想簡單拍幾張留念，最後卻留下了一整組很有故事感的家庭回憶。其實對很多香港家庭來說，來台灣拍攝最適合的方式，不一定是一整天的大行程，而是安排 1-2 小時，找一個自然、舒服、不趕的地點，讓孩子邊玩邊拍、爸媽輕鬆散步，整個過程就像旅行中的一小段片刻。</p>
+      <p>不用一直擺姿勢，不用把拍照當成壓力。只要一家人在一起，走一走、聊一聊、陪孩子玩一玩，很多最珍貴的畫面就自然發生了。</p>
+      <p>如果你們最近有計畫來台灣旅遊，不論是台北市區、平溪、自然景點，或是宜蘭半日、一日旅拍，都可以先聯絡我，我會依照你們的旅行時間與家庭狀況，幫你們安排最適合的拍攝方式。</p>
+    </div>
+    <ul class="prose" style="margin-top: var(--space-md);">
+      {hkHighlights.map((h) => <li>{h}</li>)}
+    </ul>
+    <p style="margin-top: var(--space-md);">
+      <a class="btn btn--primary" href="/hong-kong-family-trip-taiwan">看香港家庭來台拍攝介紹</a>
+    </p>
+  </section>
+
   <section class="section container">
     <h2 class="h2">精選作品</h2>
-    <p class="lead">從台灣到海外，從森林到海邊，從親子互動到三代同堂，以下是幾組最能代表我們風格的作品。</p>
+    <p class="lead">從台灣森林草地、海邊、黃昏日暮，到海外櫻花、古都、海島與雪地，這裡收錄的是我們最重要的家庭故事。每一組作品都不是只是拍幾張照片而已，而是在一段陪伴、一段旅行、一段真實互動裡，慢慢留下來的畫面。</p>
     <div class="grid-2" style="margin-top: var(--space-lg);">
       {
         featured.map((p) => (
@@ -170,6 +200,7 @@ const homeReviews = [
 
   <section class="section container">
     <h2 class="h2">熱門拍攝地區</h2>
+    <p class="lead">每個家庭適合的拍攝方式都不一樣。有人喜歡草地與森林，有人喜歡海邊與黃昏，也有人想在旅行途中安排一段輕鬆拍攝。</p>
     <div class="hotgrid">
       {hotSpots.map((s) => (
         <a class="hotgrid__item card card--flat" href={s.href}>
@@ -181,6 +212,7 @@ const homeReviews = [
 
   <section class="section container">
     <h2 class="h2">爸媽怎麼說</h2>
+    <p class="lead">比起一句「照片很漂亮」，我更在意的是，客人看著照片時會不會覺得：「這真的就是我們家平常的樣子。」</p>
     <div class="grid-3" style="margin-top: var(--space-lg);">
       {
         homeReviews.map((r) => (
@@ -203,15 +235,15 @@ const homeReviews = [
     <div class="grid-3" style="margin-top: var(--space-lg);">
       <article class="card card--flat">
         <h3 class="h3">台灣旅拍</h3>
-        <p class="muted" style="margin:0;">半天／全天。可安排包車接送、景點動線建議、自然互動拍攝。</p>
+        <p class="muted" style="margin:0;">半天 / 全天，可安排包車接送、景點動線建議與自然互動拍攝。</p>
       </article>
       <article class="card card--flat">
         <h3 class="h3">海外旅拍</h3>
-        <p class="muted" style="margin:0;">依你們旅遊日期安排。可拍一日或多日，適合日本、海島與城市風格拍攝。</p>
+        <p class="muted" style="margin:0;">可依旅遊日期安排一日或多日，適合日本、海島與城市風格，也可多家庭同行。</p>
       </article>
       <article class="card card--flat">
         <h3 class="h3">成品交付</h3>
-        <p class="muted" style="margin:0;">照片檔案全給。可搭配微電影 MV，完整保留家庭互動回憶。</p>
+        <p class="muted" style="margin:0;">照片檔案完整交付。半天至少 100 張、全天至少 200 張，並可搭配微電影 MV。</p>
       </article>
     </div>
     <p style="margin-top: var(--space-lg); text-align: center;">
@@ -230,6 +262,7 @@ const homeReviews = [
         ))
       }
     </ul>
+    <p class="muted" style="margin-top: var(--space-sm);">包含：小朋友怕生怎麼辦？下雨怎麼辦？會給多少照片？香港家庭來台旅遊也適合拍嗎？要怎麼預約？</p>
     <p style="margin-top: var(--space-md);">
       <a class="btn btn--secondary" href="/faq">查看完整 FAQ</a>
     </p>
@@ -238,7 +271,7 @@ const homeReviews = [
   <section class="section container cta-block">
     <h2 class="h2">準備好安排你們的家庭旅拍了嗎？</h2>
     <p class="lead" style="max-width: 52ch;">
-      不論是台灣一日旅拍、海外旅行拍攝、孕婦與寶寶紀錄，或只是想先聊聊適合你們的拍攝方式，都歡迎直接與我聯絡。
+      不論是台灣一日旅拍、海外旅行拍攝、孕婦與寶寶紀錄，或是香港家庭來台旅行想安排一組自然的親子照片，都歡迎直接與我聯絡。
     </p>
     <div class="hero__actions" style="margin-top: var(--space-md);">
       <a class="btn btn--primary" href={site.lineUrl} target="_blank" rel="noopener noreferrer">加 Line 詢問</a>
