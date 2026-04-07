@@ -1,0 +1,43 @@
+<section class="hero" style="min-height:280px;margin-bottom:0;border-radius:0;">
+  <div class="hero__bg" style="background-image:url('/assets/images/home/family-portrait-kids-playground-contact-008.png')"></div>
+  <div class="hero__overlay"></div>
+  <div class="hero__inner" style="padding-bottom:var(--space-xl);">
+    <h1 class="hero__title" style="max-width:none;">預約詢問</h1>
+    <p class="hero__sub" style="max-width:52ch;">請告訴我日期、家庭成員、孩子年齡、地點與風格。</p>
+  </div>
+</section>
+
+<div class="container section contact-grid">
+  <form class="card card--flat contact-form" name="contact" method="post" data-netlify="true">
+    <input type="hidden" name="form-name" value="contact" />
+    <p class="h3">填寫表單</p>
+    <label class="field"><span>姓名</span><input name="name" type="text" autocomplete="name" required /></label>
+    <label class="field"><span>Line／聯絡方式</span><input name="contact" type="text" required /></label>
+    <label class="field"><span>預計日期</span><input name="date" type="text" placeholder="例：2026/05" /></label>
+    <label class="field"><span>拍攝地點</span><input name="location" type="text" /></label>
+    <label class="field"><span>家庭成員與孩子年齡</span><textarea name="family" rows="3"></textarea></label>
+    <label class="field"><span>方案</span>
+      <select name="plan">
+        <option value="">請選擇</option>
+        <option value="half">台灣半天</option>
+        <option value="full">台灣全天</option>
+        <option value="overseas">海外旅拍</option>
+        <option value="custom">客製</option>
+      </select>
+    </label>
+    <label class="field"><span>備註</span><textarea name="message" rows="4"></textarea></label>
+    <button class="btn btn--primary" type="submit">送出表單</button>
+    <p class="muted" style="margin:0;font-size:0.85rem;">若未使用 Netlify，請改接自有表單後端。</p>
+  </form>
+  <div class="stack">
+    <p class="h3">直接聯絡</p>
+    <ul class="prose">
+      <li>Line ID：0911252302</li>
+      <li>WeChat：{{WECHAT}}</li>
+      <li>WhatsApp：+886 911252302</li>
+      <li>Email：{{EMAIL}}</li>
+    </ul>
+    <a class="btn btn--primary" href="{{LINE_URL}}" target="_blank" rel="noopener noreferrer">加 Line</a>
+    <a class="btn btn--secondary" href="{{WHATSAPP_URL}}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+  </div>
+</div>

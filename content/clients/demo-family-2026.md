@@ -1,4 +1,5 @@
 ---
+output_slug: demo-client-1
 title: 示範｜王小明家庭｜2026 春季
 client_name: 王小明家庭
 project_type: 海外親子旅拍

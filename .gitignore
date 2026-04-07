@@ -1,6 +1,5 @@
 node_modules/
-dist/
-.astro/
+scripts/.wix-cache/
 .DS_Store
 *.log
 .env

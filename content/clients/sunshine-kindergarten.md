@@ -1,4 +1,5 @@
 ---
+output_slug: demo-client-2
 title: 示範｜晨光幼兒園｜畢業紀念
 client_name: 晨光幼兒園
 project_type: 畢業照／成長紀錄

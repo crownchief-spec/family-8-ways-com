@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://family.8-ways.com/sitemap.xml

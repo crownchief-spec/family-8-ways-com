@@ -1,53 +1,55 @@
-# family-8-ways-com
+# family-8-ways.com（純靜態站）
 
-小巴老師親子寫真品牌官網（Astro 靜態站 + Markdown 內容）。
+小巴老師親子寫真品牌官網。**不使用 Astro**：以 HTML + `assets/` + `scripts/build.mjs`（Markdown → HTML）維護，適合 Cloudflare Pages 直接部署根目錄。
 
-## 開發
+## 目錄結構（重點）
+
+| 路徑 | 說明 |
+|------|------|
+| `index.html` | 首頁（由建置產生，勿手改） |
+| `pages/*.html` | 固定頁：服務、關於、FAQ、聯絡、香港家庭、預約付款等 |
+| `case/` | 作品集列表 + 各案例頁（由 `content/case/*.md` 產生） |
+| `locations/` | 地區列表 + 各地區頁（由 `content/locations/*.md` 產生） |
+| `projects/clients/` | 客戶專屬頁（由 `content/clients/*.md` 產生，可設密碼） |
+| `assets/css/main.css` | 全站樣式 |
+| `assets/images/{home,case,locations,reviews,clients,og}/` | 圖片（首頁主視覺在 `home/`） |
+| `content/` | **維護內容放這裡**：`case`、`locations`、`clients`、`reviews`、`faq`、`blog` |
+| `templates/fixed/` | 固定頁「內文片段」HTML，可用 `{{LINE_URL}}` 等占位符 |
+| `site.config.json` | 站名、導覽、聯絡連結 |
+| `scripts/build.mjs` | 建置：讀 Markdown、套用模板、寫入 HTML |
+| `favicon.svg` | 網站圖示 |
+| `robots.txt` / `sitemap.xml` | 建置時覆寫 |
+
+## 建置
 
 ```bash
 npm install
-npm run dev
+npm run build
 ```
 
-## 正式建置
+建置後會更新根目錄 `index.html`、`case/`、`locations/`、`projects/clients/`、`pages/` 內多數檔案，以及 `sitemap.xml`。
+
+## 本機預覽
 
 ```bash
-npm run build
 npm run preview
 ```
 
-## 內容目錄
+## 新增／修改內容
 
-新作品、地區、客戶專屬頁、FAQ、爸媽推薦請於 `content/` 底下以 Markdown 新增；前台會自動產生路由。
+- **作品案例**：在 `content/case/` 新增或編輯 `.md`，frontmatter 需含 `title`、`slug`、`cover`、`excerpt` 等，再執行 `npm run build`。
+- **地區頁**：`content/locations/*.md`，檔名即網址（例：`taipei.md` → `locations/taipei.html`）。
+- **客戶頁**：`content/clients/*.md`；`output_slug` 可指定輸出檔名（例：`demo-client-1.html`）；`password` + `password_protected: true` 為前端簡易鎖（SHA-256 比對）。
+- **固定頁文案**：改 `templates/fixed/` 對應檔案後建置。
 
-- 作品：`content/portfolio/`
-- 地區：`content/locations/`
-- 客戶專屬：`content/clients/`（可設 `password_protected` + `password`，靜態頁僅為輕量隱私，正式環境請再評估資安需求）
-- FAQ：`content/faq/`
-- 推薦：`content/reviews/`
+## Cloudflare Pages
 
-## 環境變數與表單
+- **Build command**：`npm run build`
+- **Build output directory**：`/`（專案根目錄，含已產生之 `index.html`）
 
-聯絡表單已預留 Netlify Forms 欄位 `data-netlify`。若部署至其他平台，請改為自有 API 或第三方表單。
+若只上傳靜態檔、不跑建置，請在本地先 `npm run build` 再部署整個資料夾。
 
-站內 LINE、電話請改 `src/site.config.ts`。
+## 與舊 Astro 版差異
 
-## 圖片 SEO 規範（已套用）
-
-- Hero 與常用素材放在 `public/images/heroes/`，檔名使用英文、連字號、可讀關鍵字（例如 `family-portrait-...`、`child-portrait-...`）。
-- 前端圖片 `alt`/`title` 已改為 SEO 友善描述，包含作品標題、地點與親子/家庭寫真語意。
-- 目前已上傳的 13 張照片已完成 resize（最長邊 1920）與 SEO 命名。
-
-## 新照片上傳流程（之後都用這個）
-
-先把新圖放到 `uploads/`，再執行：
-
-```bash
-npm run img:prepare -- ./uploads ./public/images/uploads family-portrait 1920
-```
-
-參數說明：
-- 第 1 個：來源資料夾（預設 `./uploads`）
-- 第 2 個：輸出資料夾（預設 `./public/images/uploads`）
-- 第 3 個：關鍵字前綴（預設 `family-portrait`）
-- 第 4 個：最長邊 resize（預設 `1920`）
+- 已移除 `src/`、`astro.config.mjs`、Astro content collections。
+- 網址改為明確檔名（例：`/pages/services.html`），較利於非工程師理解路徑。
