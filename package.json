@@ -5,11 +5,14 @@
   "version": "2.0.0",
   "description": "小巴老師親子寫真｜純靜態 HTML（Markdown 建置）",
   "scripts": {
-    "build": "node scripts/build.mjs",
+    "build": "node scripts/build.mjs && node scripts/build-family-migration.mjs",
+    "import:family": "node scripts/import-family-pages.mjs",
+    "build:family": "node scripts/build-family-migration.mjs",
     "preview": "npx --yes serve ."
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
-    "marked": "^12.0.2"
+    "marked": "^12.0.2",
+    "playwright": "^1.59.1"
   }
 }

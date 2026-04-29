@@ -13,17 +13,12 @@
   },
   "nav": [
     { "href": "/", "label": "首頁" },
-    { "href": "/pages/services.html", "label": "服務方案" },
-    { "href": "/pages/hong-kong-family-trip-taiwan.html", "label": "香港家庭來台拍攝" },
-    { "href": "/case/index.html", "label": "作品集" },
-    { "href": "/locations/index.html", "label": "地區拍攝" },
-    { "href": "/pages/overseas.html", "label": "海外旅拍" },
-    { "href": "/pages/spotlights.html", "label": "拍攝主題" },
-    { "href": "/pages/about.html", "label": "關於小巴老師" },
-    { "href": "/pages/reviews.html", "label": "爸媽推薦" },
-    { "href": "/pages/faq.html", "label": "常見問題" },
-    { "href": "/projects/clients/index.html", "label": "客戶專屬頁面" },
-    { "href": "/pages/booking-info.html", "label": "預約與付款說明" },
-    { "href": "/pages/contact.html", "label": "預約詢問" }
+    { "href": "/family-service/", "label": "服務說明" },
+    { "href": "/family-taipei/", "label": "台灣拍攝" },
+    { "href": "/family-okinawa/", "label": "海外旅拍" },
+    { "href": "/family-generation/", "label": "主題分類" },
+    { "href": "/family-reviews/", "label": "爸媽推薦" },
+    { "href": "/family-faq/", "label": "常見問題" },
+    { "href": "/about-ba-wei/", "label": "關於小巴老師" }
   ]
 }
