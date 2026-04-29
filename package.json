@@ -6,6 +6,8 @@
   "description": "小巴老師親子寫真｜純靜態 HTML（Markdown 建置）",
   "scripts": {
     "build": "node scripts/build.mjs && node scripts/build-family-migration.mjs",
+    "migrate:family": "node scripts/migrate-family-from-wix.mjs",
+    "check:family": "node scripts/check-family-migration.mjs",
     "import:family": "node scripts/import-family-pages.mjs",
     "build:family": "node scripts/build-family-migration.mjs",
     "preview": "npx --yes serve ."

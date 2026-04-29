@@ -7,7 +7,7 @@
     "page_type": "home",
     "title": "親子寫真首頁",
     "menu_group": "core",
-    "photo_count": 16,
+    "photo_count": 60,
     "video_count": 2,
     "status": "scraped",
     "notes": "live抓取"
@@ -46,7 +46,7 @@
     "page_type": "reviews",
     "title": "爸媽推薦文 / 評價",
     "menu_group": "core",
-    "photo_count": 36,
+    "photo_count": 52,
     "video_count": 1,
     "status": "scraped",
     "notes": "live抓取"
@@ -72,7 +72,7 @@
     "page_type": "location",
     "title": "台北親子寫真",
     "menu_group": "taiwan",
-    "photo_count": 34,
+    "photo_count": 157,
     "video_count": 1,
     "status": "scraped",
     "notes": "live + 快取整合"
@@ -85,7 +85,7 @@
     "page_type": "location",
     "title": "台北攝影基地",
     "menu_group": "taiwan",
-    "photo_count": 36,
+    "photo_count": 51,
     "video_count": 1,
     "status": "scraped",
     "notes": "live + 快取整合"
@@ -98,7 +98,7 @@
     "page_type": "location",
     "title": "淡水親子寫真",
     "menu_group": "taiwan",
-    "photo_count": 35,
+    "photo_count": 64,
     "video_count": 1,
     "status": "scraped",
     "notes": "live + 快取整合"
@@ -111,7 +111,7 @@
     "page_type": "location",
     "title": "桃園親子寫真",
     "menu_group": "taiwan",
-    "photo_count": 32,
+    "photo_count": 57,
     "video_count": 1,
     "status": "scraped",
     "notes": "live + 快取整合"
@@ -137,7 +137,7 @@
     "page_type": "location",
     "title": "台中親子寫真",
     "menu_group": "taiwan",
-    "photo_count": 32,
+    "photo_count": 164,
     "video_count": 1,
     "status": "scraped",
     "notes": "live + 快取整合"
@@ -150,7 +150,7 @@
     "page_type": "location",
     "title": "宜蘭親子寫真",
     "menu_group": "taiwan",
-    "photo_count": 30,
+    "photo_count": 164,
     "video_count": 1,
     "status": "scraped",
     "notes": "live + 快取整合"
@@ -163,7 +163,7 @@
     "page_type": "location",
     "title": "澎湖親子寫真",
     "menu_group": "taiwan",
-    "photo_count": 36,
+    "photo_count": 65,
     "video_count": 1,
     "status": "scraped",
     "notes": "live + 快取整合"
@@ -176,7 +176,7 @@
     "page_type": "location",
     "title": "露營團拍 / 親子民宿",
     "menu_group": "taiwan",
-    "photo_count": 31,
+    "photo_count": 94,
     "video_count": 22,
     "status": "scraped",
     "notes": "live + 快取整合"
@@ -189,7 +189,7 @@
     "page_type": "location",
     "title": "生日派對 / 活動紀錄",
     "menu_group": "taiwan",
-    "photo_count": 32,
+    "photo_count": 81,
     "video_count": 1,
     "status": "scraped",
     "notes": "live + 快取整合"
@@ -202,7 +202,7 @@
     "page_type": "location",
     "title": "野柳 / 十分天燈鐵道",
     "menu_group": "taiwan",
-    "photo_count": 35,
+    "photo_count": 60,
     "video_count": 1,
     "status": "scraped",
     "notes": "live + 快取整合"
@@ -215,7 +215,7 @@
     "page_type": "location",
     "title": "動物農場系列",
     "menu_group": "taiwan",
-    "photo_count": 33,
+    "photo_count": 83,
     "video_count": 1,
     "status": "scraped",
     "notes": "live + 快取整合"
@@ -228,8 +228,8 @@
     "page_type": "overseas",
     "title": "日本冬季滑雪 / 玩雪",
     "menu_group": "overseas",
-    "photo_count": 30,
-    "video_count": 1,
+    "photo_count": 145,
+    "video_count": 4,
     "status": "scraped",
     "notes": "live + 快取整合"
   },
@@ -241,7 +241,7 @@
     "page_type": "overseas",
     "title": "北海道夏季 / 東北",
     "menu_group": "overseas",
-    "photo_count": 33,
+    "photo_count": 75,
     "video_count": 1,
     "status": "scraped",
     "notes": "live + 快取整合"
@@ -254,7 +254,7 @@
     "page_type": "overseas",
     "title": "沖繩親子寫真",
     "menu_group": "overseas",
-    "photo_count": 32,
+    "photo_count": 116,
     "video_count": 1,
     "status": "scraped",
     "notes": "live + 快取整合"
@@ -267,7 +267,7 @@
     "page_type": "overseas",
     "title": "東京 / 迪士尼",
     "menu_group": "overseas",
-    "photo_count": 30,
+    "photo_count": 64,
     "video_count": 1,
     "status": "scraped",
     "notes": "live + 快取整合"
@@ -280,7 +280,7 @@
     "page_type": "overseas",
     "title": "京都 / 大阪 / 奈良",
     "menu_group": "overseas",
-    "photo_count": 30,
+    "photo_count": 177,
     "video_count": 1,
     "status": "scraped",
     "notes": "live + 快取整合"
@@ -293,7 +293,7 @@
     "page_type": "overseas",
     "title": "宿霧 / 峇里島 / 新加坡",
     "menu_group": "overseas",
-    "photo_count": 34,
+    "photo_count": 68,
     "video_count": 1,
     "status": "scraped",
     "notes": "live + 快取整合"
@@ -306,7 +306,7 @@
     "page_type": "overseas",
     "title": "澳洲雪梨 / 墨爾本",
     "menu_group": "overseas",
-    "photo_count": 27,
+    "photo_count": 41,
     "video_count": 1,
     "status": "scraped",
     "notes": "live + 快取整合"
@@ -319,7 +319,7 @@
     "page_type": "overseas",
     "title": "韓國親子寫真",
     "menu_group": "overseas",
-    "photo_count": 33,
+    "photo_count": 68,
     "video_count": 1,
     "status": "scraped",
     "notes": "live + 快取整合"
@@ -332,7 +332,7 @@
     "page_type": "theme",
     "title": "三代同堂 / 祖父母",
     "menu_group": "themes",
-    "photo_count": 18,
+    "photo_count": 32,
     "video_count": 1,
     "status": "scraped",
     "notes": "live + 快取整合"
@@ -345,7 +345,7 @@
     "page_type": "theme",
     "title": "孕婦寫真",
     "menu_group": "themes",
-    "photo_count": 26,
+    "photo_count": 40,
     "video_count": 1,
     "status": "scraped",
     "notes": "live + 快取整合"
@@ -358,7 +358,7 @@
     "page_type": "theme",
     "title": "和服 / 韓服 / 旗袍",
     "menu_group": "themes",
-    "photo_count": 36,
+    "photo_count": 101,
     "video_count": 1,
     "status": "scraped",
     "notes": "live + 快取整合"
@@ -371,7 +371,7 @@
     "page_type": "theme",
     "title": "夜拍 / 玩煙火",
     "menu_group": "themes",
-    "photo_count": 36,
+    "photo_count": 109,
     "video_count": 1,
     "status": "scraped",
     "notes": "live + 快取整合"
@@ -384,7 +384,7 @@
     "page_type": "theme",
     "title": "海灘 / 玩水",
     "menu_group": "themes",
-    "photo_count": 36,
+    "photo_count": 87,
     "video_count": 1,
     "status": "scraped",
     "notes": "live + 快取整合"
