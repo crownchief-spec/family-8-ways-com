@@ -42,24 +42,104 @@ function hashtags(p) { return `<p class="container section muted" style="padding
 function cta() {
   return `<section class="container section card card--flat"><h2 class="h2">想預約親子寫真或家庭攝影嗎？</h2><p class="muted">如果你正在規劃台灣親子旅拍、海外家庭寫真、露營團拍、生日派對或特定主題拍攝，歡迎先告訴我們拍攝地點、日期、家庭成員與想拍的風格，我們可以一起安排最適合的拍攝方式。</p><div class="hero__actions"><a class="btn btn--primary" href="${cfg.site.lineUrl}" target="_blank" rel="noopener noreferrer">LINE 預約諮詢</a><a class="btn btn--secondary" href="/pages/service-flow/">查看服務說明</a><a class="btn btn--secondary" href="/pages/faq/">查看常見問題</a></div></section>`;
 }
+function showcaseCards() {
+  const picks = [
+    'taipei', 'taichung', 'yilan', 'penghu',
+    'okinawa', 'kansai', 'tokyo', 'korea',
+    'grass', 'sunset', 'beach', 'underwater',
+    'rain', 'generation', 'baby', 'maternity',
+  ]
+    .map((id) => pageMap.get(id))
+    .filter(Boolean)
+    .map((p) => {
+      const cover = p.images[0]?.src || '/public/og-default.svg';
+      const desc = (p.paragraphs?.[0] || p.newTitle).slice(0, 55);
+      return `<a class="showcase-card" href="${p.newUrl}/">
+  <div class="showcase-card__media"><img src="${cover}" alt="${escapeHtml(p.newTitle)}" loading="lazy" width="900" height="620"/></div>
+  <div class="showcase-card__body">
+    <p class="showcase-card__type">${escapeHtml(p.pageType === 'theme' ? '攝影主題/場景' : p.pageType === 'overseas' ? '海外地區' : '台灣地區')}</p>
+    <h3 class="showcase-card__title">${escapeHtml(p.newTitle.split('｜')[0])}</h3>
+    <p class="showcase-card__desc">${escapeHtml(desc)}…</p>
+  </div>
+</a>`;
+    })
+    .join('');
+  return `<section class="container section">
+  <h2 class="h2">熱門地區與主題</h2>
+  <p class="muted">直接看照片風格，選你最想拍的城市或主題。</p>
+  <div class="showcase-grid">${picks}</div>
+</section>`;
+}
 function related(p) {
   const pool = pages.filter((x) => x.id !== p.id && x.pageType === p.pageType).slice(0, 3);
   return `<section class="container section card card--flat"><h2 class="h2">相關頁面</h2><ul class="prose">${pool.map((x) => `<li><a href="${x.newUrl}/">${escapeHtml(x.newTitle)}</a></li>`).join('')}</ul></section>`;
 }
+function splitParagraphs(paragraphs = []) {
+  return paragraphs
+    .map((t) => String(t || '').replace(/\s+/g, ' ').trim())
+    .filter(Boolean)
+    .filter((t) => !/^(Facebook|Twitter|Pinterest|Tumblr|複製連結)/i.test(t));
+}
+function renderContentSections(p) {
+  const paras = splitParagraphs(p.paragraphs).slice(0, 18);
+  if (!paras.length) {
+    return `<section class="container section"><div class="card card--flat"><p class="muted">此頁面正在整理更完整內容，歡迎先看作品圖庫與影片。</p></div></section>`;
+  }
+
+  const blocks = [];
+  for (let i = 0; i < paras.length; i += 3) {
+    const chunk = paras.slice(i, i + 3);
+    const img = p.images[(i + 1) % Math.max(1, p.images.length)]?.src;
+    const title = `${p.newTitle.split('｜')[0]}重點 ${Math.floor(i / 3) + 1}`;
+    const prose = chunk.map((t) => `<p>${escapeHtml(t)}</p>`).join('');
+
+    if (img && i % 2 === 0) {
+      blocks.push(`<section class="container section section--tight"><div class="story-block">
+  <div class="story-block__media"><img src="${img}" alt="${escapeHtml(p.newTitle)}｜小巴老師親子寫真" loading="lazy" width="1200" height="800" /></div>
+  <div class="story-block__body"><h2 class="h2">${escapeHtml(title)}</h2><div class="prose">${prose}</div></div>
+</div></section>`);
+    } else {
+      blocks.push(`<section class="container section section--tight"><div class="card card--flat">
+  <h2 class="h2">${escapeHtml(title)}</h2>
+  <div class="prose">${prose}</div>
+</div></section>`);
+    }
+  }
+
+  const highlights = p.hashtags?.slice(0, 6) || [];
+  const highlightCard = highlights.length
+    ? `<section class="container section section--tight"><div class="feature-chips">
+      ${highlights.map((h) => `<span class="tag"># ${escapeHtml(h)}</span>`).join('')}
+    </div></section>`
+    : '';
+  return `${highlightCard}${blocks.join('\n')}`;
+}
+function conciseSummary(paragraphs = [], fallback = '') {
+  const cleaned = paragraphs
+    .map((t) => String(t || '').replace(/\s+/g, ' ').trim())
+    .filter(Boolean)
+    // 濾掉很像舊站導覽串接文字的內容
+    .filter((t) => !/方案.*方案.*方案/.test(t))
+    .filter((t) => (t.match(/\//g) || []).length < 6)
+    .filter((t) => t.length >= 22);
+  const picked = cleaned.find((t) => t.length <= 90) || cleaned.find((t) => t.length <= 130) || fallback;
+  if (!picked) return '';
+  return picked.length > 100 ? `${picked.slice(0, 100).trim()}...` : picked;
+}
 
 function buildStandardPage(p) {
-  const desc = p.paragraphs[0] || `${p.newTitle}｜小巴老師親子寫真`;
+  const desc = conciseSummary(p.paragraphs, `${p.newTitle.split('｜')[0]}，精選親子寫真與家庭攝影內容。`);
   const hero = p.images[0]?.src || '/public/og-default.svg';
   const body = `${bread(p.newUrl, p.newTitle)}
 <section class="hero" style="min-height:320px;margin-bottom:0;border-radius:0;"><div class="hero__bg" style="background-image:url('${hero}')"></div><div class="hero__overlay"></div><div class="hero__inner"><h1 class="hero__title">${escapeHtml(p.newTitle)}</h1><p class="hero__sub">${escapeHtml(desc)}</p><div class="hero__actions"><a class="btn btn--primary" href="${cfg.site.lineUrl}" target="_blank" rel="noopener noreferrer">LINE 預約</a><a class="btn btn--secondary" href="/pages/service-flow/">查看服務流程</a></div></div></section>
 ${statsRow(p)}
-<section class="container section prose">${p.paragraphs.slice(0, 20).map((t) => `<p>${escapeHtml(t)}</p>`).join('')}</section>
+${renderContentSections(p)}
 <section class="container section"><h2 class="h2">作品圖庫</h2>${gallery(p)}</section>
 <section class="container section"><h2 class="h2">影片</h2>${videoBlock(p)}</section>
 ${related(p)}
 ${cta()}
 ${hashtags(p)}`;
-  const html = renderPage(cfg, { title: `${p.newTitle}｜小巴老師親子寫真`, description: desc.slice(0, 150), canonical: `${siteUrl}${p.newUrl}/`, body, ogImage: hero });
+  const html = renderPage(cfg, { title: `${p.newTitle}｜小巴老師親子寫真`, description: desc.slice(0, 140), canonical: `${siteUrl}${p.newUrl}/`, body, ogImage: hero });
   return p.id === 'faq'
     ? html.replace('</head>', `<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: p.paragraphs.slice(0, 12).map((q, i) => ({ '@type': 'Question', name: `常見問題 ${i + 1}`, acceptedAnswer: { '@type': 'Answer', text: q } })) })}</script>\n</head>`)
     : html;
@@ -72,6 +152,7 @@ ${statsRow(p)}
 <section class="container section"><h2 class="h2">核心賣點</h2><div class="grid-2"><div class="card card--flat"><h3 class="h3">全外拍自然互動風格</h3></div><div class="card card--flat"><h3 class="h3">台灣包車親子旅拍</h3></div><div class="card card--flat"><h3 class="h3">50 趟以上海外旅拍</h3></div><div class="card card--flat"><h3 class="h3">照片全給 / 微電影 MV</h3></div></div></section>
 <section class="container section"><h2 class="h2">精選影片</h2>${videoBlock(p)}<p><a href="https://www.youtube.com/playlist?list=PLlcWeCGlTvTTEDlFy5fNEjOKzUt5gBzVM" target="_blank" rel="noopener noreferrer">查看更多親子旅拍影片</a></p></section>
 <section class="container section"><h2 class="h2">價格與方案摘要</h2><div class="prose"><p>台灣旅拍：半天 $5800–8300、全天 $14800。海外旅拍：一日攝影費 $14800，第二日 $9800，攝影師機票費用八折優惠。成品照片檔案全給，可搭配微電影 MV。</p></div></section>
+${showcaseCards()}
 <section class="container section card card--flat"><h2 class="h2">入口導覽</h2><ul class="prose"><li><a href="/taiwan/taipei/">台灣拍攝地區</a></li><li><a href="/overseas/">海外旅拍地區</a></li><li><a href="/themes/">主題分類</a></li><li><a href="/works/">作品案例</a></li><li><a href="/client/">客戶專區</a></li><li><a href="/pages/reviews/">爸媽推薦</a></li><li><a href="/pages/faq/">常見問題</a></li><li><a href="/pages/about-ba-wei/">關於小巴老師</a></li></ul></section>
 ${cta()}
 ${hashtags(p)}`;

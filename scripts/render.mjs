@@ -53,25 +53,94 @@ var path=location.pathname;document.querySelectorAll(".site-nav__list a").forEac
 }
 
 export function renderFooter(cfg) {
-  const { site, nav } = cfg;
+  const { site } = cfg;
   const y = new Date().getFullYear();
-  const links = nav
-    .map((item) => {
-      const href = item.href === '/index.html' ? '/' : item.href;
-      return `<li><a href="${escapeHtml(href)}">${escapeHtml(item.label)}</a></li>`;
-    })
-    .join('\n');
+  const sections = [
+    {
+      title: '親子寫真服務',
+      links: [
+        ['服務流程與價格', '/pages/service-flow/'],
+        ['台灣包車親子旅拍', '/taiwan/taipei/'],
+        ['海外親子旅拍', '/overseas/'],
+        ['微電影 MV', '/pages/service-flow/'],
+        ['爸媽推薦', '/pages/reviews/'],
+        ['常見問題', '/pages/faq/'],
+      ],
+    },
+    {
+      title: '台灣拍攝地區',
+      links: [
+        ['台北親子寫真', '/taiwan/taipei/'],
+        ['桃園親子寫真', '/taiwan/taoyuan/'],
+        ['新竹親子寫真', '/taiwan/hsinchu/'],
+        ['台中親子寫真', '/taiwan/taichung/'],
+        ['宜蘭親子寫真', '/taiwan/yilan/'],
+        ['澎湖親子寫真', '/taiwan/penghu/'],
+        ['露營團拍', '/taiwan/camping/'],
+        ['生日派對', '/taiwan/birthday/'],
+      ],
+    },
+    {
+      title: '海外旅拍',
+      links: [
+        ['日本滑雪玩雪', '/overseas/japan-winter/'],
+        ['北海道夏季', '/overseas/hokkaido/'],
+        ['沖繩親子寫真', '/overseas/okinawa/'],
+        ['東京迪士尼', '/overseas/disney/'],
+        ['京都大阪奈良', '/overseas/kansai/'],
+        ['韓國親子寫真', '/overseas/korea/'],
+        ['新加坡親子寫真', '/overseas/singapore/'],
+        ['澳洲雪梨墨爾本', '/overseas/australia/'],
+      ],
+    },
+    {
+      title: '主題分類',
+      links: [
+        ['三代同堂', '/themes/generation/'],
+        ['孕婦寫真', '/themes/maternity/'],
+        ['和服韓服旗袍', '/themes/costume/'],
+        ['夜拍煙火', '/themes/night/'],
+        ['海灘玩水', '/themes/beach/'],
+        ['草地森林', '/themes/grass/'],
+        ['春櫻秋楓', '/themes/sakura/'],
+        ['寶寶 Baby', '/themes/baby/'],
+      ],
+    },
+    {
+      title: '聯絡小巴老師',
+      links: [
+        ['Line ID：0911252302', site.lineUrl],
+        ['WeChat：travelphotographer', `https://weixin.qq.com/`],
+        ['WhatsApp：+886 911252302', site.whatsappUrl],
+        ['電話：0911252302', site.phoneTel],
+        ['Email：crownchief@gmail.com', `mailto:${site.email}`],
+        ['IG：travel.photo.tw', 'https://www.instagram.com/travel.photo.tw/'],
+        ['Facebook：Facebook.com/benson.tw', 'https://facebook.com/benson.tw'],
+      ],
+    },
+  ];
+  const sectionHtml = sections
+    .map(
+      (section) => `<section class="site-footer__col">
+      <p class="h3 site-footer__title">${escapeHtml(section.title)}</p>
+      <ul class="footer-links footer-links--single">${section.links
+        .map(
+          ([label, href]) =>
+            `<li><a href="${escapeHtml(href)}"${href.startsWith('http') || href.startsWith('mailto:') ? ' target="_blank" rel="noopener noreferrer"' : ''}>${escapeHtml(label)}</a></li>`,
+        )
+        .join('')}</ul>
+    </section>`,
+    )
+    .join('');
   return `<footer class="site-footer">
-  <div class="container grid-2" style="align-items:start;">
-    <div>
-      <p class="h3" style="margin-bottom:var(--space-sm);">${escapeHtml(site.shortName)}</p>
-      <p class="muted" style="margin:0;max-width:40ch;">${escapeHtml(site.description)}</p>
-      <p style="margin-top:var(--space-md);"><a class="btn btn--primary btn--compact" href="${escapeHtml(site.lineUrl)}" target="_blank" rel="noopener noreferrer">於 Line 與我聯絡</a></p>
+  <div class="container">
+    <div class="site-footer__top">
+      <p class="h3" style="margin:0;">${escapeHtml(site.shortName)}</p>
+      <p class="muted" style="margin:0;max-width:62ch;">台灣包車旅拍、海外親子旅拍、全外拍自然互動風格。照片全給，可搭配微電影 MV。</p>
+      <p style="margin:0;"><a class="btn btn--primary btn--compact" href="${escapeHtml(site.lineUrl)}" target="_blank" rel="noopener noreferrer">LINE 預約諮詢</a></p>
     </div>
-    <div>
-      <p class="h3" style="margin-bottom:var(--space-sm);">站內導覽</p>
-      <ul class="footer-links">${links}</ul>
-      <p class="muted" style="margin-top:var(--space-md);font-size:0.9rem;">電話：<a href="${escapeHtml(site.phoneTel)}">${escapeHtml(site.phone)}</a></p>
+    <div class="site-footer__grid">
+      ${sectionHtml}
     </div>
   </div>
   <p class="container muted" style="margin-top:var(--space-xl);font-size:0.82rem;">© ${y} ${escapeHtml(site.shortName)}．保留所有權利。</p>
