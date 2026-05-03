@@ -549,7 +549,7 @@ function main() {
 
   writeFileSync(
     join(ROOT, 'robots.txt'),
-    `User-agent: *\nAllow: /\nDisallow: /admin/\nDisallow: /clients/\nDisallow: /family-contract/\nSitemap: ${site.url}/sitemap.xml\n`,
+    `User-agent: *\nDisallow: /admin/\nDisallow: /clients/\nDisallow: /family-contract/\nSitemap: ${site.url}/sitemap.xml\n`,
     'utf8',
   );
 

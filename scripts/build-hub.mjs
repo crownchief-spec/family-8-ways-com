@@ -259,11 +259,18 @@ function normalizeClientEntry(entry) {
     deposit: d.deposit,
     balance: d.balance,
     paymentStatus: d.paymentStatus || '',
+    paymentMethod: d.paymentMethod || '',
+    bankLast5: d.bankLast5 || '',
+    paymentAmount: d.paymentAmount || '',
+    paymentDate: d.paymentDate || '',
     paymentNote: d.paymentNote || '',
+    paymentEnablePaypal: d.paymentEnablePaypal !== false,
+    paymentEnableWise: d.paymentEnableWise !== false,
     deliverables: d.deliverables || '',
     contactName: d.contactName || '',
     phone: d.phone || '',
     email: d.email || '',
+    customerEmail: d.customerEmail || d.email || '',
     lineName: d.lineName || '',
     fatherName: d.fatherName || '',
     motherName: d.motherName || '',
@@ -273,10 +280,15 @@ function normalizeClientEntry(entry) {
     familyIntro: d.familyIntro || '',
     desiredShots: d.desiredShots || '',
     specialNotes: d.specialNotes || '',
+    usageConsent: d.usageConsent || '',
     contractStatus: d.contractStatus || '',
     portfolioPermission: d.portfolioPermission || '',
     contractVersion: d.contractVersion || '',
     signedAt: d.signedAt || '',
+    signedBy: d.signedBy || '',
+    signedDate: d.signedDate || '',
+    signedPdfSentAt: d.signedPdfSentAt || '',
+    signedPdfSentTo: d.signedPdfSentTo || '',
     signatureImage: d.signatureImage || '',
     driveFolderUrl: d.driveFolderUrl || '',
     selectedPhotoUrl: d.selectedPhotoUrl || '',
@@ -661,10 +673,10 @@ ${rs}
   const clientsIndexBody = `<nav class="container section" style="padding-bottom:0;"><div class="muted"><a href="/">首頁</a> / <span>客戶分享頁說明</span></div></nav>
 <section class="hero hero--compact"><div class="hero__bg" style="background-image:url('${CLIENT_OG}')"></div><div class="hero__overlay"></div><div class="hero__inner">
 <h1 class="hero__title">客戶分享頁使用說明</h1>
-<p class="hero__sub">這裡不是公開查詢頁。已預約客戶請使用攝影師提供的專屬連結進入合約確認與作品交件頁。</p>
+<p class="hero__sub">這裡不是公開查詢頁。已預約客戶請使用攝影師提供的專屬連結進入合約確認與作品交件頁。如找不到連結，請直接聯絡小巴老師。</p>
 </div></section>
 <section class="container section card card--flat prose">
-<p>如找不到連結，請直接聯絡小巴老師協助補發。</p>
+<p>此頁不提供客戶列表、搜尋框與案件公開連結。</p>
 <div class="hero__actions">
   <a class="btn btn--primary" href="${site.lineUrl}" target="_blank" rel="noopener noreferrer">Line 聯絡</a>
   <a class="btn btn--secondary" href="${site.phoneTel}">電話聯絡</a>
@@ -680,6 +692,7 @@ ${rs}
       body: clientsIndexBody,
       ogImage: CLIENT_OG,
       noIndex: true,
+      hideAdminFooterLink: true,
     }),
   );
 
@@ -695,7 +708,7 @@ ${rs}
     </div>
   </div>
 </section>
-<section class="container section family-contract-wrap portal-grid" data-client-portal data-client-slug="${escapeHtml(c.slug)}" data-client-name="${escapeHtml(c.clientName)}" data-shooting-date="${escapeHtml(c.shootingDate || '')}" data-start-time="${escapeHtml(c.shootingStartTime || '')}" data-end-time="${escapeHtml(c.shootingEndTime || '')}" data-package-name="${escapeHtml(c.packageName || '')}" data-location="${escapeHtml(c.location || '')}" data-total-fee="${escapeHtml(c.totalFee || '')}" data-deposit="${escapeHtml(c.deposit || '')}" data-balance="${escapeHtml(c.balance || '')}" data-contract-version="${escapeHtml(c.contractVersion || 'family-contract-v2026-05')}">
+<section class="container section family-contract-wrap portal-grid" data-client-portal data-client-slug="${escapeHtml(c.slug)}" data-client-name="${escapeHtml(c.clientName)}" data-shooting-date="${escapeHtml(c.shootingDate || '')}" data-start-time="${escapeHtml(c.shootingStartTime || '')}" data-end-time="${escapeHtml(c.shootingEndTime || '')}" data-package-name="${escapeHtml(c.packageName || '')}" data-location="${escapeHtml(c.location || '')}" data-pickup="${escapeHtml(c.pickup || '')}" data-total-fee="${escapeHtml(c.totalFee || '')}" data-deposit="${escapeHtml(c.deposit || '')}" data-balance="${escapeHtml(c.balance || '')}" data-contract-version="${escapeHtml(c.contractVersion || 'family-contract-v2026-05')}">
   <article class="card">
     <h2 class="h2">預約資訊</h2>
     <div class="portal-grid-2">
@@ -708,7 +721,7 @@ ${rs}
       ${isPresent(c.deposit) ? `<p><strong>訂金：</strong>NT$${Number(c.deposit || 0).toLocaleString('zh-TW')}</p>` : ''}
       ${isPresent(c.balance) ? `<p><strong>餘款：</strong>NT$${Number(c.balance || 0).toLocaleString('zh-TW')}</p>` : ''}
     </div>
-    ${isPresent(c.deliverables) ? `<p><strong>成品內容：</strong>${escapeHtml(c.deliverables)}</p>` : ''}
+    ${isPresent(c.deliverables) ? `<p><strong>成品內容：</strong><span data-deliverables-text>${escapeHtml(c.deliverables)}</span></p>` : ''}
     <p class="portal-note muted">以下拍攝資訊由攝影師依雙方討論內容建立，如有需要調整，請先聯繫攝影師，不要直接修改合約內容。</p>
   </article>
 
@@ -720,7 +733,7 @@ ${rs}
         <label class="field"><span>攝影師如何稱呼媽媽</span><input name="motherName" type="text" placeholder="例如：媽媽、Amy、小君" /></label>
         <label class="field"><span>主要聯絡人姓名</span><input name="contactName" type="text" value="${escapeHtml(c.contactName || '')}" required /></label>
         <label class="field"><span>聯絡電話</span><input name="phone" type="text" value="${escapeHtml(c.phone || '')}" required /></label>
-        <label class="field"><span>Email</span><input name="email" type="email" value="${escapeHtml(c.email || '')}" required /></label>
+        <label class="field"><span>Email</span><input name="customerEmail" type="email" value="${escapeHtml(c.customerEmail || c.email || '')}" required /></label>
         <label class="field"><span>LINE 顯示名稱或 LINE ID</span><input name="lineName" type="text" value="${escapeHtml(c.lineName || '')}" /></label>
         <label class="field"><span>入鏡大人人數</span><input name="adultCount" type="number" min="0" value="2" /></label>
         <label class="field"><span>入鏡小孩人數</span><input name="childCount" type="number" min="0" value="1" /></label>
@@ -732,15 +745,15 @@ ${rs}
 
       <h3 class="h3">合約確認與簽名</h3>
       <p class="muted">主要合約條件由攝影師建立，客戶可補充家庭資料並完成簽名確認。</p>
-      <label class="check-row"><input type="radio" name="portfolioPermission" value="同意公開使用" required /> 我同意攝影師可將本次拍攝作品作為作品集、網站、社群平台、行銷宣傳與攝影服務介紹使用。</label>
-      <label class="check-row"><input type="radio" name="portfolioPermission" value="不同意公開使用" required /> 我不同意公開使用本次拍攝作品，僅供客戶私人保存。</label>
-      <label class="check-row"><input type="checkbox" name="agreementMainInfo" required /> 我已確認以上拍攝日期、時間、地點、方案與費用。</label>
-      <label class="check-row"><input type="checkbox" name="agreementTerms" required /> 我已閱讀並同意本頁所載之服務內容與合約條款。</label>
-      <label class="check-row"><input type="checkbox" name="agreementDeposit" required /> 我了解完成訂金付款後，攝影師才會正式保留拍攝檔期。</label>
-      <label class="check-row"><input type="checkbox" name="agreementSignature" required /> 我確認以上填寫資料正確，並同意以電子簽名方式完成本次預約確認。</label>
+      <label class="check-row"><input type="checkbox" name="usageConsentYes" value="yes" required /> 我同意攝影師可將本次拍攝作品作為作品集、網站、社群平台、行銷宣傳與攝影服務介紹使用。</label>
+      <label class="check-row"><input type="checkbox" name="usageConsentNo" value="no" required /> 我不同意公開使用本次拍攝作品，僅供客戶私人保存。</label>
+      <label class="check-row"><input type="checkbox" name="confirmBookingInfo" required /> 我已確認以上拍攝日期、時間、地點、方案與費用。</label>
+      <label class="check-row"><input type="checkbox" name="confirmTerms" required /> 我已閱讀並同意本頁所載之服務內容與合約條款。</label>
+      <label class="check-row"><input type="checkbox" name="confirmDeposit" required /> 我了解完成訂金付款後，攝影師才會正式保留拍攝檔期。</label>
+      <label class="check-row"><input type="checkbox" name="confirmSignature" required /> 我確認以上填寫資料正確，並同意以電子簽名方式完成本次預約確認。</label>
       <div class="portal-grid-2">
         <label class="field"><span>簽名人姓名</span><input type="text" name="signerName" required /></label>
-        <label class="field"><span>簽署日期</span><input type="date" id="client-signed-date" readonly /></label>
+        <label class="field"><span>簽署日期</span><input type="date" id="client-signed-date" name="signedDate" required /></label>
       </div>
       <div class="signature-wrap">
         <canvas id="client-signature-canvas" aria-label="客戶手寫簽名區"></canvas>
@@ -752,9 +765,32 @@ ${rs}
       <p class="muted" id="client-sign-state">尚未確認簽名</p>
       <p class="error-text" id="client-signature-error" hidden>請先簽名後再送出。</p>
       <input type="hidden" id="client-signature-image-base64" />
+      <input type="hidden" id="client-signed-at" />
+      <h3 class="h3">付款回報</h3>
+      <div class="portal-grid-2">
+        <label class="field"><span>付款方式</span>
+          <select name="paymentMethod">
+            <option value="">請選擇</option>
+            <option value="銀行轉帳">銀行轉帳</option>
+            <option value="Line Pay">Line Pay</option>
+            <option value="PayPal">PayPal</option>
+            <option value="微信支付">微信支付</option>
+            <option value="WISE">WISE</option>
+            <option value="其他">其他</option>
+          </select>
+        </label>
+        <label class="field"><span>匯款帳號末五碼</span><input type="text" name="bankLast5" /></label>
+        <label class="field"><span>付款金額</span><input type="number" name="paymentAmount" min="0" step="1" /></label>
+        <label class="field"><span>付款日期</span><input type="date" name="paymentDate" /></label>
+      </div>
+      <label class="field"><span>付款備註</span><textarea name="paymentNoteSubmit" rows="3"></textarea></label>
       <div class="hero__actions no-print">
-        <button class="btn btn--primary" type="submit">送出合約簽署</button>
+        <button class="btn btn--primary" type="submit" id="client-submit-contract">送出合約簽署</button>
         <button class="btn btn--secondary" type="button" id="client-print-contract">列印 / 儲存 PDF</button>
+      </div>
+      <p class="muted no-print" id="client-submit-status"></p>
+      <div class="hero__actions no-print" id="client-download-wrap" hidden>
+        <button class="btn btn--secondary" type="button" id="client-download-pdf">下載合約 PDF</button>
       </div>
       <p class="error-text" id="client-form-error" hidden></p>
       <div class="client-contract-signed" id="signed-status-panel" hidden>
@@ -763,6 +799,7 @@ ${rs}
         <img id="signed-image" alt="簽名影像" />
       </div>
     </form>
+    <div id="contract-pdf-content" style="position:fixed;left:-10000px;top:0;width:820px;background:#fff;color:#111;padding:24px;z-index:-1;"></div>
   </article>
 
   <article class="card">
@@ -775,17 +812,11 @@ ${rs}
     <div class="portal-note">
       <p><strong>Line Pay：</strong>可使用 Line Pay 支付訂金，請與攝影師確認付款方式。</p>
       <p><strong>銀行轉帳：</strong>台新銀行（812）板橋分行，分行代碼 0089，帳號 20081000109398，戶名：陳在紳</p>
-      <p><strong>PayPal：</strong>海外用戶可使用 PayPal 支付訂金。<a href="https://paypal.me/bmpss96147/1800" target="_blank" rel="noopener noreferrer">付款連結一</a>、<a href="https://paypal.me/bmpss96147/2800" target="_blank" rel="noopener noreferrer">付款連結二</a></p>
+      ${c.paymentEnablePaypal !== false ? '<p><strong>PayPal：</strong>海外用戶可使用 PayPal 支付訂金。<a href="https://paypal.me/bmpss96147/1800" target="_blank" rel="noopener noreferrer">付款連結一</a>、<a href="https://paypal.me/bmpss96147/2800" target="_blank" rel="noopener noreferrer">付款連結二</a></p>' : ''}
       <p><strong>微信支付：</strong>請加 WeChat 帳號：travelphotographer</p>
-      <p><strong>WISE：</strong>海外用戶可支付約 USD 25（約 NT$800）作為訂金，實際匯率與手續費依平台顯示為準。</p>
+      ${c.paymentEnableWise !== false ? '<p><strong>WISE：</strong>海外用戶可支付約 USD 25（約 NT$800）作為訂金，實際匯率與手續費依平台顯示為準。</p>' : ''}
     </div>
-    <div class="portal-grid-2">
-      <label class="field"><span>匯款帳號末五碼</span><input type="text" /></label>
-      <label class="field"><span>付款方式</span><input type="text" /></label>
-      <label class="field"><span>付款時間</span><input type="text" /></label>
-      <label class="field"><span>備註</span><input type="text" /></label>
-    </div>
-    <p class="muted">請付款後將資訊傳給攝影師確認。</p>
+    <p class="muted">可在上方「付款回報」區填寫匯款末五碼與付款資訊，方便攝影師對帳確認。</p>
   </article>
 
   <article class="card">
@@ -831,12 +862,13 @@ ${rs}
       canonical: `${site.url}/clients/${c.slug}/`,
       body,
       ogImage: '/assets/images/og/default.svg',
-      noIndex: c.noindex !== false,
+      noIndex: true,
+      hideAdminFooterLink: true,
     })
       .replace('</head>', '  <link rel="stylesheet" href="/assets/css/client-portal.css" />\n</head>')
       .replace(
         '</body>',
-        '  <script src="https://cdn.jsdelivr.net/npm/signature_pad@5.0.4/dist/signature_pad.umd.min.js"></script>\n  <script src="/assets/js/client-contract-sign.js"></script>\n</body>',
+        '  <script src="https://cdn.jsdelivr.net/npm/signature_pad@5.0.4/dist/signature_pad.umd.min.js"></script>\n  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>\n  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>\n  <script src="/assets/js/client-contract-sign.js"></script>\n</body>',
       );
     writeRouteHtml(`/clients/${c.slug}`, html);
   }
@@ -1089,15 +1121,15 @@ ${ra}
 
   const adminHomeBody = `<section class="admin-hero"><div class="admin-wrap"><h1 class="h1">小巴老師｜親子寫真後台</h1><p class="lead">此區為攝影師內部使用，請輸入後台密碼。</p></div></section>
 <section class="container section admin-wrap">
-<article class="card"><h2 class="h2">後台入口</h2><ul class="prose">
+<article class="card"><h2 class="h2">客戶與攝影師後台管理系統</h2><ul class="prose">
 <li><a href="/admin/clients/">客戶案件管理</a></li>
 <li><a href="/admin/contracts/">合約產生系統</a></li>
 <li><a href="/admin/deliveries/">作品交件管理</a></li>
-<li><a href="/admin/settings/">系統設定</a></li>
 </ul></article>
-<article class="card"><h2 class="h2">新增客戶案件</h2><p>在 Cursor 貼上客戶對話，使用 Family Client MD Generator 產生 <code>content/clients/*.md</code>。</p></article>
-<article class="card"><h2 class="h2">服務知識庫用途</h2><p><code>docs/family-service-knowledge.md</code> 是判斷方案、價格、成品、付款與條款的單一規則來源。</p></article>
-<article class="card"><h2 class="h2">客戶 MD 範本</h2><p>請使用 <code>content/clients/_template.md</code> 或 <code>src/content/clients/_client-template.md</code> 建立新案件。</p></article>
+<article class="card"><h2 class="h2">從 LINE 對話產生客戶 MD</h2><p>在 Cursor 貼上客戶對話，使用 Family Client MD Generator 產生 <code>content/clients/*.md</code> 或 <code>src/content/clients/*.md</code>。</p></article>
+<article class="card"><h2 class="h2">服務知識庫</h2><p><code>docs/family-service-knowledge.md</code> 是判斷方案、價格、成品、付款與條款的規則來源。</p></article>
+<article class="card"><h2 class="h2">客戶頁分享流程</h2><p>客戶頁僅透過專屬連結分享，不公開、不收錄、不進 sitemap。</p></article>
+<article class="card"><h2 class="h2">系統設定</h2><p><a href="/admin/settings/">前往後台設定頁</a></p></article>
 </section>`;
   const adminHomeHtml = renderPage(cfg, {
     title: '小巴老師｜親子寫真後台',

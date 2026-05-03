@@ -46,6 +46,11 @@ npm run preview
 
 - **Build command**：`npm run build`
 - **Build output directory**：`/`（專案根目錄，含已產生之 `index.html`）
+- **Functions**：使用 `functions/api/send-contract.ts` 接收合約 PDF 並寄送 Email（Resend）。
+- **Environment Variables**：
+  - `RESEND_API_KEY`
+  - `CONTRACT_FROM_EMAIL`
+  - `CONTRACT_PHOTOGRAPHER_EMAIL`（可留空，預設 `crownchief@gmail.com`）
 
 若只上傳靜態檔、不跑建置，請在本地先 `npm run build` 再部署整個資料夾。
 

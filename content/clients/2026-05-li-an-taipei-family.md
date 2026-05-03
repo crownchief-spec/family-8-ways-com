@@ -40,10 +40,12 @@ elderIncluded: false
 petIncluded: false
 
 totalFee: 7800
-deposit: ""
+deposit: 1800
 balance: ""
 paymentStatus: "尚未付款"
-paymentNote: "客戶已詢問需付訂金，訂金金額與付款方式待攝影師提供。"
+paymentNote: "本案訂金 NT$1,800。"
+paymentEnablePaypal: false
+paymentEnableWise: false
 
 deliverables: "照片全給，包含處理後照片，不提供原始毛片。"
 photoDeliverables: ""
@@ -121,7 +123,7 @@ updatedAt: "2026-05-04"
 ## 待確認事項
 
 - 拍攝地點與集合點。
-- 訂金金額、付款方式、付款期限。
+- 訂金付款期限與入帳確認方式。
 - 客戶聯絡電話與 Email。
 - 長輩與舅舅最終是否入鏡。
 

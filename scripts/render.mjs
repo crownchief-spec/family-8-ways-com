@@ -94,7 +94,8 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
 </script>`;
 }
 
-export function renderFooter(cfg) {
+export function renderFooter(cfg, options = {}) {
+  const { showAdminLink = true } = options;
   const { site } = cfg;
   const y = new Date().getFullYear();
   const latest = loadFooterLatest();
@@ -164,12 +165,6 @@ export function renderFooter(cfg) {
       ${artsMini ? `<p class="muted" style="margin:var(--space-sm) 0 0;font-size:0.85rem;">最新文章</p><ul class="footer-links footer-links--single" style="margin-top:0.35rem;">${artsMini}</ul>` : ''}
     </section>`;
 
-  const colClients = `<section class="site-footer__col">
-      <p class="h3 site-footer__title">客戶交件提醒</p>
-      <p class="muted" style="font-size:0.95rem;line-height:1.7;">已預約客戶請依攝影師提供的專屬連結進入合約確認與作品交件頁。</p>
-      <p class="muted" style="margin-top:var(--space-sm);font-size:0.9rem;">若找不到專屬連結，請直接透過 Line 或電話聯繫小巴老師協助補發。</p>
-    </section>`;
-
   return `<footer class="site-footer">
   <div class="container">
     <div class="site-footer__grid site-footer__grid--hub">
@@ -177,7 +172,6 @@ export function renderFooter(cfg) {
       ${colServices}
       ${colWorks}
       ${colArticles}
-      ${colClients}
     </div>
   </div>
   <div class="container site-footer__bottom">
@@ -186,16 +180,14 @@ export function renderFooter(cfg) {
       ・
       <a href="/privacy/">隱私權說明</a>
       ・
+      ${showAdminLink ? '<a href="/admin/">客戶與攝影師後台管理系統</a> ・' : ''}
       © ${y} 小巴老師｜親子寫真．八威創意有限公司
-    </p>
-    <p class="muted" style="margin:var(--space-sm) 0 0;font-size:0.82rem;">
-      #親子寫真 #家庭攝影 #台灣親子旅拍 #海外親子旅拍 #小巴老師
     </p>
   </div>
 </footer>`;
 }
 
-export function renderPage(cfg, { title, description, canonical, body, ogImage, noIndex }) {
+export function renderPage(cfg, { title, description, canonical, body, ogImage, noIndex, hideAdminFooterLink }) {
   const { site } = cfg;
   const desc = description || site.description;
   const og = ogImage
@@ -203,9 +195,13 @@ export function renderPage(cfg, { title, description, canonical, body, ogImage, 
       ? ogImage
       : new URL(ogImage.replace(/^\//, ''), site.url + '/').href
     : new URL('/assets/images/og/default.svg', site.url).href;
-  const robots = noIndex ? '<meta name="robots" content="noindex,nofollow" />' : '';
+  const robots = noIndex
+    ? '<meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex" />'
+    : '';
+  const canonicalTag = noIndex ? '' : `<link rel="canonical" href="${escapeHtml(canonical)}" />`;
+  const ogUrl = noIndex ? `${site.url}/` : canonical;
   const nav = renderNavbar(cfg);
-  const foot = renderFooter(cfg);
+  const foot = renderFooter(cfg, { showAdminLink: !hideAdminFooterLink });
   return `<!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -213,12 +209,12 @@ export function renderPage(cfg, { title, description, canonical, body, ogImage, 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>${escapeHtml(title)}</title>
   <meta name="description" content="${escapeHtml(desc)}" />
-  <link rel="canonical" href="${escapeHtml(canonical)}" />
+  ${canonicalTag}
   ${robots}
   <meta property="og:type" content="website" />
   <meta property="og:title" content="${escapeHtml(title)}" />
   <meta property="og:description" content="${escapeHtml(desc)}" />
-  <meta property="og:url" content="${escapeHtml(canonical)}" />
+  <meta property="og:url" content="${escapeHtml(ogUrl)}" />
   <meta property="og:image" content="${escapeHtml(og)}" />
   <meta property="og:locale" content="zh_TW" />
   <meta name="twitter:card" content="summary_large_image" />
