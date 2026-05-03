@@ -1026,63 +1026,13 @@ ${ra}
     })
     .join('');
 
-  const mdTemplate = `---
-title: "客戶名稱｜親子寫真客戶專區"
-clientName: "客戶名稱"
-slug: "2026-01-01family"
-
-status: "active"
-publish: false
-portfolioPublish: false
-noindex: true
-
-shootingDate: "2025-08-19"
-shootingWeekday: "週二"
-shootingStartTime: "上午11:00"
-shootingEndTime: "下午1:00"
-packageName: "親子寫真 - 半日旅拍方案"
-location: "拍攝地點"
-pickup: "已包含接送"
-
-totalFee: 7800
-deposit: 800
-balance: 7000
-paymentStatus: "訂金待確認"
-paymentNote: "餘款請於拍攝當天現場以現金支付"
-
-deliverables: "照片全給，包含攝影師篩選與基本處理後照片，不提供原始毛片，保證交件至少 200 張以上。"
-
-contactName: ""
-phone: ""
-email: ""
-lineName: ""
-
-contractStatus: "尚未簽署"
-contractVersion: "family-contract-v2026-05"
-
-driveFolderUrl: ""
-selectedPhotoUrl: ""
-videoUrl: ""
-deliveryStatus: "尚未拍攝"
-deliveryNote: ""
-
-coverImage: ""
-gallery: []
-
-tags:
-  - 親子寫真
-  - 家庭攝影
-  - 桃園親子寫真
-
-createdAt: "2026-05-03"
-updatedAt: "2026-05-03"
----
-
-## 客戶備註
-
-## 拍攝故事
-
-## 合約補充條款`;
+  const mdTemplatePath = join(ROOT, 'src/content/clients/_client-template.md');
+  const legacyTemplatePath = join(ROOT, 'content/clients/_template.md');
+  const mdTemplate = existsSync(mdTemplatePath)
+    ? readFileSync(mdTemplatePath, 'utf8')
+    : existsSync(legacyTemplatePath)
+      ? readFileSync(legacyTemplatePath, 'utf8')
+      : '';
 
   const adminClientsBody = `<section class="admin-hero">
   <div class="admin-wrap">
@@ -1115,7 +1065,19 @@ updatedAt: "2026-05-03"
       <li>儲存後網站會自動產生客戶專區。</li>
       <li>將客戶專區連結傳給客人即可完成合約確認與後續交件。</li>
     </ol>
-    <p class="muted">客戶 Markdown 路徑：<code>content/clients/*.md</code></p>
+    <p class="muted">客戶 Markdown 路徑：<code>src/content/clients/*.md</code>（舊版相容：<code>content/clients/*.md</code>）</p>
+  </article>
+
+  <article class="card">
+    <h2 class="h2">從 LINE／訊息對話產生客戶 MD</h2>
+    <ol class="prose">
+      <li>複製客戶對話或自己整理的需求描述。</li>
+      <li>打開 Cursor。</li>
+      <li>貼上對話，並輸入：「請使用 Family Client Markdown Generator，根據這段對話建立一個新的 content/clients Markdown 客戶案件。」</li>
+      <li>Cursor 會自動讀取 docs/family-service-knowledge.md，判斷方案、價格、成品、包車、付款與待確認事項。</li>
+      <li>產生 MD 後，檢查客戶專區頁面是否正確。</li>
+      <li>將客戶專區連結傳給客人確認合約。</li>
+    </ol>
   </article>
 
   <article class="card">

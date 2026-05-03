@@ -1,0 +1,33 @@
+---
+description: 親子寫真客戶案件 MD 產生規則。當使用者貼上 LINE 對話、客戶詢問、報價討論、拍攝需求時，依照小巴老師親子寫真服務知識庫整理成客戶案件 Markdown。
+globs:
+  - "src/content/clients/**/*.md"
+  - "docs/family-service-knowledge.md"
+alwaysApply: false
+---
+
+# 親子寫真客戶案件 MD 產生規則
+
+當使用者貼上客戶對話或拍攝需求時，請先讀取：
+
+@docs/family-service-knowledge.md
+@src/content/clients/_client-template.md
+
+請判斷：
+1. 客戶是在問哪一種服務：台灣親子旅拍、海外親子旅拍、露營團拍、生日派對、孕婦、寶寶、三代同堂、親子民宿、家庭活動紀錄。
+2. 客戶提到的地點屬於哪個地區分類。
+3. 客戶需求屬於哪些主題分類，例如海灘、草地、雨天、夜拍、玩水、三代同堂、寶寶、滑雪。
+4. 根據服務知識庫推估適合方案與報價。
+5. 若資訊不足，不要亂補，放在「待確認事項」。
+6. 產生的 MD 必須可以被網站後台讀取。
+7. 不要把 LINE 對話逐字全文放到公開區域，只能整理摘要。
+8. 預設 privacy 為 private。
+9. 若客戶已付款、已簽約、已拍攝，才調整 status。
+10. 給客戶的回覆草稿要自然、有溫度、清楚說明下一步。
+
+檔名規則：
+YYYY-MM-clientname-region-shoottype.md
+
+例如：
+2026-05-chen-family-taipei.md
+2026-11-wang-family-okinawa.md

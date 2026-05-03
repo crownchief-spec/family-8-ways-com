@@ -78,7 +78,10 @@ function splitParagraphs(paragraphs = []) {
   return paragraphs
     .map((t) => String(t || '').replace(/\s+/g, ' ').trim())
     .filter(Boolean)
-    .filter((t) => !/^(Facebook|Twitter|Pinterest|Tumblr|複製連結)/i.test(t));
+    .filter((t) => !/^(Facebook|Twitter|Pinterest|Tumblr|複製連結)/i.test(t))
+    .filter((t) => !/商業攝影參考作品|婚禮婚紗|親子寫真旅拍爸媽推薦文方案|常見問題Q&A/.test(t))
+    .filter((t) => !/旅遊業宣傳攝影|活動會議攝影|餐飲業廣告/.test(t))
+    .filter((t) => (t.match(/-/g) || []).length < 8);
 }
 function renderContentSections(p) {
   const paras = splitParagraphs(p.paragraphs).slice(0, 18);
@@ -121,6 +124,8 @@ function conciseSummary(paragraphs = [], fallback = '') {
     // 濾掉很像舊站導覽串接文字的內容
     .filter((t) => !/方案.*方案.*方案/.test(t))
     .filter((t) => (t.match(/\//g) || []).length < 6)
+    .filter((t) => !/商業攝影參考作品|婚禮婚紗|親子寫真旅拍爸媽推薦文方案|常見問題Q&A/.test(t))
+    .filter((t) => !/旅遊業宣傳攝影|活動會議攝影|餐飲業廣告/.test(t))
     .filter((t) => t.length >= 22);
   const picked = cleaned.find((t) => t.length <= 90) || cleaned.find((t) => t.length <= 130) || fallback;
   if (!picked) return '';

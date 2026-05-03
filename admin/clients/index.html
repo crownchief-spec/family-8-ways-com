@@ -141,7 +141,19 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
       <li>儲存後網站會自動產生客戶專區。</li>
       <li>將客戶專區連結傳給客人即可完成合約確認與後續交件。</li>
     </ol>
-    <p class="muted">客戶 Markdown 路徑：<code>content/clients/*.md</code></p>
+    <p class="muted">客戶 Markdown 路徑：<code>src/content/clients/*.md</code>（舊版相容：<code>content/clients/*.md</code>）</p>
+  </article>
+
+  <article class="card">
+    <h2 class="h2">從 LINE／訊息對話產生客戶 MD</h2>
+    <ol class="prose">
+      <li>複製客戶對話或自己整理的需求描述。</li>
+      <li>打開 Cursor。</li>
+      <li>貼上對話，並輸入：「請使用 Family Client Markdown Generator，根據這段對話建立一個新的 content/clients Markdown 客戶案件。」</li>
+      <li>Cursor 會自動讀取 docs/family-service-knowledge.md，判斷方案、價格、成品、包車、付款與待確認事項。</li>
+      <li>產生 MD 後，檢查客戶專區頁面是否正確。</li>
+      <li>將客戶專區連結傳給客人確認合約。</li>
+    </ol>
   </article>
 
   <article class="card">
@@ -152,62 +164,69 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
       <span class="muted" id="copy-template-status"></span>
     </div>
     <textarea class="admin-template-box" id="client-md-template" rows="24" readonly>---
-title: &quot;客戶名稱｜親子寫真客戶專區&quot;
-clientName: &quot;客戶名稱&quot;
-slug: &quot;2026-01-01family&quot;
-
-status: &quot;active&quot;
-publish: false
-portfolioPublish: false
-noindex: true
-
-shootingDate: &quot;2025-08-19&quot;
-shootingWeekday: &quot;週二&quot;
-shootingStartTime: &quot;上午11:00&quot;
-shootingEndTime: &quot;下午1:00&quot;
-packageName: &quot;親子寫真 - 半日旅拍方案&quot;
-location: &quot;拍攝地點&quot;
-pickup: &quot;已包含接送&quot;
-
-totalFee: 7800
-deposit: 800
-balance: 7000
-paymentStatus: &quot;訂金待確認&quot;
-paymentNote: &quot;餘款請於拍攝當天現場以現金支付&quot;
-
-deliverables: &quot;照片全給，包含攝影師篩選與基本處理後照片，不提供原始毛片，保證交件至少 200 張以上。&quot;
-
-contactName: &quot;&quot;
-phone: &quot;&quot;
-email: &quot;&quot;
-lineName: &quot;&quot;
-
-contractStatus: &quot;尚未簽署&quot;
-contractVersion: &quot;family-contract-v2026-05&quot;
-
-driveFolderUrl: &quot;&quot;
-selectedPhotoUrl: &quot;&quot;
-videoUrl: &quot;&quot;
-deliveryStatus: &quot;尚未拍攝&quot;
-deliveryNote: &quot;&quot;
-
-coverImage: &quot;&quot;
-gallery: []
-
-tags:
-  - 親子寫真
-  - 家庭攝影
-  - 桃園親子寫真
-
-createdAt: &quot;2026-05-03&quot;
-updatedAt: &quot;2026-05-03&quot;
+title: &quot;&quot;
+slug: &quot;&quot;
+status: &quot;inquiry&quot;
+client_name: &quot;&quot;
+contact_source: &quot;LINE&quot;
+shoot_type: &quot;&quot;
+shoot_date: &quot;&quot;
+shoot_location: &quot;&quot;
+region: &quot;&quot;
+theme: []
+family_members: &quot;&quot;
+children_age: &quot;&quot;
+package_recommended: &quot;&quot;
+quoted_price: &quot;&quot;
+deliverables: []
+has_video: false
+transportation: &quot;&quot;
+payment_status: &quot;not_started&quot;
+contract_status: &quot;not_started&quot;
+privacy: &quot;private&quot;
+created_at: &quot;&quot;
+updated_at: &quot;&quot;
 ---
 
-## 客戶備註
+# 客戶案件摘要
 
-## 拍攝故事
+## 客戶需求
+- 
 
-## 合約補充條款</textarea>
+## 對話重點整理
+- 
+
+## 建議方案
+- 
+
+## 報價
+- 
+
+## 成品內容
+- 
+
+## 已確認事項
+- 
+
+## 待確認事項
+- 
+
+## 拍攝注意事項
+- 
+
+## 後續待辦
+- [ ] 確認日期
+- [ ] 確認地點
+- [ ] 確認人數
+- [ ] 確認方案
+- [ ] 提供合約
+- [ ] 收訂金
+- [ ] 建立拍攝備忘
+- [ ] 拍攝後補照片／影片連結
+
+## 給客戶的回覆草稿
+
+</textarea>
   </article>
 </section>
 </main>
