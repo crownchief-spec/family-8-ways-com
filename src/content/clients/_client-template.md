@@ -52,7 +52,7 @@ bankLast5: ""
 paymentAmount: ""
 paymentDate: ""
 paymentNote: ""
-paymentStatus: "尚未付款"
+paymentStatus: "訂金待確認"
 created_at: ""
 updated_at: ""
 ---

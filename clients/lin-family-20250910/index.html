@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>林先生家庭｜親子寫真合約與作品交件頁</title>
-  <meta name="description" content="這是小巴老師為本次拍攝建立的專屬頁面，請依攝影師提供的連結確認合約、付款與作品交件資訊。" />
+  <title>林先生家庭｜親子寫真預約與合約</title>
+  <meta name="description" content="這是小巴老師為本次拍攝建立的專屬頁面，請依攝影師提供的連結確認預約、訂金、合約與作品交件資訊。" />
   
   <meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="林先生家庭｜親子寫真合約與作品交件頁" />
-  <meta property="og:description" content="這是小巴老師為本次拍攝建立的專屬頁面，請依攝影師提供的連結確認合約、付款與作品交件資訊。" />
+  <meta property="og:title" content="林先生家庭｜親子寫真預約與合約" />
+  <meta property="og:description" content="這是小巴老師為本次拍攝建立的專屬頁面，請依攝影師提供的連結確認預約、訂金、合約與作品交件資訊。" />
   <meta property="og:url" content="https://family.8-ways.com/" />
   <meta property="og:image" content="https://family.8-ways.com/assets/images/og/default.svg" />
   <meta property="og:locale" content="zh_TW" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="林先生家庭｜親子寫真合約與作品交件頁" />
-  <meta name="twitter:description" content="這是小巴老師為本次拍攝建立的專屬頁面，請依攝影師提供的連結確認合約、付款與作品交件資訊。" />
+  <meta name="twitter:title" content="林先生家庭｜親子寫真預約與合約" />
+  <meta name="twitter:description" content="這是小巴老師為本次拍攝建立的專屬頁面，請依攝影師提供的連結確認預約、訂金、合約與作品交件資訊。" />
   <meta name="twitter:image" content="https://family.8-ways.com/assets/images/og/default.svg" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -25,31 +25,22 @@
   <link rel="stylesheet" href="/assets/css/client-portal.css" />
 </head>
 <body>
-<header class="site-header">
+<header class="site-header site-header--client-portal">
   <div class="site-header__inner container">
     <a class="site-header__brand" href="/">小巴老師｜親子寫真</a>
-    <button class="site-header__toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+    <button class="site-header__toggle" type="button" aria-expanded="false" aria-controls="site-nav-client" data-nav-toggle>
       <span class="sr-only">開啟選單</span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
     </button>
-    <nav class="site-nav" id="site-nav" data-nav-panel>
-      <ul class="site-nav__list"><li class="site-nav__item"><a href="/">首頁</a></li>
-<li class="site-nav__item site-nav__item--dropdown">
-  <div class="site-nav__split">
-    <a href="/services/" class="site-nav__parent">服務方案</a>
-    <button type="button" class="site-nav__dropdown-toggle" aria-expanded="false" aria-label="展開子選單" data-dropdown-toggle>▼</button>
-  </div>
-  <ul class="site-nav__sub"><li><a href="/services/taiwan-family-photography/">台灣親子旅拍</a></li><li><a href="/services/overseas-family-photography/">海外親子旅拍</a></li><li><a href="/services/camping-family-photography/">露營團拍／親子民宿</a></li><li><a href="/services/family-event-photography/">生日派對／家庭活動紀錄</a></li><li><a href="/services/maternity-baby-family-photography/">孕婦／寶寶／三代同堂</a></li></ul>
-</li>
-<li class="site-nav__item"><a href="/works/">作品案例</a></li>
-<li class="site-nav__item"><a href="/articles/">拍攝文章</a></li>
-<li class="site-nav__item"><a href="/faq/">常見問題</a></li>
-<li class="site-nav__item"><a href="/about/">關於小巴老師</a></li>
-<li class="site-nav__item"><a href="/contact/">聯絡預約</a></li></ul>
+    <nav class="site-nav site-nav--client-portal" id="site-nav-client" data-nav-panel aria-label="客戶頁導覽">
+      <ul class="site-nav__list">
+        <li class="site-nav__item"><a href="/">首頁</a></li>
+        <li class="site-nav__item"><a href="/services/">服務方案</a></li>
+        <li class="site-nav__item"><a href="/contact/">聯絡預約</a></li>
+      </ul>
       <div class="site-nav__cta">
-        <a class="btn btn--ghost btn--compact" href="https://line.me/ti/p/0911252302" target="_blank" rel="noopener noreferrer">加 Line 詢問</a>
-        <a class="btn btn--primary btn--compact" href="/contact/">預約拍攝</a>
+        <a class="btn btn--ghost btn--compact" href="https://line.me/ti/p/0911252302" target="_blank" rel="noopener noreferrer">加 Line</a>
       </div>
     </nav>
   </div>
@@ -60,15 +51,11 @@
 </div>
 <script>
 (function(){
-function normPath(p){p=p||"/";if(p.endsWith("/index.html"))p=p.slice(0,-10)||"/";return p.replace(//+$/,"")||"/";}
-var t=document.querySelector("[data-nav-toggle]"),p=document.querySelector("[data-nav-panel]");
+function normPath(p){p=p||"/";if(p.endsWith("/index.html"))p=p.slice(0,-10)||"/";return p.replace(new RegExp("/+$"),"")||"/";}
+var t=document.querySelector(".site-header--client-portal [data-nav-toggle]"),p=document.querySelector(".site-header--client-portal [data-nav-panel]");
 if(t&&p){t.addEventListener("click",function(){var o=!p.classList.contains("is-open");p.classList.toggle("is-open",o);t.setAttribute("aria-expanded",String(o))});p.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){p.classList.remove("is-open");t.setAttribute("aria-expanded","false")})})}
-document.querySelectorAll("[data-dropdown-toggle]").forEach(function(btn){
-var li=btn.closest(".site-nav__item--dropdown");if(!li)return;
-btn.addEventListener("click",function(){var o=li.classList.toggle("is-sub-open");btn.setAttribute("aria-expanded",String(o));});
-});
 var path=normPath(location.pathname);
-document.querySelectorAll(".site-nav__list a").forEach(function(link){
+document.querySelectorAll(".site-header--client-portal .site-nav__list a").forEach(function(link){
 var h=link.getAttribute("href")||"";
 var lp=normPath(link.pathname||"");
 if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria-current","page");
@@ -78,19 +65,20 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
 <main id="main">
 <section class="family-contract-hero">
   <div class="container family-contract-wrap">
-    <h1 class="h1">林先生家庭｜親子寫真客戶專區</h1>
-    <p class="lead">這裡會整理您的拍攝預約資訊、合約確認、付款方式與作品交件連結。請依照攝影師提供的資訊完成確認與簽名。</p>
+    <h1 class="h1">林先生家庭｜親子寫真預約與合約</h1>
+    <p class="lead">請依序確認預約資訊、訂金匯款方式、填寫家庭資料與付款狀態，並完成電子簽名。送出後會產生 PDF 合約作為本次預約確認紀錄。</p>
     <div class="portal-status">
       <span class="status-pill" id="contract-status-tag">合約狀態：已簽署</span>
-      <span class="status-pill">付款狀態：訂金已收</span>
-      <span class="status-pill">作品交件狀態：修圖中</span>
+      <span class="status-pill" id="payment-status-pill">付款狀態：訂金已收</span>
+      <span class="status-pill" id="delivery-status-pill">作品交件狀態：修圖中</span>
     </div>
   </div>
 </section>
-<section class="container section family-contract-wrap portal-grid" data-client-portal data-client-slug="lin-family-20250910" data-client-name="林先生家庭" data-shooting-date="2025-09-10" data-start-time="上午10:00" data-end-time="下午2:00" data-package-name="親子寫真 - 包車旅拍方案" data-location="北海岸沿線" data-pickup="已包含接送" data-total-fee="12800" data-deposit="2800" data-balance="10000" data-contract-version="family-contract-v2026-05">
+<section class="container section family-contract-wrap portal-grid" data-client-portal data-line-url="https://line.me/ti/p/0911252302" data-photographer-email="crownchief@gmail.com" data-client-slug="lin-family-20250910" data-client-name="林先生家庭" data-shooting-date="2025-09-10" data-start-time="上午10:00" data-end-time="下午2:00" data-package-name="親子寫真 - 包車旅拍方案" data-location="北海岸沿線" data-pickup="已包含接送" data-total-fee="12800" data-deposit="2800" data-balance="10000" data-contract-version="family-contract-v2026-05">
   <article class="card">
     <h2 class="h2">預約資訊</h2>
     <div class="portal-grid-2">
+      <p><strong>客戶名稱：</strong>林先生家庭</p>
       <p><strong>拍攝日期：</strong>2025-09-10（週三）</p>
       <p><strong>拍攝時間：</strong>上午10:00 - 下午2:00</p>
       <p><strong>拍攝方案：</strong>親子寫真 - 包車旅拍方案</p>
@@ -105,8 +93,52 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
   </article>
 
   <article class="card portal-form">
-    <h2 class="h2">客戶補充資料</h2>
     <form id="client-contract-form" novalidate>
+      <h2 class="h2">訂金匯款與付款狀態</h2>
+      <p class="muted" style="margin-top:0;">請先依下方方式完成訂金匯款，或填寫您目前的付款狀態。完成訂金付款後，攝影師才會正式保留本次拍攝檔期。若您尚未匯款，也可以先送出合約，系統會在 PDF 中記錄目前付款狀態。</p>
+      <div class="portal-grid-2">
+        <p><strong>總費用：</strong>NT$12,800</p>
+        <p><strong>訂金：</strong>NT$2,800</p>
+        <p><strong>餘款：</strong>NT$10,000</p>
+      </div>
+      <p><strong>攝影師備註（付款相關）：</strong>餘款請於拍攝當天現場以現金支付</p>
+      <div class="portal-note" style="margin-top:var(--space-md);">
+        <p><strong>Line Pay：</strong>可使用 Line Pay 支付訂金，請與攝影師確認付款方式。</p>
+        <p><strong>銀行轉帳：</strong><br/>台新銀行（812）板橋分行<br/>分行代碼：0089<br/>帳號：20081000109398<br/>戶名：陳在紳</p>
+        <p><strong>PayPal：</strong>海外用戶可使用 PayPal 支付訂金。<a href="https://paypal.me/bmpss96147/1800" target="_blank" rel="noopener noreferrer">付款連結一</a>、<a href="https://paypal.me/bmpss96147/2800" target="_blank" rel="noopener noreferrer">付款連結二</a></p>
+        <p><strong>微信支付：</strong>請加 WeChat 帳號：travelphotographer</p>
+        <p><strong>WISE：</strong>海外用戶可支付約 USD 25（約 NT$800）作為訂金，實際匯率與手續費依平台顯示為準。</p>
+      </div>
+
+      <h3 class="h3" style="margin-top:var(--space-lg);">填寫目前付款狀態</h3>
+      <fieldset class="portal-fieldset">
+        <legend class="sr-only">客戶目前付款狀態</legend>
+        <label class="check-row"><input type="radio" name="paymentStatus" value="已匯款訂金" required /> 已匯款訂金</label>
+        <label class="check-row"><input type="radio" name="paymentStatus" value="尚未匯款，稍後會完成訂金" /> 尚未匯款，稍後會完成訂金</label>
+        <label class="check-row"><input type="radio" name="paymentStatus" value="想先確認合約內容，再完成訂金" /> 想先確認合約內容，再完成訂金</label>
+        <label class="check-row"><input type="radio" name="paymentStatus" value="使用其他付款方式，已與攝影師確認" /> 使用其他付款方式，已與攝影師確認</label>
+      </fieldset>
+      <p class="muted" id="bank-last5-hint" hidden>若您選擇「已匯款訂金」，建議務必填寫匯款帳號末五碼，方便攝影師對帳（第一階段不會阻擋送出）。</p>
+      <div class="portal-grid-2">
+        <label class="field"><span>付款方式</span>
+          <select name="paymentMethod">
+            <option value="">請選擇</option>
+            <option value="銀行轉帳">銀行轉帳</option>
+            <option value="Line Pay">Line Pay</option>
+            <option value="PayPal">PayPal</option>
+            <option value="微信支付">微信支付</option>
+            <option value="WISE">WISE</option>
+            <option value="其他">其他</option>
+          </select>
+        </label>
+        <label class="field"><span>匯款帳號末五碼</span><input type="text" name="bankLast5" maxlength="10" autocomplete="off" /></label>
+        <label class="field"><span>付款金額（NT$）</span><input type="number" name="paymentAmount" min="0" step="1" value="2800" /></label>
+        <label class="field"><span>付款日期</span><input type="date" name="paymentDate" id="client-payment-date" /></label>
+      </div>
+      <label class="field"><span>付款備註</span><textarea name="paymentNote" rows="3" placeholder="例如：家人代匯、Line Pay 已付款、稍後晚上匯款"></textarea></label>
+      <p class="muted">若已匯款，請填寫付款方式與末五碼，方便攝影師對帳。若尚未匯款，也可以先送出合約，請後續完成訂金並將末五碼傳給攝影師。</p>
+
+      <h2 class="h2" style="margin-top:var(--space-xl);">客戶補充資料</h2>
       <div class="portal-grid-2">
         <label class="field"><span>攝影師如何稱呼爸爸</span><input name="fatherName" type="text" placeholder="例如：爸爸、John、阿宏" /></label>
         <label class="field"><span>攝影師如何稱呼媽媽</span><input name="motherName" type="text" placeholder="例如：媽媽、Amy、小君" /></label>
@@ -122,11 +154,12 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
       <label class="field"><span>特別想拍的畫面</span><textarea name="desiredShots" rows="4"></textarea></label>
       <label class="field"><span>需要攝影師注意的地方</span><textarea name="specialNotes" rows="4"></textarea></label>
 
-      <h3 class="h3">合約確認與簽名</h3>
-      <p class="muted">主要合約條件由攝影師建立，客戶可補充家庭資料並完成簽名確認。</p>
+      <h2 class="h2" style="margin-top:var(--space-xl);">合約確認與簽名</h2>
+      <p class="muted">請確認上方預約資訊、訂金付款狀態與家庭補充資料。確認無誤後，請勾選合約確認項目並完成電子簽名。本頁送出後會產生 PDF 合約，作為本次親子寫真預約確認紀錄。</p>
       <label class="check-row"><input type="checkbox" name="usageConsentYes" value="yes" required /> 我同意攝影師可將本次拍攝作品作為作品集、網站、社群平台、行銷宣傳與攝影服務介紹使用。</label>
       <label class="check-row"><input type="checkbox" name="usageConsentNo" value="no" required /> 我不同意公開使用本次拍攝作品，僅供客戶私人保存。</label>
       <label class="check-row"><input type="checkbox" name="confirmBookingInfo" required /> 我已確認以上拍攝日期、時間、地點、方案與費用。</label>
+      <label class="check-row"><input type="checkbox" name="confirmPaymentInfo" required /> 我已確認上方訂金匯款資訊，並已填寫目前付款狀態。</label>
       <label class="check-row"><input type="checkbox" name="confirmTerms" required /> 我已閱讀並同意本頁所載之服務內容與合約條款。</label>
       <label class="check-row"><input type="checkbox" name="confirmDeposit" required /> 我了解完成訂金付款後，攝影師才會正式保留拍攝檔期。</label>
       <label class="check-row"><input type="checkbox" name="confirmSignature" required /> 我確認以上填寫資料正確，並同意以電子簽名方式完成本次預約確認。</label>
@@ -142,60 +175,34 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
         <button class="btn btn--primary" type="button" id="client-confirm-signature">確認簽名</button>
       </div>
       <p class="muted" id="client-sign-state">尚未確認簽名</p>
-      <p class="error-text" id="client-signature-error" hidden>請先簽名後再送出。</p>
+      <p class="error-text" id="client-signature-error" hidden>請先完成電子簽名後再送出合約。</p>
       <input type="hidden" id="client-signature-image-base64" />
       <input type="hidden" id="client-signed-at" />
-      <h3 class="h3">付款回報</h3>
-      <div class="portal-grid-2">
-        <label class="field"><span>付款方式</span>
-          <select name="paymentMethod">
-            <option value="">請選擇</option>
-            <option value="銀行轉帳">銀行轉帳</option>
-            <option value="Line Pay">Line Pay</option>
-            <option value="PayPal">PayPal</option>
-            <option value="微信支付">微信支付</option>
-            <option value="WISE">WISE</option>
-            <option value="其他">其他</option>
-          </select>
-        </label>
-        <label class="field"><span>匯款帳號末五碼</span><input type="text" name="bankLast5" /></label>
-        <label class="field"><span>付款金額</span><input type="number" name="paymentAmount" min="0" step="1" /></label>
-        <label class="field"><span>付款日期</span><input type="date" name="paymentDate" /></label>
-      </div>
-      <label class="field"><span>付款備註</span><textarea name="paymentNoteSubmit" rows="3"></textarea></label>
+
+      <h2 class="h2" style="margin-top:var(--space-xl);">送出合約並產生 PDF</h2>
+      <p class="muted no-print">送出後會產生合約 PDF；若已設定 Email API，系統會將 PDF 寄到您填寫的 Email 與攝影師信箱。</p>
       <div class="hero__actions no-print">
-        <button class="btn btn--primary" type="submit" id="client-submit-contract">送出合約簽署</button>
-        <button class="btn btn--secondary" type="button" id="client-print-contract">列印 / 儲存 PDF</button>
+        <button class="btn btn--primary" type="submit" id="client-submit-contract">送出合約並產生 PDF</button>
       </div>
       <p class="muted no-print" id="client-submit-status"></p>
       <div class="hero__actions no-print" id="client-download-wrap" hidden>
         <button class="btn btn--secondary" type="button" id="client-download-pdf">下載合約 PDF</button>
       </div>
+      <div class="card card--flat no-print" id="contract-email-fallback" hidden style="margin-top:var(--space-md);padding:var(--space-md);">
+        <p class="muted" style="margin-top:0;">合約 PDF 已產生，但目前系統尚未完成自動寄信設定。請先下載 PDF，並透過 Line 傳給小巴老師，或等待攝影師協助確認。</p>
+        <div class="hero__actions" style="flex-wrap:wrap;">
+          <button class="btn btn--secondary" type="button" id="client-copy-photographer-email">複製攝影師 Email</button>
+          <a class="btn btn--primary" id="client-fallback-line" href="https://line.me/ti/p/0911252302" target="_blank" rel="noopener noreferrer">開啟 Line 聯絡</a>
+        </div>
+      </div>
       <p class="error-text" id="client-form-error" hidden></p>
       <div class="client-contract-signed" id="signed-status-panel" hidden>
-        <p><strong>合約已簽署</strong></p>
+        <p><strong>合約處理完成</strong></p>
         <p>簽署時間：<span id="signed-at-text"></span></p>
         <img id="signed-image" alt="簽名影像" />
       </div>
     </form>
     <div id="contract-pdf-content" style="position:fixed;left:-10000px;top:0;width:820px;background:#fff;color:#111;padding:24px;z-index:-1;"></div>
-  </article>
-
-  <article class="card">
-    <h2 class="h2">付款方式</h2>
-    <p><strong>總費用：</strong>NT$12,800</p>
-    <p><strong>訂金：</strong>NT$2,800</p>
-    <p><strong>餘款：</strong>NT$10,000</p>
-    <p><strong>付款狀態：</strong>訂金已收</p>
-    <p><strong>付款備註：</strong>餘款請於拍攝當天現場以現金支付</p>
-    <div class="portal-note">
-      <p><strong>Line Pay：</strong>可使用 Line Pay 支付訂金，請與攝影師確認付款方式。</p>
-      <p><strong>銀行轉帳：</strong>台新銀行（812）板橋分行，分行代碼 0089，帳號 20081000109398，戶名：陳在紳</p>
-      <p><strong>PayPal：</strong>海外用戶可使用 PayPal 支付訂金。<a href="https://paypal.me/bmpss96147/1800" target="_blank" rel="noopener noreferrer">付款連結一</a>、<a href="https://paypal.me/bmpss96147/2800" target="_blank" rel="noopener noreferrer">付款連結二</a></p>
-      <p><strong>微信支付：</strong>請加 WeChat 帳號：travelphotographer</p>
-      <p><strong>WISE：</strong>海外用戶可支付約 USD 25（約 NT$800）作為訂金，實際匯率與手續費依平台顯示為準。</p>
-    </div>
-    <p class="muted">可在上方「付款回報」區填寫匯款末五碼與付款資訊，方便攝影師對帳確認。</p>
   </article>
 
   <article class="card">
@@ -214,7 +221,7 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
   <article class="card">
     <h2 class="h2">作品交件</h2>
     <p><strong>作品交件狀態：</strong>修圖中</p>
-    <p>拍攝完成後，照片整理與基本處理需要一些時間。完成後，攝影師會將雲端下載連結放在此頁，您可以回到同一個客戶專區查看與下載。</p>
+    <p>拍攝完成後，照片整理與基本處理需要一些時間。完成後，攝影師會將雲端下載連結放在此頁，您可以隨時回到同一個專屬連結查看與下載。</p>
     <div class="delivery-actions">
       
       
@@ -235,73 +242,34 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
   </article>
 </section>
 </main>
-<footer class="site-footer">
+<footer class="site-footer site-footer--client-portal">
   <div class="container">
-    <div class="site-footer__grid site-footer__grid--hub">
+    <div class="site-footer__grid site-footer__grid--client-portal">
       <section class="site-footer__col site-footer__col--brand">
-      <p class="h3 site-footer__title">小巴老師｜親子寫真</p>
-      <p class="muted" style="margin:0 0 var(--space-md);max-width:42ch;font-size:0.95rem;">親子寫真、家庭攝影、台灣包車旅拍、海外親子旅拍、露營團拍與家庭活動紀錄。自然互動、不死板，讓孩子在旅行與遊戲中留下真實表情。</p>
-      <p class="muted" style="margin:0;font-size:0.92rem;line-height:1.65;">
-        Line／電話：0911-252-302<br/>
-        WhatsApp：+886 911252302<br/>
-        E-mail：<a href="mailto:crownchief@gmail.com">crownchief@gmail.com</a>
-      </p>
-      <div class="site-footer__cta" style="margin-top:var(--space-md);display:flex;flex-wrap:wrap;gap:0.5rem;">
-        <a class="btn btn--primary btn--compact" href="https://line.me/ti/p/0911252302" target="_blank" rel="noopener noreferrer">加 Line 詢問</a>
-        <a class="btn btn--secondary btn--compact" href="/contact/">預約拍攝</a>
-      </div>
-    </section>
+        <p class="h3 site-footer__title">小巴老師｜親子寫真</p>
+        <p class="muted" style="margin:0 0 var(--space-md);max-width:42ch;font-size:0.95rem;line-height:1.65;">
+          Line／電話：0911-252-302<br/>
+          WhatsApp：+886 911252302<br/>
+          E-mail：<a href="mailto:crownchief@gmail.com">crownchief@gmail.com</a>
+        </p>
+        <div class="site-footer__cta" style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+          <a class="btn btn--primary btn--compact" href="https://line.me/ti/p/0911252302" target="_blank" rel="noopener noreferrer">開啟 Line</a>
+          <a class="btn btn--secondary btn--compact" href="tel:+886911252302">撥打電話</a>
+        </div>
+      </section>
       <section class="site-footer__col">
-      <p class="h3 site-footer__title">親子寫真服務</p>
-      <ul class="footer-links footer-links--single">
-        <li><a href="/services/taiwan-family-photography/">台灣親子旅拍</a></li>
-        <li><a href="/services/overseas-family-photography/">海外親子旅拍</a></li>
-        <li><a href="/services/camping-family-photography/">露營團拍／親子民宿</a></li>
-        <li><a href="/services/family-event-photography/">生日派對／家庭活動紀錄</a></li>
-        <li><a href="/services/maternity-baby-family-photography/">孕婦／寶寶／三代同堂</a></li>
-        <li><a href="/faq/">常見問題</a></li>
-        <li><a href="/about/">關於小巴老師</a></li>
-      </ul>
-    </section>
-      <section class="site-footer__col">
-      <p class="h3 site-footer__title">親子寫真作品</p>
-      <ul class="footer-links footer-links--single">
-        <li><a href="/works/">全部作品</a></li>
-        <li><a href="/works/?category=taiwan">台灣親子旅拍作品</a></li>
-        <li><a href="/works/?category=overseas">海外親子旅拍作品</a></li>
-        <li><a href="/works/?category=camping">露營團拍作品</a></li>
-        <li><a href="/works/?category=homestay">親子民宿作品</a></li>
-        <li><a href="/works/?category=party">生日派對作品</a></li>
-        <li><a href="/works/?category=baby">孕婦與寶寶作品</a></li>
-        <li><a href="/works/?category=three-generation">三代同堂作品</a></li>
-      </ul>
-      <p class="muted" style="margin:var(--space-sm) 0 0;font-size:0.85rem;">最新作品</p><ul class="footer-links footer-links--single" style="margin-top:0.35rem;"><li><a href="/works/homestay-villa-natural-light/">親子民宿旅拍｜室內 Villa 與戶外自然光</a></li><li><a href="/works/camping-tent-family-photo/">露營團拍｜草地帳篷親子家庭寫真</a></li><li><a href="/works/yilan-nature-family-photo/">宜蘭親子旅拍｜自然風家庭攝影</a></li></ul>
-    </section>
-      <section class="site-footer__col">
-      <p class="h3 site-footer__title">親子寫真文章</p>
-      <ul class="footer-links footer-links--single">
-        <li><a href="/articles/">全部文章</a></li>
-        <li><a href="/articles/?category=preparation">親子寫真準備</a></li>
-        <li><a href="/articles/?category=taiwan">台灣親子旅拍</a></li>
-        <li><a href="/articles/?category=overseas">海外親子旅拍</a></li>
-        <li><a href="/articles/?category=camping">露營團拍</a></li>
-        <li><a href="/articles/?category=outfit">家庭照穿搭</a></li>
-        <li><a href="/articles/?category=location">親子攝影地點</a></li>
-        <li><a href="/articles/?category=pricing">家庭攝影費用</a></li>
-      </ul>
-      <p class="muted" style="margin:var(--space-sm) 0 0;font-size:0.85rem;">最新文章</p><ul class="footer-links footer-links--single" style="margin-top:0.35rem;"><li><a href="/articles/taiwan-family-travel-photography-guide/">台灣親子旅拍怎麼安排？包車、景點、拍攝時間一次整理</a></li><li><a href="/articles/taipei-family-photo-location/">台北親子寫真地點推薦｜草地、公園、河岸與城市景點</a></li><li><a href="/articles/family-photo-outfit-guide/">親子寫真穿搭怎麼選？家庭照衣服顏色與搭配建議</a></li></ul>
-    </section>
+        <p class="h3 site-footer__title">服務介紹</p>
+        <ul class="footer-links footer-links--single">
+          <li><a href="/services/">服務總覽</a></li>
+          <li><a href="/services/taiwan-family-photography/">台灣親子旅拍</a></li>
+          <li><a href="/services/overseas-family-photography/">海外親子旅拍</a></li>
+          <li><a href="/faq/">常見問題</a></li>
+        </ul>
+      </section>
     </div>
   </div>
   <div class="container site-footer__bottom">
-    <p class="muted" style="margin:0;font-size:0.82rem;">
-      <a href="/sitemap/">網站地圖</a>
-      ・
-      <a href="/privacy/">隱私權說明</a>
-      ・
-      
-      © 2026 小巴老師｜親子寫真．八威創意有限公司
-    </p>
+    <p class="muted" style="margin:0;font-size:0.82rem;">© 2026 小巴老師｜親子寫真．八威創意有限公司</p>
   </div>
 </footer>
   <script src="https://cdn.jsdelivr.net/npm/signature_pad@5.0.4/dist/signature_pad.umd.min.js"></script>

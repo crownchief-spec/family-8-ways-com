@@ -50,7 +50,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
   const apiKey = context.env.RESEND_API_KEY;
   if (!apiKey) {
-    return json({ ok: false, message: '目前尚未設定 Email API，請先下載 PDF 並傳給攝影師。' }, 503);
+    return json({ ok: false, message: '尚未設定 Email API，請下載 PDF 後手動傳送。' }, 503);
   }
 
   const fromEmail = context.env.CONTRACT_FROM_EMAIL || 'Family Contract <onboarding@resend.dev>';
@@ -58,6 +58,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   const text = [
     '您好，附件為本次親子寫真的預約確認書 PDF。',
     '請確認內容並完成訂金付款，匯款後請將末五碼傳給小巴老師確認。',
+    '若您已付款，攝影師確認款項後會正式保留拍攝檔期。',
     '如內容有需要調整，請直接透過 Line 聯繫小巴老師。',
   ].join('\n');
 

@@ -94,6 +94,84 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
 </script>`;
 }
 
+/** 客戶專屬頁：不顯示全站導覽與客戶／後台系統入口，僅保留品牌與基本聯絡。 */
+export function renderClientPortalNavbar(cfg) {
+  const { site } = cfg;
+  return `<header class="site-header site-header--client-portal">
+  <div class="site-header__inner container">
+    <a class="site-header__brand" href="/">${escapeHtml(site.shortName)}</a>
+    <button class="site-header__toggle" type="button" aria-expanded="false" aria-controls="site-nav-client" data-nav-toggle>
+      <span class="sr-only">開啟選單</span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+    <nav class="site-nav site-nav--client-portal" id="site-nav-client" data-nav-panel aria-label="客戶頁導覽">
+      <ul class="site-nav__list">
+        <li class="site-nav__item"><a href="/">首頁</a></li>
+        <li class="site-nav__item"><a href="/services/">服務方案</a></li>
+        <li class="site-nav__item"><a href="/contact/">聯絡預約</a></li>
+      </ul>
+      <div class="site-nav__cta">
+        <a class="btn btn--ghost btn--compact" href="${escapeHtml(site.lineUrl)}" target="_blank" rel="noopener noreferrer">加 Line</a>
+      </div>
+    </nav>
+  </div>
+</header>
+<div class="sticky-mobile-cta" aria-hidden="false">
+  <a class="sticky-mobile-cta__btn sticky-mobile-cta__btn--line" href="${escapeHtml(site.lineUrl)}" target="_blank" rel="noopener noreferrer">Line 詢問</a>
+  <a class="sticky-mobile-cta__btn sticky-mobile-cta__btn--tel" href="${escapeHtml(site.phoneTel)}">撥打電話</a>
+</div>
+<script>
+(function(){
+function normPath(p){p=p||"/";if(p.endsWith("/index.html"))p=p.slice(0,-10)||"/";return p.replace(new RegExp("/+$"),"")||"/";}
+var t=document.querySelector(".site-header--client-portal [data-nav-toggle]"),p=document.querySelector(".site-header--client-portal [data-nav-panel]");
+if(t&&p){t.addEventListener("click",function(){var o=!p.classList.contains("is-open");p.classList.toggle("is-open",o);t.setAttribute("aria-expanded",String(o))});p.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){p.classList.remove("is-open");t.setAttribute("aria-expanded","false")})})}
+var path=normPath(location.pathname);
+document.querySelectorAll(".site-header--client-portal .site-nav__list a").forEach(function(link){
+var h=link.getAttribute("href")||"";
+var lp=normPath(link.pathname||"");
+if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria-current","page");
+});
+})();
+</script>`;
+}
+
+/** 客戶專屬頁 footer：僅聯絡資訊與簡短服務連結，不含客戶列表、合約入口、後台連結。 */
+export function renderClientPortalFooter(cfg) {
+  const { site } = cfg;
+  const y = new Date().getFullYear();
+  return `<footer class="site-footer site-footer--client-portal">
+  <div class="container">
+    <div class="site-footer__grid site-footer__grid--client-portal">
+      <section class="site-footer__col site-footer__col--brand">
+        <p class="h3 site-footer__title">小巴老師｜親子寫真</p>
+        <p class="muted" style="margin:0 0 var(--space-md);max-width:42ch;font-size:0.95rem;line-height:1.65;">
+          Line／電話：${escapeHtml(site.phoneDisplay || '0911-252-302')}<br/>
+          WhatsApp：+886 911252302<br/>
+          E-mail：<a href="mailto:${escapeHtml(site.email)}">${escapeHtml(site.email)}</a>
+        </p>
+        <div class="site-footer__cta" style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+          <a class="btn btn--primary btn--compact" href="${escapeHtml(site.lineUrl)}" target="_blank" rel="noopener noreferrer">開啟 Line</a>
+          <a class="btn btn--secondary btn--compact" href="${escapeHtml(site.phoneTel)}">撥打電話</a>
+        </div>
+      </section>
+      <section class="site-footer__col">
+        <p class="h3 site-footer__title">服務介紹</p>
+        <ul class="footer-links footer-links--single">
+          <li><a href="/services/">服務總覽</a></li>
+          <li><a href="/services/taiwan-family-photography/">台灣親子旅拍</a></li>
+          <li><a href="/services/overseas-family-photography/">海外親子旅拍</a></li>
+          <li><a href="/faq/">常見問題</a></li>
+        </ul>
+      </section>
+    </div>
+  </div>
+  <div class="container site-footer__bottom">
+    <p class="muted" style="margin:0;font-size:0.82rem;">© ${y} 小巴老師｜親子寫真．八威創意有限公司</p>
+  </div>
+</footer>`;
+}
+
 export function renderFooter(cfg, options = {}) {
   const { showAdminLink = true } = options;
   const { site } = cfg;
@@ -187,7 +265,7 @@ export function renderFooter(cfg, options = {}) {
 </footer>`;
 }
 
-export function renderPage(cfg, { title, description, canonical, body, ogImage, noIndex, hideAdminFooterLink }) {
+export function renderPage(cfg, { title, description, canonical, body, ogImage, noIndex, hideAdminFooterLink, clientPortal }) {
   const { site } = cfg;
   const desc = description || site.description;
   const og = ogImage
@@ -200,8 +278,8 @@ export function renderPage(cfg, { title, description, canonical, body, ogImage, 
     : '';
   const canonicalTag = noIndex ? '' : `<link rel="canonical" href="${escapeHtml(canonical)}" />`;
   const ogUrl = noIndex ? `${site.url}/` : canonical;
-  const nav = renderNavbar(cfg);
-  const foot = renderFooter(cfg, { showAdminLink: !hideAdminFooterLink });
+  const nav = clientPortal ? renderClientPortalNavbar(cfg) : renderNavbar(cfg);
+  const foot = clientPortal ? renderClientPortalFooter(cfg) : renderFooter(cfg, { showAdminLink: !hideAdminFooterLink });
   return `<!DOCTYPE html>
 <html lang="zh-Hant">
 <head>

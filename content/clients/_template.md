@@ -43,7 +43,7 @@ petIncluded: false
 totalFee: ""
 deposit: ""
 balance: ""
-paymentStatus: "尚未付款"
+paymentStatus: "訂金待確認"
 paymentNote: ""
 
 deliverables: ""
