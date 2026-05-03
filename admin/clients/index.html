@@ -136,8 +136,8 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
     <h2 class="h2">如何新增客戶案件</h2>
     <ol class="prose">
       <li>複製一份既有的客戶 MD 範本。</li>
-      <li>將檔名改成「客戶代稱-拍攝日期.md」。</li>
-      <li>修改 frontmatter 中的拍攝日期、方案、費用、地點、付款狀態與合約狀態。</li>
+      <li>將檔名改成「客戶代稱-拍攝日期.md」，slug 預設使用「yyyy-mm-dd + 主題」，例如：2026-01-01family。</li>
+      <li>修改 frontmatter 中的拍攝日期、方案、費用、地點、付款狀態與合約狀態；若同日期 slug 已存在，請依內容更換後綴主題名稱。</li>
       <li>儲存後網站會自動產生客戶專區。</li>
       <li>將客戶專區連結傳給客人即可完成合約確認與後續交件。</li>
     </ol>
@@ -154,7 +154,7 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
     <textarea class="admin-template-box" id="client-md-template" rows="24" readonly>---
 title: &quot;客戶名稱｜親子寫真客戶專區&quot;
 clientName: &quot;客戶名稱&quot;
-slug: &quot;client-name-yyyymmdd&quot;
+slug: &quot;2026-01-01family&quot;
 
 status: &quot;active&quot;
 publish: false

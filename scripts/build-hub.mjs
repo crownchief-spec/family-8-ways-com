@@ -288,6 +288,73 @@ function normalizeClientEntry(entry) {
   };
 }
 
+function normalizeDateForSlug(value) {
+  const raw = String(value || '').trim();
+  if (!raw) return '';
+  const m = raw.match(/^(\d{4})[-/](\d{1,2})[-/](\d{1,2})$/);
+  if (!m) return raw.replace(/\s+/g, '').replace(/\//g, '-');
+  return `${m[1]}-${m[2].padStart(2, '0')}-${m[3].padStart(2, '0')}`;
+}
+
+function themeCandidates(client) {
+  const text = [
+    client.packageName,
+    client.title,
+    client.location,
+    ...(client.tags || []),
+  ]
+    .filter(Boolean)
+    .join(' ');
+  const candidates = [];
+  const push = (t) => {
+    if (!candidates.includes(t)) candidates.push(t);
+  };
+
+  if (/海外|沖繩|東京|日本|韓國|新加坡|澳洲/i.test(text)) push('overseas');
+  if (/露營|民宿/i.test(text)) push('camping');
+  if (/生日|活動/i.test(text)) push('event');
+  if (/孕婦/i.test(text)) push('maternity');
+  if (/寶寶/i.test(text)) push('baby');
+  if (/三代/i.test(text)) push('generation');
+  if (/包車|旅拍/i.test(text)) push('travel');
+  push('family');
+  return candidates;
+}
+
+function buildClientSlug(client) {
+  const datePart = normalizeDateForSlug(client.shootingDate) || 'undated';
+  const suffixes = themeCandidates(client);
+  return suffixes.map((s) => `${datePart}${s}`);
+}
+
+function assignClientSlugs(clients) {
+  const used = new Set();
+  return clients.map((client) => {
+    const next = { ...client };
+    if (isPresent(next.slug)) {
+      if (!used.has(next.slug)) {
+        used.add(next.slug);
+        return next;
+      }
+    }
+
+    const candidates = buildClientSlug(next);
+    let chosen = candidates.find((c) => !used.has(c));
+    if (!chosen) {
+      const base = candidates[0] || `undatedfamily`;
+      let i = 2;
+      chosen = `${base}-${i}`;
+      while (used.has(chosen)) {
+        i += 1;
+        chosen = `${base}-${i}`;
+      }
+    }
+    next.slug = chosen;
+    used.add(chosen);
+    return next;
+  });
+}
+
 function relatedWorksHtml(slugs, workBySlug) {
   if (!slugs?.length) return '';
   const links = slugs
@@ -314,7 +381,8 @@ function runPages() {
   const clientEntries = readMdDir('content/clients')
     .filter((e) => !e.data.draft)
     .map(normalizeClientEntry)
-    .filter((c) => isPresent(c.clientName) && isPresent(c.slug));
+    .filter((c) => isPresent(c.clientName));
+  const clients = assignClientSlugs(clientEntries);
 
   const workBySlug = Object.fromEntries(works.map((w) => [w.data.slug, w]));
   const artBySlug = Object.fromEntries(articles.map((a) => [a.data.slug, a]));
@@ -584,7 +652,7 @@ ${rs}
   }
 
   /* ----- clients ----- */
-  const clientsForPortal = clientEntries.filter((c) => c.status !== 'archived');
+  const clientsForPortal = clients.filter((c) => c.status !== 'archived');
   const clientsIndexCards = clientsForPortal
     .map(
       (c) => `<div class="hub-client-card" data-client-search="${escapeHtml(`${c.clientName} ${c.slug} ${c.shootingDate} ${c.packageName}`)}">
@@ -788,7 +856,7 @@ ${isPresent(c.packageName) || isPresent(c.shootingDate) ? `<p class="muted">${es
     extraSitemapUrls.push(`${site.url}/clients/${c.slug}/`);
   }
 
-  const portfolioClients = clientEntries.filter((c) => c.portfolioPublish === true);
+  const portfolioClients = clients.filter((c) => c.portfolioPublish === true);
   for (const c of portfolioClients) {
     const storyHtml = marked.parse(c.bodyMd || '');
     const cover = normImg(c.coverImage || '', DEFAULT_IMG);
@@ -940,7 +1008,7 @@ ${ra}
   }).replace('</head>', '  <link rel="stylesheet" href="/assets/css/client-portal.css" />\n</head>');
   writeRouteHtml('/family-contract', familyContractHtml);
 
-  const adminRows = clientEntries
+  const adminRows = clients
     .map((c) => {
       const portfolioLink = c.portfolioPublish ? `/works/client-${c.slug}/` : '';
       return `<tr>
@@ -961,7 +1029,7 @@ ${ra}
   const mdTemplate = `---
 title: "客戶名稱｜親子寫真客戶專區"
 clientName: "客戶名稱"
-slug: "client-name-yyyymmdd"
+slug: "2026-01-01family"
 
 status: "active"
 publish: false
@@ -1042,8 +1110,8 @@ updatedAt: "2026-05-03"
     <h2 class="h2">如何新增客戶案件</h2>
     <ol class="prose">
       <li>複製一份既有的客戶 MD 範本。</li>
-      <li>將檔名改成「客戶代稱-拍攝日期.md」。</li>
-      <li>修改 frontmatter 中的拍攝日期、方案、費用、地點、付款狀態與合約狀態。</li>
+      <li>將檔名改成「客戶代稱-拍攝日期.md」，slug 預設使用「yyyy-mm-dd + 主題」，例如：2026-01-01family。</li>
+      <li>修改 frontmatter 中的拍攝日期、方案、費用、地點、付款狀態與合約狀態；若同日期 slug 已存在，請依內容更換後綴主題名稱。</li>
       <li>儲存後網站會自動產生客戶專區。</li>
       <li>將客戶專區連結傳給客人即可完成合約確認與後續交件。</li>
     </ol>
