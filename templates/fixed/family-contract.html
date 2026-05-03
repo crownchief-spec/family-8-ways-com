@@ -1,0 +1,180 @@
+<section class="family-contract-hero">
+  <div class="container family-contract-wrap">
+    <p class="tag">親子寫真預約確認</p>
+    <h1 class="h1">親子寫真線上合約填寫</h1>
+    <p class="lead">為了順利保留拍攝檔期，請填寫以下預約資料，確認拍攝內容、付款方式與服務約定後，於手機或平板上完成簽名送出。</p>
+    <p class="muted">完成資料填寫與訂金匯款後，我們會正式為您保留拍攝時段。若有任何問題，也歡迎先與攝影師聯繫。</p>
+  </div>
+</section>
+
+<section class="container section family-contract-wrap contract-page">
+  <form id="family-contract-form" class="contract-form stack" novalidate>
+    <article class="card contract-card">
+      <h2 class="h2">一、拍攝資訊確認</h2>
+      <div class="contract-grid-2">
+        <label class="field"><span>拍攝日期</span><input type="text" name="shootingDate" value="2025年8月19日" required /></label>
+        <label class="field"><span>拍攝星期</span><input type="text" name="shootingWeekday" value="週二" required /></label>
+        <label class="field"><span>拍攝開始時間</span><input type="text" name="shootingStartTime" value="上午11:00" required /></label>
+        <label class="field"><span>拍攝結束時間</span><input type="text" name="shootingEndTime" value="下午1:00" required /></label>
+      </div>
+      <label class="field"><span>拍攝方案</span><input type="text" name="packageName" value="親子寫真 - XXX方案" required /></label>
+      <label class="field"><span>成品內容</span><textarea name="deliverables" rows="3" required>照片全給，包含處理後照片，不提供原始毛片，保證交件至少 200 張以上。</textarea></label>
+      <label class="field"><span>拍攝地點</span><input type="text" name="location" value="XXX（含接送）" required /></label>
+      <fieldset class="field">
+        <legend>是否需要接送</legend>
+        <label><input type="radio" name="pickupOption" value="是，已包含接送" checked /> 是，已包含接送</label>
+        <label><input type="radio" name="pickupOption" value="否，自行前往" /> 否，自行前往</label>
+        <label><input type="radio" name="pickupOption" value="其他，請於備註說明" /> 其他，請於備註說明</label>
+      </fieldset>
+      <label class="field"><span>備註</span><textarea name="notes" rows="3"></textarea></label>
+    </article>
+
+    <article class="card contract-card">
+      <h2 class="h2">二、費用與付款方式</h2>
+      <div class="price-grid">
+        <p><strong>總費用：</strong>NT$7,800</p>
+        <p><strong>訂金：</strong>NT$800</p>
+        <p><strong>餘款：</strong>NT$7,000</p>
+        <p><strong>餘款付款方式：</strong>拍攝當天現場以現金支付</p>
+      </div>
+      <label class="check-row"><input type="checkbox" name="paymentUnderstanding1" required /> 我了解訂金匯款完成後，才會正式保留拍攝檔期。</label>
+      <label class="check-row"><input type="checkbox" name="paymentUnderstanding2" required /> 我了解餘款需於拍攝當天現場以現金支付。</label>
+
+      <details class="payment-card" open>
+        <summary>付款方式一：Line Pay</summary>
+        <p>可使用 Line Pay 支付訂金，請與攝影師確認付款方式。</p>
+      </details>
+      <details class="payment-card">
+        <summary>付款方式二：銀行轉帳（台灣地區）</summary>
+        <p>銀行：台新銀行（812）板橋分行</p>
+        <p>分行代碼：0089</p>
+        <p>帳號：20081000109398</p>
+        <p>戶名：陳在紳</p>
+      </details>
+      <details class="payment-card">
+        <summary>付款方式三：PayPal（海外用戶）</summary>
+        <p>海外用戶可使用 PayPal 支付訂金，請依攝影師提供之金額連結付款。</p>
+        <p><a href="https://paypal.me/bmpss96147/1800" target="_blank" rel="noopener noreferrer">PayPal 訂金付款連結一</a></p>
+        <p><a href="https://paypal.me/bmpss96147/2800" target="_blank" rel="noopener noreferrer">PayPal 訂金付款連結二</a></p>
+      </details>
+      <details class="payment-card">
+        <summary>付款方式四：微信支付（海外用戶）</summary>
+        <p>請加 WeChat 帳號：travelphotographer</p>
+      </details>
+      <details class="payment-card">
+        <summary>付款方式五：WISE 國際金流平台</summary>
+        <p>WISE 國際金流平台全球皆可安全匯款，手續簡便。海外用戶可支付約 USD 25，約等於台幣 NT$800 的訂金。實際匯率與手續費依 WISE 當下顯示為準。</p>
+      </details>
+
+      <div class="contract-grid-2">
+        <label class="field">
+          <span>已選擇的付款方式</span>
+          <select name="selectedPaymentMethod" required>
+            <option value="">請選擇</option>
+            <option>Line Pay</option>
+            <option>銀行轉帳</option>
+            <option>PayPal</option>
+            <option>微信支付</option>
+            <option>WISE</option>
+            <option>尚未付款，稍後補上</option>
+          </select>
+        </label>
+      </div>
+      <fieldset class="field">
+        <legend>訂金付款狀態</legend>
+        <label><input type="radio" name="paymentStatus" value="我已完成訂金付款" required /> 我已完成訂金付款</label>
+        <label><input type="radio" name="paymentStatus" value="我稍後完成訂金付款" /> 我稍後完成訂金付款</label>
+        <label><input type="radio" name="paymentStatus" value="我需要攝影師協助確認付款方式" /> 我需要攝影師協助確認付款方式</label>
+      </fieldset>
+      <label class="field"><span>匯款帳號末五碼或付款備註（選填）</span><input type="text" name="paymentNote" /></label>
+    </article>
+
+    <article class="card contract-card">
+      <h2 class="h2">三、家庭與聯絡資訊</h2>
+      <div class="contract-grid-2">
+        <label class="field"><span>攝影師如何稱呼爸爸</span><input type="text" name="fatherName" placeholder="例如：爸爸、John、阿宏" /></label>
+        <label class="field"><span>攝影師如何稱呼媽媽</span><input type="text" name="motherName" placeholder="例如：媽媽、Amy、小君" /></label>
+        <label class="field"><span>主要聯絡人姓名</span><input type="text" name="contactName" required /></label>
+        <label class="field"><span>聯絡電話</span><input type="tel" name="phone" required /></label>
+        <label class="field"><span>Email</span><input type="email" name="email" required /></label>
+        <label class="field"><span>LINE 顯示名稱或 LINE ID</span><input type="text" name="lineName" /></label>
+        <label class="field"><span>入鏡大人人數</span><input type="number" name="adultCount" min="0" value="2" /></label>
+        <label class="field"><span>入鏡小孩人數</span><input type="number" name="childCount" min="0" value="1" /></label>
+      </div>
+      <label class="field"><span>小朋友的年齡與稱呼</span><textarea name="childrenInfo" rows="3" placeholder="例如：&#10;哥哥：5歲，叫小宇&#10;妹妹：3歲，叫小安"></textarea></label>
+      <label class="field"><span>簡單介紹一下你們一家人</span><textarea name="familyIntro" rows="4" placeholder="例如：孩子的個性、平常喜歡的活動、家人互動方式、比較希望拍自然互動或正式合照等。"></textarea></label>
+      <label class="field"><span>有沒有特別想拍的畫面</span><textarea name="desiredShots" rows="4" placeholder="例如：全家牽手、親子互動、孩子奔跑、爸爸媽媽合照、自然生活感、旅遊紀錄感等。"></textarea></label>
+      <label class="field"><span>有沒有需要攝影師注意的地方</span><textarea name="specialNotes" rows="4" placeholder="例如：小朋友怕生、容易累、需要休息時間、不能太曬、長輩同行等。"></textarea></label>
+    </article>
+
+    <article class="card contract-card">
+      <h2 class="h2">四、服務內容與合約條款確認</h2>
+      <ol class="terms-list">
+        <li><strong>預約成立：</strong>客戶完成本表單填寫，並完成訂金付款後，即視為正式預約成立。攝影師將依約定日期與時間保留拍攝檔期。</li>
+        <li><strong>拍攝時間：</strong>本次拍攝時間為表單所載明之拍攝時段。若因客戶遲到導致實際拍攝時間縮短，仍以原約定時段計算，攝影師將盡力於剩餘時間內完成拍攝。</li>
+        <li><strong>成品交付：</strong>本方案為照片全給，交付內容包含攝影師篩選與基本處理後之照片，不包含原始毛片。保證交件至少 200 張以上，實際張數會依拍攝狀況、天氣、互動情形與現場條件而有所不同。</li>
+        <li><strong>修圖與後製：</strong>照片將進行基本色調、亮度、對比與整體風格調整。若客戶有額外精修、特殊修圖、去除大量物件、瘦身、美膚或合成需求，需另行報價。</li>
+        <li><strong>付款方式：</strong>客戶需先支付訂金 NT$800 以保留檔期，餘款 NT$7,000 請於拍攝當天現場以現金支付。若實際方案金額有調整，則以雙方確認之金額為準。</li>
+        <li><strong>改期與取消：</strong>若因天候、不可抗力因素或雙方認定不適合拍攝之狀況，可協調改期。若客戶因個人因素需取消或改期，請盡早通知攝影師。訂金是否保留、轉為下次拍攝使用或退還，依雙方實際溝通結果為準。</li>
+        <li><strong>肖像與作品使用：</strong>
+          <div class="field">
+            <label><input type="radio" name="portfolioPermission" value="同意公開使用" required /> 我同意攝影師可將本次拍攝作品作為作品集、網站、社群平台、行銷宣傳與攝影服務介紹使用。</label>
+            <label><input type="radio" name="portfolioPermission" value="不同意公開使用" /> 我不同意公開使用本次拍攝作品，僅供客戶私人保存。</label>
+          </div>
+        </li>
+        <li><strong>隱私與資料使用：</strong>客戶填寫之姓名、電話、Email、LINE、家庭成員資訊與拍攝需求，僅作為本次預約、聯繫、拍攝規劃、付款確認與合約存證使用，不會任意提供給無關第三方。</li>
+        <li><strong>電子簽名效力：</strong>客戶於本頁填寫資料、勾選同意並完成電子簽名送出後，即表示已閱讀並同意本頁所載之拍攝內容、費用、付款方式與服務約定。此電子簽名與送出紀錄將作為雙方預約與服務合意之紀錄。</li>
+      </ol>
+    </article>
+
+    <article class="card contract-card">
+      <h2 class="h2">五、合約確認勾選</h2>
+      <label class="check-row"><input type="checkbox" name="agreementDateTimeLocationFee" required /> 我已確認以上拍攝日期、時間、地點、方案與費用。</label>
+      <label class="check-row"><input type="checkbox" name="agreementTerms" required /> 我已閱讀並同意本頁所載之服務內容與合約條款。</label>
+      <label class="check-row"><input type="checkbox" name="agreementDepositRequired" required /> 我了解完成訂金付款後，攝影師才會正式保留拍攝檔期。</label>
+      <label class="check-row"><input type="checkbox" name="agreementSignature" required /> 我確認以上填寫資料正確，並同意以電子簽名方式完成本次預約確認。</label>
+    </article>
+
+    <article class="card contract-card">
+      <h2 class="h2">六、手機手寫簽名區</h2>
+      <p>請在下方簽名區簽上您的姓名，表示您已確認本頁資料與服務約定。</p>
+      <div class="contract-grid-2">
+        <label class="field"><span>簽名人姓名</span><input type="text" name="signerName" required /></label>
+        <label class="field"><span>簽署日期</span><input type="date" id="signed-date" name="signedDate" required /></label>
+      </div>
+      <div class="signature-wrap">
+        <canvas id="signature-canvas" aria-label="手寫簽名區"></canvas>
+      </div>
+      <div class="signature-actions no-print">
+        <button class="btn btn--secondary" id="clear-signature" type="button">清除簽名</button>
+        <button class="btn btn--primary" id="confirm-signature" type="button">確認簽名</button>
+      </div>
+      <p class="muted" id="signature-status">尚未確認簽名</p>
+      <p class="error-text" id="signature-error" hidden>請先完成簽名並按下「確認簽名」。</p>
+      <input type="hidden" id="signature-image-base64" name="signatureImageBase64" />
+    </article>
+
+    <div class="contract-submit no-print">
+      <button class="btn btn--primary contract-submit__btn" type="submit">送出合約資料</button>
+      <p class="muted">送出後會先在本頁產生合約確認摘要，後續可再串接後端產生 PDF、寄送 Email 與存檔。</p>
+    </div>
+    <p class="error-text" id="form-error-message" hidden></p>
+  </form>
+
+  <section class="card contract-card contract-summary" id="contract-summary" hidden>
+    <h2 class="h2">合約確認摘要</h2>
+    <p class="muted" id="summary-submit-note"></p>
+    <div id="summary-content"></div>
+    <div class="summary-signature">
+      <h3 class="h3">簽名影像</h3>
+      <img id="summary-signature-image" alt="簽名影像" />
+    </div>
+    <div class="contract-actions no-print">
+      <button class="btn btn--secondary" type="button" id="print-contract">列印 / 儲存成 PDF</button>
+    </div>
+    <p class="muted">合約資料已產生，請確認內容無誤。正式版本將會自動產生 PDF 並寄送給雙方。</p>
+  </section>
+
+  <p class="muted contract-privacy-note">本頁資料僅作為本次親子寫真預約、拍攝規劃、付款確認與合約存證使用。若您對資料填寫或合約內容有任何疑問，請先與攝影師聯繫後再送出。</p>
+  <p class="print-only print-footer-note" id="print-footer-note"></p>
+</section>

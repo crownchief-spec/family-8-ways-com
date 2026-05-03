@@ -719,6 +719,27 @@ ${ra}
   );
   extraSitemapUrls.push(`${site.url}/contact/`);
 
+  let familyContractTpl = '';
+  try {
+    familyContractTpl = readFileSync(join(ROOT, 'templates/fixed/family-contract.html'), 'utf8');
+  } catch {
+    familyContractTpl = '<section class="container section"><p>親子寫真線上合約填寫頁面內容載入失敗。</p></section>';
+  }
+  const familyContractHtml = renderPage(cfg, {
+    title: '親子寫真線上合約填寫｜親子攝影預約確認',
+    description: '親子寫真預約資料填寫、拍攝內容確認、付款方式確認與電子簽名頁面，協助完成親子攝影預約流程。',
+    canonical: `${site.url}/family-contract/`,
+    body: `<nav class="container section" style="padding-bottom:0;"><div class="muted"><a href="/">首頁</a> / <span>親子寫真線上合約填寫</span></div></nav>${familyContractTpl}`,
+    noIndex: true,
+    ogImage: '/assets/images/og/default.svg',
+  })
+    .replace('</head>', '  <link rel="stylesheet" href="/assets/css/family-contract.css" />\n</head>')
+    .replace(
+      '</body>',
+      '  <script src="https://cdn.jsdelivr.net/npm/signature_pad@5.0.4/dist/signature_pad.umd.min.js"></script>\n  <script src="/assets/js/family-contract.js"></script>\n</body>',
+    );
+  writeRouteHtml('/family-contract', familyContractHtml);
+
   const sitemapHtmlBody = `<nav class="container section"><h1 class="h1">網站地圖</h1>
 <ul class="prose">
 <li><a href="/">首頁</a></li>
