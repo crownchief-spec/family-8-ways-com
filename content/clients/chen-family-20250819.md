@@ -9,6 +9,11 @@ publish: false
 portfolioPublish: false
 noindex: true
 
+adminReviewed: true
+readyToShare: true
+reviewedAt: ""
+reviewedBy: "小巴老師"
+
 shootingDate: "2025-08-19"
 shootingWeekday: "週二"
 shootingStartTime: "上午11:00"
@@ -17,11 +22,15 @@ packageName: "親子寫真 - 半日旅拍方案"
 location: "桃園自然系公園（含接送）"
 pickup: "已包含接送"
 
+adultCount: 2
+childCount: 1
+
 totalFee: 7800
 deposit: 800
 balance: 7000
 paymentStatus: "訂金待確認"
-paymentNote: "餘款請於拍攝當天現場以現金支付"
+paymentNoteFromAdmin: "餘款請於拍攝當天現場以現金支付"
+paymentNote: ""
 
 deliverables: "照片全給，包含攝影師篩選與基本處理後照片，不提供原始毛片，保證交件至少 200 張以上。"
 

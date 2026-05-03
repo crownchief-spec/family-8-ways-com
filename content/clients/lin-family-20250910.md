@@ -9,6 +9,11 @@ publish: false
 portfolioPublish: false
 noindex: true
 
+adminReviewed: true
+readyToShare: true
+reviewedAt: ""
+reviewedBy: "小巴老師"
+
 shootingDate: "2025-09-10"
 shootingWeekday: "週三"
 shootingStartTime: "上午10:00"
@@ -21,7 +26,8 @@ totalFee: 12800
 deposit: 2800
 balance: 10000
 paymentStatus: "訂金已收"
-paymentNote: "餘款請於拍攝當天現場以現金支付"
+paymentNoteFromAdmin: "餘款請於拍攝當天現場以現金支付"
+paymentNote: ""
 
 deliverables: "照片全給，包含攝影師篩選與基本處理後照片，不提供原始毛片，保證交件至少 200 張以上。"
 

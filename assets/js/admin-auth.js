@@ -18,6 +18,7 @@
 
   function clearAuth() {
     sessionStorage.removeItem(STORAGE_KEY);
+    sessionStorage.removeItem('family_admin_pw_for_api');
     localStorage.removeItem(STORAGE_KEY);
   }
 
@@ -64,6 +65,9 @@
       var val = String((input && input.value) || '');
       if (val === ADMIN_PASSWORD) {
         setAuthed();
+        try {
+          sessionStorage.setItem('family_admin_pw_for_api', val);
+        } catch (_) {}
         gate.remove();
         mountLogout();
       } else if (error) {

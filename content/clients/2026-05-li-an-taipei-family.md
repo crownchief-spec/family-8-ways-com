@@ -18,6 +18,11 @@ deliveryEnabled: true
 clientAccessCode: ""
 internalNote: ""
 
+adminReviewed: true
+readyToShare: true
+reviewedAt: ""
+reviewedBy: "小巴老師"
+
 serviceType: "親子寫真"
 packageCategory: "台灣親子旅拍"
 packageName: "台北半日全家福方案"
@@ -43,7 +48,8 @@ totalFee: 7800
 deposit: 1800
 balance: ""
 paymentStatus: "尚未付款"
-paymentNote: "本案訂金 NT$1,800。"
+paymentNoteFromAdmin: "本案訂金 NT$1,800。"
+paymentNote: ""
 paymentEnablePaypal: false
 paymentEnableWise: false
 

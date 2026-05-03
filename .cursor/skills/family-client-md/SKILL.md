@@ -20,7 +20,7 @@
 ## 必讀檔案
 
 - docs/family-service-knowledge.md
-- src/content/clients/_client-template.md
+- content/clients/_template.md（正式客戶專區 frontmatter；舊檔 `src/content/clients/_client-template.md` 僅內部備份）
 
 ## 工作流程
 

@@ -19,6 +19,11 @@ clientAccessCode: ""
 internalNote: ""
 draft: true
 
+adminReviewed: false
+readyToShare: false
+reviewedAt: ""
+reviewedBy: "小巴老師"
+
 serviceType: "親子寫真"
 packageCategory: "台灣親子旅拍"
 packageName: "親子寫真 - 半天方案"
@@ -36,6 +41,8 @@ transportationNote: ""
 familyCount: ""
 adultCount: ""
 childCount: ""
+clientAdultCount: ""
+clientChildCount: ""
 childrenAges: ""
 elderIncluded: false
 petIncluded: false
@@ -44,6 +51,7 @@ totalFee: ""
 deposit: ""
 balance: ""
 paymentStatus: "訂金待確認"
+paymentNoteFromAdmin: ""
 paymentNote: ""
 
 deliverables: ""
@@ -73,6 +81,7 @@ contractSignedAt: ""
 signedAt: ""
 signedBy: ""
 signedDate: ""
+signatureDataUrl: ""
 signedPdfSentAt: ""
 signedPdfSentTo: ""
 contractNote: ""

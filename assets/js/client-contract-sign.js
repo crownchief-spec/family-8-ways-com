@@ -1,6 +1,7 @@
 (function () {
   var root = document.querySelector('[data-client-portal]');
   if (!root) return;
+  if (root.getAttribute('data-ready-to-share') !== '1') return;
 
   var slug = root.getAttribute('data-client-slug') || '';
   var clientName = root.getAttribute('data-client-name') || '';
@@ -104,11 +105,21 @@
         updatePaymentPill();
         if (bankLast5Hint) {
           bankLast5Hint.hidden = valRadio('paymentStatus') !== '已匯款訂金';
+          if (!bankLast5Hint.hidden) {
+            bankLast5Hint.textContent =
+              '請填寫付款方式、付款金額與匯款末五碼，方便攝影師對帳。（第一階段不會因未填末五碼而阻擋送出）';
+          }
         }
       });
     });
     updatePaymentPill();
-    if (bankLast5Hint) bankLast5Hint.hidden = valRadio('paymentStatus') !== '已匯款訂金';
+    if (bankLast5Hint) {
+      bankLast5Hint.hidden = valRadio('paymentStatus') !== '已匯款訂金';
+      if (!bankLast5Hint.hidden) {
+        bankLast5Hint.textContent =
+          '請填寫付款方式、付款金額與匯款末五碼，方便攝影師對帳。（第一階段不會因未填末五碼而阻擋送出）';
+      }
+    }
   }
 
   function updateSubmitState(loading, done) {
@@ -193,15 +204,18 @@
       phone: val('phone'),
       customerEmail: val('customerEmail'),
       lineName: val('lineName'),
-      adultCount: val('adultCount'),
-      childCount: val('childCount'),
+      clientAdultCount: val('clientAdultCount'),
+      clientChildCount: val('clientChildCount'),
+      photographerAdultCount: root.getAttribute('data-photographer-adult') || '',
+      photographerChildCount: root.getAttribute('data-photographer-child') || '',
       childrenInfo: val('childrenInfo'),
       familyIntro: val('familyIntro'),
       desiredShots: val('desiredShots'),
       specialNotes: val('specialNotes'),
       usageConsent: usageConsent,
       confirmBookingInfo: bool('confirmBookingInfo'),
-      confirmPaymentInfo: bool('confirmPaymentInfo'),
+      confirmPhotographerUpdate: bool('confirmPhotographerUpdate'),
+      confirmPaymentStatus: bool('confirmPaymentStatus'),
       confirmTerms: bool('confirmTerms'),
       confirmDeposit: bool('confirmDeposit'),
       confirmSignature: bool('confirmSignature'),
@@ -251,7 +265,8 @@
     }
     if (
       !bool('confirmBookingInfo') ||
-      !bool('confirmPaymentInfo') ||
+      !bool('confirmPhotographerUpdate') ||
+      !bool('confirmPaymentStatus') ||
       !bool('confirmTerms') ||
       !bool('confirmDeposit') ||
       !bool('confirmSignature')
@@ -310,8 +325,10 @@
       row('電話', data.phone) +
       row('Email', data.customerEmail) +
       row('LINE', data.lineName) +
-      row('大人人數', data.adultCount) +
-      row('小孩人數', data.childCount) +
+      row('客戶確認入鏡大人人數', data.clientAdultCount) +
+      row('客戶確認入鏡小孩人數', data.clientChildCount) +
+      row('攝影師預設入鏡大人', data.photographerAdultCount) +
+      row('攝影師預設入鏡小孩', data.photographerChildCount) +
       row('小朋友年齡與稱呼', data.childrenInfo) +
       row('家庭介紹', data.familyIntro) +
       row('特別想拍的畫面', data.desiredShots) +
@@ -319,8 +336,9 @@
       '</table>' +
       '<h2 style="font-size:18px;margin:18px 0 8px;">合約確認</h2><table style="border-collapse:collapse;width:100%;">' +
       row('作品公開授權選擇', data.usageConsent) +
-      row('已確認拍攝資訊', data.confirmBookingInfo ? '是' : '否') +
-      row('已確認付款狀態', data.confirmPaymentInfo ? '是' : '否') +
+      row('已確認拍攝資訊與成品', data.confirmBookingInfo ? '是' : '否') +
+      row('已知悉須由攝影師更新後台', data.confirmPhotographerUpdate ? '是' : '否') +
+      row('已填寫訂金付款狀態', data.confirmPaymentStatus ? '是' : '否') +
       row('已閱讀並同意合約', data.confirmTerms ? '是' : '否') +
       row('已了解訂金保留檔期', data.confirmDeposit ? '是' : '否') +
       row('同意電子簽名', data.confirmSignature ? '是' : '否') +

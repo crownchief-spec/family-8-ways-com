@@ -66,41 +66,44 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
 <section class="family-contract-hero">
   <div class="container family-contract-wrap">
     <h1 class="h1">Li-An 家庭｜親子寫真預約與合約</h1>
-    <p class="lead">請依序確認預約資訊、訂金匯款方式、填寫家庭資料與付款狀態，並完成電子簽名。送出後會產生 PDF 合約作為本次預約確認紀錄。</p>
+    <p class="lead">請依序確認預約資訊、填寫訂金狀態與家庭資料，並完成電子簽名。送出後會產生 PDF 合約作為本次預約確認紀錄。</p>
     <div class="portal-status">
       <span class="status-pill" id="contract-status-tag">合約狀態：尚未簽署</span>
       <span class="status-pill" id="payment-status-pill">付款狀態：尚未付款</span>
       <span class="status-pill" id="delivery-status-pill">作品交件狀態：尚未拍攝</span>
+      
     </div>
   </div>
 </section>
-<section class="container section family-contract-wrap portal-grid" data-client-portal data-line-url="https://line.me/ti/p/0911252302" data-photographer-email="crownchief@gmail.com" data-client-slug="2026-05-16family" data-client-name="Li-An 家庭" data-shooting-date="2026-05-16" data-start-time="08:30" data-end-time="10:30" data-package-name="台北半日全家福方案" data-location="台北（場地待確認）" data-pickup="未確認" data-total-fee="7800" data-deposit="1800" data-balance="" data-contract-version="family-contract-v2026-05">
+<section class="container section family-contract-wrap portal-grid" data-client-portal data-ready-to-share="1" data-line-url="https://line.me/ti/p/0911252302" data-photographer-email="crownchief@gmail.com" data-client-slug="2026-05-16family" data-client-name="Li-An 家庭" data-shooting-date="2026-05-16" data-start-time="08:30" data-end-time="10:30" data-package-name="台北半日全家福方案" data-location="台北（場地待確認）" data-pickup="未確認" data-total-fee="7800" data-deposit="1800" data-balance="" data-contract-version="family-contract-v2026-05" data-photographer-adult="2" data-photographer-child="2">
+  
   <article class="card">
     <h2 class="h2">預約資訊</h2>
+    <p class="muted" style="margin-top:0;">以下為攝影師依雙方討論建立的合約內容，僅供檢視。</p>
     <div class="portal-grid-2">
       <p><strong>客戶名稱：</strong>Li-An 家庭</p>
       <p><strong>拍攝日期：</strong>2026-05-16</p>
       <p><strong>拍攝時間：</strong>08:30 - 10:30</p>
+      <p><strong>拍攝時長：</strong>2 小時</p>
       <p><strong>拍攝方案：</strong>台北半日全家福方案</p>
       <p><strong>拍攝地點：</strong>台北（場地待確認）</p>
+      
       <p><strong>是否含接送：</strong>未確認</p>
       <p><strong>總費用：</strong>NT$7,800</p>
       <p><strong>訂金：</strong>NT$1,800</p>
       
     </div>
-    <p><strong>成品內容：</strong><span data-deliverables-text>照片全給，包含處理後照片，不提供原始毛片。</span></p>
-    <p class="portal-note muted">以下拍攝資訊由攝影師依雙方討論內容建立，如有需要調整，請先聯繫攝影師，不要直接修改合約內容。</p>
-  </article>
+    <p><strong>成品內容：</strong><span data-deliverables-text>照片全給，包含處理後照片，不提供原始毛片。
 
+半日方案通常不含影片</span></p>
+    <p><strong>合約補充條款：</strong>客戶明確表示不希望作品公開，攝影師已回覆不公開價格一樣。</p>
+    
+    <p class="portal-note muted" style="margin-top:var(--space-md);">以上拍攝資訊由攝影師依雙方討論內容建立。若內容需要修改，請先聯繫攝影師，由攝影師更新後台資料。</p>
+  </article>
   <article class="card portal-form">
     <form id="client-contract-form" novalidate>
       <h2 class="h2">訂金匯款與付款狀態</h2>
       <p class="muted" style="margin-top:0;">請先依下方方式完成訂金匯款，或填寫您目前的付款狀態。完成訂金付款後，攝影師才會正式保留本次拍攝檔期。若您尚未匯款，也可以先送出合約，系統會在 PDF 中記錄目前付款狀態。</p>
-      <div class="portal-grid-2">
-        <p><strong>總費用：</strong>NT$7,800</p>
-        <p><strong>訂金：</strong>NT$1,800</p>
-        
-      </div>
       <p><strong>攝影師備註（付款相關）：</strong>本案訂金 NT$1,800。</p>
       <div class="portal-note" style="margin-top:var(--space-md);">
         <p><strong>Line Pay：</strong>可使用 Line Pay 支付訂金，請與攝影師確認付款方式。</p>
@@ -118,7 +121,7 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
         <label class="check-row"><input type="radio" name="paymentStatus" value="想先確認合約內容，再完成訂金" /> 想先確認合約內容，再完成訂金</label>
         <label class="check-row"><input type="radio" name="paymentStatus" value="使用其他付款方式，已與攝影師確認" /> 使用其他付款方式，已與攝影師確認</label>
       </fieldset>
-      <p class="muted" id="bank-last5-hint" hidden>若您選擇「已匯款訂金」，建議務必填寫匯款帳號末五碼，方便攝影師對帳（第一階段不會阻擋送出）。</p>
+      <p class="muted" id="bank-last5-hint" hidden>請填寫付款方式、付款金額與匯款末五碼，方便攝影師對帳。</p>
       <div class="portal-grid-2">
         <label class="field"><span>付款方式</span>
           <select name="paymentMethod">
@@ -131,23 +134,23 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
             <option value="其他">其他</option>
           </select>
         </label>
-        <label class="field"><span>匯款帳號末五碼</span><input type="text" name="bankLast5" maxlength="10" autocomplete="off" /></label>
+        <label class="field"><span>匯款帳號末五碼</span><input type="text" name="bankLast5" maxlength="10" autocomplete="off" value="" /></label>
         <label class="field"><span>付款金額（NT$）</span><input type="number" name="paymentAmount" min="0" step="1" value="1800" /></label>
-        <label class="field"><span>付款日期</span><input type="date" name="paymentDate" id="client-payment-date" /></label>
+        <label class="field"><span>付款日期</span><input type="date" name="paymentDate" id="client-payment-date" value="" /></label>
       </div>
-      <label class="field"><span>付款備註</span><textarea name="paymentNote" rows="3" placeholder="例如：家人代匯、Line Pay 已付款、稍後晚上匯款"></textarea></label>
-      <p class="muted">若已匯款，請填寫付款方式與末五碼，方便攝影師對帳。若尚未匯款，也可以先送出合約，請後續完成訂金並將末五碼傳給攝影師。</p>
+      <label class="field"><span>付款備註（客戶）</span><textarea name="paymentNote" rows="3" placeholder="例如：家人代匯、Line Pay 已付款、稍後晚上匯款"></textarea></label>
+      <p class="muted">若已匯款，建議填寫付款方式與末五碼，方便攝影師對帳。第一階段不會因未填末五碼而阻擋送出。</p>
 
       <h2 class="h2" style="margin-top:var(--space-xl);">客戶補充資料</h2>
       <div class="portal-grid-2">
-        <label class="field"><span>攝影師如何稱呼爸爸</span><input name="fatherName" type="text" placeholder="例如：爸爸、John、阿宏" /></label>
-        <label class="field"><span>攝影師如何稱呼媽媽</span><input name="motherName" type="text" placeholder="例如：媽媽、Amy、小君" /></label>
+        <label class="field"><span>攝影師如何稱呼爸爸</span><input name="fatherName" type="text" placeholder="例如：爸爸、John、阿宏" value="" /></label>
+        <label class="field"><span>攝影師如何稱呼媽媽</span><input name="motherName" type="text" placeholder="例如：媽媽、Amy、小君" value="" /></label>
         <label class="field"><span>主要聯絡人姓名</span><input name="contactName" type="text" value="Li-An" required /></label>
         <label class="field"><span>聯絡電話</span><input name="phone" type="text" value="" required /></label>
         <label class="field"><span>Email</span><input name="customerEmail" type="email" value="" required /></label>
         <label class="field"><span>LINE 顯示名稱或 LINE ID</span><input name="lineName" type="text" value="親子寫真Li-An" /></label>
-        <label class="field"><span>入鏡大人人數</span><input name="adultCount" type="number" min="0" value="2" /></label>
-        <label class="field"><span>入鏡小孩人數</span><input name="childCount" type="number" min="0" value="2" /></label>
+        <label class="field"><span>客戶確認入鏡大人人數</span><input name="clientAdultCount" type="number" min="0" value="2" /></label>
+        <label class="field"><span>客戶確認入鏡小孩人數</span><input name="clientChildCount" type="number" min="0" value="2" /></label>
       </div>
       <label class="field"><span>小朋友的年齡與稱呼</span><textarea name="childrenInfo" rows="3"></textarea></label>
       <label class="field"><span>簡單介紹一家人</span><textarea name="familyIntro" rows="4"></textarea></label>
@@ -155,14 +158,15 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
       <label class="field"><span>需要攝影師注意的地方</span><textarea name="specialNotes" rows="4"></textarea></label>
 
       <h2 class="h2" style="margin-top:var(--space-xl);">合約確認與簽名</h2>
-      <p class="muted">請確認上方預約資訊、訂金付款狀態與家庭補充資料。確認無誤後，請勾選合約確認項目並完成電子簽名。本頁送出後會產生 PDF 合約，作為本次親子寫真預約確認紀錄。</p>
+      <p class="muted">請確認上方預約資訊、訂金付款狀態與家庭補充資料。拍攝日期、地點、方案、費用與成品內容由攝影師建立，客戶無法自行修改。如需調整，請先聯繫攝影師更新後台資料。確認無誤後，請完成電子簽名。</p>
       <label class="check-row"><input type="checkbox" name="usageConsentYes" value="yes" required /> 我同意攝影師可將本次拍攝作品作為作品集、網站、社群平台、行銷宣傳與攝影服務介紹使用。</label>
       <label class="check-row"><input type="checkbox" name="usageConsentNo" value="no" required /> 我不同意公開使用本次拍攝作品，僅供客戶私人保存。</label>
-      <label class="check-row"><input type="checkbox" name="confirmBookingInfo" required /> 我已確認以上拍攝日期、時間、地點、方案與費用。</label>
-      <label class="check-row"><input type="checkbox" name="confirmPaymentInfo" required /> 我已確認上方訂金匯款資訊，並已填寫目前付款狀態。</label>
+      <label class="check-row"><input type="checkbox" name="confirmBookingInfo" required /> 我已確認以上拍攝日期、時間、地點、方案、費用與成品內容。</label>
+      <label class="check-row"><input type="checkbox" name="confirmPhotographerUpdate" required /> 我知道若以上拍攝資訊需要調整，需由攝影師更新後台資料。</label>
+      <label class="check-row"><input type="checkbox" name="confirmPaymentStatus" required /> 我已填寫目前訂金付款狀態。</label>
       <label class="check-row"><input type="checkbox" name="confirmTerms" required /> 我已閱讀並同意本頁所載之服務內容與合約條款。</label>
       <label class="check-row"><input type="checkbox" name="confirmDeposit" required /> 我了解完成訂金付款後，攝影師才會正式保留拍攝檔期。</label>
-      <label class="check-row"><input type="checkbox" name="confirmSignature" required /> 我確認以上填寫資料正確，並同意以電子簽名方式完成本次預約確認。</label>
+      <label class="check-row"><input type="checkbox" name="confirmSignature" required /> 我確認以上客戶補充資料正確，並同意以電子簽名方式完成本次預約確認。</label>
       <div class="portal-grid-2">
         <label class="field"><span>簽名人姓名</span><input type="text" name="signerName" required /></label>
         <label class="field"><span>簽署日期</span><input type="date" id="client-signed-date" name="signedDate" required /></label>
