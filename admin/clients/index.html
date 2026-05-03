@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>親子寫真客戶案件管理</title>
+  <meta name="description" content="攝影師管理後台 Demo：建立客戶案件、產生客戶專區連結、追蹤簽署與交件狀態。" />
+  <link rel="canonical" href="https://family.8-ways.com/admin/clients/" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="親子寫真客戶案件管理" />
+  <meta property="og:description" content="攝影師管理後台 Demo：建立客戶案件、產生客戶專區連結、追蹤簽署與交件狀態。" />
+  <meta property="og:url" content="https://family.8-ways.com/admin/clients/" />
+  <meta property="og:image" content="https://family.8-ways.com/assets/images/og/default.svg" />
+  <meta property="og:locale" content="zh_TW" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="親子寫真客戶案件管理" />
+  <meta name="twitter:description" content="攝影師管理後台 Demo：建立客戶案件、產生客戶專區連結、追蹤簽署與交件狀態。" />
+  <meta name="twitter:image" content="https://family.8-ways.com/assets/images/og/default.svg" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <link rel="stylesheet" href="/assets/css/admin-clients.css" />
+</head>
+<body>
+<header class="site-header">
+  <div class="site-header__inner container">
+    <a class="site-header__brand" href="/">小巴老師｜親子寫真</a>
+    <button class="site-header__toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+      <span class="sr-only">開啟選單</span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+    <nav class="site-nav" id="site-nav" data-nav-panel>
+      <ul class="site-nav__list"><li class="site-nav__item"><a href="/">首頁</a></li>
+<li class="site-nav__item site-nav__item--dropdown">
+  <div class="site-nav__split">
+    <a href="/services/" class="site-nav__parent">服務方案</a>
+    <button type="button" class="site-nav__dropdown-toggle" aria-expanded="false" aria-label="展開子選單" data-dropdown-toggle>▼</button>
+  </div>
+  <ul class="site-nav__sub"><li><a href="/services/taiwan-family-photography/">台灣親子旅拍</a></li><li><a href="/services/overseas-family-photography/">海外親子旅拍</a></li><li><a href="/services/camping-family-photography/">露營團拍／親子民宿</a></li><li><a href="/services/family-event-photography/">生日派對／家庭活動紀錄</a></li><li><a href="/services/maternity-baby-family-photography/">孕婦／寶寶／三代同堂</a></li></ul>
+</li>
+<li class="site-nav__item"><a href="/works/">作品案例</a></li>
+<li class="site-nav__item"><a href="/articles/">拍攝文章</a></li>
+<li class="site-nav__item"><a href="/clients/">客戶專區</a></li>
+<li class="site-nav__item"><a href="/faq/">常見問題</a></li>
+<li class="site-nav__item"><a href="/about/">關於小巴老師</a></li>
+<li class="site-nav__item"><a href="/contact/">聯絡預約</a></li></ul>
+      <div class="site-nav__cta">
+        <a class="btn btn--ghost btn--compact" href="https://line.me/ti/p/0911252302" target="_blank" rel="noopener noreferrer">加 Line 詢問</a>
+        <a class="btn btn--primary btn--compact" href="/contact/">預約拍攝</a>
+      </div>
+    </nav>
+  </div>
+</header>
+<div class="sticky-mobile-cta" aria-hidden="false">
+  <a class="sticky-mobile-cta__btn sticky-mobile-cta__btn--line" href="https://line.me/ti/p/0911252302" target="_blank" rel="noopener noreferrer">Line 詢問</a>
+  <a class="sticky-mobile-cta__btn sticky-mobile-cta__btn--tel" href="tel:+886911252302">撥打電話</a>
+</div>
+<script>
+(function(){
+function normPath(p){p=p||"/";if(p.endsWith("/index.html"))p=p.slice(0,-10)||"/";return p.replace(//+$/,"")||"/";}
+var t=document.querySelector("[data-nav-toggle]"),p=document.querySelector("[data-nav-panel]");
+if(t&&p){t.addEventListener("click",function(){var o=!p.classList.contains("is-open");p.classList.toggle("is-open",o);t.setAttribute("aria-expanded",String(o))});p.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){p.classList.remove("is-open");t.setAttribute("aria-expanded","false")})})}
+document.querySelectorAll("[data-dropdown-toggle]").forEach(function(btn){
+var li=btn.closest(".site-nav__item--dropdown");if(!li)return;
+btn.addEventListener("click",function(){var o=li.classList.toggle("is-sub-open");btn.setAttribute("aria-expanded",String(o));});
+});
+var path=normPath(location.pathname);
+document.querySelectorAll(".site-nav__list a").forEach(function(link){
+var h=link.getAttribute("href")||"";
+var lp=normPath(link.pathname||"");
+if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria-current","page");
+});
+})();
+</script>
+<main id="main">
+<section class="admin-hero">
+  <div class="admin-wrap">
+    <h1 class="h1">親子寫真客戶案件管理</h1>
+    <p class="lead">管理客戶案件、產生客戶專區連結、追蹤合約簽署與作品交件狀態。</p>
+    <p class="admin-warning">目前此頁為前端 Demo 管理介面，尚未串接正式登入、資料庫與權限控管。請勿在正式公開環境填寫真實客戶個資，正式版需串接安全後端後再使用。</p>
+  </div>
+</section>
+<section class="container section admin-wrap" id="admin-clients-root">
+  <article class="card">
+    <h2 class="h2">客戶案件列表</h2>
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>案件狀態</th><th>客戶名稱</th><th>客戶代稱</th><th>拍攝日期</th><th>拍攝方案</th><th>總費用</th><th>訂金</th><th>合約狀態</th><th>付款狀態</th><th>作品交件狀態</th><th>客戶專區連結</th><th>操作</th>
+          </tr>
+        </thead>
+        <tbody id="admin-client-list-body"></tbody>
+      </table>
+    </div>
+  </article>
+
+  <article class="card">
+    <h2 class="h2">新增 / 編輯客戶案件</h2>
+    <p class="muted" id="admin-form-status">請先從上方選擇要編輯的案件，或直接輸入新案件內容。</p>
+    <form id="admin-client-form" class="admin-form-grid" novalidate>
+      <section>
+        <h3 class="h3">區塊一：基本資料</h3>
+        <div class="admin-form-cols">
+          <label class="field"><span>客戶名稱</span><input name="clientName" type="text" /></label>
+          <label class="field"><span>客戶代稱 slug</span><input name="slug" type="text" /></label>
+          <label class="field"><span>主要聯絡人姓名</span><input name="contactName" type="text" /></label>
+          <label class="field"><span>電話</span><input name="phone" type="text" /></label>
+          <label class="field"><span>Email</span><input name="email" type="email" /></label>
+          <label class="field"><span>LINE 顯示名稱或 LINE ID</span><input name="lineName" type="text" /></label>
+          <label class="field"><span>客戶專區密碼（選填）</span><input name="clientPassword" type="text" /></label>
+          <label class="field"><span>客戶備註</span><input name="privateNotes" type="text" /></label>
+        </div>
+      </section>
+      <section>
+        <h3 class="h3">區塊二：拍攝資訊</h3>
+        <div class="admin-form-cols">
+          <label class="field"><span>拍攝日期</span><input name="shootingDate" type="date" /></label>
+          <label class="field"><span>星期</span><input name="shootingWeekday" type="text" /></label>
+          <label class="field"><span>開始時間</span><input name="shootingStartTime" type="text" /></label>
+          <label class="field"><span>結束時間</span><input name="shootingEndTime" type="text" /></label>
+          <label class="field"><span>拍攝方案</span><select name="packageName"><option>親子寫真 - 基本方案</option><option>親子寫真 - 半日旅拍方案</option><option>親子寫真 - 包車旅拍方案</option><option>海外親子旅拍方案</option><option>生日派對 / 家庭活動紀錄</option><option>露營團拍 / 親子民宿</option><option>其他自訂</option></select></label>
+          <label class="field"><span>拍攝地點</span><input name="location" type="text" /></label>
+          <label class="field"><span>是否含接送</span><input name="pickupOption" type="text" /></label>
+          <label class="field"><span>拍攝備註</span><input name="clientMessage" type="text" /></label>
+        </div>
+        <label class="field"><span>成品內容</span><textarea name="deliverables" rows="3">照片全給，包含攝影師篩選與基本處理後照片，不提供原始毛片，保證交件至少 200 張以上。</textarea></label>
+      </section>
+      <section>
+        <h3 class="h3">區塊三：費用與付款</h3>
+        <div class="admin-form-cols">
+          <label class="field"><span>總費用</span><input name="totalFee" type="number" /></label>
+          <label class="field"><span>訂金</span><input name="deposit" type="number" /></label>
+          <label class="field"><span>餘款</span><input name="balance" type="number" /></label>
+          <label class="field"><span>訂金付款方式</span><select name="depositPaymentMethod"><option>Line Pay</option><option>銀行轉帳</option><option>PayPal</option><option>微信支付</option><option>WISE</option><option>其他</option></select></label>
+          <label class="field"><span>餘款付款方式</span><input name="balancePaymentMethod" type="text" value="拍攝當天現場以現金支付" /></label>
+          <label class="field"><span>付款狀態</span><select name="paymentStatus"><option>尚未付款</option><option>訂金待確認</option><option>訂金已收</option><option>已全額付款</option><option>需補款</option><option>已退款 / 取消</option></select></label>
+          <label class="field"><span>匯款備註</span><input name="paymentNote" type="text" /></label>
+        </div>
+      </section>
+      <section>
+        <h3 class="h3">區塊四：合約條件</h3>
+        <div class="admin-form-cols">
+          <label class="field"><span>改期條件</span><input name="reschedulePolicy" type="text" /></label>
+          <label class="field"><span>取消條件</span><input name="cancelPolicy" type="text" /></label>
+          <label class="field"><span>修圖與後製條件</span><input name="retouchPolicy" type="text" /></label>
+          <label class="field"><span>肖像權預設選項</span><select name="portfolioDefault"><option value="client-choice">讓客戶自行選擇是否同意公開</option><option value="prefer-public">預設需要公開授權，但客戶仍可拒絕</option><option value="private-only">本案不公開，僅私人交件</option><option value="other">其他</option></select></label>
+        </div>
+        <label class="field"><span>特殊條款</span><textarea name="specialTerms" rows="3"></textarea></label>
+        <label class="field"><span>給客戶看的補充說明</span><textarea name="clientMessageLong" rows="3"></textarea></label>
+      </section>
+      <section>
+        <h3 class="h3">區塊五：作品交件區</h3>
+        <div class="admin-form-cols">
+          <label class="field"><span>Google Drive 照片資料夾連結</span><input name="driveFolderUrl" type="url" /></label>
+          <label class="field"><span>Google Drive 精選照片連結</span><input name="selectedPhotoUrl" type="url" /></label>
+          <label class="field"><span>YouTube / Vimeo 影片連結</span><input name="videoUrl" type="url" /></label>
+          <label class="field"><span>其他雲端下載連結</span><input name="otherDeliveryUrl" type="url" /></label>
+          <label class="field"><span>作品交件狀態</span><select name="deliveryStatus"><option>尚未拍攝</option><option>已拍攝，整理中</option><option>修圖中</option><option>已交件</option><option>已結案</option></select></label>
+        </div>
+        <label class="field"><span>交件說明</span><textarea name="deliveryNote" rows="3"></textarea></label>
+      </section>
+      <section>
+        <h3 class="h3">區塊六：系統狀態</h3>
+        <div class="admin-form-cols">
+          <label class="field"><span>合約狀態</span><select name="contractStatus"><option>尚未簽署</option><option>已送出連結</option><option>客戶已查看</option><option>已簽署</option><option>需重新簽署</option><option>已取消</option></select></label>
+          <label class="field"><span>客戶專區狀態</span><input name="clientPortalStatus" type="text" value="已建立" /></label>
+          <label class="field"><span>是否顯示給客戶</span><select name="isVisible"><option value="true">是</option><option value="false">否</option></select></label>
+          <label class="field"><span>最後更新時間</span><input name="updatedAt" type="date" /></label>
+        </div>
+      </section>
+      <div class="admin-actions">
+        <button class="btn btn--primary" type="submit">建立客戶專區 / 產生合約頁</button>
+        <a class="btn btn--secondary" id="admin-preview-link" href="/clients/" target="_blank" rel="noopener noreferrer">預覽客戶專區</a>
+      </div>
+    </form>
+  </article>
+  <script id="admin-clients-data" type="application/json">[{"id":"chen-family-20250819","clientName":"陳小姐家庭","slug":"chen-family-20250819","contactName":"陳小姐","phone":"","email":"","lineName":"","shootingDate":"2025-08-19","shootingWeekday":"週二","shootingStartTime":"上午11:00","shootingEndTime":"下午1:00","packageName":"親子寫真 - 半日旅拍方案","location":"台北河濱與草地區域（含接送）","pickupOption":"是，已包含接送","deliverables":"照片全給，包含攝影師篩選與基本處理後照片，不提供原始毛片，保證交件至少 200 張以上。","totalFee":7800,"deposit":800,"balance":7000,"depositPaymentMethod":"銀行轉帳 / Line Pay / PayPal / WISE","balancePaymentMethod":"拍攝當天現場以現金支付","paymentStatus":"訂金待確認","contractStatus":"尚未簽署","deliveryStatus":"尚未拍攝","portfolioDefault":"client-choice","specialTerms":"","privateNotes":"","clientMessage":"","driveFolderUrl":"","selectedPhotoUrl":"","videoUrl":"","deliveryNote":"","isVisible":true,"updatedAt":"2026-05-03"},{"id":"lin-family-20250910","clientName":"林先生家庭","slug":"lin-family-20250910","contactName":"林先生","phone":"","email":"","lineName":"","shootingDate":"2025-09-10","shootingWeekday":"週三","shootingStartTime":"上午10:00","shootingEndTime":"下午2:00","packageName":"親子寫真 - 包車旅拍方案","location":"新北海岸（含接送）","pickupOption":"是，已包含接送","deliverables":"照片全給，包含攝影師篩選與基本處理後照片，不提供原始毛片，保證交件至少 200 張以上。","totalFee":12800,"deposit":2800,"balance":10000,"depositPaymentMethod":"銀行轉帳","balancePaymentMethod":"拍攝當天現場以現金支付","paymentStatus":"訂金已收","contractStatus":"已簽署","deliveryStatus":"修圖中","portfolioDefault":"client-choice","specialTerms":"","privateNotes":"","clientMessage":"已先電話確認孩子作息，拍攝當天 9:40 集合。","driveFolderUrl":"","selectedPhotoUrl":"","videoUrl":"","deliveryNote":"","isVisible":true,"updatedAt":"2026-05-03"},{"id":"wang-family-20251005","clientName":"王小姐家庭","slug":"wang-family-20251005","contactName":"王小姐","phone":"","email":"","lineName":"","shootingDate":"2025-10-05","shootingWeekday":"週日","shootingStartTime":"下午3:00","shootingEndTime":"下午6:00","packageName":"海外親子旅拍方案","location":"日本沖繩（不含接送）","pickupOption":"否，自行前往","deliverables":"照片全給，包含攝影師篩選與基本處理後照片，不提供原始毛片，保證交件至少 200 張以上。","totalFee":18800,"deposit":2800,"balance":16000,"depositPaymentMethod":"PayPal / WISE","balancePaymentMethod":"拍攝當天現場以現金支付","paymentStatus":"尚未付款","contractStatus":"尚未簽署","deliveryStatus":"尚未拍攝","portfolioDefault":"client-choice","specialTerms":"","privateNotes":"","clientMessage":"","driveFolderUrl":"","selectedPhotoUrl":"","videoUrl":"","deliveryNote":"","isVisible":true,"updatedAt":"2026-05-03"}]</script>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid site-footer__grid--hub">
+      <section class="site-footer__col site-footer__col--brand">
+      <p class="h3 site-footer__title">小巴老師｜親子寫真</p>
+      <p class="muted" style="margin:0 0 var(--space-md);max-width:42ch;font-size:0.95rem;">親子寫真、家庭攝影、台灣包車旅拍、海外親子旅拍、露營團拍與家庭活動紀錄。自然互動、不死板，讓孩子在旅行與遊戲中留下真實表情。</p>
+      <p class="muted" style="margin:0;font-size:0.92rem;line-height:1.65;">
+        Line／電話：0911-252-302<br/>
+        WhatsApp：+886 911252302<br/>
+        E-mail：<a href="mailto:crownchief@gmail.com">crownchief@gmail.com</a>
+      </p>
+      <div class="site-footer__cta" style="margin-top:var(--space-md);display:flex;flex-wrap:wrap;gap:0.5rem;">
+        <a class="btn btn--primary btn--compact" href="https://line.me/ti/p/0911252302" target="_blank" rel="noopener noreferrer">加 Line 詢問</a>
+        <a class="btn btn--secondary btn--compact" href="/contact/">預約拍攝</a>
+      </div>
+    </section>
+      <section class="site-footer__col">
+      <p class="h3 site-footer__title">親子寫真服務</p>
+      <ul class="footer-links footer-links--single">
+        <li><a href="/services/taiwan-family-photography/">台灣親子旅拍</a></li>
+        <li><a href="/services/overseas-family-photography/">海外親子旅拍</a></li>
+        <li><a href="/services/camping-family-photography/">露營團拍／親子民宿</a></li>
+        <li><a href="/services/family-event-photography/">生日派對／家庭活動紀錄</a></li>
+        <li><a href="/services/maternity-baby-family-photography/">孕婦／寶寶／三代同堂</a></li>
+        <li><a href="/family-contract/">親子寫真線上合約填寫</a></li>
+        <li><a href="/faq/">常見問題</a></li>
+        <li><a href="/about/">關於小巴老師</a></li>
+      </ul>
+    </section>
+      <section class="site-footer__col">
+      <p class="h3 site-footer__title">親子寫真作品</p>
+      <ul class="footer-links footer-links--single">
+        <li><a href="/works/">全部作品</a></li>
+        <li><a href="/works/?category=taiwan">台灣親子旅拍作品</a></li>
+        <li><a href="/works/?category=overseas">海外親子旅拍作品</a></li>
+        <li><a href="/works/?category=camping">露營團拍作品</a></li>
+        <li><a href="/works/?category=homestay">親子民宿作品</a></li>
+        <li><a href="/works/?category=party">生日派對作品</a></li>
+        <li><a href="/works/?category=baby">孕婦與寶寶作品</a></li>
+        <li><a href="/works/?category=three-generation">三代同堂作品</a></li>
+      </ul>
+      <p class="muted" style="margin:var(--space-sm) 0 0;font-size:0.85rem;">最新作品</p><ul class="footer-links footer-links--single" style="margin-top:0.35rem;"><li><a href="/works/homestay-villa-natural-light/">親子民宿旅拍｜室內 Villa 與戶外自然光</a></li><li><a href="/works/camping-tent-family-photo/">露營團拍｜草地帳篷親子家庭寫真</a></li><li><a href="/works/yilan-nature-family-photo/">宜蘭親子旅拍｜自然風家庭攝影</a></li></ul>
+    </section>
+      <section class="site-footer__col">
+      <p class="h3 site-footer__title">親子寫真文章</p>
+      <ul class="footer-links footer-links--single">
+        <li><a href="/articles/">全部文章</a></li>
+        <li><a href="/articles/?category=preparation">親子寫真準備</a></li>
+        <li><a href="/articles/?category=taiwan">台灣親子旅拍</a></li>
+        <li><a href="/articles/?category=overseas">海外親子旅拍</a></li>
+        <li><a href="/articles/?category=camping">露營團拍</a></li>
+        <li><a href="/articles/?category=outfit">家庭照穿搭</a></li>
+        <li><a href="/articles/?category=location">親子攝影地點</a></li>
+        <li><a href="/articles/?category=pricing">家庭攝影費用</a></li>
+      </ul>
+      <p class="muted" style="margin:var(--space-sm) 0 0;font-size:0.85rem;">最新文章</p><ul class="footer-links footer-links--single" style="margin-top:0.35rem;"><li><a href="/articles/taiwan-family-travel-photography-guide/">台灣親子旅拍怎麼安排？包車、景點、拍攝時間一次整理</a></li><li><a href="/articles/taipei-family-photo-location/">台北親子寫真地點推薦｜草地、公園、河岸與城市景點</a></li><li><a href="/articles/family-photo-outfit-guide/">親子寫真穿搭怎麼選？家庭照衣服顏色與搭配建議</a></li></ul>
+    </section>
+      <section class="site-footer__col">
+      <p class="h3 site-footer__title">客戶專區</p>
+      <ul class="footer-links footer-links--single">
+        <li><a href="/clients/">客戶專區首頁</a></li>
+        <li><a href="/family-contract/">合約與預約確認</a></li>
+        <li><a href="/clients/">作品交件說明</a></li>
+        <li><a href="/clients/">照片下載說明</a></li>
+        <li><a href="/contact/">聯絡攝影師</a></li>
+      </ul>
+      <p class="muted" style="margin-top:var(--space-sm);font-size:0.9rem;max-width:40ch;">完成拍攝的家庭可以從客戶專區進入專屬頁面，查看照片、影片、雲端下載連結與交件說明。</p>
+    </section>
+    </div>
+  </div>
+  <div class="container site-footer__bottom">
+    <p class="muted" style="margin:0;font-size:0.82rem;">
+      <a href="/sitemap/">網站地圖</a>
+      ・
+      <a href="/privacy/">隱私權說明</a>
+      ・
+      © 2026 小巴老師｜親子寫真．八威創意有限公司
+    </p>
+    <p class="muted" style="margin:var(--space-sm) 0 0;font-size:0.82rem;">
+      #親子寫真 #家庭攝影 #台灣親子旅拍 #海外親子旅拍 #小巴老師
+    </p>
+  </div>
+</footer>
+  <script src="/assets/js/admin-clients.js"></script>
+</body>
+</html>

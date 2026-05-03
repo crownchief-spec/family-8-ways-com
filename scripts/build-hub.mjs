@@ -224,6 +224,16 @@ function loadServiceDefs() {
   return JSON.parse(readFileSync(p, 'utf8'));
 }
 
+function loadDemoClients() {
+  const p = join(ROOT, 'data/clients.json');
+  if (!existsSync(p)) return [];
+  try {
+    return JSON.parse(readFileSync(p, 'utf8'));
+  } catch {
+    return [];
+  }
+}
+
 function relatedWorksHtml(slugs, workBySlug) {
   if (!slugs?.length) return '';
   const links = slugs
@@ -248,6 +258,7 @@ function runPages() {
   const works = readMdDir('content/works').filter((e) => !e.data.draft);
   const articles = readMdDir('content/articles').filter((e) => !e.data.draft);
   const hubClients = readMdDir('content/clients').filter((e) => !e.data.draft && e.data.hubPortal === true);
+  const demoClients = loadDemoClients();
 
   const workBySlug = Object.fromEntries(works.map((w) => [w.data.slug, w]));
   const artBySlug = Object.fromEntries(articles.map((a) => [a.data.slug, a]));
@@ -517,37 +528,34 @@ ${rs}
   }
 
   /* ----- clients ----- */
-  const clientsIndexCards = hubClients
-    .sort((a, b) => (a.data.shootDate < b.data.shootDate ? 1 : -1))
-    .map((c) => {
-      const cov = normImg(c.data.coverImage, DEFAULT_IMG);
-      return `<div class="hub-client-card" data-client-search="${escapeHtml(`${c.data.clientName} ${c.data.projectType} ${c.data.shootDate} ${c.data.title}`)}">
-<a class="pcard" href="/clients/${escapeHtml(c.data.slug)}/">
-<div class="pcard__media"><img src="${escapeHtml(cov)}" alt="" loading="lazy"/></div>
+  const clientsIndexCards = demoClients
+    .map(
+      (c) => `<div class="hub-client-card" data-client-search="${escapeHtml(`${c.clientName} ${c.slug} ${c.shootingDate} ${c.packageName}`)}">
+<a class="pcard" href="/clients/${escapeHtml(c.slug)}/">
 <div class="pcard__body">
-<h3 class="pcard__title">${escapeHtml(c.data.clientName)}</h3>
-<p class="muted">${escapeHtml(c.data.projectType)} · ${escapeHtml(c.data.shootDate)}</p>
-<p><span class="tag">${escapeHtml(c.data.status)}</span></p>
+<h3 class="pcard__title">${escapeHtml(c.clientName)}</h3>
+<p class="muted">${escapeHtml(c.packageName)} · ${escapeHtml(c.shootingDate)}</p>
+<p><span class="tag">${escapeHtml(c.contractStatus)}</span> <span class="tag">${escapeHtml(c.deliveryStatus)}</span></p>
 <span class="btn btn--primary btn--compact">進入專屬頁</span>
 </div>
-</a></div>`;
-    })
+</a></div>`,
+    )
     .join('');
 
   const clientsIndexBody = `<nav class="container section" style="padding-bottom:0;"><div class="muted"><a href="/">首頁</a> / <span>客戶專區</span></div></nav>
 <section class="hero hero--compact"><div class="hero__bg" style="background-image:url('${CLIENT_OG}')"></div><div class="hero__overlay"></div><div class="hero__inner">
 <h1 class="hero__title">親子寫真客戶專區</h1>
-<p class="hero__sub">完成拍攝的家庭可以從這裡進入專屬頁面，查看照片、影片、下載連結與交件說明。</p>
+<p class="hero__sub">每一組家庭都會有自己的專屬頁面，集中整理預約資訊、合約確認、付款方式、拍攝前準備與作品交件連結。</p>
 </div></section>
 <div class="container section">
 <label class="field hub-search"><span class="muted">搜尋（姓名、日期、專案）</span><input type="search" data-client-search-input class="hub-search__input" placeholder="例如：王小明、2026-05"/></label>
 </div>
 <div class="container section" style="padding-top:0;"><div class="grid-2" id="hub-clients-grid">${clientsIndexCards}</div></div>
 <div class="container section card card--flat prose">
-<h2 class="h2">找不到頁面怎麼辦？</h2><p>請透過 Line（0911252302）提供預約姓名或拍攝日期，由小巴老師協助確認連結。</p>
-<h2 class="h2">忘記密碼怎麼辦？</h2><p>密碼僅為簡易門面，請直接 Line 確認身分後重設或取得連結。</p>
-<h2 class="h2">下載連結過期怎麼辦？</h2><p>雲端連結若失效，請告知需要重新開啟的檔案類型（照片／影片）。</p>
-<h2 class="h2">需要補寄照片或影片？</h2><p>請說明檔案類型與用途（例如：加洗相本、親友分享），以便協助處理。</p>
+<h2 class="h2">已預約客戶</h2><p>請依攝影師提供的專屬連結進入您的頁面。</p>
+<h2 class="h2">合約與預約確認</h2><p>正式合約會依照每組家庭的拍攝日期、方案與費用建立，不使用公開空白表單。</p>
+<h2 class="h2">拍攝後作品交件</h2><p>拍攝完成後，雲端照片連結、影片連結與下載說明會放在同一個客戶專區中。</p>
+<h2 class="h2">找不到連結？</h2><p>請聯繫攝影師，我們會重新提供您的專屬頁面連結。</p>
 </div>
 <script>(function(){var input=document.querySelector("[data-client-search-input]");var cards=document.querySelectorAll("[data-client-search]");function apply(){var q=(input&&input.value||"").toLowerCase().trim();cards.forEach(function(card){var t=(card.getAttribute("data-client-search")||"").toLowerCase();card.toggleAttribute("hidden",q&&t.indexOf(q)===-1);});}if(input)input.addEventListener("input",apply);})();</script>`;
 
@@ -559,6 +567,7 @@ ${rs}
       canonical: `${site.url}/clients/`,
       body: clientsIndexBody,
       ogImage: CLIENT_OG,
+      noIndex: true,
     }),
   );
   extraSitemapUrls.push(`${site.url}/clients/`);
@@ -602,6 +611,165 @@ ${relatedWorks.length ? `<section class="card card--flat"><h2 class="h2">公開�
       }),
     );
     extraSitemapUrls.push(`${site.url}/clients/${slug}/`);
+  }
+
+  for (const c of demoClients) {
+    const body = `<section class="family-contract-hero">
+  <div class="container family-contract-wrap">
+    <h1 class="h1">${escapeHtml(c.clientName)}｜親子寫真客戶專區</h1>
+    <p class="lead">這裡會整理您的拍攝預約資訊、合約確認、付款方式與作品交件連結。請依照攝影師提供的資訊完成確認與簽名。</p>
+    <div class="portal-status">
+      <span class="status-pill" id="contract-status-tag">合約狀態：${escapeHtml(c.contractStatus)}</span>
+      <span class="status-pill">付款狀態：${escapeHtml(c.paymentStatus)}</span>
+      <span class="status-pill">作品交件狀態：${escapeHtml(c.deliveryStatus)}</span>
+    </div>
+  </div>
+</section>
+<section class="container section family-contract-wrap portal-grid" data-client-portal data-client-slug="${escapeHtml(c.slug)}" data-client-name="${escapeHtml(c.clientName)}" data-shooting-date="${escapeHtml(c.shootingDate)}" data-start-time="${escapeHtml(c.shootingStartTime)}" data-end-time="${escapeHtml(c.shootingEndTime)}" data-package-name="${escapeHtml(c.packageName)}" data-location="${escapeHtml(c.location)}" data-total-fee="${escapeHtml(c.totalFee)}" data-deposit="${escapeHtml(c.deposit)}" data-balance="${escapeHtml(c.balance)}">
+  <article class="card">
+    <h2 class="h2">預約資訊</h2>
+    <div class="portal-grid-2">
+      <p><strong>拍攝日期：</strong>${escapeHtml(c.shootingDate)}（${escapeHtml(c.shootingWeekday || '')}）</p>
+      <p><strong>拍攝時間：</strong>${escapeHtml(c.shootingStartTime)} - ${escapeHtml(c.shootingEndTime)}</p>
+      <p><strong>拍攝方案：</strong>${escapeHtml(c.packageName)}</p>
+      <p><strong>拍攝地點：</strong>${escapeHtml(c.location)}</p>
+      <p><strong>是否含接送：</strong>${escapeHtml(c.pickupOption)}</p>
+      <p><strong>總費用：</strong>NT$${Number(c.totalFee || 0).toLocaleString('zh-TW')}</p>
+      <p><strong>訂金：</strong>NT$${Number(c.deposit || 0).toLocaleString('zh-TW')}</p>
+      <p><strong>餘款：</strong>NT$${Number(c.balance || 0).toLocaleString('zh-TW')}</p>
+    </div>
+    <p><strong>成品內容：</strong>${escapeHtml(c.deliverables)}</p>
+    <p><strong>備註：</strong>${escapeHtml(c.clientMessage || '目前無額外備註')}</p>
+    <p class="portal-note muted">以下拍攝資訊由攝影師依雙方討論內容建立，如有需要調整，請先聯繫攝影師，不要直接修改合約內容。</p>
+  </article>
+
+  <article class="card portal-form">
+    <h2 class="h2">客戶補充資料</h2>
+    <form id="client-contract-form" novalidate>
+      <div class="portal-grid-2">
+        <label class="field"><span>攝影師如何稱呼爸爸</span><input name="fatherName" type="text" placeholder="例如：爸爸、John、阿宏" /></label>
+        <label class="field"><span>攝影師如何稱呼媽媽</span><input name="motherName" type="text" placeholder="例如：媽媽、Amy、小君" /></label>
+        <label class="field"><span>主要聯絡人姓名</span><input name="contactName" type="text" value="${escapeHtml(c.contactName || '')}" required /></label>
+        <label class="field"><span>聯絡電話</span><input name="phone" type="text" value="${escapeHtml(c.phone || '')}" required /></label>
+        <label class="field"><span>Email</span><input name="email" type="email" value="${escapeHtml(c.email || '')}" required /></label>
+        <label class="field"><span>LINE 顯示名稱或 LINE ID</span><input name="lineName" type="text" value="${escapeHtml(c.lineName || '')}" /></label>
+        <label class="field"><span>入鏡大人人數</span><input name="adultCount" type="number" min="0" value="2" /></label>
+        <label class="field"><span>入鏡小孩人數</span><input name="childCount" type="number" min="0" value="1" /></label>
+      </div>
+      <label class="field"><span>小朋友的年齡與稱呼</span><textarea name="childrenInfo" rows="3"></textarea></label>
+      <label class="field"><span>簡單介紹一家人</span><textarea name="familyIntro" rows="4"></textarea></label>
+      <label class="field"><span>特別想拍的畫面</span><textarea name="desiredShots" rows="4"></textarea></label>
+      <label class="field"><span>需要攝影師注意的地方</span><textarea name="specialNotes" rows="4"></textarea></label>
+
+      <h3 class="h3">合約確認與簽名</h3>
+      <p class="muted">主要合約條件由攝影師建立，客戶可補充家庭資料並完成簽名確認。</p>
+      <label class="check-row"><input type="radio" name="portfolioPermission" value="同意公開使用" required /> 我同意攝影師可將本次拍攝作品作為作品集、網站、社群平台、行銷宣傳與攝影服務介紹使用。</label>
+      <label class="check-row"><input type="radio" name="portfolioPermission" value="不同意公開使用" required /> 我不同意公開使用本次拍攝作品，僅供客戶私人保存。</label>
+      <label class="check-row"><input type="checkbox" name="agreementMainInfo" required /> 我已確認以上拍攝日期、時間、地點、方案與費用。</label>
+      <label class="check-row"><input type="checkbox" name="agreementTerms" required /> 我已閱讀並同意本頁所載之服務內容與合約條款。</label>
+      <label class="check-row"><input type="checkbox" name="agreementDeposit" required /> 我了解完成訂金付款後，攝影師才會正式保留拍攝檔期。</label>
+      <label class="check-row"><input type="checkbox" name="agreementSignature" required /> 我確認以上填寫資料正確，並同意以電子簽名方式完成本次預約確認。</label>
+      <div class="portal-grid-2">
+        <label class="field"><span>簽名人姓名</span><input type="text" name="signerName" required /></label>
+        <label class="field"><span>簽署日期</span><input type="date" id="client-signed-date" readonly /></label>
+      </div>
+      <div class="signature-wrap">
+        <canvas id="client-signature-canvas" aria-label="客戶手寫簽名區"></canvas>
+      </div>
+      <div class="signature-actions no-print">
+        <button class="btn btn--secondary" type="button" id="client-clear-signature">清除簽名</button>
+        <button class="btn btn--primary" type="button" id="client-confirm-signature">確認簽名</button>
+      </div>
+      <p class="muted" id="client-sign-state">尚未確認簽名</p>
+      <p class="error-text" id="client-signature-error" hidden>請先簽名後再送出。</p>
+      <input type="hidden" id="client-signature-image-base64" />
+      <div class="hero__actions no-print">
+        <button class="btn btn--primary" type="submit">送出合約簽署</button>
+        <button class="btn btn--secondary" type="button" id="client-print-contract">列印 / 儲存 PDF</button>
+      </div>
+      <p class="error-text" id="client-form-error" hidden></p>
+      <div class="client-contract-signed" id="signed-status-panel" hidden>
+        <p><strong>合約已簽署</strong></p>
+        <p>簽署時間：<span id="signed-at-text"></span></p>
+        <img id="signed-image" alt="簽名影像" />
+      </div>
+    </form>
+  </article>
+
+  <article class="card">
+    <h2 class="h2">付款方式</h2>
+    <p><strong>總費用：</strong>NT$${Number(c.totalFee || 0).toLocaleString('zh-TW')}</p>
+    <p><strong>訂金：</strong>NT$${Number(c.deposit || 0).toLocaleString('zh-TW')}</p>
+    <p><strong>餘款：</strong>NT$${Number(c.balance || 0).toLocaleString('zh-TW')}</p>
+    <p><strong>餘款付款方式：</strong>${escapeHtml(c.balancePaymentMethod || '拍攝當天現場以現金支付')}</p>
+    <div class="portal-note">
+      <p><strong>Line Pay：</strong>可使用 Line Pay 支付訂金，請與攝影師確認付款方式。</p>
+      <p><strong>銀行轉帳：</strong>台新銀行（812）板橋分行，分行代碼 0089，帳號 20081000109398，戶名：陳在紳</p>
+      <p><strong>PayPal：</strong>海外用戶可使用 PayPal 支付訂金。<a href="https://paypal.me/bmpss96147/1800" target="_blank" rel="noopener noreferrer">付款連結一</a>、<a href="https://paypal.me/bmpss96147/2800" target="_blank" rel="noopener noreferrer">付款連結二</a></p>
+      <p><strong>微信支付：</strong>請加 WeChat 帳號：travelphotographer</p>
+      <p><strong>WISE：</strong>海外用戶可支付約 USD 25（約 NT$800）作為訂金，實際匯率與手續費依平台顯示為準。</p>
+    </div>
+    <div class="portal-grid-2">
+      <label class="field"><span>匯款帳號末五碼</span><input type="text" /></label>
+      <label class="field"><span>付款方式</span><input type="text" /></label>
+      <label class="field"><span>付款時間</span><input type="text" /></label>
+      <label class="field"><span>備註</span><input type="text" /></label>
+    </div>
+    <p class="muted">請付款後將資訊傳給攝影師確認。</p>
+  </article>
+
+  <article class="card">
+    <h2 class="h2">拍攝前準備</h2>
+    <p>拍攝前可以先簡單準備服裝、孩子喜歡的小物、簡單點心與水。親子寫真的重點不是擺拍，而是讓家人在自然互動中留下真實表情。</p>
+    <ul class="prose">
+      <li>建議準備 1～2 套服裝</li>
+      <li>家人服裝色系可以互相搭配，但不需要完全一樣</li>
+      <li>小朋友可以帶喜歡的玩具或安撫小物</li>
+      <li>可準備水、簡單點心、濕紙巾</li>
+      <li>若有長輩或小小孩同行，請預留休息時間</li>
+      <li>若孩子怕生，拍攝一開始會以陪玩和聊天為主，不會強迫擺拍</li>
+    </ul>
+  </article>
+
+  <article class="card">
+    <h2 class="h2">作品交件</h2>
+    <p><strong>作品交件狀態：</strong>${escapeHtml(c.deliveryStatus)}</p>
+    ${c.driveFolderUrl || c.selectedPhotoUrl || c.videoUrl ? '' : '<p>拍攝完成後，照片整理與基本處理需要一些時間。完成後，攝影師會將雲端下載連結放在此頁，您可以回到同一個客戶專區查看與下載。</p>'}
+    <div class="delivery-actions">
+      ${c.driveFolderUrl ? `<a class="btn btn--primary" href="${escapeHtml(c.driveFolderUrl)}" target="_blank" rel="noopener noreferrer">下載完整照片</a>` : ''}
+      ${c.selectedPhotoUrl ? `<a class="btn btn--secondary" href="${escapeHtml(c.selectedPhotoUrl)}" target="_blank" rel="noopener noreferrer">查看精選照片</a>` : ''}
+      ${c.videoUrl ? `<a class="btn btn--secondary" href="${escapeHtml(c.videoUrl)}" target="_blank" rel="noopener noreferrer">觀看影片</a>` : ''}
+    </div>
+    <p class="portal-note">${escapeHtml(c.deliveryNote || '照片完成後會提供雲端下載連結。建議收到連結後先下載備份至自己的電腦或雲端硬碟，避免日後連結過期或雲端空間調整。')}</p>
+  </article>
+
+  <article class="card">
+    <h2 class="h2">聯絡攝影師</h2>
+    <p>如果合約內容、付款方式、拍攝地點或作品下載有任何問題，請直接聯繫攝影師。</p>
+    <div class="hero__actions">
+      <a class="btn btn--primary" href="${site.lineUrl}" target="_blank" rel="noopener noreferrer">Line 詢問</a>
+      <a class="btn btn--secondary" href="${site.phoneTel}">電話聯絡</a>
+      <a class="btn btn--secondary" href="mailto:${escapeHtml(site.email)}">Email 聯絡</a>
+    </div>
+    <p class="muted">Line／電話：0911-252-302<br/>WhatsApp：+886 911252302<br/>E-mail：${escapeHtml(site.email)}</p>
+  </article>
+</section>`;
+
+    const html = renderPage(cfg, {
+      title: `親子寫真客戶專區｜${c.clientName}`,
+      description: `${c.clientName} 專屬預約資訊、合約確認、付款方式與作品交件連結。`,
+      canonical: `${site.url}/clients/${c.slug}/`,
+      body,
+      ogImage: '/assets/images/og/default.svg',
+      noIndex: true,
+    })
+      .replace('</head>', '  <link rel="stylesheet" href="/assets/css/client-portal.css" />\n</head>')
+      .replace(
+        '</body>',
+        '  <script src="https://cdn.jsdelivr.net/npm/signature_pad@5.0.4/dist/signature_pad.umd.min.js"></script>\n  <script src="/assets/js/client-contract-sign.js"></script>\n</body>',
+      );
+    writeRouteHtml(`/clients/${c.slug}`, html);
+    extraSitemapUrls.push(`${site.url}/clients/${c.slug}/`);
   }
 
   /* ----- services ----- */
@@ -726,19 +894,131 @@ ${ra}
     familyContractTpl = '<section class="container section"><p>親子寫真線上合約填寫頁面內容載入失敗。</p></section>';
   }
   const familyContractHtml = renderPage(cfg, {
-    title: '親子寫真線上合約填寫｜親子攝影預約確認',
-    description: '親子寫真預約資料填寫、拍攝內容確認、付款方式確認與電子簽名頁面，協助完成親子攝影預約流程。',
+    title: '親子寫真合約與客戶專區系統',
+    description: '親子寫真合約與客戶專區流程說明。正式合約由攝影師建立專屬客戶頁面後進行確認與簽署。',
     canonical: `${site.url}/family-contract/`,
-    body: `<nav class="container section" style="padding-bottom:0;"><div class="muted"><a href="/">首頁</a> / <span>親子寫真線上合約填寫</span></div></nav>${familyContractTpl}`,
+    body: `<nav class="container section" style="padding-bottom:0;"><div class="muted"><a href="/">首頁</a> / <span>親子寫真合約與客戶專區系統</span></div></nav>${familyContractTpl}`,
+    noIndex: true,
+    ogImage: '/assets/images/og/default.svg',
+  }).replace('</head>', '  <link rel="stylesheet" href="/assets/css/client-portal.css" />\n</head>');
+  writeRouteHtml('/family-contract', familyContractHtml);
+
+  const adminClientsBody = `<section class="admin-hero">
+  <div class="admin-wrap">
+    <h1 class="h1">親子寫真客戶案件管理</h1>
+    <p class="lead">管理客戶案件、產生客戶專區連結、追蹤合約簽署與作品交件狀態。</p>
+    <p class="admin-warning">目前此頁為前端 Demo 管理介面，尚未串接正式登入、資料庫與權限控管。請勿在正式公開環境填寫真實客戶個資，正式版需串接安全後端後再使用。</p>
+  </div>
+</section>
+<section class="container section admin-wrap" id="admin-clients-root">
+  <article class="card">
+    <h2 class="h2">客戶案件列表</h2>
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>案件狀態</th><th>客戶名稱</th><th>客戶代稱</th><th>拍攝日期</th><th>拍攝方案</th><th>總費用</th><th>訂金</th><th>合約狀態</th><th>付款狀態</th><th>作品交件狀態</th><th>客戶專區連結</th><th>操作</th>
+          </tr>
+        </thead>
+        <tbody id="admin-client-list-body"></tbody>
+      </table>
+    </div>
+  </article>
+
+  <article class="card">
+    <h2 class="h2">新增 / 編輯客戶案件</h2>
+    <p class="muted" id="admin-form-status">請先從上方選擇要編輯的案件，或直接輸入新案件內容。</p>
+    <form id="admin-client-form" class="admin-form-grid" novalidate>
+      <section>
+        <h3 class="h3">區塊一：基本資料</h3>
+        <div class="admin-form-cols">
+          <label class="field"><span>客戶名稱</span><input name="clientName" type="text" /></label>
+          <label class="field"><span>客戶代稱 slug</span><input name="slug" type="text" /></label>
+          <label class="field"><span>主要聯絡人姓名</span><input name="contactName" type="text" /></label>
+          <label class="field"><span>電話</span><input name="phone" type="text" /></label>
+          <label class="field"><span>Email</span><input name="email" type="email" /></label>
+          <label class="field"><span>LINE 顯示名稱或 LINE ID</span><input name="lineName" type="text" /></label>
+          <label class="field"><span>客戶專區密碼（選填）</span><input name="clientPassword" type="text" /></label>
+          <label class="field"><span>客戶備註</span><input name="privateNotes" type="text" /></label>
+        </div>
+      </section>
+      <section>
+        <h3 class="h3">區塊二：拍攝資訊</h3>
+        <div class="admin-form-cols">
+          <label class="field"><span>拍攝日期</span><input name="shootingDate" type="date" /></label>
+          <label class="field"><span>星期</span><input name="shootingWeekday" type="text" /></label>
+          <label class="field"><span>開始時間</span><input name="shootingStartTime" type="text" /></label>
+          <label class="field"><span>結束時間</span><input name="shootingEndTime" type="text" /></label>
+          <label class="field"><span>拍攝方案</span><select name="packageName"><option>親子寫真 - 基本方案</option><option>親子寫真 - 半日旅拍方案</option><option>親子寫真 - 包車旅拍方案</option><option>海外親子旅拍方案</option><option>生日派對 / 家庭活動紀錄</option><option>露營團拍 / 親子民宿</option><option>其他自訂</option></select></label>
+          <label class="field"><span>拍攝地點</span><input name="location" type="text" /></label>
+          <label class="field"><span>是否含接送</span><input name="pickupOption" type="text" /></label>
+          <label class="field"><span>拍攝備註</span><input name="clientMessage" type="text" /></label>
+        </div>
+        <label class="field"><span>成品內容</span><textarea name="deliverables" rows="3">照片全給，包含攝影師篩選與基本處理後照片，不提供原始毛片，保證交件至少 200 張以上。</textarea></label>
+      </section>
+      <section>
+        <h3 class="h3">區塊三：費用與付款</h3>
+        <div class="admin-form-cols">
+          <label class="field"><span>總費用</span><input name="totalFee" type="number" /></label>
+          <label class="field"><span>訂金</span><input name="deposit" type="number" /></label>
+          <label class="field"><span>餘款</span><input name="balance" type="number" /></label>
+          <label class="field"><span>訂金付款方式</span><select name="depositPaymentMethod"><option>Line Pay</option><option>銀行轉帳</option><option>PayPal</option><option>微信支付</option><option>WISE</option><option>其他</option></select></label>
+          <label class="field"><span>餘款付款方式</span><input name="balancePaymentMethod" type="text" value="拍攝當天現場以現金支付" /></label>
+          <label class="field"><span>付款狀態</span><select name="paymentStatus"><option>尚未付款</option><option>訂金待確認</option><option>訂金已收</option><option>已全額付款</option><option>需補款</option><option>已退款 / 取消</option></select></label>
+          <label class="field"><span>匯款備註</span><input name="paymentNote" type="text" /></label>
+        </div>
+      </section>
+      <section>
+        <h3 class="h3">區塊四：合約條件</h3>
+        <div class="admin-form-cols">
+          <label class="field"><span>改期條件</span><input name="reschedulePolicy" type="text" /></label>
+          <label class="field"><span>取消條件</span><input name="cancelPolicy" type="text" /></label>
+          <label class="field"><span>修圖與後製條件</span><input name="retouchPolicy" type="text" /></label>
+          <label class="field"><span>肖像權預設選項</span><select name="portfolioDefault"><option value="client-choice">讓客戶自行選擇是否同意公開</option><option value="prefer-public">預設需要公開授權，但客戶仍可拒絕</option><option value="private-only">本案不公開，僅私人交件</option><option value="other">其他</option></select></label>
+        </div>
+        <label class="field"><span>特殊條款</span><textarea name="specialTerms" rows="3"></textarea></label>
+        <label class="field"><span>給客戶看的補充說明</span><textarea name="clientMessageLong" rows="3"></textarea></label>
+      </section>
+      <section>
+        <h3 class="h3">區塊五：作品交件區</h3>
+        <div class="admin-form-cols">
+          <label class="field"><span>Google Drive 照片資料夾連結</span><input name="driveFolderUrl" type="url" /></label>
+          <label class="field"><span>Google Drive 精選照片連結</span><input name="selectedPhotoUrl" type="url" /></label>
+          <label class="field"><span>YouTube / Vimeo 影片連結</span><input name="videoUrl" type="url" /></label>
+          <label class="field"><span>其他雲端下載連結</span><input name="otherDeliveryUrl" type="url" /></label>
+          <label class="field"><span>作品交件狀態</span><select name="deliveryStatus"><option>尚未拍攝</option><option>已拍攝，整理中</option><option>修圖中</option><option>已交件</option><option>已結案</option></select></label>
+        </div>
+        <label class="field"><span>交件說明</span><textarea name="deliveryNote" rows="3"></textarea></label>
+      </section>
+      <section>
+        <h3 class="h3">區塊六：系統狀態</h3>
+        <div class="admin-form-cols">
+          <label class="field"><span>合約狀態</span><select name="contractStatus"><option>尚未簽署</option><option>已送出連結</option><option>客戶已查看</option><option>已簽署</option><option>需重新簽署</option><option>已取消</option></select></label>
+          <label class="field"><span>客戶專區狀態</span><input name="clientPortalStatus" type="text" value="已建立" /></label>
+          <label class="field"><span>是否顯示給客戶</span><select name="isVisible"><option value="true">是</option><option value="false">否</option></select></label>
+          <label class="field"><span>最後更新時間</span><input name="updatedAt" type="date" /></label>
+        </div>
+      </section>
+      <div class="admin-actions">
+        <button class="btn btn--primary" type="submit">建立客戶專區 / 產生合約頁</button>
+        <a class="btn btn--secondary" id="admin-preview-link" href="/clients/" target="_blank" rel="noopener noreferrer">預覽客戶專區</a>
+      </div>
+    </form>
+  </article>
+  <script id="admin-clients-data" type="application/json">${JSON.stringify(demoClients)}</script>
+</section>`;
+
+  const adminClientsHtml = renderPage(cfg, {
+    title: '親子寫真客戶案件管理',
+    description: '攝影師管理後台 Demo：建立客戶案件、產生客戶專區連結、追蹤簽署與交件狀態。',
+    canonical: `${site.url}/admin/clients/`,
+    body: adminClientsBody,
     noIndex: true,
     ogImage: '/assets/images/og/default.svg',
   })
-    .replace('</head>', '  <link rel="stylesheet" href="/assets/css/family-contract.css" />\n</head>')
-    .replace(
-      '</body>',
-      '  <script src="https://cdn.jsdelivr.net/npm/signature_pad@5.0.4/dist/signature_pad.umd.min.js"></script>\n  <script src="/assets/js/family-contract.js"></script>\n</body>',
-    );
-  writeRouteHtml('/family-contract', familyContractHtml);
+    .replace('</head>', '  <link rel="stylesheet" href="/assets/css/admin-clients.css" />\n</head>')
+    .replace('</body>', '  <script src="/assets/js/admin-clients.js"></script>\n</body>');
+  writeRouteHtml('/admin/clients', adminClientsHtml);
 
   const sitemapHtmlBody = `<nav class="container section"><h1 class="h1">網站地圖</h1>
 <ul class="prose">

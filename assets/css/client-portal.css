@@ -1,0 +1,166 @@
+.family-contract-wrap {
+  width: min(100% - 2rem, 980px);
+  margin: 0 auto;
+}
+
+.family-contract-hero {
+  padding: var(--space-xl) 0 var(--space-lg);
+  background: linear-gradient(180deg, #f8f3e8 0%, #f7f4ef 100%);
+}
+
+.portal-status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: var(--space-sm);
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid var(--color-line);
+  background: #fff;
+}
+
+.portal-grid {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.portal-grid-2 {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+@media (min-width: 860px) {
+  .portal-grid-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.portal-note {
+  margin-top: var(--space-sm);
+  padding: 0.8rem 0.95rem;
+  border-radius: 10px;
+  border: 1px dashed var(--color-line);
+  background: #fcfaf5;
+}
+
+.portal-form .field {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.portal-form input,
+.portal-form textarea,
+.portal-form select {
+  font: inherit;
+  padding: 0.7rem 0.8rem;
+  border-radius: 10px;
+  border: 1px solid var(--color-line);
+  background: #fff;
+}
+
+.portal-form textarea {
+  resize: vertical;
+}
+
+.check-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin: 0.45rem 0;
+}
+
+.signature-wrap {
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  background: #fff;
+}
+
+#client-signature-canvas {
+  width: 100%;
+  height: 220px;
+  display: block;
+  touch-action: none;
+}
+
+@media (min-width: 900px) {
+  #client-signature-canvas {
+    height: 260px;
+  }
+}
+
+.signature-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-top: var(--space-sm);
+}
+
+.error-text {
+  color: #a30000;
+  font-weight: 600;
+}
+
+.client-contract-signed {
+  margin-top: var(--space-md);
+  border: 1px solid #c6dec8;
+  background: #edf7ee;
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+}
+
+.client-contract-signed img {
+  margin-top: 0.65rem;
+  border: 1px solid #d7d7d7;
+  border-radius: 6px;
+  max-width: 100%;
+  background: #fff;
+}
+
+.delivery-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: var(--space-sm);
+}
+
+.print-only {
+  display: none;
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+
+  .site-header,
+  .site-footer,
+  .sticky-mobile-cta,
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+    padding-bottom: 0;
+  }
+
+  .card {
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .print-only {
+    display: block;
+  }
+}
