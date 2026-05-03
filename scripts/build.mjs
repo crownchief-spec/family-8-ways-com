@@ -252,7 +252,7 @@ function buildCasePages(entries) {
 <div class="container section card card--flat"><h2 class="h2">延伸閱讀</h2><ul class="prose">
 <li><a href="${locHref}">類似地區與拍攝建議</a></li>
 <li><a href="/case/index.html">更多作品集</a></li>
-<li><a href="/pages/services.html">服務方案</a></li>
+<li><a href="/services/">服務方案</a></li>
 </ul></div>
 </article>`;
 
@@ -324,7 +324,7 @@ ${locationBody(e.bodyMd)}
 ${e.data.why_great?.length ? `<div class="container section"><h2 class="h2">為什麼適合拍</h2><ul class="prose">${e.data.why_great.map((x) => `<li>${escapeHtml(x)}</li>`).join('')}</ul></div>` : ''}
 <div class="container section cta-mini"><h2 class="h2">想安排此區親子／家庭旅拍</h2><div class="hero__actions">
 <a class="btn btn--primary" href="${site.lineUrl}" target="_blank" rel="noopener noreferrer">加 Line 詢問</a>
-<a class="btn btn--secondary" href="/pages/contact.html">預約拍攝</a>
+<a class="btn btn--secondary" href="/contact/">預約拍攝</a>
 </div></div>`;
 
     writeHtml(
@@ -341,7 +341,7 @@ ${e.data.why_great?.length ? `<div class="container section"><h2 class="h2">為�
 }
 
 function buildClientPages(entries) {
-  const list = entries.filter((e) => !e.data.draft);
+  const list = entries.filter((e) => !e.data.draft && !e.data.hubPortal);
   const idx = `<section class="hero" style="min-height:260px;margin-bottom:0;border-radius:0;">
 <div class="hero__bg" style="background-image:url('/assets/images/home/family-portrait-kimono-clients-index-009.png')"></div>
 <div class="hero__overlay"></div>
@@ -401,7 +401,7 @@ ${e.data.shoot_includes?.length ? `<div class="section" style="padding-top:0;"><
 <section class="section" style="padding-top:0;"><h2 class="h2">重要連結</h2>${linksBlock}</section>
 ${notesBlock}
 <section class="section prose" style="padding-top:0;"><h2 class="h2">其他說明</h2>${htmlContent}</section>
-<section class="section card card--flat"><h2 class="h2">延伸推薦</h2><ul class="prose"><li><a href="/case/index.html">類似作品風格</a></li><li><a href="/pages/services.html">服務方案</a></li><li><a href="/pages/contact.html">再次預約</a></li></ul>
+<section class="section card card--flat"><h2 class="h2">延伸推薦</h2><ul class="prose"><li><a href="/case/index.html">類似作品風格</a></li><li><a href="/services/">服務方案</a></li><li><a href="/contact/">再次預約</a></li></ul>
 <div class="hero__actions" style="margin-top:var(--space-md);"><a class="btn btn--primary" href="${site.lineUrl}" target="_blank" rel="noopener noreferrer">聯絡小巴老師</a></div></section>
 </div></div></article>
 <script>

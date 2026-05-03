@@ -14,6 +14,9 @@
   <meta property="og:image" content="https://family.8-ways.com/public/images/wix-import/taiwan-taipei-family-portrait/taiwan-taipei-family-portrait-outdoor-lifestyle-04.jpg" />
   <meta property="og:locale" content="zh_TW" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="東京親子旅拍｜地區拍攝建議" />
+  <meta name="twitter:description" content="公園、河畔與街景，讓大城市也能拍出鬆一口氣的家庭節奏。" />
+  <meta name="twitter:image" content="https://family.8-ways.com/public/images/wix-import/taiwan-taipei-family-portrait/taiwan-taipei-family-portrait-outdoor-lifestyle-04.jpg" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -30,24 +33,46 @@
       <span aria-hidden="true"></span>
     </button>
     <nav class="site-nav" id="site-nav" data-nav-panel>
-      <ul class="site-nav__list"><li><a href="/">首頁</a></li>
-<li><a href="/family-service/">服務說明</a></li>
-<li><a href="/family-taipei/">台灣拍攝</a></li>
-<li><a href="/family-okinawa/">海外旅拍</a></li>
-<li><a href="/family-generation/">主題分類</a></li>
-<li><a href="/family-reviews/">爸媽推薦</a></li>
-<li><a href="/family-faq/">常見問題</a></li>
-<li><a href="/about-ba-wei/">關於小巴老師</a></li></ul>
+      <ul class="site-nav__list"><li class="site-nav__item"><a href="/">首頁</a></li>
+<li class="site-nav__item site-nav__item--dropdown">
+  <div class="site-nav__split">
+    <a href="/services/" class="site-nav__parent">服務方案</a>
+    <button type="button" class="site-nav__dropdown-toggle" aria-expanded="false" aria-label="展開子選單" data-dropdown-toggle>▼</button>
+  </div>
+  <ul class="site-nav__sub"><li><a href="/services/taiwan-family-photography/">台灣親子旅拍</a></li><li><a href="/services/overseas-family-photography/">海外親子旅拍</a></li><li><a href="/services/camping-family-photography/">露營團拍／親子民宿</a></li><li><a href="/services/family-event-photography/">生日派對／家庭活動紀錄</a></li><li><a href="/services/maternity-baby-family-photography/">孕婦／寶寶／三代同堂</a></li></ul>
+</li>
+<li class="site-nav__item"><a href="/works/">作品案例</a></li>
+<li class="site-nav__item"><a href="/articles/">拍攝文章</a></li>
+<li class="site-nav__item"><a href="/clients/">客戶專區</a></li>
+<li class="site-nav__item"><a href="/faq/">常見問題</a></li>
+<li class="site-nav__item"><a href="/about/">關於小巴老師</a></li>
+<li class="site-nav__item"><a href="/contact/">聯絡預約</a></li></ul>
       <div class="site-nav__cta">
         <a class="btn btn--ghost btn--compact" href="https://line.me/ti/p/0911252302" target="_blank" rel="noopener noreferrer">加 Line 詢問</a>
-        <a class="btn btn--primary btn--compact" href="/pages/contact.html">預約拍攝</a>
+        <a class="btn btn--primary btn--compact" href="/contact/">預約拍攝</a>
       </div>
     </nav>
   </div>
 </header>
+<div class="sticky-mobile-cta" aria-hidden="false">
+  <a class="sticky-mobile-cta__btn sticky-mobile-cta__btn--line" href="https://line.me/ti/p/0911252302" target="_blank" rel="noopener noreferrer">Line 詢問</a>
+  <a class="sticky-mobile-cta__btn sticky-mobile-cta__btn--tel" href="tel:+886911252302">撥打電話</a>
+</div>
 <script>
-(function(){var t=document.querySelector("[data-nav-toggle]"),p=document.querySelector("[data-nav-panel]");if(t&&p){t.addEventListener("click",function(){var o=!p.classList.contains("is-open");p.classList.toggle("is-open",o);t.setAttribute("aria-expanded",String(o))});p.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){p.classList.remove("is-open");t.setAttribute("aria-expanded","false")})})}
-var path=location.pathname;document.querySelectorAll(".site-nav__list a").forEach(function(link){if(link.pathname===path||(path==="/"||path==="/index.html")&&(link.getAttribute("href")==="/"||link.getAttribute("href")==="/index.html"))link.setAttribute("aria-current","page");});
+(function(){
+function normPath(p){p=p||"/";if(p.endsWith("/index.html"))p=p.slice(0,-10)||"/";return p.replace(//+$/,"")||"/";}
+var t=document.querySelector("[data-nav-toggle]"),p=document.querySelector("[data-nav-panel]");
+if(t&&p){t.addEventListener("click",function(){var o=!p.classList.contains("is-open");p.classList.toggle("is-open",o);t.setAttribute("aria-expanded",String(o))});p.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){p.classList.remove("is-open");t.setAttribute("aria-expanded","false")})})}
+document.querySelectorAll("[data-dropdown-toggle]").forEach(function(btn){
+var li=btn.closest(".site-nav__item--dropdown");if(!li)return;
+btn.addEventListener("click",function(){var o=li.classList.toggle("is-sub-open");btn.setAttribute("aria-expanded",String(o));});
+});
+var path=normPath(location.pathname);
+document.querySelectorAll(".site-nav__list a").forEach(function(link){
+var h=link.getAttribute("href")||"";
+var lp=normPath(link.pathname||"");
+if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria-current","page");
+});
 })();
 </script>
 <main id="main">
@@ -71,36 +96,89 @@ var path=location.pathname;document.querySelectorAll(".site-nav__list a").forEac
 <div class="container section"><h2 class="h2">為什麼適合拍</h2><ul class="prose"><li>公共交通成熟，適合精準安排體力曲線。</li></ul></div>
 <div class="container section cta-mini"><h2 class="h2">想安排此區親子／家庭旅拍</h2><div class="hero__actions">
 <a class="btn btn--primary" href="https://line.me/ti/p/0911252302" target="_blank" rel="noopener noreferrer">加 Line 詢問</a>
-<a class="btn btn--secondary" href="/pages/contact.html">預約拍攝</a>
+<a class="btn btn--secondary" href="/contact/">預約拍攝</a>
 </div></div>
 </main>
 <footer class="site-footer">
   <div class="container">
-    <div class="site-footer__top">
-      <p class="h3" style="margin:0;">小巴老師｜親子寫真</p>
-      <p class="muted" style="margin:0;max-width:62ch;">台灣包車旅拍、海外親子旅拍、全外拍自然互動風格。照片全給，可搭配微電影 MV。</p>
-      <p style="margin:0;"><a class="btn btn--primary btn--compact" href="https://line.me/ti/p/0911252302" target="_blank" rel="noopener noreferrer">LINE 預約諮詢</a></p>
-    </div>
-    <div class="site-footer__grid">
+    <div class="site-footer__grid site-footer__grid--hub">
+      <section class="site-footer__col site-footer__col--brand">
+      <p class="h3 site-footer__title">小巴老師｜親子寫真</p>
+      <p class="muted" style="margin:0 0 var(--space-md);max-width:42ch;font-size:0.95rem;">親子寫真、家庭攝影、台灣包車旅拍、海外親子旅拍、露營團拍與家庭活動紀錄。自然互動、不死板，讓孩子在旅行與遊戲中留下真實表情。</p>
+      <p class="muted" style="margin:0;font-size:0.92rem;line-height:1.65;">
+        Line／電話：0911-252-302<br/>
+        WhatsApp：+886 911252302<br/>
+        E-mail：<a href="mailto:crownchief@gmail.com">crownchief@gmail.com</a>
+      </p>
+      <div class="site-footer__cta" style="margin-top:var(--space-md);display:flex;flex-wrap:wrap;gap:0.5rem;">
+        <a class="btn btn--primary btn--compact" href="https://line.me/ti/p/0911252302" target="_blank" rel="noopener noreferrer">加 Line 詢問</a>
+        <a class="btn btn--secondary btn--compact" href="/contact/">預約拍攝</a>
+      </div>
+    </section>
       <section class="site-footer__col">
       <p class="h3 site-footer__title">親子寫真服務</p>
-      <ul class="footer-links footer-links--single"><li><a href="/pages/service-flow/">服務流程與價格</a></li><li><a href="/taiwan/taipei/">台灣包車親子旅拍</a></li><li><a href="/overseas/">海外親子旅拍</a></li><li><a href="/pages/service-flow/">微電影 MV</a></li><li><a href="/pages/reviews/">爸媽推薦</a></li><li><a href="/pages/faq/">常見問題</a></li></ul>
-    </section><section class="site-footer__col">
-      <p class="h3 site-footer__title">台灣拍攝地區</p>
-      <ul class="footer-links footer-links--single"><li><a href="/taiwan/taipei/">台北親子寫真</a></li><li><a href="/taiwan/taoyuan/">桃園親子寫真</a></li><li><a href="/taiwan/hsinchu/">新竹親子寫真</a></li><li><a href="/taiwan/taichung/">台中親子寫真</a></li><li><a href="/taiwan/yilan/">宜蘭親子寫真</a></li><li><a href="/taiwan/penghu/">澎湖親子寫真</a></li><li><a href="/taiwan/camping/">露營團拍</a></li><li><a href="/taiwan/birthday/">生日派對</a></li></ul>
-    </section><section class="site-footer__col">
-      <p class="h3 site-footer__title">海外旅拍</p>
-      <ul class="footer-links footer-links--single"><li><a href="/overseas/japan-winter/">日本滑雪玩雪</a></li><li><a href="/overseas/hokkaido/">北海道夏季</a></li><li><a href="/overseas/okinawa/">沖繩親子寫真</a></li><li><a href="/overseas/disney/">東京迪士尼</a></li><li><a href="/overseas/kansai/">京都大阪奈良</a></li><li><a href="/overseas/korea/">韓國親子寫真</a></li><li><a href="/overseas/singapore/">新加坡親子寫真</a></li><li><a href="/overseas/australia/">澳洲雪梨墨爾本</a></li></ul>
-    </section><section class="site-footer__col">
-      <p class="h3 site-footer__title">主題分類</p>
-      <ul class="footer-links footer-links--single"><li><a href="/themes/generation/">三代同堂</a></li><li><a href="/themes/maternity/">孕婦寫真</a></li><li><a href="/themes/costume/">和服韓服旗袍</a></li><li><a href="/themes/night/">夜拍煙火</a></li><li><a href="/themes/beach/">海灘玩水</a></li><li><a href="/themes/grass/">草地森林</a></li><li><a href="/themes/sakura/">春櫻秋楓</a></li><li><a href="/themes/baby/">寶寶 Baby</a></li></ul>
-    </section><section class="site-footer__col">
-      <p class="h3 site-footer__title">聯絡小巴老師</p>
-      <ul class="footer-links footer-links--single"><li><a href="https://line.me/ti/p/0911252302" target="_blank" rel="noopener noreferrer">Line ID：0911252302</a></li><li><a href="https://weixin.qq.com/" target="_blank" rel="noopener noreferrer">WeChat：travelphotographer</a></li><li><a href="https://wa.me/886911252302" target="_blank" rel="noopener noreferrer">WhatsApp：+886 911252302</a></li><li><a href="tel:+886911252302">電話：0911252302</a></li><li><a href="mailto:crownchief@gmail.com" target="_blank" rel="noopener noreferrer">Email：crownchief@gmail.com</a></li><li><a href="https://www.instagram.com/travel.photo.tw/" target="_blank" rel="noopener noreferrer">IG：travel.photo.tw</a></li><li><a href="https://facebook.com/benson.tw" target="_blank" rel="noopener noreferrer">Facebook：Facebook.com/benson.tw</a></li></ul>
+      <ul class="footer-links footer-links--single">
+        <li><a href="/services/taiwan-family-photography/">台灣親子旅拍</a></li>
+        <li><a href="/services/overseas-family-photography/">海外親子旅拍</a></li>
+        <li><a href="/services/camping-family-photography/">露營團拍／親子民宿</a></li>
+        <li><a href="/services/family-event-photography/">生日派對／家庭活動紀錄</a></li>
+        <li><a href="/services/maternity-baby-family-photography/">孕婦／寶寶／三代同堂</a></li>
+        <li><a href="/faq/">常見問題</a></li>
+        <li><a href="/about/">關於小巴老師</a></li>
+      </ul>
+    </section>
+      <section class="site-footer__col">
+      <p class="h3 site-footer__title">親子寫真作品</p>
+      <ul class="footer-links footer-links--single">
+        <li><a href="/works/">全部作品</a></li>
+        <li><a href="/works/?category=taiwan">台灣親子旅拍作品</a></li>
+        <li><a href="/works/?category=overseas">海外親子旅拍作品</a></li>
+        <li><a href="/works/?category=camping">露營團拍作品</a></li>
+        <li><a href="/works/?category=homestay">親子民宿作品</a></li>
+        <li><a href="/works/?category=party">生日派對作品</a></li>
+        <li><a href="/works/?category=baby">孕婦與寶寶作品</a></li>
+        <li><a href="/works/?category=three-generation">三代同堂作品</a></li>
+      </ul>
+      <p class="muted" style="margin:var(--space-sm) 0 0;font-size:0.85rem;">最新作品</p><ul class="footer-links footer-links--single" style="margin-top:0.35rem;"><li><a href="/works/homestay-villa-natural-light/">親子民宿旅拍｜室內 Villa 與戶外自然光</a></li><li><a href="/works/camping-tent-family-photo/">露營團拍｜草地帳篷親子家庭寫真</a></li><li><a href="/works/yilan-nature-family-photo/">宜蘭親子旅拍｜自然風家庭攝影</a></li></ul>
+    </section>
+      <section class="site-footer__col">
+      <p class="h3 site-footer__title">親子寫真文章</p>
+      <ul class="footer-links footer-links--single">
+        <li><a href="/articles/">全部文章</a></li>
+        <li><a href="/articles/?category=preparation">親子寫真準備</a></li>
+        <li><a href="/articles/?category=taiwan">台灣親子旅拍</a></li>
+        <li><a href="/articles/?category=overseas">海外親子旅拍</a></li>
+        <li><a href="/articles/?category=camping">露營團拍</a></li>
+        <li><a href="/articles/?category=outfit">家庭照穿搭</a></li>
+        <li><a href="/articles/?category=location">親子攝影地點</a></li>
+        <li><a href="/articles/?category=pricing">家庭攝影費用</a></li>
+      </ul>
+      <p class="muted" style="margin:var(--space-sm) 0 0;font-size:0.85rem;">最新文章</p><ul class="footer-links footer-links--single" style="margin-top:0.35rem;"><li><a href="/articles/taiwan-family-travel-photography-guide/">台灣親子旅拍怎麼安排？包車、景點、拍攝時間一次整理</a></li><li><a href="/articles/taipei-family-photo-location/">台北親子寫真地點推薦｜草地、公園、河岸與城市景點</a></li><li><a href="/articles/family-photo-outfit-guide/">親子寫真穿搭怎麼選？家庭照衣服顏色與搭配建議</a></li></ul>
+    </section>
+      <section class="site-footer__col">
+      <p class="h3 site-footer__title">客戶專區</p>
+      <ul class="footer-links footer-links--single">
+        <li><a href="/clients/">客戶專區首頁</a></li>
+        <li><a href="/clients/">作品交件說明</a></li>
+        <li><a href="/clients/">照片下載說明</a></li>
+        <li><a href="/contact/">聯絡攝影師</a></li>
+      </ul>
+      <p class="muted" style="margin-top:var(--space-sm);font-size:0.9rem;max-width:40ch;">完成拍攝的家庭可以從客戶專區進入專屬頁面，查看照片、影片、雲端下載連結與交件說明。</p>
     </section>
     </div>
   </div>
-  <p class="container muted" style="margin-top:var(--space-xl);font-size:0.82rem;">© 2026 小巴老師｜親子寫真．保留所有權利。</p>
+  <div class="container site-footer__bottom">
+    <p class="muted" style="margin:0;font-size:0.82rem;">
+      <a href="/sitemap/">網站地圖</a>
+      ・
+      <a href="/privacy/">隱私權說明</a>
+      ・
+      © 2026 小巴老師｜親子寫真．八威創意有限公司
+    </p>
+    <p class="muted" style="margin:var(--space-sm) 0 0;font-size:0.82rem;">
+      #親子寫真 #家庭攝影 #台灣親子旅拍 #海外親子旅拍 #小巴老師
+    </p>
+  </div>
 </footer>
 </body>
 </html>

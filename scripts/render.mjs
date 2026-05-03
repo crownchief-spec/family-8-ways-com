@@ -1,7 +1,7 @@
 /**
  * 靜態 HTML 外殼與共用區塊（取代 Astro Layout）
  */
-import { readFileSync } from 'fs';
+import { readFileSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -20,14 +20,40 @@ export function escapeHtml(s) {
     .replace(/"/g, '&quot;');
 }
 
+function loadFooterLatest() {
+  const p = join(ROOT, 'data/hub-footer-latest.json');
+  if (!existsSync(p)) return { works: [], articles: [] };
+  try {
+    return JSON.parse(readFileSync(p, 'utf8'));
+  } catch {
+    return { works: [], articles: [] };
+  }
+}
+
 export function renderNavbar(cfg) {
   const { site, nav } = cfg;
   const items = nav
     .map((item) => {
       const href = item.href === '/index.html' ? '/' : item.href;
-      return `<li><a href="${escapeHtml(href)}">${escapeHtml(item.label)}</a></li>`;
+      if (item.children?.length) {
+        const sub = item.children
+          .map(
+            (ch) =>
+              `<li><a href="${escapeHtml(ch.href)}">${escapeHtml(ch.label)}</a></li>`,
+          )
+          .join('');
+        return `<li class="site-nav__item site-nav__item--dropdown">
+  <div class="site-nav__split">
+    <a href="${escapeHtml(href)}" class="site-nav__parent">${escapeHtml(item.label)}</a>
+    <button type="button" class="site-nav__dropdown-toggle" aria-expanded="false" aria-label="展開子選單" data-dropdown-toggle>▼</button>
+  </div>
+  <ul class="site-nav__sub">${sub}</ul>
+</li>`;
+      }
+      return `<li class="site-nav__item"><a href="${escapeHtml(href)}">${escapeHtml(item.label)}</a></li>`;
     })
     .join('\n');
+
   return `<header class="site-header">
   <div class="site-header__inner container">
     <a class="site-header__brand" href="/">${escapeHtml(site.shortName)}</a>
@@ -40,14 +66,30 @@ export function renderNavbar(cfg) {
       <ul class="site-nav__list">${items}</ul>
       <div class="site-nav__cta">
         <a class="btn btn--ghost btn--compact" href="${escapeHtml(site.lineUrl)}" target="_blank" rel="noopener noreferrer">加 Line 詢問</a>
-        <a class="btn btn--primary btn--compact" href="/pages/contact.html">預約拍攝</a>
+        <a class="btn btn--primary btn--compact" href="/contact/">預約拍攝</a>
       </div>
     </nav>
   </div>
 </header>
+<div class="sticky-mobile-cta" aria-hidden="false">
+  <a class="sticky-mobile-cta__btn sticky-mobile-cta__btn--line" href="${escapeHtml(site.lineUrl)}" target="_blank" rel="noopener noreferrer">Line 詢問</a>
+  <a class="sticky-mobile-cta__btn sticky-mobile-cta__btn--tel" href="${escapeHtml(site.phoneTel)}">撥打電話</a>
+</div>
 <script>
-(function(){var t=document.querySelector("[data-nav-toggle]"),p=document.querySelector("[data-nav-panel]");if(t&&p){t.addEventListener("click",function(){var o=!p.classList.contains("is-open");p.classList.toggle("is-open",o);t.setAttribute("aria-expanded",String(o))});p.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){p.classList.remove("is-open");t.setAttribute("aria-expanded","false")})})}
-var path=location.pathname;document.querySelectorAll(".site-nav__list a").forEach(function(link){if(link.pathname===path||(path==="/"||path==="/index.html")&&(link.getAttribute("href")==="/"||link.getAttribute("href")==="/index.html"))link.setAttribute("aria-current","page");});
+(function(){
+function normPath(p){p=p||"/";if(p.endsWith("/index.html"))p=p.slice(0,-10)||"/";return p.replace(/\/+$/,"")||"/";}
+var t=document.querySelector("[data-nav-toggle]"),p=document.querySelector("[data-nav-panel]");
+if(t&&p){t.addEventListener("click",function(){var o=!p.classList.contains("is-open");p.classList.toggle("is-open",o);t.setAttribute("aria-expanded",String(o))});p.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){p.classList.remove("is-open");t.setAttribute("aria-expanded","false")})})}
+document.querySelectorAll("[data-dropdown-toggle]").forEach(function(btn){
+var li=btn.closest(".site-nav__item--dropdown");if(!li)return;
+btn.addEventListener("click",function(){var o=li.classList.toggle("is-sub-open");btn.setAttribute("aria-expanded",String(o));});
+});
+var path=normPath(location.pathname);
+document.querySelectorAll(".site-nav__list a").forEach(function(link){
+var h=link.getAttribute("href")||"";
+var lp=normPath(link.pathname||"");
+if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria-current","page");
+});
 })();
 </script>`;
 }
@@ -55,95 +97,106 @@ var path=location.pathname;document.querySelectorAll(".site-nav__list a").forEac
 export function renderFooter(cfg) {
   const { site } = cfg;
   const y = new Date().getFullYear();
-  const sections = [
-    {
-      title: '親子寫真服務',
-      links: [
-        ['服務流程與價格', '/pages/service-flow/'],
-        ['台灣包車親子旅拍', '/taiwan/taipei/'],
-        ['海外親子旅拍', '/overseas/'],
-        ['微電影 MV', '/pages/service-flow/'],
-        ['爸媽推薦', '/pages/reviews/'],
-        ['常見問題', '/pages/faq/'],
-      ],
-    },
-    {
-      title: '台灣拍攝地區',
-      links: [
-        ['台北親子寫真', '/taiwan/taipei/'],
-        ['桃園親子寫真', '/taiwan/taoyuan/'],
-        ['新竹親子寫真', '/taiwan/hsinchu/'],
-        ['台中親子寫真', '/taiwan/taichung/'],
-        ['宜蘭親子寫真', '/taiwan/yilan/'],
-        ['澎湖親子寫真', '/taiwan/penghu/'],
-        ['露營團拍', '/taiwan/camping/'],
-        ['生日派對', '/taiwan/birthday/'],
-      ],
-    },
-    {
-      title: '海外旅拍',
-      links: [
-        ['日本滑雪玩雪', '/overseas/japan-winter/'],
-        ['北海道夏季', '/overseas/hokkaido/'],
-        ['沖繩親子寫真', '/overseas/okinawa/'],
-        ['東京迪士尼', '/overseas/disney/'],
-        ['京都大阪奈良', '/overseas/kansai/'],
-        ['韓國親子寫真', '/overseas/korea/'],
-        ['新加坡親子寫真', '/overseas/singapore/'],
-        ['澳洲雪梨墨爾本', '/overseas/australia/'],
-      ],
-    },
-    {
-      title: '主題分類',
-      links: [
-        ['三代同堂', '/themes/generation/'],
-        ['孕婦寫真', '/themes/maternity/'],
-        ['和服韓服旗袍', '/themes/costume/'],
-        ['夜拍煙火', '/themes/night/'],
-        ['海灘玩水', '/themes/beach/'],
-        ['草地森林', '/themes/grass/'],
-        ['春櫻秋楓', '/themes/sakura/'],
-        ['寶寶 Baby', '/themes/baby/'],
-      ],
-    },
-    {
-      title: '聯絡小巴老師',
-      links: [
-        ['Line ID：0911252302', site.lineUrl],
-        ['WeChat：travelphotographer', `https://weixin.qq.com/`],
-        ['WhatsApp：+886 911252302', site.whatsappUrl],
-        ['電話：0911252302', site.phoneTel],
-        ['Email：crownchief@gmail.com', `mailto:${site.email}`],
-        ['IG：travel.photo.tw', 'https://www.instagram.com/travel.photo.tw/'],
-        ['Facebook：Facebook.com/benson.tw', 'https://facebook.com/benson.tw'],
-      ],
-    },
-  ];
-  const sectionHtml = sections
-    .map(
-      (section) => `<section class="site-footer__col">
-      <p class="h3 site-footer__title">${escapeHtml(section.title)}</p>
-      <ul class="footer-links footer-links--single">${section.links
-        .map(
-          ([label, href]) =>
-            `<li><a href="${escapeHtml(href)}"${href.startsWith('http') || href.startsWith('mailto:') ? ' target="_blank" rel="noopener noreferrer"' : ''}>${escapeHtml(label)}</a></li>`,
-        )
-        .join('')}</ul>
-    </section>`,
-    )
+  const latest = loadFooterLatest();
+  const worksMini = (latest.works || [])
+    .slice(0, 3)
+    .map((w) => `<li><a href="${escapeHtml(w.href)}">${escapeHtml(w.title)}</a></li>`)
     .join('');
+  const artsMini = (latest.articles || [])
+    .slice(0, 3)
+    .map((a) => `<li><a href="${escapeHtml(a.href)}">${escapeHtml(a.title)}</a></li>`)
+    .join('');
+
+  const colBrand = `<section class="site-footer__col site-footer__col--brand">
+      <p class="h3 site-footer__title">小巴老師｜親子寫真</p>
+      <p class="muted" style="margin:0 0 var(--space-md);max-width:42ch;font-size:0.95rem;">親子寫真、家庭攝影、台灣包車旅拍、海外親子旅拍、露營團拍與家庭活動紀錄。自然互動、不死板，讓孩子在旅行與遊戲中留下真實表情。</p>
+      <p class="muted" style="margin:0;font-size:0.92rem;line-height:1.65;">
+        Line／電話：${escapeHtml(site.phoneDisplay || '0911-252-302')}<br/>
+        WhatsApp：+886 911252302<br/>
+        E-mail：<a href="mailto:${escapeHtml(site.email)}">${escapeHtml(site.email)}</a>
+      </p>
+      <div class="site-footer__cta" style="margin-top:var(--space-md);display:flex;flex-wrap:wrap;gap:0.5rem;">
+        <a class="btn btn--primary btn--compact" href="${escapeHtml(site.lineUrl)}" target="_blank" rel="noopener noreferrer">加 Line 詢問</a>
+        <a class="btn btn--secondary btn--compact" href="/contact/">預約拍攝</a>
+      </div>
+    </section>`;
+
+  const colServices = `<section class="site-footer__col">
+      <p class="h3 site-footer__title">親子寫真服務</p>
+      <ul class="footer-links footer-links--single">
+        <li><a href="/services/taiwan-family-photography/">台灣親子旅拍</a></li>
+        <li><a href="/services/overseas-family-photography/">海外親子旅拍</a></li>
+        <li><a href="/services/camping-family-photography/">露營團拍／親子民宿</a></li>
+        <li><a href="/services/family-event-photography/">生日派對／家庭活動紀錄</a></li>
+        <li><a href="/services/maternity-baby-family-photography/">孕婦／寶寶／三代同堂</a></li>
+        <li><a href="/faq/">常見問題</a></li>
+        <li><a href="/about/">關於小巴老師</a></li>
+      </ul>
+    </section>`;
+
+  const colWorks = `<section class="site-footer__col">
+      <p class="h3 site-footer__title">親子寫真作品</p>
+      <ul class="footer-links footer-links--single">
+        <li><a href="/works/">全部作品</a></li>
+        <li><a href="/works/?category=taiwan">台灣親子旅拍作品</a></li>
+        <li><a href="/works/?category=overseas">海外親子旅拍作品</a></li>
+        <li><a href="/works/?category=camping">露營團拍作品</a></li>
+        <li><a href="/works/?category=homestay">親子民宿作品</a></li>
+        <li><a href="/works/?category=party">生日派對作品</a></li>
+        <li><a href="/works/?category=baby">孕婦與寶寶作品</a></li>
+        <li><a href="/works/?category=three-generation">三代同堂作品</a></li>
+      </ul>
+      ${worksMini ? `<p class="muted" style="margin:var(--space-sm) 0 0;font-size:0.85rem;">最新作品</p><ul class="footer-links footer-links--single" style="margin-top:0.35rem;">${worksMini}</ul>` : ''}
+    </section>`;
+
+  const colArticles = `<section class="site-footer__col">
+      <p class="h3 site-footer__title">親子寫真文章</p>
+      <ul class="footer-links footer-links--single">
+        <li><a href="/articles/">全部文章</a></li>
+        <li><a href="/articles/?category=preparation">親子寫真準備</a></li>
+        <li><a href="/articles/?category=taiwan">台灣親子旅拍</a></li>
+        <li><a href="/articles/?category=overseas">海外親子旅拍</a></li>
+        <li><a href="/articles/?category=camping">露營團拍</a></li>
+        <li><a href="/articles/?category=outfit">家庭照穿搭</a></li>
+        <li><a href="/articles/?category=location">親子攝影地點</a></li>
+        <li><a href="/articles/?category=pricing">家庭攝影費用</a></li>
+      </ul>
+      ${artsMini ? `<p class="muted" style="margin:var(--space-sm) 0 0;font-size:0.85rem;">最新文章</p><ul class="footer-links footer-links--single" style="margin-top:0.35rem;">${artsMini}</ul>` : ''}
+    </section>`;
+
+  const colClients = `<section class="site-footer__col">
+      <p class="h3 site-footer__title">客戶專區</p>
+      <ul class="footer-links footer-links--single">
+        <li><a href="/clients/">客戶專區首頁</a></li>
+        <li><a href="/clients/">作品交件說明</a></li>
+        <li><a href="/clients/">照片下載說明</a></li>
+        <li><a href="/contact/">聯絡攝影師</a></li>
+      </ul>
+      <p class="muted" style="margin-top:var(--space-sm);font-size:0.9rem;max-width:40ch;">完成拍攝的家庭可以從客戶專區進入專屬頁面，查看照片、影片、雲端下載連結與交件說明。</p>
+    </section>`;
+
   return `<footer class="site-footer">
   <div class="container">
-    <div class="site-footer__top">
-      <p class="h3" style="margin:0;">${escapeHtml(site.shortName)}</p>
-      <p class="muted" style="margin:0;max-width:62ch;">台灣包車旅拍、海外親子旅拍、全外拍自然互動風格。照片全給，可搭配微電影 MV。</p>
-      <p style="margin:0;"><a class="btn btn--primary btn--compact" href="${escapeHtml(site.lineUrl)}" target="_blank" rel="noopener noreferrer">LINE 預約諮詢</a></p>
-    </div>
-    <div class="site-footer__grid">
-      ${sectionHtml}
+    <div class="site-footer__grid site-footer__grid--hub">
+      ${colBrand}
+      ${colServices}
+      ${colWorks}
+      ${colArticles}
+      ${colClients}
     </div>
   </div>
-  <p class="container muted" style="margin-top:var(--space-xl);font-size:0.82rem;">© ${y} ${escapeHtml(site.shortName)}．保留所有權利。</p>
+  <div class="container site-footer__bottom">
+    <p class="muted" style="margin:0;font-size:0.82rem;">
+      <a href="/sitemap/">網站地圖</a>
+      ・
+      <a href="/privacy/">隱私權說明</a>
+      ・
+      © ${y} 小巴老師｜親子寫真．八威創意有限公司
+    </p>
+    <p class="muted" style="margin:var(--space-sm) 0 0;font-size:0.82rem;">
+      #親子寫真 #家庭攝影 #台灣親子旅拍 #海外親子旅拍 #小巴老師
+    </p>
+  </div>
 </footer>`;
 }
 
@@ -174,6 +227,9 @@ export function renderPage(cfg, { title, description, canonical, body, ogImage, 
   <meta property="og:image" content="${escapeHtml(og)}" />
   <meta property="og:locale" content="zh_TW" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="${escapeHtml(title)}" />
+  <meta name="twitter:description" content="${escapeHtml(desc)}" />
+  <meta name="twitter:image" content="${escapeHtml(og)}" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

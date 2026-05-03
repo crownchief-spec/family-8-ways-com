@@ -147,13 +147,21 @@ ${hashtags(p)}`;
 
 function buildHome() {
   const p = pageMap.get('home');
-  const body = `<section class="hero" style="min-height:420px;margin-bottom:0;border-radius:0;"><div class="hero__bg" style="background-image:url('${p.images[0]?.src || '/public/og-default.svg'}')"></div><div class="hero__overlay"></div><div class="hero__inner"><h1 class="hero__title">親子寫真｜台灣包車、海外旅拍、家庭攝影作品集</h1><p class="hero__sub">小巴老師以全外拍自然互動風格，陪家庭邊玩邊拍。從台灣包車旅拍到日本、韓國、新加坡、澳洲等海外親子寫真，讓家庭照像風景明信片一樣自然、有故事。</p><div class="hero__actions"><a class="btn btn--primary" href="/pages/service-flow/">查看服務流程與價格</a><a class="btn btn--secondary" href="/taiwan/taipei/">看台灣拍攝作品</a><a class="btn btn--secondary" href="/overseas/">看海外旅拍作品</a><a class="btn btn--secondary" href="${cfg.site.lineUrl}" target="_blank" rel="noopener noreferrer">LINE 預約諮詢</a></div></div></section>
+  let hubHomeInject = '';
+  try {
+    const hp = join(ROOT, 'data', 'hub-home-inject.html');
+    if (existsSync(hp)) hubHomeInject = readFileSync(hp, 'utf8');
+  } catch {
+    hubHomeInject = '';
+  }
+  const body = `<section class="hero" style="min-height:420px;margin-bottom:0;border-radius:0;"><div class="hero__bg" style="background-image:url('${p.images[0]?.src || '/public/og-default.svg'}')"></div><div class="hero__overlay"></div><div class="hero__inner"><h1 class="hero__title">親子寫真｜台灣包車、海外旅拍、家庭攝影作品集</h1><p class="hero__sub">小巴老師以全外拍自然互動風格，陪家庭邊玩邊拍。從台灣包車旅拍到日本、韓國、新加坡、澳洲等海外親子寫真，讓家庭照像風景明信片一樣自然、有故事。</p><div class="hero__actions"><a class="btn btn--primary" href="/services/">查看服務方案與價格</a><a class="btn btn--secondary" href="/taiwan/taipei/">看台灣拍攝作品</a><a class="btn btn--secondary" href="/overseas/">看海外旅拍作品</a><a class="btn btn--secondary" href="${cfg.site.lineUrl}" target="_blank" rel="noopener noreferrer">LINE 預約諮詢</a></div></div></section>
 ${statsRow(p)}
 <section class="container section"><h2 class="h2">核心賣點</h2><div class="grid-2"><div class="card card--flat"><h3 class="h3">全外拍自然互動風格</h3></div><div class="card card--flat"><h3 class="h3">台灣包車親子旅拍</h3></div><div class="card card--flat"><h3 class="h3">50 趟以上海外旅拍</h3></div><div class="card card--flat"><h3 class="h3">照片全給 / 微電影 MV</h3></div></div></section>
 <section class="container section"><h2 class="h2">精選影片</h2>${videoBlock(p)}<p><a href="https://www.youtube.com/playlist?list=PLlcWeCGlTvTTEDlFy5fNEjOKzUt5gBzVM" target="_blank" rel="noopener noreferrer">查看更多親子旅拍影片</a></p></section>
 <section class="container section"><h2 class="h2">價格與方案摘要</h2><div class="prose"><p>台灣旅拍：半天 $5800–8300、全天 $14800。海外旅拍：一日攝影費 $14800，第二日 $9800，攝影師機票費用八折優惠。成品照片檔案全給，可搭配微電影 MV。</p></div></section>
 ${showcaseCards()}
-<section class="container section card card--flat"><h2 class="h2">入口導覽</h2><ul class="prose"><li><a href="/taiwan/taipei/">台灣拍攝地區</a></li><li><a href="/overseas/">海外旅拍地區</a></li><li><a href="/themes/">主題分類</a></li><li><a href="/works/">作品案例</a></li><li><a href="/client/">客戶專區</a></li><li><a href="/pages/reviews/">爸媽推薦</a></li><li><a href="/pages/faq/">常見問題</a></li><li><a href="/pages/about-ba-wei/">關於小巴老師</a></li></ul></section>
+${hubHomeInject}
+<section class="container section card card--flat"><h2 class="h2">入口導覽</h2><ul class="prose"><li><a href="/services/">服務方案（Hub）</a></li><li><a href="/taiwan/taipei/">台灣拍攝地區</a></li><li><a href="/overseas/">海外旅拍地區</a></li><li><a href="/themes/">主題分類</a></li><li><a href="/works/">作品案例</a></li><li><a href="/articles/">拍攝文章</a></li><li><a href="/clients/">客戶專區</a></li><li><a href="/pages/reviews/">爸媽推薦</a></li><li><a href="/faq/">常見問題</a></li><li><a href="/pages/about-ba-wei/">關於小巴老師（完整）</a></li></ul></section>
 ${cta()}
 ${hashtags(p)}`;
   return renderPage(cfg, {
@@ -182,8 +190,7 @@ for (const p of pages) {
 writeRoute('/', buildHome());
 writeRoute('/overseas', buildIndexPage('/overseas', '海外旅拍', '日本、韓國、新加坡、澳洲等地區的親子旅拍作品整理。', (p) => p.pageType === 'overseas' && p.id !== 'overseas-index'));
 writeRoute('/themes', buildIndexPage('/themes', '主題分類', '依拍攝風格與情境瀏覽完整親子寫真作品。', (p) => p.pageType === 'theme' && p.id !== 'themes-index'));
-writeRoute('/works', buildIndexPage('/works', '作品案例 Works', '台灣拍攝、海外旅拍與主題分類作品案例總覽。', (p) => ['taiwan', 'overseas', 'theme'].includes(p.pageType)));
-writeRoute('/client', renderPage(cfg, { title: '客戶專區｜親子寫真專屬相簿入口｜小巴老師', description: '已完成拍攝的家庭，可輸入密碼觀看專屬相簿。', canonical: `${siteUrl}/client/`, body: `<section class="container section"><h1 class="h1">客戶專區</h1><p class="muted">已完成拍攝的家庭，可由這裡輸入密碼觀看專屬相簿。若忘記密碼，請直接 Line 小巴老師。</p></section><p class="container section muted" style="padding-top:0;">本頁作品照片：1 張｜影片：0 支</p><section class="container section" style="padding-top:0;"><form class="card card--flat" style="max-width:520px;"><label class="field"><span class="muted">相簿密碼</span><input type="password" placeholder="請輸入密碼" /></label><button type="button" class="btn btn--primary">進入相簿</button><p class="muted">Demo 相簿：親子寫真客戶專屬相簿 Demo（2026-04）</p><img src="/public/og-default.svg" alt="客戶專區 demo cover" width="1200" height="630" loading="lazy"/></form></section>${cta()}${hashtags({ hashtags: ['客戶專區', '親子寫真相簿', '家庭攝影', '小巴老師'] })}`, ogImage: '/public/og-default.svg' }));
+writeRoute('/client', renderPage(cfg, { title: '客戶專區｜親子寫真專屬相簿入口｜小巴老師', description: '已完成拍攝的家庭，可輸入密碼觀看專屬相簿。', canonical: `${siteUrl}/client/`, body: `<section class="container section"><h1 class="h1">客戶專區</h1><p class="muted">已完成拍攝的家庭，可由這裡輸入密碼觀看專屬相簿。若忘記密碼，請直接 Line 小巴老師。</p><p class="muted"><a href="/clients/">前往新版客戶專區入口</a></p></section><p class="container section muted" style="padding-top:0;">本頁作品照片：1 張｜影片：0 支</p><section class="container section" style="padding-top:0;"><form class="card card--flat" style="max-width:520px;"><label class="field"><span class="muted">相簿密碼</span><input type="password" placeholder="請輸入密碼" /></label><button type="button" class="btn btn--primary">進入相簿</button><p class="muted">Demo 相簿：親子寫真客戶專屬相簿 Demo（2026-04）</p><img src="/public/og-default.svg" alt="客戶專區 demo cover" width="1200" height="630" loading="lazy"/></form></section>${cta()}${hashtags({ hashtags: ['客戶專區', '親子寫真相簿', '家庭攝影', '小巴老師'] })}`, ogImage: '/public/og-default.svg' }));
 
 const redirects = [
   '/family-taipei /taiwan/taipei 301', '/family-studio /taiwan/studio 301', '/family-tamsui /taiwan/tamsui 301',
@@ -198,7 +205,7 @@ const redirects = [
 writeFileSync(join(ROOT, 'public', '_redirects'), redirects.join('\n') + '\n', 'utf8');
 writeFileSync(join(ROOT, '_redirects'), redirects.join('\n') + '\n', 'utf8');
 
-const urls = new Set(['/','/overseas','/themes','/works','/client', ...rendered]);
+const urls = new Set(['/', '/overseas', '/themes', '/client', ...rendered]);
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${[...urls].map((u) => `<url><loc>${escapeHtml(`${siteUrl}${u}/`.replace(/\/+$/, '/'))}</loc><changefreq>weekly</changefreq></url>`).join('\n')}\n</urlset>`;
 writeFileSync(join(ROOT, 'sitemap.xml'), sitemap, 'utf8');
 console.log(`family migration pages rendered: ${urls.size}`);

@@ -6,6 +6,7 @@
     "url": "https://family.8-ways.com",
     "lineUrl": "https://line.me/ti/p/0911252302",
     "phone": "+886 911252302",
+    "phoneDisplay": "0911-252-302",
     "phoneTel": "tel:+886911252302",
     "wechat": "travelphotographer",
     "whatsappUrl": "https://wa.me/886911252302",
@@ -13,12 +14,22 @@
   },
   "nav": [
     { "href": "/", "label": "首頁" },
-    { "href": "/family-service/", "label": "服務說明" },
-    { "href": "/family-taipei/", "label": "台灣拍攝" },
-    { "href": "/family-okinawa/", "label": "海外旅拍" },
-    { "href": "/family-generation/", "label": "主題分類" },
-    { "href": "/family-reviews/", "label": "爸媽推薦" },
-    { "href": "/family-faq/", "label": "常見問題" },
-    { "href": "/about-ba-wei/", "label": "關於小巴老師" }
+    {
+      "href": "/services/",
+      "label": "服務方案",
+      "children": [
+        { "href": "/services/taiwan-family-photography/", "label": "台灣親子旅拍" },
+        { "href": "/services/overseas-family-photography/", "label": "海外親子旅拍" },
+        { "href": "/services/camping-family-photography/", "label": "露營團拍／親子民宿" },
+        { "href": "/services/family-event-photography/", "label": "生日派對／家庭活動紀錄" },
+        { "href": "/services/maternity-baby-family-photography/", "label": "孕婦／寶寶／三代同堂" }
+      ]
+    },
+    { "href": "/works/", "label": "作品案例" },
+    { "href": "/articles/", "label": "拍攝文章" },
+    { "href": "/clients/", "label": "客戶專區" },
+    { "href": "/faq/", "label": "常見問題" },
+    { "href": "/about/", "label": "關於小巴老師" },
+    { "href": "/contact/", "label": "聯絡預約" }
   ]
 }

@@ -1,0 +1,6 @@
+# ai.txt — family.8-ways.com
+Site: 小巴老師親子寫真
+Purpose: 親子寫真作品集、拍攝知識文章、客戶交件入口（密碼門面）。
+Key paths: /works/, /articles/, /clients/, /services/, /contact/
+Contact: crownchief@gmail.com | Line 0911252302
+Note: 客戶交付檔連結為私有雲端，勿假定公開 URL 可存取。
