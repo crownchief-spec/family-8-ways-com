@@ -224,14 +224,68 @@ function loadServiceDefs() {
   return JSON.parse(readFileSync(p, 'utf8'));
 }
 
-function loadDemoClients() {
-  const p = join(ROOT, 'data/clients.json');
-  if (!existsSync(p)) return [];
-  try {
-    return JSON.parse(readFileSync(p, 'utf8'));
-  } catch {
-    return [];
-  }
+function isPresent(value) {
+  if (value === null || value === undefined) return false;
+  if (typeof value === 'string') return value.trim() !== '';
+  if (Array.isArray(value)) return value.length > 0;
+  if (typeof value === 'object') return Object.keys(value).length > 0;
+  if (typeof value === 'number') return Number.isFinite(value);
+  return true;
+}
+
+function normalizeClientEntry(entry) {
+  const d = entry.data || {};
+  return {
+    id: d.id || d.slug || entry.base,
+    title: d.title || `${d.clientName || '客戶'}｜親子寫真客戶專區`,
+    clientName: d.clientName || '',
+    slug: d.slug || entry.base,
+    status: d.status || 'active',
+    publish: !!d.publish,
+    portfolioPublish: !!d.portfolioPublish,
+    noindex: d.noindex !== false,
+    shootingDate: d.shootingDate || '',
+    shootingWeekday: d.shootingWeekday || '',
+    shootingStartTime: d.shootingStartTime || '',
+    shootingEndTime: d.shootingEndTime || '',
+    packageName: d.packageName || '',
+    location: d.location || '',
+    pickup: d.pickup || '',
+    totalFee: d.totalFee,
+    deposit: d.deposit,
+    balance: d.balance,
+    paymentStatus: d.paymentStatus || '',
+    paymentNote: d.paymentNote || '',
+    deliverables: d.deliverables || '',
+    contactName: d.contactName || '',
+    phone: d.phone || '',
+    email: d.email || '',
+    lineName: d.lineName || '',
+    fatherName: d.fatherName || '',
+    motherName: d.motherName || '',
+    adultCount: d.adultCount,
+    childCount: d.childCount,
+    childrenInfo: d.childrenInfo || '',
+    familyIntro: d.familyIntro || '',
+    desiredShots: d.desiredShots || '',
+    specialNotes: d.specialNotes || '',
+    contractStatus: d.contractStatus || '',
+    portfolioPermission: d.portfolioPermission || '',
+    contractVersion: d.contractVersion || '',
+    signedAt: d.signedAt || '',
+    signatureImage: d.signatureImage || '',
+    driveFolderUrl: d.driveFolderUrl || '',
+    selectedPhotoUrl: d.selectedPhotoUrl || '',
+    videoUrl: d.videoUrl || '',
+    deliveryStatus: d.deliveryStatus || '',
+    deliveryNote: d.deliveryNote || '',
+    coverImage: d.coverImage || '',
+    gallery: d.gallery || [],
+    tags: d.tags || [],
+    createdAt: d.createdAt || '',
+    updatedAt: d.updatedAt || '',
+    bodyMd: entry.bodyMd || '',
+  };
 }
 
 function relatedWorksHtml(slugs, workBySlug) {
@@ -257,8 +311,10 @@ function relatedArticlesHtml(slugs, artBySlug) {
 function runPages() {
   const works = readMdDir('content/works').filter((e) => !e.data.draft);
   const articles = readMdDir('content/articles').filter((e) => !e.data.draft);
-  const hubClients = readMdDir('content/clients').filter((e) => !e.data.draft && e.data.hubPortal === true);
-  const demoClients = loadDemoClients();
+  const clientEntries = readMdDir('content/clients')
+    .filter((e) => !e.data.draft)
+    .map(normalizeClientEntry)
+    .filter((c) => isPresent(c.clientName) && isPresent(c.slug));
 
   const workBySlug = Object.fromEntries(works.map((w) => [w.data.slug, w]));
   const artBySlug = Object.fromEntries(articles.map((a) => [a.data.slug, a]));
@@ -528,14 +584,15 @@ ${rs}
   }
 
   /* ----- clients ----- */
-  const clientsIndexCards = demoClients
+  const clientsForPortal = clientEntries.filter((c) => c.status !== 'archived');
+  const clientsIndexCards = clientsForPortal
     .map(
       (c) => `<div class="hub-client-card" data-client-search="${escapeHtml(`${c.clientName} ${c.slug} ${c.shootingDate} ${c.packageName}`)}">
 <a class="pcard" href="/clients/${escapeHtml(c.slug)}/">
 <div class="pcard__body">
 <h3 class="pcard__title">${escapeHtml(c.clientName)}</h3>
-<p class="muted">${escapeHtml(c.packageName)} · ${escapeHtml(c.shootingDate)}</p>
-<p><span class="tag">${escapeHtml(c.contractStatus)}</span> <span class="tag">${escapeHtml(c.deliveryStatus)}</span></p>
+${isPresent(c.packageName) || isPresent(c.shootingDate) ? `<p class="muted">${escapeHtml([c.packageName, c.shootingDate].filter(Boolean).join(' · '))}</p>` : ''}
+<p><span class="tag">${escapeHtml(c.contractStatus || '未設定')}</span> <span class="tag">${escapeHtml(c.deliveryStatus || '未設定')}</span></p>
 <span class="btn btn--primary btn--compact">進入專屬頁</span>
 </div>
 </a></div>`,
@@ -572,48 +629,7 @@ ${rs}
   );
   extraSitemapUrls.push(`${site.url}/clients/`);
 
-  for (const c of hubClients) {
-    const slug = c.data.slug;
-    const hash = c.data.password ? sha256sync(String(c.data.password)) : '';
-    const links = (c.data.downloadLinks || [])
-      .map(
-        (l) =>
-          `<li><a href="${escapeHtml(l.url || '#')}" ${l.url ? 'target="_blank" rel="noopener noreferrer"' : ''}>${escapeHtml(l.title)}</a>${!l.url ? ' <span class="muted">（將於交件時更新）</span>' : ''}</li>`,
-      )
-      .join('');
-    const inner = marked.parse(c.bodyMd || '');
-    const relatedWorks = (c.data.relatedWorks || []).map((s) => workBySlug[s]).filter(Boolean);
-    const safeOg = CLIENT_OG;
-    const cover = normImg(c.data.coverImage, DEFAULT_IMG);
-
-    const unlockBody = `<section class="hero" style="min-height:260px;"><div class="hero__bg" style="background-image:url('${escapeHtml(safeOg)}')"></div><div class="hero__overlay"></div><div class="hero__inner"><h1 class="hero__title">${escapeHtml(c.data.title)}</h1><p class="hero__sub">${escapeHtml(c.data.projectType)} · ${escapeHtml(c.data.shootDate)}</p></div></section>
-<div class="container section" data-pw-root data-pw-hash="${hash}" data-pw-slug="${escapeHtml(slug)}">
-<form class="card card--flat pw-gate" data-pw-form><p class="h3">此頁面需輸入密碼</p><label class="field"><span class="muted">密碼</span><input type="password" name="password" autocomplete="current-password" required /></label><button class="btn btn--primary" type="submit">解鎖</button><p class="muted pw-error" data-pw-error hidden>密碼不正確。</p></form>
-<div data-pw-content class="is-locked">
-<section class="card card--flat"><h2 class="h2">專案資訊</h2><p><strong>地點：</strong>${escapeHtml(c.data.location)}</p><p><strong>狀態：</strong>${escapeHtml(c.data.status)}</p></section>
-<section class="card card--flat"><h2 class="h2">下載與連結</h2><ul class="prose">${links}</ul></section>
-<section class="prose">${inner}</section>
-${relatedWorks.length ? `<section class="card card--flat"><h2 class="h2">公開作品參考（不含私人交付檔）</h2><ul class="prose">${relatedWorks.map((w) => `<li><a href="/works/${escapeHtml(w.data.slug)}/">${escapeHtml(w.data.title)}</a></li>`).join('')}</ul></section>` : ''}
-<section class="card card--flat"><h2 class="h2">聯絡</h2><div class="hero__actions"><a class="btn btn--primary" href="${site.lineUrl}" target="_blank">Line</a><a class="btn btn--secondary" href="/contact/">聯絡表單</a></div></section>
-</div></div>
-<script>(function(){var root=document.querySelector("[data-pw-root]");if(!root)return;var hash=root.dataset.pwHash||"";var slug=root.dataset.pwSlug||"";var form=root.querySelector("[data-pw-form]");var content=root.querySelector("[data-pw-content]");var err=root.querySelector("[data-pw-error]");var key="client_unlock_"+slug;async function sha256Hex(m){var b=new TextEncoder().encode(m);var d=await crypto.subtle.digest("SHA-256",b);return Array.from(new Uint8Array(d)).map(function(x){return x.toString(16).padStart(2,"0")}).join("");}function unlock(){if(content)content.classList.remove("is-locked");if(form)form.hidden=true;}if(!hash)return;if(sessionStorage.getItem(key)===hash)unlock();if(!form)return;form.addEventListener("submit",async function(ev){ev.preventDefault();var fd=new FormData(form);var pw=String(fd.get("password")||"");var entered=await sha256Hex(pw);if(entered===hash){sessionStorage.setItem(key,hash);if(err)err.hidden=true;unlock();}else if(err)err.hidden=false;});})();</script>
-<style>.is-locked{display:none;}.pw-gate{max-width:420px;padding:var(--space-lg);}</style>`;
-
-    writeRouteHtml(
-      `/clients/${slug}`,
-      renderPage(cfg, {
-        title: `${c.data.clientName}｜客戶交件`,
-        description: c.data.notes || `專案：${c.data.projectType}`,
-        canonical: `${site.url}/clients/${slug}/`,
-        body: unlockBody,
-        ogImage: safeOg,
-        noIndex: true,
-      }),
-    );
-    extraSitemapUrls.push(`${site.url}/clients/${slug}/`);
-  }
-
-  for (const c of demoClients) {
+  for (const c of clientsForPortal) {
     const body = `<section class="family-contract-hero">
   <div class="container family-contract-wrap">
     <h1 class="h1">${escapeHtml(c.clientName)}｜親子寫真客戶專區</h1>
@@ -625,21 +641,20 @@ ${relatedWorks.length ? `<section class="card card--flat"><h2 class="h2">公開�
     </div>
   </div>
 </section>
-<section class="container section family-contract-wrap portal-grid" data-client-portal data-client-slug="${escapeHtml(c.slug)}" data-client-name="${escapeHtml(c.clientName)}" data-shooting-date="${escapeHtml(c.shootingDate)}" data-start-time="${escapeHtml(c.shootingStartTime)}" data-end-time="${escapeHtml(c.shootingEndTime)}" data-package-name="${escapeHtml(c.packageName)}" data-location="${escapeHtml(c.location)}" data-total-fee="${escapeHtml(c.totalFee)}" data-deposit="${escapeHtml(c.deposit)}" data-balance="${escapeHtml(c.balance)}">
+<section class="container section family-contract-wrap portal-grid" data-client-portal data-client-slug="${escapeHtml(c.slug)}" data-client-name="${escapeHtml(c.clientName)}" data-shooting-date="${escapeHtml(c.shootingDate || '')}" data-start-time="${escapeHtml(c.shootingStartTime || '')}" data-end-time="${escapeHtml(c.shootingEndTime || '')}" data-package-name="${escapeHtml(c.packageName || '')}" data-location="${escapeHtml(c.location || '')}" data-total-fee="${escapeHtml(c.totalFee || '')}" data-deposit="${escapeHtml(c.deposit || '')}" data-balance="${escapeHtml(c.balance || '')}" data-contract-version="${escapeHtml(c.contractVersion || 'family-contract-v2026-05')}">
   <article class="card">
     <h2 class="h2">預約資訊</h2>
     <div class="portal-grid-2">
-      <p><strong>拍攝日期：</strong>${escapeHtml(c.shootingDate)}（${escapeHtml(c.shootingWeekday || '')}）</p>
-      <p><strong>拍攝時間：</strong>${escapeHtml(c.shootingStartTime)} - ${escapeHtml(c.shootingEndTime)}</p>
-      <p><strong>拍攝方案：</strong>${escapeHtml(c.packageName)}</p>
-      <p><strong>拍攝地點：</strong>${escapeHtml(c.location)}</p>
-      <p><strong>是否含接送：</strong>${escapeHtml(c.pickupOption)}</p>
-      <p><strong>總費用：</strong>NT$${Number(c.totalFee || 0).toLocaleString('zh-TW')}</p>
-      <p><strong>訂金：</strong>NT$${Number(c.deposit || 0).toLocaleString('zh-TW')}</p>
-      <p><strong>餘款：</strong>NT$${Number(c.balance || 0).toLocaleString('zh-TW')}</p>
+      ${isPresent(c.shootingDate) ? `<p><strong>拍攝日期：</strong>${escapeHtml(c.shootingDate)}${isPresent(c.shootingWeekday) ? `（${escapeHtml(c.shootingWeekday)}）` : ''}</p>` : ''}
+      ${isPresent(c.shootingStartTime) || isPresent(c.shootingEndTime) ? `<p><strong>拍攝時間：</strong>${escapeHtml([c.shootingStartTime, c.shootingEndTime].filter(Boolean).join(' - '))}</p>` : ''}
+      ${isPresent(c.packageName) ? `<p><strong>拍攝方案：</strong>${escapeHtml(c.packageName)}</p>` : ''}
+      ${isPresent(c.location) ? `<p><strong>拍攝地點：</strong>${escapeHtml(c.location)}</p>` : ''}
+      ${isPresent(c.pickup) ? `<p><strong>是否含接送：</strong>${escapeHtml(c.pickup)}</p>` : ''}
+      ${isPresent(c.totalFee) ? `<p><strong>總費用：</strong>NT$${Number(c.totalFee || 0).toLocaleString('zh-TW')}</p>` : ''}
+      ${isPresent(c.deposit) ? `<p><strong>訂金：</strong>NT$${Number(c.deposit || 0).toLocaleString('zh-TW')}</p>` : ''}
+      ${isPresent(c.balance) ? `<p><strong>餘款：</strong>NT$${Number(c.balance || 0).toLocaleString('zh-TW')}</p>` : ''}
     </div>
-    <p><strong>成品內容：</strong>${escapeHtml(c.deliverables)}</p>
-    <p><strong>備註：</strong>${escapeHtml(c.clientMessage || '目前無額外備註')}</p>
+    ${isPresent(c.deliverables) ? `<p><strong>成品內容：</strong>${escapeHtml(c.deliverables)}</p>` : ''}
     <p class="portal-note muted">以下拍攝資訊由攝影師依雙方討論內容建立，如有需要調整，請先聯繫攝影師，不要直接修改合約內容。</p>
   </article>
 
@@ -698,10 +713,11 @@ ${relatedWorks.length ? `<section class="card card--flat"><h2 class="h2">公開�
 
   <article class="card">
     <h2 class="h2">付款方式</h2>
-    <p><strong>總費用：</strong>NT$${Number(c.totalFee || 0).toLocaleString('zh-TW')}</p>
-    <p><strong>訂金：</strong>NT$${Number(c.deposit || 0).toLocaleString('zh-TW')}</p>
-    <p><strong>餘款：</strong>NT$${Number(c.balance || 0).toLocaleString('zh-TW')}</p>
-    <p><strong>餘款付款方式：</strong>${escapeHtml(c.balancePaymentMethod || '拍攝當天現場以現金支付')}</p>
+    ${isPresent(c.totalFee) ? `<p><strong>總費用：</strong>NT$${Number(c.totalFee || 0).toLocaleString('zh-TW')}</p>` : ''}
+    ${isPresent(c.deposit) ? `<p><strong>訂金：</strong>NT$${Number(c.deposit || 0).toLocaleString('zh-TW')}</p>` : ''}
+    ${isPresent(c.balance) ? `<p><strong>餘款：</strong>NT$${Number(c.balance || 0).toLocaleString('zh-TW')}</p>` : ''}
+    ${isPresent(c.paymentStatus) ? `<p><strong>付款狀態：</strong>${escapeHtml(c.paymentStatus)}</p>` : ''}
+    ${isPresent(c.paymentNote) ? `<p><strong>付款備註：</strong>${escapeHtml(c.paymentNote)}</p>` : ''}
     <div class="portal-note">
       <p><strong>Line Pay：</strong>可使用 Line Pay 支付訂金，請與攝影師確認付款方式。</p>
       <p><strong>銀行轉帳：</strong>台新銀行（812）板橋分行，分行代碼 0089，帳號 20081000109398，戶名：陳在紳</p>
@@ -733,14 +749,14 @@ ${relatedWorks.length ? `<section class="card card--flat"><h2 class="h2">公開�
 
   <article class="card">
     <h2 class="h2">作品交件</h2>
-    <p><strong>作品交件狀態：</strong>${escapeHtml(c.deliveryStatus)}</p>
+    ${isPresent(c.deliveryStatus) ? `<p><strong>作品交件狀態：</strong>${escapeHtml(c.deliveryStatus)}</p>` : ''}
     ${c.driveFolderUrl || c.selectedPhotoUrl || c.videoUrl ? '' : '<p>拍攝完成後，照片整理與基本處理需要一些時間。完成後，攝影師會將雲端下載連結放在此頁，您可以回到同一個客戶專區查看與下載。</p>'}
     <div class="delivery-actions">
       ${c.driveFolderUrl ? `<a class="btn btn--primary" href="${escapeHtml(c.driveFolderUrl)}" target="_blank" rel="noopener noreferrer">下載完整照片</a>` : ''}
       ${c.selectedPhotoUrl ? `<a class="btn btn--secondary" href="${escapeHtml(c.selectedPhotoUrl)}" target="_blank" rel="noopener noreferrer">查看精選照片</a>` : ''}
       ${c.videoUrl ? `<a class="btn btn--secondary" href="${escapeHtml(c.videoUrl)}" target="_blank" rel="noopener noreferrer">觀看影片</a>` : ''}
     </div>
-    <p class="portal-note">${escapeHtml(c.deliveryNote || '照片完成後會提供雲端下載連結。建議收到連結後先下載備份至自己的電腦或雲端硬碟，避免日後連結過期或雲端空間調整。')}</p>
+    ${isPresent(c.deliveryNote) ? `<p class="portal-note">${escapeHtml(c.deliveryNote)}</p>` : '<p class="portal-note">照片完成後會提供雲端下載連結。建議收到連結後先下載備份至自己的電腦或雲端硬碟，避免日後連結過期或雲端空間調整。</p>'}
   </article>
 
   <article class="card">
@@ -761,7 +777,7 @@ ${relatedWorks.length ? `<section class="card card--flat"><h2 class="h2">公開�
       canonical: `${site.url}/clients/${c.slug}/`,
       body,
       ogImage: '/assets/images/og/default.svg',
-      noIndex: true,
+      noIndex: c.noindex !== false,
     })
       .replace('</head>', '  <link rel="stylesheet" href="/assets/css/client-portal.css" />\n</head>')
       .replace(
@@ -770,6 +786,27 @@ ${relatedWorks.length ? `<section class="card card--flat"><h2 class="h2">公開�
       );
     writeRouteHtml(`/clients/${c.slug}`, html);
     extraSitemapUrls.push(`${site.url}/clients/${c.slug}/`);
+  }
+
+  const portfolioClients = clientEntries.filter((c) => c.portfolioPublish === true);
+  for (const c of portfolioClients) {
+    const storyHtml = marked.parse(c.bodyMd || '');
+    const cover = normImg(c.coverImage || '', DEFAULT_IMG);
+    const publicBody = `<nav class="container section" style="padding-bottom:0;"><div class="muted"><a href="/">首頁</a> / <a href="/works/">作品案例</a> / <span>${escapeHtml(c.clientName)}</span></div></nav>
+<section class="hero hero--compact"><div class="hero__bg" style="background-image:url('${escapeHtml(cover)}')"></div><div class="hero__overlay"></div><div class="hero__inner"><h1 class="hero__title">${escapeHtml(c.title)}</h1>${isPresent(c.shootingDate) || isPresent(c.location) ? `<p class="hero__sub">${escapeHtml([c.shootingDate, c.location].filter(Boolean).join(' · '))}</p>` : ''}</div></section>
+<section class="container section prose">${storyHtml}</section>`;
+    writeRouteHtml(
+      `/works/client-${c.slug}`,
+      renderPage(cfg, {
+        title: c.title,
+        description: `${c.clientName} 親子寫真拍攝故事`,
+        canonical: `${site.url}/works/client-${c.slug}/`,
+        body: publicBody,
+        ogImage: cover,
+        noIndex: false,
+      }),
+    );
+    extraSitemapUrls.push(`${site.url}/works/client-${c.slug}/`);
   }
 
   /* ----- services ----- */
@@ -894,20 +931,96 @@ ${ra}
     familyContractTpl = '<section class="container section"><p>親子寫真線上合約填寫頁面內容載入失敗。</p></section>';
   }
   const familyContractHtml = renderPage(cfg, {
-    title: '親子寫真合約與客戶專區系統',
-    description: '親子寫真合約與客戶專區流程說明。正式合約由攝影師建立專屬客戶頁面後進行確認與簽署。',
+    title: '親子寫真合約與客戶專區說明',
+    description: '正式合約會依每一組家庭的預約內容建立專屬客戶頁面，請使用攝影師提供的專屬連結完成簽名。',
     canonical: `${site.url}/family-contract/`,
-    body: `<nav class="container section" style="padding-bottom:0;"><div class="muted"><a href="/">首頁</a> / <span>親子寫真合約與客戶專區系統</span></div></nav>${familyContractTpl}`,
+    body: `<nav class="container section" style="padding-bottom:0;"><div class="muted"><a href="/">首頁</a> / <span>親子寫真合約與客戶專區說明</span></div></nav>${familyContractTpl}`,
     noIndex: true,
     ogImage: '/assets/images/og/default.svg',
   }).replace('</head>', '  <link rel="stylesheet" href="/assets/css/client-portal.css" />\n</head>');
   writeRouteHtml('/family-contract', familyContractHtml);
 
+  const adminRows = clientEntries
+    .map((c) => {
+      const portfolioLink = c.portfolioPublish ? `/works/client-${c.slug}/` : '';
+      return `<tr>
+<td>${escapeHtml(c.status || 'active')}</td>
+<td>${escapeHtml(c.clientName)}</td>
+<td>${escapeHtml(c.shootingDate || '')}</td>
+<td>${escapeHtml(c.packageName || '')}</td>
+<td>${escapeHtml(c.contractStatus || '')}</td>
+<td>${escapeHtml(c.paymentStatus || '')}</td>
+<td>${escapeHtml(c.deliveryStatus || '')}</td>
+<td>${c.portfolioPublish ? '是' : '否'}</td>
+<td><a href="/clients/${escapeHtml(c.slug)}/" target="_blank" rel="noopener noreferrer">/clients/${escapeHtml(c.slug)}/</a></td>
+<td>${portfolioLink ? `<a href="${escapeHtml(portfolioLink)}" target="_blank" rel="noopener noreferrer">${escapeHtml(portfolioLink)}</a>` : ''}</td>
+</tr>`;
+    })
+    .join('');
+
+  const mdTemplate = `---
+title: "客戶名稱｜親子寫真客戶專區"
+clientName: "客戶名稱"
+slug: "client-name-yyyymmdd"
+
+status: "active"
+publish: false
+portfolioPublish: false
+noindex: true
+
+shootingDate: "2025-08-19"
+shootingWeekday: "週二"
+shootingStartTime: "上午11:00"
+shootingEndTime: "下午1:00"
+packageName: "親子寫真 - 半日旅拍方案"
+location: "拍攝地點"
+pickup: "已包含接送"
+
+totalFee: 7800
+deposit: 800
+balance: 7000
+paymentStatus: "訂金待確認"
+paymentNote: "餘款請於拍攝當天現場以現金支付"
+
+deliverables: "照片全給，包含攝影師篩選與基本處理後照片，不提供原始毛片，保證交件至少 200 張以上。"
+
+contactName: ""
+phone: ""
+email: ""
+lineName: ""
+
+contractStatus: "尚未簽署"
+contractVersion: "family-contract-v2026-05"
+
+driveFolderUrl: ""
+selectedPhotoUrl: ""
+videoUrl: ""
+deliveryStatus: "尚未拍攝"
+deliveryNote: ""
+
+coverImage: ""
+gallery: []
+
+tags:
+  - 親子寫真
+  - 家庭攝影
+  - 桃園親子寫真
+
+createdAt: "2026-05-03"
+updatedAt: "2026-05-03"
+---
+
+## 客戶備註
+
+## 拍攝故事
+
+## 合約補充條款`;
+
   const adminClientsBody = `<section class="admin-hero">
   <div class="admin-wrap">
     <h1 class="h1">親子寫真客戶案件管理</h1>
-    <p class="lead">管理客戶案件、產生客戶專區連結、追蹤合約簽署與作品交件狀態。</p>
-    <p class="admin-warning">目前此頁為前端 Demo 管理介面，尚未串接正式登入、資料庫與權限控管。請勿在正式公開環境填寫真實客戶個資，正式版需串接安全後端後再使用。</p>
+    <p class="lead">本系統採用 Markdown 檔案式管理。每一組客戶案件都是一個獨立的 MD 檔案，可用來產生客戶專區、合約確認頁、作品交件頁，也可以在結案後選擇轉為公開作品集文章。</p>
+    <p class="admin-warning">新增或修改客戶案件時，請在專案的 clients Markdown 資料夾中建立或編輯對應的 .md 檔案。網站會依照 Markdown frontmatter 自動產生頁面。</p>
   </div>
 </section>
 <section class="container section admin-wrap" id="admin-clients-root">
@@ -917,100 +1030,40 @@ ${ra}
       <table class="admin-table">
         <thead>
           <tr>
-            <th>案件狀態</th><th>客戶名稱</th><th>客戶代稱</th><th>拍攝日期</th><th>拍攝方案</th><th>總費用</th><th>訂金</th><th>合約狀態</th><th>付款狀態</th><th>作品交件狀態</th><th>客戶專區連結</th><th>操作</th>
+            <th>狀態</th><th>客戶名稱</th><th>拍攝日期</th><th>拍攝方案</th><th>合約狀態</th><th>付款狀態</th><th>交件狀態</th><th>是否公開作品集</th><th>客戶專區連結</th><th>作品集連結</th>
           </tr>
         </thead>
-        <tbody id="admin-client-list-body"></tbody>
+        <tbody id="admin-client-list-body">${adminRows}</tbody>
       </table>
     </div>
   </article>
 
   <article class="card">
-    <h2 class="h2">新增 / 編輯客戶案件</h2>
-    <p class="muted" id="admin-form-status">請先從上方選擇要編輯的案件，或直接輸入新案件內容。</p>
-    <form id="admin-client-form" class="admin-form-grid" novalidate>
-      <section>
-        <h3 class="h3">區塊一：基本資料</h3>
-        <div class="admin-form-cols">
-          <label class="field"><span>客戶名稱</span><input name="clientName" type="text" /></label>
-          <label class="field"><span>客戶代稱 slug</span><input name="slug" type="text" /></label>
-          <label class="field"><span>主要聯絡人姓名</span><input name="contactName" type="text" /></label>
-          <label class="field"><span>電話</span><input name="phone" type="text" /></label>
-          <label class="field"><span>Email</span><input name="email" type="email" /></label>
-          <label class="field"><span>LINE 顯示名稱或 LINE ID</span><input name="lineName" type="text" /></label>
-          <label class="field"><span>客戶專區密碼（選填）</span><input name="clientPassword" type="text" /></label>
-          <label class="field"><span>客戶備註</span><input name="privateNotes" type="text" /></label>
-        </div>
-      </section>
-      <section>
-        <h3 class="h3">區塊二：拍攝資訊</h3>
-        <div class="admin-form-cols">
-          <label class="field"><span>拍攝日期</span><input name="shootingDate" type="date" /></label>
-          <label class="field"><span>星期</span><input name="shootingWeekday" type="text" /></label>
-          <label class="field"><span>開始時間</span><input name="shootingStartTime" type="text" /></label>
-          <label class="field"><span>結束時間</span><input name="shootingEndTime" type="text" /></label>
-          <label class="field"><span>拍攝方案</span><select name="packageName"><option>親子寫真 - 基本方案</option><option>親子寫真 - 半日旅拍方案</option><option>親子寫真 - 包車旅拍方案</option><option>海外親子旅拍方案</option><option>生日派對 / 家庭活動紀錄</option><option>露營團拍 / 親子民宿</option><option>其他自訂</option></select></label>
-          <label class="field"><span>拍攝地點</span><input name="location" type="text" /></label>
-          <label class="field"><span>是否含接送</span><input name="pickupOption" type="text" /></label>
-          <label class="field"><span>拍攝備註</span><input name="clientMessage" type="text" /></label>
-        </div>
-        <label class="field"><span>成品內容</span><textarea name="deliverables" rows="3">照片全給，包含攝影師篩選與基本處理後照片，不提供原始毛片，保證交件至少 200 張以上。</textarea></label>
-      </section>
-      <section>
-        <h3 class="h3">區塊三：費用與付款</h3>
-        <div class="admin-form-cols">
-          <label class="field"><span>總費用</span><input name="totalFee" type="number" /></label>
-          <label class="field"><span>訂金</span><input name="deposit" type="number" /></label>
-          <label class="field"><span>餘款</span><input name="balance" type="number" /></label>
-          <label class="field"><span>訂金付款方式</span><select name="depositPaymentMethod"><option>Line Pay</option><option>銀行轉帳</option><option>PayPal</option><option>微信支付</option><option>WISE</option><option>其他</option></select></label>
-          <label class="field"><span>餘款付款方式</span><input name="balancePaymentMethod" type="text" value="拍攝當天現場以現金支付" /></label>
-          <label class="field"><span>付款狀態</span><select name="paymentStatus"><option>尚未付款</option><option>訂金待確認</option><option>訂金已收</option><option>已全額付款</option><option>需補款</option><option>已退款 / 取消</option></select></label>
-          <label class="field"><span>匯款備註</span><input name="paymentNote" type="text" /></label>
-        </div>
-      </section>
-      <section>
-        <h3 class="h3">區塊四：合約條件</h3>
-        <div class="admin-form-cols">
-          <label class="field"><span>改期條件</span><input name="reschedulePolicy" type="text" /></label>
-          <label class="field"><span>取消條件</span><input name="cancelPolicy" type="text" /></label>
-          <label class="field"><span>修圖與後製條件</span><input name="retouchPolicy" type="text" /></label>
-          <label class="field"><span>肖像權預設選項</span><select name="portfolioDefault"><option value="client-choice">讓客戶自行選擇是否同意公開</option><option value="prefer-public">預設需要公開授權，但客戶仍可拒絕</option><option value="private-only">本案不公開，僅私人交件</option><option value="other">其他</option></select></label>
-        </div>
-        <label class="field"><span>特殊條款</span><textarea name="specialTerms" rows="3"></textarea></label>
-        <label class="field"><span>給客戶看的補充說明</span><textarea name="clientMessageLong" rows="3"></textarea></label>
-      </section>
-      <section>
-        <h3 class="h3">區塊五：作品交件區</h3>
-        <div class="admin-form-cols">
-          <label class="field"><span>Google Drive 照片資料夾連結</span><input name="driveFolderUrl" type="url" /></label>
-          <label class="field"><span>Google Drive 精選照片連結</span><input name="selectedPhotoUrl" type="url" /></label>
-          <label class="field"><span>YouTube / Vimeo 影片連結</span><input name="videoUrl" type="url" /></label>
-          <label class="field"><span>其他雲端下載連結</span><input name="otherDeliveryUrl" type="url" /></label>
-          <label class="field"><span>作品交件狀態</span><select name="deliveryStatus"><option>尚未拍攝</option><option>已拍攝，整理中</option><option>修圖中</option><option>已交件</option><option>已結案</option></select></label>
-        </div>
-        <label class="field"><span>交件說明</span><textarea name="deliveryNote" rows="3"></textarea></label>
-      </section>
-      <section>
-        <h3 class="h3">區塊六：系統狀態</h3>
-        <div class="admin-form-cols">
-          <label class="field"><span>合約狀態</span><select name="contractStatus"><option>尚未簽署</option><option>已送出連結</option><option>客戶已查看</option><option>已簽署</option><option>需重新簽署</option><option>已取消</option></select></label>
-          <label class="field"><span>客戶專區狀態</span><input name="clientPortalStatus" type="text" value="已建立" /></label>
-          <label class="field"><span>是否顯示給客戶</span><select name="isVisible"><option value="true">是</option><option value="false">否</option></select></label>
-          <label class="field"><span>最後更新時間</span><input name="updatedAt" type="date" /></label>
-        </div>
-      </section>
-      <div class="admin-actions">
-        <button class="btn btn--primary" type="submit">建立客戶專區 / 產生合約頁</button>
-        <a class="btn btn--secondary" id="admin-preview-link" href="/clients/" target="_blank" rel="noopener noreferrer">預覽客戶專區</a>
-      </div>
-    </form>
+    <h2 class="h2">如何新增客戶案件</h2>
+    <ol class="prose">
+      <li>複製一份既有的客戶 MD 範本。</li>
+      <li>將檔名改成「客戶代稱-拍攝日期.md」。</li>
+      <li>修改 frontmatter 中的拍攝日期、方案、費用、地點、付款狀態與合約狀態。</li>
+      <li>儲存後網站會自動產生客戶專區。</li>
+      <li>將客戶專區連結傳給客人即可完成合約確認與後續交件。</li>
+    </ol>
+    <p class="muted">客戶 Markdown 路徑：<code>content/clients/*.md</code></p>
   </article>
-  <script id="admin-clients-data" type="application/json">${JSON.stringify(demoClients)}</script>
+
+  <article class="card">
+    <h2 class="h2">複製客戶案件 MD 範本</h2>
+    <p class="muted">空白欄位可以刪除，不一定要保留。前端會自動隱藏空欄位。</p>
+    <div class="admin-actions">
+      <button class="btn btn--secondary" type="button" id="copy-client-md-template">複製客戶案件 MD 範本</button>
+      <span class="muted" id="copy-template-status"></span>
+    </div>
+    <textarea class="admin-template-box" id="client-md-template" rows="24" readonly>${escapeHtml(mdTemplate)}</textarea>
+  </article>
 </section>`;
 
   const adminClientsHtml = renderPage(cfg, {
     title: '親子寫真客戶案件管理',
-    description: '攝影師管理後台 Demo：建立客戶案件、產生客戶專區連結、追蹤簽署與交件狀態。',
+    description: '本系統採 Markdown 檔案式管理，客戶案件由 MD frontmatter 生成客戶專區與作品資料。',
     canonical: `${site.url}/admin/clients/`,
     body: adminClientsBody,
     noIndex: true,

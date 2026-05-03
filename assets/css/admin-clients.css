@@ -87,6 +87,16 @@
   font-size: 0.76rem;
 }
 
+.admin-template-box {
+  width: 100%;
+  margin-top: var(--space-sm);
+  font: 0.86rem/1.45 ui-monospace, SFMono-Regular, Menlo, monospace;
+  padding: 0.75rem;
+  border-radius: 10px;
+  border: 1px solid var(--color-line);
+  background: #fff;
+}
+
 @media (max-width: 860px) {
   .admin-table {
     min-width: 100%;

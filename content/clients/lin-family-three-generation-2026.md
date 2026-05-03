@@ -17,7 +17,7 @@ downloadLinks:
 notes: "公開頁面不使用私人肖像作為社群素材；若需公開分享請另行授權。"
 relatedWorks:
   - "three-generation-outdoor-family"
-draft: false
+draft: true
 ---
 
 交付檔為調色後電子檔；如需印刷建議解析度請告知用途。

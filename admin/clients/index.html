@@ -4,18 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>親子寫真客戶案件管理</title>
-  <meta name="description" content="攝影師管理後台 Demo：建立客戶案件、產生客戶專區連結、追蹤簽署與交件狀態。" />
+  <meta name="description" content="本系統採 Markdown 檔案式管理，客戶案件由 MD frontmatter 生成客戶專區與作品資料。" />
   <link rel="canonical" href="https://family.8-ways.com/admin/clients/" />
   <meta name="robots" content="noindex,nofollow" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="親子寫真客戶案件管理" />
-  <meta property="og:description" content="攝影師管理後台 Demo：建立客戶案件、產生客戶專區連結、追蹤簽署與交件狀態。" />
+  <meta property="og:description" content="本系統採 Markdown 檔案式管理，客戶案件由 MD frontmatter 生成客戶專區與作品資料。" />
   <meta property="og:url" content="https://family.8-ways.com/admin/clients/" />
   <meta property="og:image" content="https://family.8-ways.com/assets/images/og/default.svg" />
   <meta property="og:locale" content="zh_TW" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="親子寫真客戶案件管理" />
-  <meta name="twitter:description" content="攝影師管理後台 Demo：建立客戶案件、產生客戶專區連結、追蹤簽署與交件狀態。" />
+  <meta name="twitter:description" content="本系統採 Markdown 檔案式管理，客戶案件由 MD frontmatter 生成客戶專區與作品資料。" />
   <meta name="twitter:image" content="https://family.8-ways.com/assets/images/og/default.svg" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -80,8 +80,8 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
 <section class="admin-hero">
   <div class="admin-wrap">
     <h1 class="h1">親子寫真客戶案件管理</h1>
-    <p class="lead">管理客戶案件、產生客戶專區連結、追蹤合約簽署與作品交件狀態。</p>
-    <p class="admin-warning">目前此頁為前端 Demo 管理介面，尚未串接正式登入、資料庫與權限控管。請勿在正式公開環境填寫真實客戶個資，正式版需串接安全後端後再使用。</p>
+    <p class="lead">本系統採用 Markdown 檔案式管理。每一組客戶案件都是一個獨立的 MD 檔案，可用來產生客戶專區、合約確認頁、作品交件頁，也可以在結案後選擇轉為公開作品集文章。</p>
+    <p class="admin-warning">新增或修改客戶案件時，請在專案的 clients Markdown 資料夾中建立或編輯對應的 .md 檔案。網站會依照 Markdown frontmatter 自動產生頁面。</p>
   </div>
 </section>
 <section class="container section admin-wrap" id="admin-clients-root">
@@ -91,95 +91,124 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
       <table class="admin-table">
         <thead>
           <tr>
-            <th>案件狀態</th><th>客戶名稱</th><th>客戶代稱</th><th>拍攝日期</th><th>拍攝方案</th><th>總費用</th><th>訂金</th><th>合約狀態</th><th>付款狀態</th><th>作品交件狀態</th><th>客戶專區連結</th><th>操作</th>
+            <th>狀態</th><th>客戶名稱</th><th>拍攝日期</th><th>拍攝方案</th><th>合約狀態</th><th>付款狀態</th><th>交件狀態</th><th>是否公開作品集</th><th>客戶專區連結</th><th>作品集連結</th>
           </tr>
         </thead>
-        <tbody id="admin-client-list-body"></tbody>
+        <tbody id="admin-client-list-body"><tr>
+<td>active</td>
+<td>陳小姐家庭</td>
+<td>2025-08-19</td>
+<td>親子寫真 - 半日旅拍方案</td>
+<td>尚未簽署</td>
+<td>訂金待確認</td>
+<td>尚未拍攝</td>
+<td>否</td>
+<td><a href="/clients/chen-family-20250819/" target="_blank" rel="noopener noreferrer">/clients/chen-family-20250819/</a></td>
+<td></td>
+</tr><tr>
+<td>active</td>
+<td>林先生家庭</td>
+<td>2025-09-10</td>
+<td>親子寫真 - 包車旅拍方案</td>
+<td>已簽署</td>
+<td>訂金已收</td>
+<td>修圖中</td>
+<td>否</td>
+<td><a href="/clients/lin-family-20250910/" target="_blank" rel="noopener noreferrer">/clients/lin-family-20250910/</a></td>
+<td></td>
+</tr><tr>
+<td>active</td>
+<td>王小姐家庭</td>
+<td>2025-10-05</td>
+<td>海外親子旅拍方案</td>
+<td>尚未簽署</td>
+<td>尚未付款</td>
+<td>尚未拍攝</td>
+<td>否</td>
+<td><a href="/clients/wang-family-20251005/" target="_blank" rel="noopener noreferrer">/clients/wang-family-20251005/</a></td>
+<td></td>
+</tr></tbody>
       </table>
     </div>
   </article>
 
   <article class="card">
-    <h2 class="h2">新增 / 編輯客戶案件</h2>
-    <p class="muted" id="admin-form-status">請先從上方選擇要編輯的案件，或直接輸入新案件內容。</p>
-    <form id="admin-client-form" class="admin-form-grid" novalidate>
-      <section>
-        <h3 class="h3">區塊一：基本資料</h3>
-        <div class="admin-form-cols">
-          <label class="field"><span>客戶名稱</span><input name="clientName" type="text" /></label>
-          <label class="field"><span>客戶代稱 slug</span><input name="slug" type="text" /></label>
-          <label class="field"><span>主要聯絡人姓名</span><input name="contactName" type="text" /></label>
-          <label class="field"><span>電話</span><input name="phone" type="text" /></label>
-          <label class="field"><span>Email</span><input name="email" type="email" /></label>
-          <label class="field"><span>LINE 顯示名稱或 LINE ID</span><input name="lineName" type="text" /></label>
-          <label class="field"><span>客戶專區密碼（選填）</span><input name="clientPassword" type="text" /></label>
-          <label class="field"><span>客戶備註</span><input name="privateNotes" type="text" /></label>
-        </div>
-      </section>
-      <section>
-        <h3 class="h3">區塊二：拍攝資訊</h3>
-        <div class="admin-form-cols">
-          <label class="field"><span>拍攝日期</span><input name="shootingDate" type="date" /></label>
-          <label class="field"><span>星期</span><input name="shootingWeekday" type="text" /></label>
-          <label class="field"><span>開始時間</span><input name="shootingStartTime" type="text" /></label>
-          <label class="field"><span>結束時間</span><input name="shootingEndTime" type="text" /></label>
-          <label class="field"><span>拍攝方案</span><select name="packageName"><option>親子寫真 - 基本方案</option><option>親子寫真 - 半日旅拍方案</option><option>親子寫真 - 包車旅拍方案</option><option>海外親子旅拍方案</option><option>生日派對 / 家庭活動紀錄</option><option>露營團拍 / 親子民宿</option><option>其他自訂</option></select></label>
-          <label class="field"><span>拍攝地點</span><input name="location" type="text" /></label>
-          <label class="field"><span>是否含接送</span><input name="pickupOption" type="text" /></label>
-          <label class="field"><span>拍攝備註</span><input name="clientMessage" type="text" /></label>
-        </div>
-        <label class="field"><span>成品內容</span><textarea name="deliverables" rows="3">照片全給，包含攝影師篩選與基本處理後照片，不提供原始毛片，保證交件至少 200 張以上。</textarea></label>
-      </section>
-      <section>
-        <h3 class="h3">區塊三：費用與付款</h3>
-        <div class="admin-form-cols">
-          <label class="field"><span>總費用</span><input name="totalFee" type="number" /></label>
-          <label class="field"><span>訂金</span><input name="deposit" type="number" /></label>
-          <label class="field"><span>餘款</span><input name="balance" type="number" /></label>
-          <label class="field"><span>訂金付款方式</span><select name="depositPaymentMethod"><option>Line Pay</option><option>銀行轉帳</option><option>PayPal</option><option>微信支付</option><option>WISE</option><option>其他</option></select></label>
-          <label class="field"><span>餘款付款方式</span><input name="balancePaymentMethod" type="text" value="拍攝當天現場以現金支付" /></label>
-          <label class="field"><span>付款狀態</span><select name="paymentStatus"><option>尚未付款</option><option>訂金待確認</option><option>訂金已收</option><option>已全額付款</option><option>需補款</option><option>已退款 / 取消</option></select></label>
-          <label class="field"><span>匯款備註</span><input name="paymentNote" type="text" /></label>
-        </div>
-      </section>
-      <section>
-        <h3 class="h3">區塊四：合約條件</h3>
-        <div class="admin-form-cols">
-          <label class="field"><span>改期條件</span><input name="reschedulePolicy" type="text" /></label>
-          <label class="field"><span>取消條件</span><input name="cancelPolicy" type="text" /></label>
-          <label class="field"><span>修圖與後製條件</span><input name="retouchPolicy" type="text" /></label>
-          <label class="field"><span>肖像權預設選項</span><select name="portfolioDefault"><option value="client-choice">讓客戶自行選擇是否同意公開</option><option value="prefer-public">預設需要公開授權，但客戶仍可拒絕</option><option value="private-only">本案不公開，僅私人交件</option><option value="other">其他</option></select></label>
-        </div>
-        <label class="field"><span>特殊條款</span><textarea name="specialTerms" rows="3"></textarea></label>
-        <label class="field"><span>給客戶看的補充說明</span><textarea name="clientMessageLong" rows="3"></textarea></label>
-      </section>
-      <section>
-        <h3 class="h3">區塊五：作品交件區</h3>
-        <div class="admin-form-cols">
-          <label class="field"><span>Google Drive 照片資料夾連結</span><input name="driveFolderUrl" type="url" /></label>
-          <label class="field"><span>Google Drive 精選照片連結</span><input name="selectedPhotoUrl" type="url" /></label>
-          <label class="field"><span>YouTube / Vimeo 影片連結</span><input name="videoUrl" type="url" /></label>
-          <label class="field"><span>其他雲端下載連結</span><input name="otherDeliveryUrl" type="url" /></label>
-          <label class="field"><span>作品交件狀態</span><select name="deliveryStatus"><option>尚未拍攝</option><option>已拍攝，整理中</option><option>修圖中</option><option>已交件</option><option>已結案</option></select></label>
-        </div>
-        <label class="field"><span>交件說明</span><textarea name="deliveryNote" rows="3"></textarea></label>
-      </section>
-      <section>
-        <h3 class="h3">區塊六：系統狀態</h3>
-        <div class="admin-form-cols">
-          <label class="field"><span>合約狀態</span><select name="contractStatus"><option>尚未簽署</option><option>已送出連結</option><option>客戶已查看</option><option>已簽署</option><option>需重新簽署</option><option>已取消</option></select></label>
-          <label class="field"><span>客戶專區狀態</span><input name="clientPortalStatus" type="text" value="已建立" /></label>
-          <label class="field"><span>是否顯示給客戶</span><select name="isVisible"><option value="true">是</option><option value="false">否</option></select></label>
-          <label class="field"><span>最後更新時間</span><input name="updatedAt" type="date" /></label>
-        </div>
-      </section>
-      <div class="admin-actions">
-        <button class="btn btn--primary" type="submit">建立客戶專區 / 產生合約頁</button>
-        <a class="btn btn--secondary" id="admin-preview-link" href="/clients/" target="_blank" rel="noopener noreferrer">預覽客戶專區</a>
-      </div>
-    </form>
+    <h2 class="h2">如何新增客戶案件</h2>
+    <ol class="prose">
+      <li>複製一份既有的客戶 MD 範本。</li>
+      <li>將檔名改成「客戶代稱-拍攝日期.md」。</li>
+      <li>修改 frontmatter 中的拍攝日期、方案、費用、地點、付款狀態與合約狀態。</li>
+      <li>儲存後網站會自動產生客戶專區。</li>
+      <li>將客戶專區連結傳給客人即可完成合約確認與後續交件。</li>
+    </ol>
+    <p class="muted">客戶 Markdown 路徑：<code>content/clients/*.md</code></p>
   </article>
-  <script id="admin-clients-data" type="application/json">[{"id":"chen-family-20250819","clientName":"陳小姐家庭","slug":"chen-family-20250819","contactName":"陳小姐","phone":"","email":"","lineName":"","shootingDate":"2025-08-19","shootingWeekday":"週二","shootingStartTime":"上午11:00","shootingEndTime":"下午1:00","packageName":"親子寫真 - 半日旅拍方案","location":"台北河濱與草地區域（含接送）","pickupOption":"是，已包含接送","deliverables":"照片全給，包含攝影師篩選與基本處理後照片，不提供原始毛片，保證交件至少 200 張以上。","totalFee":7800,"deposit":800,"balance":7000,"depositPaymentMethod":"銀行轉帳 / Line Pay / PayPal / WISE","balancePaymentMethod":"拍攝當天現場以現金支付","paymentStatus":"訂金待確認","contractStatus":"尚未簽署","deliveryStatus":"尚未拍攝","portfolioDefault":"client-choice","specialTerms":"","privateNotes":"","clientMessage":"","driveFolderUrl":"","selectedPhotoUrl":"","videoUrl":"","deliveryNote":"","isVisible":true,"updatedAt":"2026-05-03"},{"id":"lin-family-20250910","clientName":"林先生家庭","slug":"lin-family-20250910","contactName":"林先生","phone":"","email":"","lineName":"","shootingDate":"2025-09-10","shootingWeekday":"週三","shootingStartTime":"上午10:00","shootingEndTime":"下午2:00","packageName":"親子寫真 - 包車旅拍方案","location":"新北海岸（含接送）","pickupOption":"是，已包含接送","deliverables":"照片全給，包含攝影師篩選與基本處理後照片，不提供原始毛片，保證交件至少 200 張以上。","totalFee":12800,"deposit":2800,"balance":10000,"depositPaymentMethod":"銀行轉帳","balancePaymentMethod":"拍攝當天現場以現金支付","paymentStatus":"訂金已收","contractStatus":"已簽署","deliveryStatus":"修圖中","portfolioDefault":"client-choice","specialTerms":"","privateNotes":"","clientMessage":"已先電話確認孩子作息，拍攝當天 9:40 集合。","driveFolderUrl":"","selectedPhotoUrl":"","videoUrl":"","deliveryNote":"","isVisible":true,"updatedAt":"2026-05-03"},{"id":"wang-family-20251005","clientName":"王小姐家庭","slug":"wang-family-20251005","contactName":"王小姐","phone":"","email":"","lineName":"","shootingDate":"2025-10-05","shootingWeekday":"週日","shootingStartTime":"下午3:00","shootingEndTime":"下午6:00","packageName":"海外親子旅拍方案","location":"日本沖繩（不含接送）","pickupOption":"否，自行前往","deliverables":"照片全給，包含攝影師篩選與基本處理後照片，不提供原始毛片，保證交件至少 200 張以上。","totalFee":18800,"deposit":2800,"balance":16000,"depositPaymentMethod":"PayPal / WISE","balancePaymentMethod":"拍攝當天現場以現金支付","paymentStatus":"尚未付款","contractStatus":"尚未簽署","deliveryStatus":"尚未拍攝","portfolioDefault":"client-choice","specialTerms":"","privateNotes":"","clientMessage":"","driveFolderUrl":"","selectedPhotoUrl":"","videoUrl":"","deliveryNote":"","isVisible":true,"updatedAt":"2026-05-03"}]</script>
+
+  <article class="card">
+    <h2 class="h2">複製客戶案件 MD 範本</h2>
+    <p class="muted">空白欄位可以刪除，不一定要保留。前端會自動隱藏空欄位。</p>
+    <div class="admin-actions">
+      <button class="btn btn--secondary" type="button" id="copy-client-md-template">複製客戶案件 MD 範本</button>
+      <span class="muted" id="copy-template-status"></span>
+    </div>
+    <textarea class="admin-template-box" id="client-md-template" rows="24" readonly>---
+title: &quot;客戶名稱｜親子寫真客戶專區&quot;
+clientName: &quot;客戶名稱&quot;
+slug: &quot;client-name-yyyymmdd&quot;
+
+status: &quot;active&quot;
+publish: false
+portfolioPublish: false
+noindex: true
+
+shootingDate: &quot;2025-08-19&quot;
+shootingWeekday: &quot;週二&quot;
+shootingStartTime: &quot;上午11:00&quot;
+shootingEndTime: &quot;下午1:00&quot;
+packageName: &quot;親子寫真 - 半日旅拍方案&quot;
+location: &quot;拍攝地點&quot;
+pickup: &quot;已包含接送&quot;
+
+totalFee: 7800
+deposit: 800
+balance: 7000
+paymentStatus: &quot;訂金待確認&quot;
+paymentNote: &quot;餘款請於拍攝當天現場以現金支付&quot;
+
+deliverables: &quot;照片全給，包含攝影師篩選與基本處理後照片，不提供原始毛片，保證交件至少 200 張以上。&quot;
+
+contactName: &quot;&quot;
+phone: &quot;&quot;
+email: &quot;&quot;
+lineName: &quot;&quot;
+
+contractStatus: &quot;尚未簽署&quot;
+contractVersion: &quot;family-contract-v2026-05&quot;
+
+driveFolderUrl: &quot;&quot;
+selectedPhotoUrl: &quot;&quot;
+videoUrl: &quot;&quot;
+deliveryStatus: &quot;尚未拍攝&quot;
+deliveryNote: &quot;&quot;
+
+coverImage: &quot;&quot;
+gallery: []
+
+tags:
+  - 親子寫真
+  - 家庭攝影
+  - 桃園親子寫真
+
+createdAt: &quot;2026-05-03&quot;
+updatedAt: &quot;2026-05-03&quot;
+---
+
+## 客戶備註
+
+## 拍攝故事
+
+## 合約補充條款</textarea>
+  </article>
 </section>
 </main>
 <footer class="site-footer">

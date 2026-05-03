@@ -16,7 +16,7 @@ shoot_includes:
   - 團體與班級紀錄
   - 外拍互動引導
 notes: 可依學校／專案名稱在此頁提供家長查詢入口。
-draft: false
+draft: true
 ---
 
 ## 注意事項

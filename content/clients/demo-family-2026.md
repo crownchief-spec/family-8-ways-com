@@ -19,7 +19,7 @@ shoot_includes:
   - 飯店周邊散步
   - 黃昏時段拍攝
 notes: 本頁為示範專案；連結可於正式案件替換為真實網址。
-draft: false
+draft: true
 ---
 
 ## 注意事項

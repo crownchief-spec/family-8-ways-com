@@ -4,7 +4,7 @@
 
   var slug = root.getAttribute('data-client-slug') || '';
   var clientName = root.getAttribute('data-client-name') || '';
-  var contractVersion = 'v1.0-demo';
+  var contractVersion = root.getAttribute('data-contract-version') || 'family-contract-v2026-05';
   var form = document.getElementById('client-contract-form');
   var signedPanel = document.getElementById('signed-status-panel');
   var signedTimeEl = document.getElementById('signed-at-text');
