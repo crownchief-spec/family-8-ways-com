@@ -129,7 +129,6 @@ export function renderFooter(cfg) {
         <li><a href="/services/camping-family-photography/">露營團拍／親子民宿</a></li>
         <li><a href="/services/family-event-photography/">生日派對／家庭活動紀錄</a></li>
         <li><a href="/services/maternity-baby-family-photography/">孕婦／寶寶／三代同堂</a></li>
-        <li><a href="/family-contract/">親子寫真線上合約填寫</a></li>
         <li><a href="/faq/">常見問題</a></li>
         <li><a href="/about/">關於小巴老師</a></li>
       </ul>
@@ -166,15 +165,9 @@ export function renderFooter(cfg) {
     </section>`;
 
   const colClients = `<section class="site-footer__col">
-      <p class="h3 site-footer__title">客戶專區</p>
-      <ul class="footer-links footer-links--single">
-        <li><a href="/clients/">客戶專區首頁</a></li>
-        <li><a href="/family-contract/">合約與預約確認</a></li>
-        <li><a href="/clients/">作品交件說明</a></li>
-        <li><a href="/clients/">照片下載說明</a></li>
-        <li><a href="/contact/">聯絡攝影師</a></li>
-      </ul>
-      <p class="muted" style="margin-top:var(--space-sm);font-size:0.9rem;max-width:40ch;">完成拍攝的家庭可以從客戶專區進入專屬頁面，查看照片、影片、雲端下載連結與交件說明。</p>
+      <p class="h3 site-footer__title">客戶交件提醒</p>
+      <p class="muted" style="font-size:0.95rem;line-height:1.7;">已預約客戶請依攝影師提供的專屬連結進入合約確認與作品交件頁。</p>
+      <p class="muted" style="margin-top:var(--space-sm);font-size:0.9rem;">若找不到專屬連結，請直接透過 Line 或電話聯繫小巴老師協助補發。</p>
     </section>`;
 
   return `<footer class="site-footer">

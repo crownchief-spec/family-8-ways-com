@@ -7,7 +7,16 @@ status: "active"
 hubPortal: true
 publish: false
 portfolioPublish: false
+publicPortfolio: false
 noindex: true
+privacy: "private"
+showInClientList: false
+shareEnabled: true
+adminOnly: false
+contractEnabled: true
+deliveryEnabled: true
+clientAccessCode: ""
+internalNote: ""
 draft: true
 
 serviceType: "親子寫真"

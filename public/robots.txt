@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /clients/
+Disallow: /family-contract/
 
 Sitemap: https://family.8-ways.com/sitemap-index.xml

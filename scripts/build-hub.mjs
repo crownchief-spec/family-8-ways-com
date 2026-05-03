@@ -205,11 +205,6 @@ export function runPrepare() {
   <p class="muted">拍攝準備、地點、穿搭與費用等實用指南。</p>
   <div class="showcase-grid">${artCards || '<p class="muted">文章準備中。</p>'}</div>
   <p style="margin-top:var(--space-md);"><a class="btn btn--secondary" href="/articles/">閱讀更多文章</a></p>
-</section>
-<section class="container section card card--flat hub-three-systems">
-  <h2 class="h2">客戶專區</h2>
-  <p class="muted">已完成拍攝的家庭，可由此進入專屬交件頁，查看照片、影片與雲端下載連結。</p>
-  <div class="hero__actions"><a class="btn btn--primary" href="/clients/">進入客戶專區</a></div>
 </section>`;
 
   writeFileSync(join(ROOT, 'data/hub-home-inject.html'), inject, 'utf8');
@@ -243,7 +238,16 @@ function normalizeClientEntry(entry) {
     status: d.status || 'active',
     publish: !!d.publish,
     portfolioPublish: !!d.portfolioPublish,
+    publicPortfolio: d.publicPortfolio === true,
     noindex: d.noindex !== false,
+    privacy: d.privacy || 'private',
+    showInClientList: d.showInClientList === true,
+    shareEnabled: d.shareEnabled !== false,
+    adminOnly: d.adminOnly === true,
+    contractEnabled: d.contractEnabled !== false,
+    deliveryEnabled: d.deliveryEnabled !== false,
+    clientAccessCode: d.clientAccessCode || '',
+    internalNote: d.internalNote || '',
     shootingDate: d.shootingDate || '',
     shootingWeekday: d.shootingWeekday || '',
     shootingStartTime: d.shootingStartTime || '',
@@ -652,50 +656,32 @@ ${rs}
   }
 
   /* ----- clients ----- */
-  const clientsForPortal = clients.filter((c) => c.status !== 'archived');
-  const clientsIndexCards = clientsForPortal
-    .map(
-      (c) => `<div class="hub-client-card" data-client-search="${escapeHtml(`${c.clientName} ${c.slug} ${c.shootingDate} ${c.packageName}`)}">
-<a class="pcard" href="/clients/${escapeHtml(c.slug)}/">
-<div class="pcard__body">
-<h3 class="pcard__title">${escapeHtml(c.clientName)}</h3>
-${isPresent(c.packageName) || isPresent(c.shootingDate) ? `<p class="muted">${escapeHtml([c.packageName, c.shootingDate].filter(Boolean).join(' · '))}</p>` : ''}
-<p><span class="tag">${escapeHtml(c.contractStatus || '未設定')}</span> <span class="tag">${escapeHtml(c.deliveryStatus || '未設定')}</span></p>
-<span class="btn btn--primary btn--compact">進入專屬頁</span>
-</div>
-</a></div>`,
-    )
-    .join('');
+  const clientsForPortal = clients.filter((c) => c.status !== 'archived' && c.shareEnabled !== false && c.adminOnly !== true);
 
-  const clientsIndexBody = `<nav class="container section" style="padding-bottom:0;"><div class="muted"><a href="/">首頁</a> / <span>客戶專區</span></div></nav>
+  const clientsIndexBody = `<nav class="container section" style="padding-bottom:0;"><div class="muted"><a href="/">首頁</a> / <span>客戶分享頁說明</span></div></nav>
 <section class="hero hero--compact"><div class="hero__bg" style="background-image:url('${CLIENT_OG}')"></div><div class="hero__overlay"></div><div class="hero__inner">
-<h1 class="hero__title">親子寫真客戶專區</h1>
-<p class="hero__sub">每一組家庭都會有自己的專屬頁面，集中整理預約資訊、合約確認、付款方式、拍攝前準備與作品交件連結。</p>
+<h1 class="hero__title">客戶分享頁使用說明</h1>
+<p class="hero__sub">這裡不是公開查詢頁。已預約客戶請使用攝影師提供的專屬連結進入合約確認與作品交件頁。</p>
 </div></section>
-<div class="container section">
-<label class="field hub-search"><span class="muted">搜尋（姓名、日期、專案）</span><input type="search" data-client-search-input class="hub-search__input" placeholder="例如：王小明、2026-05"/></label>
+<section class="container section card card--flat prose">
+<p>如找不到連結，請直接聯絡小巴老師協助補發。</p>
+<div class="hero__actions">
+  <a class="btn btn--primary" href="${site.lineUrl}" target="_blank" rel="noopener noreferrer">Line 聯絡</a>
+  <a class="btn btn--secondary" href="${site.phoneTel}">電話聯絡</a>
 </div>
-<div class="container section" style="padding-top:0;"><div class="grid-2" id="hub-clients-grid">${clientsIndexCards}</div></div>
-<div class="container section card card--flat prose">
-<h2 class="h2">已預約客戶</h2><p>請依攝影師提供的專屬連結進入您的頁面。</p>
-<h2 class="h2">合約與預約確認</h2><p>正式合約會依照每組家庭的拍攝日期、方案與費用建立，不使用公開空白表單。</p>
-<h2 class="h2">拍攝後作品交件</h2><p>拍攝完成後，雲端照片連結、影片連結與下載說明會放在同一個客戶專區中。</p>
-<h2 class="h2">找不到連結？</h2><p>請聯繫攝影師，我們會重新提供您的專屬頁面連結。</p>
-</div>
-<script>(function(){var input=document.querySelector("[data-client-search-input]");var cards=document.querySelectorAll("[data-client-search]");function apply(){var q=(input&&input.value||"").toLowerCase().trim();cards.forEach(function(card){var t=(card.getAttribute("data-client-search")||"").toLowerCase();card.toggleAttribute("hidden",q&&t.indexOf(q)===-1);});}if(input)input.addEventListener("input",apply);})();</script>`;
+</section>`;
 
   writeRouteHtml(
     '/clients',
     renderPage(cfg, {
-      title: '親子寫真客戶專區｜小巴老師',
-      description: '拍攝完成後的家庭可由此進入專屬交件頁；支援搜尋專案。',
+      title: '客戶分享頁說明｜小巴老師',
+      description: '此頁不提供公開查詢，已預約客戶請使用攝影師提供的專屬連結。',
       canonical: `${site.url}/clients/`,
       body: clientsIndexBody,
       ogImage: CLIENT_OG,
       noIndex: true,
     }),
   );
-  extraSitemapUrls.push(`${site.url}/clients/`);
 
   for (const c of clientsForPortal) {
     const body = `<section class="family-contract-hero">
@@ -840,8 +826,8 @@ ${isPresent(c.packageName) || isPresent(c.shootingDate) ? `<p class="muted">${es
 </section>`;
 
     const html = renderPage(cfg, {
-      title: `親子寫真客戶專區｜${c.clientName}`,
-      description: `${c.clientName} 專屬預約資訊、合約確認、付款方式與作品交件連結。`,
+      title: `${c.clientName}｜親子寫真合約與作品交件頁`,
+      description: '這是小巴老師為本次拍攝建立的專屬頁面，請依攝影師提供的連結確認合約、付款與作品交件資訊。',
       canonical: `${site.url}/clients/${c.slug}/`,
       body,
       ogImage: '/assets/images/og/default.svg',
@@ -853,7 +839,6 @@ ${isPresent(c.packageName) || isPresent(c.shootingDate) ? `<p class="muted">${es
         '  <script src="https://cdn.jsdelivr.net/npm/signature_pad@5.0.4/dist/signature_pad.umd.min.js"></script>\n  <script src="/assets/js/client-contract-sign.js"></script>\n</body>',
       );
     writeRouteHtml(`/clients/${c.slug}`, html);
-    extraSitemapUrls.push(`${site.url}/clients/${c.slug}/`);
   }
 
   const portfolioClients = clients.filter((c) => c.portfolioPublish === true);
@@ -992,20 +977,14 @@ ${ra}
   );
   extraSitemapUrls.push(`${site.url}/contact/`);
 
-  let familyContractTpl = '';
-  try {
-    familyContractTpl = readFileSync(join(ROOT, 'templates/fixed/family-contract.html'), 'utf8');
-  } catch {
-    familyContractTpl = '<section class="container section"><p>親子寫真線上合約填寫頁面內容載入失敗。</p></section>';
-  }
   const familyContractHtml = renderPage(cfg, {
-    title: '親子寫真合約與客戶專區說明',
-    description: '正式合約會依每一組家庭的預約內容建立專屬客戶頁面，請使用攝影師提供的專屬連結完成簽名。',
+    title: '親子寫真合約產生系統',
+    description: '本頁已改為後台路由，將導向親子寫真合約產生系統。',
     canonical: `${site.url}/family-contract/`,
-    body: `<nav class="container section" style="padding-bottom:0;"><div class="muted"><a href="/">首頁</a> / <span>親子寫真合約與客戶專區說明</span></div></nav>${familyContractTpl}`,
+    body: `<section class="container section card card--flat"><h1 class="h1">親子寫真合約產生系統</h1><p class="muted">本頁已移轉至後台合約管理，系統將自動前往 <code>/admin/contracts/</code>。</p><p><a class="btn btn--primary" href="/admin/contracts/">前往後台合約系統</a></p></section><script>location.replace('/admin/contracts/');</script>`,
     noIndex: true,
     ogImage: '/assets/images/og/default.svg',
-  }).replace('</head>', '  <link rel="stylesheet" href="/assets/css/client-portal.css" />\n</head>');
+  });
   writeRouteHtml('/family-contract', familyContractHtml);
 
   const adminRows = clients
@@ -1038,10 +1017,14 @@ ${ra}
   <div class="admin-wrap">
     <h1 class="h1">親子寫真客戶案件管理</h1>
     <p class="lead">本系統採用 Markdown 檔案式管理。每一組客戶案件都是一個獨立的 MD 檔案，可用來產生客戶專區、合約確認頁、作品交件頁，也可以在結案後選擇轉為公開作品集文章。</p>
-    <p class="admin-warning">新增或修改客戶案件時，請在專案的 clients Markdown 資料夾中建立或編輯對應的 .md 檔案。網站會依照 Markdown frontmatter 自動產生頁面。</p>
+    <p class="admin-warning">這裡是攝影師內部管理頁，不是給客戶看的頁面。新增或修改客戶案件時，請在專案的 clients Markdown 資料夾中建立或編輯對應 .md 檔案。</p>
   </div>
 </section>
 <section class="container section admin-wrap" id="admin-clients-root">
+  <article class="card">
+    <h2 class="h2">狀態篩選</h2>
+    <p class="muted">建議用以下狀態管理進度：詢問中、已報價、已收訂、已簽約、已拍攝、修圖中、已交件、已結案。</p>
+  </article>
   <article class="card">
     <h2 class="h2">客戶案件列表</h2>
     <div class="admin-table-wrap">
@@ -1071,12 +1054,13 @@ ${ra}
   <article class="card">
     <h2 class="h2">從 LINE／訊息對話產生客戶 MD</h2>
     <ol class="prose">
-      <li>複製客戶對話或自己整理的需求描述。</li>
+      <li>複製與客戶討論的 LINE、Messenger、Email 或電話紀錄摘要。</li>
       <li>打開 Cursor。</li>
-      <li>貼上對話，並輸入：「請使用 Family Client Markdown Generator，根據這段對話建立一個新的 content/clients Markdown 客戶案件。」</li>
+      <li>貼上對話，並輸入：「請使用 Family Client MD Generator，根據這段對話建立新的 content/clients Markdown 客戶案件。」</li>
       <li>Cursor 會自動讀取 docs/family-service-knowledge.md，判斷方案、價格、成品、包車、付款與待確認事項。</li>
-      <li>產生 MD 後，檢查客戶專區頁面是否正確。</li>
-      <li>將客戶專區連結傳給客人確認合約。</li>
+      <li>Cursor 會產生一個新的客戶 MD。</li>
+      <li>網站會根據該 MD 產生客戶專屬合約與作品交件頁。</li>
+      <li>檢查後，把單一客戶頁連結傳給客戶。</li>
     </ol>
   </article>
 
@@ -1100,8 +1084,77 @@ ${ra}
     ogImage: '/assets/images/og/default.svg',
   })
     .replace('</head>', '  <link rel="stylesheet" href="/assets/css/admin-clients.css" />\n</head>')
-    .replace('</body>', '  <script src="/assets/js/admin-clients.js"></script>\n</body>');
+    .replace('</body>', '  <script src="/assets/js/admin-auth.js"></script>\n  <script src="/assets/js/admin-clients.js"></script>\n</body>');
   writeRouteHtml('/admin/clients', adminClientsHtml);
+
+  const adminHomeBody = `<section class="admin-hero"><div class="admin-wrap"><h1 class="h1">小巴老師｜親子寫真後台</h1><p class="lead">此區為攝影師內部使用，請輸入後台密碼。</p></div></section>
+<section class="container section admin-wrap">
+<article class="card"><h2 class="h2">後台入口</h2><ul class="prose">
+<li><a href="/admin/clients/">客戶案件管理</a></li>
+<li><a href="/admin/contracts/">合約產生系統</a></li>
+<li><a href="/admin/deliveries/">作品交件管理</a></li>
+<li><a href="/admin/settings/">系統設定</a></li>
+</ul></article>
+<article class="card"><h2 class="h2">新增客戶案件</h2><p>在 Cursor 貼上客戶對話，使用 Family Client MD Generator 產生 <code>content/clients/*.md</code>。</p></article>
+<article class="card"><h2 class="h2">服務知識庫用途</h2><p><code>docs/family-service-knowledge.md</code> 是判斷方案、價格、成品、付款與條款的單一規則來源。</p></article>
+<article class="card"><h2 class="h2">客戶 MD 範本</h2><p>請使用 <code>content/clients/_template.md</code> 或 <code>src/content/clients/_client-template.md</code> 建立新案件。</p></article>
+</section>`;
+  const adminHomeHtml = renderPage(cfg, {
+    title: '小巴老師｜親子寫真後台',
+    description: '攝影師內部客戶案件、合約與交件管理入口。',
+    canonical: `${site.url}/admin/`,
+    body: adminHomeBody,
+    noIndex: true,
+    ogImage: '/assets/images/og/default.svg',
+  }).replace('</body>', '  <script src="/assets/js/admin-auth.js"></script>\n</body>');
+  writeRouteHtml('/admin', adminHomeHtml);
+
+  const adminContractsBody = `<section class="admin-hero"><div class="admin-wrap"><h1 class="h1">親子寫真合約產生系統</h1><p class="lead">此頁為攝影師內部流程說明，不提供客戶公開填寫。</p></div></section>
+<section class="container section admin-wrap">
+<article class="card"><h2 class="h2">合約產生流程</h2><ol class="prose">
+<li>在 Cursor 貼上客戶對話或拍攝需求。</li><li>Cursor 依照 <code>docs/family-service-knowledge.md</code> 判斷方案、價格、成品、付款、特殊條款。</li><li>Cursor 產生 <code>content/clients/[slug].md</code>。</li><li>網站依 MD 自動產生客戶專屬頁。</li><li>檢查內容後，把單一客戶頁連結傳給客戶。</li><li>客戶只會看到自己的合約確認與交件頁。</li></ol></article>
+<article class="card"><h2 class="h2">合約頁包含</h2><ul class="prose"><li>拍攝日期、時間、地點、方案</li><li>總費用、訂金、尾款、成品內容</li><li>付款方式、合約確認、電子簽名</li><li>作品公開授權、拍攝前準備、拍攝後交件連結</li></ul></article>
+<article class="card"><h2 class="h2">不要公開的內容</h2><ul class="prose"><li>全部客戶列表與其他客戶資料</li><li>客戶電話與 Email</li><li>內部備註與完整對話紀錄</li><li>成本與內部報價判斷</li></ul></article>
+</section>`;
+  const adminContractsHtml = renderPage(cfg, {
+    title: '親子寫真合約產生系統',
+    description: '攝影師內部合約建立與客戶專屬頁分享流程。',
+    canonical: `${site.url}/admin/contracts/`,
+    body: adminContractsBody,
+    noIndex: true,
+    ogImage: '/assets/images/og/default.svg',
+  }).replace('</body>', '  <script src="/assets/js/admin-auth.js"></script>\n</body>');
+  writeRouteHtml('/admin/contracts', adminContractsHtml);
+
+  const adminDeliveriesBody = `<section class="admin-hero"><div class="admin-wrap"><h1 class="h1">作品交件管理</h1><p class="lead">此頁為攝影師內部交件流程說明。</p></div></section>
+<section class="container section admin-wrap">
+<article class="card"><h2 class="h2">作品交件流程</h2><ol class="prose">
+<li>拍攝完成後，在客戶 MD 補上 <code>driveFolderUrl</code>、<code>videoUrl</code>、<code>deliveryStatus</code>。</li>
+<li><code>deliveryStatus</code> 可使用：尚未拍攝、整理中、修圖中、已交件、已結案。</li>
+<li>客戶專屬頁會顯示照片下載連結與影片連結。</li>
+<li>客戶收到連結後回到同一個專屬頁查看。</li>
+<li>交件頁維持 <code>noindex</code>，不出現在 sitemap。</li>
+</ol></article>
+</section>`;
+  const adminDeliveriesHtml = renderPage(cfg, {
+    title: '作品交件管理',
+    description: '攝影師內部交件流程與狀態管理說明。',
+    canonical: `${site.url}/admin/deliveries/`,
+    body: adminDeliveriesBody,
+    noIndex: true,
+    ogImage: '/assets/images/og/default.svg',
+  }).replace('</body>', '  <script src="/assets/js/admin-auth.js"></script>\n</body>');
+  writeRouteHtml('/admin/deliveries', adminDeliveriesHtml);
+
+  const adminSettingsHtml = renderPage(cfg, {
+    title: '後台設定',
+    description: '後台設定與環境說明。',
+    canonical: `${site.url}/admin/settings/`,
+    body: `<section class="container section card card--flat"><h1 class="h1">後台設定</h1><p class="muted">此頁預留後續整合 Cloudflare Pages Functions / Access 與權限控管。</p></section>`,
+    noIndex: true,
+    ogImage: '/assets/images/og/default.svg',
+  }).replace('</body>', '  <script src="/assets/js/admin-auth.js"></script>\n</body>');
+  writeRouteHtml('/admin/settings', adminSettingsHtml);
 
   const sitemapHtmlBody = `<nav class="container section"><h1 class="h1">網站地圖</h1>
 <ul class="prose">
@@ -1109,7 +1162,6 @@ ${ra}
 <li><a href="/services/">服務方案</a></li>
 <li><a href="/works/">作品</a></li>
 <li><a href="/articles/">文章</a></li>
-<li><a href="/clients/">客戶專區</a></li>
 <li><a href="/faq/">FAQ</a></li>
 <li><a href="/about/">關於</a></li>
 <li><a href="/contact/">聯絡</a></li>
@@ -1188,6 +1240,8 @@ Note: 客戶交付檔連結為私有雲端，勿假定公開 URL 可存取。
     '/pages/services.html /services/ 301',
     '/client /clients/ 301',
     '/client/ /clients/ 301',
+    '/family-contract /admin/contracts/ 301',
+    '/family-contract/ /admin/contracts/ 301',
   ];
   if (existsSync(redPath)) {
     let cur = readFileSync(redPath, 'utf8');

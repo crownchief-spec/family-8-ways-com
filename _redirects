@@ -28,3 +28,5 @@
 /pages/services.html /services/ 301
 /client /clients/ 301
 /client/ /clients/ 301
+/family-contract /admin/contracts/ 301
+/family-contract/ /admin/contracts/ 301

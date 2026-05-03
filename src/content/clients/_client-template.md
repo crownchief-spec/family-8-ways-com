@@ -19,6 +19,15 @@ transportation: ""
 payment_status: "not_started"
 contract_status: "not_started"
 privacy: "private"
+noindex: true
+showInClientList: false
+shareEnabled: true
+adminOnly: false
+contractEnabled: true
+deliveryEnabled: true
+clientAccessCode: ""
+internalNote: ""
+publicPortfolio: false
 created_at: ""
 updated_at: ""
 ---

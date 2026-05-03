@@ -44,7 +44,6 @@
 </li>
 <li class="site-nav__item"><a href="/works/">作品案例</a></li>
 <li class="site-nav__item"><a href="/articles/">拍攝文章</a></li>
-<li class="site-nav__item"><a href="/clients/">客戶專區</a></li>
 <li class="site-nav__item"><a href="/faq/">常見問題</a></li>
 <li class="site-nav__item"><a href="/about/">關於小巴老師</a></li>
 <li class="site-nav__item"><a href="/contact/">聯絡預約</a></li></ul>
@@ -81,10 +80,14 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
   <div class="admin-wrap">
     <h1 class="h1">親子寫真客戶案件管理</h1>
     <p class="lead">本系統採用 Markdown 檔案式管理。每一組客戶案件都是一個獨立的 MD 檔案，可用來產生客戶專區、合約確認頁、作品交件頁，也可以在結案後選擇轉為公開作品集文章。</p>
-    <p class="admin-warning">新增或修改客戶案件時，請在專案的 clients Markdown 資料夾中建立或編輯對應的 .md 檔案。網站會依照 Markdown frontmatter 自動產生頁面。</p>
+    <p class="admin-warning">這裡是攝影師內部管理頁，不是給客戶看的頁面。新增或修改客戶案件時，請在專案的 clients Markdown 資料夾中建立或編輯對應 .md 檔案。</p>
   </div>
 </section>
 <section class="container section admin-wrap" id="admin-clients-root">
+  <article class="card">
+    <h2 class="h2">狀態篩選</h2>
+    <p class="muted">建議用以下狀態管理進度：詢問中、已報價、已收訂、已簽約、已拍攝、修圖中、已交件、已結案。</p>
+  </article>
   <article class="card">
     <h2 class="h2">客戶案件列表</h2>
     <div class="admin-table-wrap">
@@ -147,12 +150,13 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
   <article class="card">
     <h2 class="h2">從 LINE／訊息對話產生客戶 MD</h2>
     <ol class="prose">
-      <li>複製客戶對話或自己整理的需求描述。</li>
+      <li>複製與客戶討論的 LINE、Messenger、Email 或電話紀錄摘要。</li>
       <li>打開 Cursor。</li>
-      <li>貼上對話，並輸入：「請使用 Family Client Markdown Generator，根據這段對話建立一個新的 content/clients Markdown 客戶案件。」</li>
+      <li>貼上對話，並輸入：「請使用 Family Client MD Generator，根據這段對話建立新的 content/clients Markdown 客戶案件。」</li>
       <li>Cursor 會自動讀取 docs/family-service-knowledge.md，判斷方案、價格、成品、包車、付款與待確認事項。</li>
-      <li>產生 MD 後，檢查客戶專區頁面是否正確。</li>
-      <li>將客戶專區連結傳給客人確認合約。</li>
+      <li>Cursor 會產生一個新的客戶 MD。</li>
+      <li>網站會根據該 MD 產生客戶專屬合約與作品交件頁。</li>
+      <li>檢查後，把單一客戶頁連結傳給客戶。</li>
     </ol>
   </article>
 
@@ -184,6 +188,15 @@ transportation: &quot;&quot;
 payment_status: &quot;not_started&quot;
 contract_status: &quot;not_started&quot;
 privacy: &quot;private&quot;
+noindex: true
+showInClientList: false
+shareEnabled: true
+adminOnly: false
+contractEnabled: true
+deliveryEnabled: true
+clientAccessCode: &quot;&quot;
+internalNote: &quot;&quot;
+publicPortfolio: false
 created_at: &quot;&quot;
 updated_at: &quot;&quot;
 ---
@@ -254,7 +267,6 @@ updated_at: &quot;&quot;
         <li><a href="/services/camping-family-photography/">露營團拍／親子民宿</a></li>
         <li><a href="/services/family-event-photography/">生日派對／家庭活動紀錄</a></li>
         <li><a href="/services/maternity-baby-family-photography/">孕婦／寶寶／三代同堂</a></li>
-        <li><a href="/family-contract/">親子寫真線上合約填寫</a></li>
         <li><a href="/faq/">常見問題</a></li>
         <li><a href="/about/">關於小巴老師</a></li>
       </ul>
@@ -288,15 +300,9 @@ updated_at: &quot;&quot;
       <p class="muted" style="margin:var(--space-sm) 0 0;font-size:0.85rem;">最新文章</p><ul class="footer-links footer-links--single" style="margin-top:0.35rem;"><li><a href="/articles/taiwan-family-travel-photography-guide/">台灣親子旅拍怎麼安排？包車、景點、拍攝時間一次整理</a></li><li><a href="/articles/taipei-family-photo-location/">台北親子寫真地點推薦｜草地、公園、河岸與城市景點</a></li><li><a href="/articles/family-photo-outfit-guide/">親子寫真穿搭怎麼選？家庭照衣服顏色與搭配建議</a></li></ul>
     </section>
       <section class="site-footer__col">
-      <p class="h3 site-footer__title">客戶專區</p>
-      <ul class="footer-links footer-links--single">
-        <li><a href="/clients/">客戶專區首頁</a></li>
-        <li><a href="/family-contract/">合約與預約確認</a></li>
-        <li><a href="/clients/">作品交件說明</a></li>
-        <li><a href="/clients/">照片下載說明</a></li>
-        <li><a href="/contact/">聯絡攝影師</a></li>
-      </ul>
-      <p class="muted" style="margin-top:var(--space-sm);font-size:0.9rem;max-width:40ch;">完成拍攝的家庭可以從客戶專區進入專屬頁面，查看照片、影片、雲端下載連結與交件說明。</p>
+      <p class="h3 site-footer__title">客戶交件提醒</p>
+      <p class="muted" style="font-size:0.95rem;line-height:1.7;">已預約客戶請依攝影師提供的專屬連結進入合約確認與作品交件頁。</p>
+      <p class="muted" style="margin-top:var(--space-sm);font-size:0.9rem;">若找不到專屬連結，請直接透過 Line 或電話聯繫小巴老師協助補發。</p>
     </section>
     </div>
   </div>
@@ -313,6 +319,7 @@ updated_at: &quot;&quot;
     </p>
   </div>
 </footer>
+  <script src="/assets/js/admin-auth.js"></script>
   <script src="/assets/js/admin-clients.js"></script>
 </body>
 </html>
