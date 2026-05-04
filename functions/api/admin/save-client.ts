@@ -34,6 +34,17 @@ function utf8ToBase64(s: string): string {
   return btoa(binary);
 }
 
+/** 供編輯頁偵測是否可自動寫入 GitHub（不需密碼） */
+export const onRequestGet: PagesFunction<Env> = async (context) => {
+  const token = context.env.GITHUB_TOKEN?.trim();
+  const owner = context.env.GITHUB_OWNER?.trim();
+  const repo = context.env.GITHUB_REPO?.trim();
+  return json({
+    ok: true,
+    githubConfigured: Boolean(token && owner && repo),
+  });
+};
+
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   let body: SaveBody;
   try {
@@ -64,7 +75,8 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     return json({
       ok: false,
       githubConfigured: false,
-      message: '尚未設定 GITHUB_TOKEN，請使用編輯頁的「產生 Markdown」複製後手動貼回檔案。',
+      message:
+        '尚未設定 GitHub 環境變數，無法自動 commit。頁面會改為產生 Markdown，請複製後貼回 content/clients/ 對應檔案。',
     });
   }
 

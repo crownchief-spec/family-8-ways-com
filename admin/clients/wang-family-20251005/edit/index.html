@@ -76,131 +76,142 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
 })();
 </script>
 <main id="main">
-<nav class="container section" style="padding-bottom:0;"><div class="muted"><a href="/admin/">後台</a> / <a href="/admin/clients/">客戶案件</a> / <span>編輯</span></div></nav>
-<section class="admin-hero"><div class="admin-wrap">
-  <h1 class="h1">編輯客戶案件｜王小姐家庭</h1>
-  <p class="lead">以下為攝影師欄位，儲存後會寫入客戶 Markdown。請確認 <strong>readyToShare</strong> 為「可分享」後，再將客戶專屬連結傳給客人。</p>
+<nav class="container section admin-edit-breadcrumb"><div class="muted"><a href="/admin/">後台</a> <span aria-hidden="true">/</span> <a href="/admin/clients/">客戶案件</a> <span aria-hidden="true">/</span> <span>編輯</span></div></nav>
+<section class="admin-hero admin-edit-hero"><div class="admin-wrap admin-edit-hero-inner">
+  <p class="admin-edit-meta muted">檔案：<code>content/clients/wang-family-20251005.md</code></p>
+  <h1 class="h1 admin-edit-title">編輯客戶案件｜王小姐家庭</h1>
+  <p class="lead admin-edit-lead">以下為攝影師維護欄位；儲存後會組成客戶 Markdown。請將 <strong>readyToShare</strong> 設為可分享後，再把客戶專屬連結傳給客人。</p>
   <p class="admin-warning" id="admin-edit-guard-msg" hidden>此案件尚未標記為可分享，客戶頁將不開放填寫表單。</p>
 </div></section>
 
-<section class="container section admin-wrap">
-  <div class="admin-actions" style="flex-wrap:wrap;margin-bottom:var(--space-lg);">
+<section class="container section admin-wrap admin-edit-page">
+  <article class="card card--flat admin-edit-banner" id="admin-github-banner" hidden>
+    <p class="admin-edit-banner__title">手動更新 Markdown 模式</p>
+    <p class="muted admin-edit-banner__body">若 Cloudflare 未設定 <code>GITHUB_TOKEN</code>、<code>GITHUB_OWNER</code>、<code>GITHUB_REPO</code>，或正在本機預覽靜態檔，按下「儲存」會<strong>直接產生完整 Markdown</strong>；請複製後貼回專案對應的 <code>.md</code> 檔並存檔，再執行建置／部署。</p>
+  </article>
+  <div class="admin-edit-toolbar">
     <button type="button" class="btn btn--primary" id="admin-save-md">儲存客戶 MD</button>
     <a class="btn btn--secondary" href="/clients/wang-family-20251005/" target="_blank" rel="noopener noreferrer">預覽客戶頁</a>
     <button type="button" class="btn btn--secondary" id="admin-copy-client-url" data-client-url="https://family.8-ways.com/clients/wang-family-20251005/">複製客戶專屬連結</button>
     <a class="btn btn--ghost" href="/admin/clients/">回到客戶列表</a>
   </div>
-  <p class="muted" id="admin-save-status" style="min-height:1.5em;"></p>
+  <p class="muted admin-save-status-line" id="admin-save-status"></p>
 
   <form id="admin-client-edit-form" class="admin-edit-form" data-md-path="content/clients/wang-family-20251005.md" data-slug="wang-family-20251005">
-    <article class="card"><h2 class="h2">1. 案件基本資料</h2>
-      <div class="portal-grid-2">
-        <label class="field"><span>標題 title</span><input type="text" name="title" value="王小姐家庭｜親子寫真客戶專區" /></label>
-        <label class="field"><span>客戶名稱 clientName</span><input type="text" name="clientName" value="王小姐家庭" /></label>
-        <label class="field"><span>客戶代稱 clientAlias</span><input type="text" name="clientAlias" value="" /></label>
-        <label class="field"><span>案件狀態 status</span><input type="text" name="status" value="active" /></label>
-        <label class="field"><span>slug（請謹慎修改）</span><input type="text" name="slug" value="wang-family-20251005" readonly/></label>
+    <article class="card admin-edit-card" id="edit-section-basic"><h2 class="h2 admin-edit-section-title"><span class="admin-edit-section-num">1</span>案件基本資料</h2>
+      <div class="portal-grid-2 admin-edit-grid">
+        <label class="field admin-field"><span class="admin-field-label">標題<span class="admin-field-key">title</span></span><input type="text" name="title" value="王小姐家庭｜親子寫真客戶專區" /></label>
+        <label class="field admin-field"><span class="admin-field-label">客戶名稱<span class="admin-field-key">clientName</span></span><input type="text" name="clientName" value="王小姐家庭" /></label>
+        <label class="field admin-field"><span class="admin-field-label">客戶代稱<span class="admin-field-key">clientAlias</span></span><input type="text" name="clientAlias" value="" /></label>
+        <label class="field admin-field"><span class="admin-field-label">案件狀態<span class="admin-field-key">status</span></span><input type="text" name="status" value="active" /></label>
+        <label class="field admin-field"><span class="admin-field-label">slug（請謹慎修改）</span><input type="text" name="slug" value="wang-family-20251005" readonly/></label>
       </div>
     </article>
 
-    <article class="card"><h2 class="h2">2. 拍攝資訊</h2>
-      <div class="portal-grid-2">
-        <label class="field"><span>拍攝日期 shootingDate</span><input type="text" name="shootingDate" value="2025-10-05" /></label>
-        <label class="field"><span>星期 shootingWeekday</span><input type="text" name="shootingWeekday" value="週日" /></label>
-        <label class="field"><span>開始時間 shootingStartTime</span><input type="text" name="shootingStartTime" value="下午3:00" /></label>
-        <label class="field"><span>結束時間 shootingEndTime</span><input type="text" name="shootingEndTime" value="下午6:00" /></label>
-        <label class="field"><span>時長 duration</span><input type="text" name="duration" value="" /></label>
-        <label class="field"><span>拍攝地點 location</span><input type="text" name="location" value="沖繩海邊" /></label>
-        <label class="field"><span>集合地點 meetingPoint</span><input type="text" name="meetingPoint" value="" /></label>
-        <label class="field"><span>是否含接送 pickup</span><input type="text" name="pickup" value="自行前往" /></label>
-        <label class="field"><span>接送備註 transportationNote</span><textarea name="transportationNote" rows="3"></textarea></label>
+    <article class="card admin-edit-card" id="edit-section-shoot"><h2 class="h2 admin-edit-section-title"><span class="admin-edit-section-num">2</span>拍攝資訊</h2>
+      <div class="portal-grid-2 admin-edit-grid">
+        <label class="field admin-field"><span class="admin-field-label">拍攝日期<span class="admin-field-key">shootingDate</span></span><input type="text" name="shootingDate" value="2025-10-05" /></label>
+        <label class="field admin-field"><span class="admin-field-label">星期<span class="admin-field-key">shootingWeekday</span></span><input type="text" name="shootingWeekday" value="週日" /></label>
+        <label class="field admin-field"><span class="admin-field-label">開始時間<span class="admin-field-key">shootingStartTime</span></span><input type="text" name="shootingStartTime" value="下午3:00" /></label>
+        <label class="field admin-field"><span class="admin-field-label">結束時間<span class="admin-field-key">shootingEndTime</span></span><input type="text" name="shootingEndTime" value="下午6:00" /></label>
+        <label class="field admin-field"><span class="admin-field-label">時長<span class="admin-field-key">duration</span></span><input type="text" name="duration" value="" /></label>
+        <label class="field admin-field"><span class="admin-field-label">行程／區域<span class="admin-field-key">location</span></span><input type="text" name="location" value="沖繩海邊" /></label>
+        <label class="field admin-field"><span class="admin-field-label">拍攝地點<span class="admin-field-key">meetingPoint</span></span><input type="text" name="meetingPoint" value="" /></label>
+        <label class="field admin-field"><span class="admin-field-label">是否含接送<span class="admin-field-key">pickup</span></span><input type="text" name="pickup" value="自行前往" /></label>
+        <label class="field admin-field admin-field--block"><span class="admin-field-label">攝影備註<span class="admin-field-key">transportationNote</span></span><textarea name="transportationNote" rows="3"></textarea></label>
       </div>
     </article>
 
-    <article class="card"><h2 class="h2">3. 方案與費用</h2>
-      <div class="portal-grid-2">
-        <label class="field"><span>拍攝類型 serviceType</span><input type="text" name="serviceType" value="" /></label>
-        <label class="field"><span>方案分類 packageCategory</span><input type="text" name="packageCategory" value="" /></label>
-        <label class="field"><span>方案名稱 packageName</span><input type="text" name="packageName" value="海外親子旅拍方案" /></label>
-        <label class="field"><span>總費用 totalFee</span><input type="text" name="totalFee" value="18800" inputmode="decimal" /></label>
-        <label class="field"><span>訂金 deposit</span><input type="text" name="deposit" value="2800" inputmode="decimal" /></label>
-        <label class="field"><span>餘款 balance</span><input type="text" name="balance" value="16000" inputmode="decimal" /></label>
-        <label class="field"><span>付款備註（攝影師）paymentNoteFromAdmin</span><textarea name="paymentNoteFromAdmin" rows="3">請先完成訂金後保留檔期</textarea></label>
+    <article class="card admin-edit-card" id="edit-section-fee"><h2 class="h2 admin-edit-section-title"><span class="admin-edit-section-num">3</span>方案與費用</h2>
+      <div class="portal-grid-2 admin-edit-grid">
+        <label class="field admin-field"><span class="admin-field-label">拍攝類型<span class="admin-field-key">serviceType</span></span><input type="text" name="serviceType" value="" /></label>
+        <label class="field admin-field"><span class="admin-field-label">方案分類<span class="admin-field-key">packageCategory</span></span><input type="text" name="packageCategory" value="" /></label>
+        <label class="field admin-field"><span class="admin-field-label">方案名稱<span class="admin-field-key">packageName</span></span><input type="text" name="packageName" value="海外親子旅拍方案" /></label>
+        <label class="field admin-field"><span class="admin-field-label">總費用<span class="admin-field-key">totalFee</span></span><input type="text" name="totalFee" value="18800" inputmode="decimal" /></label>
+        <label class="field admin-field"><span class="admin-field-label">訂金<span class="admin-field-key">deposit</span></span><input type="text" name="deposit" value="2800" inputmode="decimal" /></label>
+        <label class="field admin-field"><span class="admin-field-label">餘款<span class="admin-field-key">balance</span></span><input type="text" name="balance" value="16000" inputmode="decimal" /></label>
+        <label class="field admin-field admin-field--block"><span class="admin-field-label">付款備註（攝影師）paymentNoteFromAdmin</span><textarea name="paymentNoteFromAdmin" rows="3">請先完成訂金後保留檔期</textarea></label>
       </div>
     </article>
 
-    <article class="card"><h2 class="h2">4. 成品內容</h2>
-      <label class="field"><span>成品總述 deliverables</span><textarea name="deliverables" rows="4">照片全給，包含攝影師篩選與基本處理後照片，不提供原始毛片，保證交件至少 200 張以上。</textarea></label>
-      <label class="field"><span>照片成品 photoDeliverables</span><textarea name="photoDeliverables" rows="3"></textarea></label>
-      <label class="field"><span>影片成品 videoDeliverables</span><textarea name="videoDeliverables" rows="3"></textarea></label>
-      <label class="check-row"><input type="checkbox" name="mvIncluded" value="true"/> 是否含 MV mvIncluded</label>
-      <label class="check-row"><input type="checkbox" name="droneIncluded" value="true"/> 是否含空拍 droneIncluded</label>
-      <label class="check-row"><input type="checkbox" name="underwaterIncluded" value="true"/> 是否含水中攝影 underwaterIncluded</label>
-      <label class="field"><span>特殊約定 specialRequests（每行一項）</span><textarea name="specialRequestsLines" rows="4"></textarea></label>
+    <article class="card admin-edit-card" id="edit-section-deliver"><h2 class="h2 admin-edit-section-title"><span class="admin-edit-section-num">4</span>成品內容</h2>
+      <div class="admin-edit-stack">
+      <label class="field admin-field admin-field--block"><span class="admin-field-label">成品總述<span class="admin-field-key">deliverables</span></span><textarea name="deliverables" rows="4">照片全給，包含攝影師篩選與基本處理後照片，不提供原始毛片，保證交件至少 200 張以上。</textarea></label>
+      <label class="field admin-field admin-field--block"><span class="admin-field-label">照片成品<span class="admin-field-key">photoDeliverables</span></span><textarea name="photoDeliverables" rows="3"></textarea></label>
+      <label class="field admin-field admin-field--block"><span class="admin-field-label">影片成品<span class="admin-field-key">videoDeliverables</span></span><textarea name="videoDeliverables" rows="3"></textarea></label>
+      </div>
+      <div class="admin-edit-checkgroup">
+      <label class="check-row admin-check"><input type="checkbox" name="mvIncluded" value="true"/><span class="admin-check-text">是否含 MV<span class="admin-field-key">mvIncluded</span></span></label>
+      <label class="check-row admin-check"><input type="checkbox" name="droneIncluded" value="true"/><span class="admin-check-text">是否含空拍<span class="admin-field-key">droneIncluded</span></span></label>
+      <label class="check-row admin-check"><input type="checkbox" name="underwaterIncluded" value="true"/><span class="admin-check-text">是否含水中攝影<span class="admin-field-key">underwaterIncluded</span></span></label>
+      </div>
+      <label class="field admin-field admin-field--block"><span class="admin-field-label">特殊約定 specialRequests（每行一項）</span><textarea name="specialRequestsLines" rows="4"></textarea></label>
     </article>
 
-    <article class="card"><h2 class="h2">5. 合約設定</h2>
-      <div class="portal-grid-2">
-        <label class="field"><span>合約狀態 contractStatus</span><input type="text" name="contractStatus" value="尚未簽署" /></label>
-        <label class="field"><span>合約版本 contractVersion</span><input type="text" name="contractVersion" value="family-contract-v2026-05" /></label>
-        <label class="field"><span>合約補充條款 contractNote</span><textarea name="contractNote" rows="3"></textarea></label>
-        <label class="check-row"><input type="checkbox" name="contractEnabled" value="true" checked/> 啟用合約區 contractEnabled</label>
-        <label class="check-row"><input type="checkbox" name="shareEnabled" value="true" checked/> 可分享連結 shareEnabled</label>
-        <label class="check-row"><input type="checkbox" name="adminReviewed" value="true" checked/> 攝影師已確認 adminReviewed</label>
-        <label class="check-row"><input type="checkbox" name="readyToShare" value="true" checked/> 可開放客戶填寫 readyToShare</label>
-        <label class="field"><span>確認時間 reviewedAt</span><input type="text" name="reviewedAt" value="" /></label>
-        <label class="field"><span>確認者 reviewedBy</span><input type="text" name="reviewedBy" value="小巴老師" /></label>
+    <article class="card admin-edit-card" id="edit-section-contract"><h2 class="h2 admin-edit-section-title"><span class="admin-edit-section-num">5</span>合約設定</h2>
+      <div class="portal-grid-2 admin-edit-grid">
+        <label class="field admin-field"><span class="admin-field-label">合約狀態<span class="admin-field-key">contractStatus</span></span><input type="text" name="contractStatus" value="尚未簽署" /></label>
+        <label class="field admin-field"><span class="admin-field-label">合約版本<span class="admin-field-key">contractVersion</span></span><input type="text" name="contractVersion" value="family-contract-v2026-05" /></label>
+        <label class="field admin-field admin-field--block"><span class="admin-field-label">合約補充條款<span class="admin-field-key">contractNote</span></span><textarea name="contractNote" rows="3"></textarea></label>
+        <label class="check-row admin-check"><input type="checkbox" name="contractEnabled" value="true" checked/><span class="admin-check-text">啟用合約區<span class="admin-field-key">contractEnabled</span></span></label>
+        <label class="check-row admin-check"><input type="checkbox" name="shareEnabled" value="true" checked/><span class="admin-check-text">可分享連結<span class="admin-field-key">shareEnabled</span></span></label>
+        <label class="check-row admin-check"><input type="checkbox" name="adminReviewed" value="true" checked/><span class="admin-check-text">攝影師已確認<span class="admin-field-key">adminReviewed</span></span></label>
+        <label class="check-row admin-check"><input type="checkbox" name="readyToShare" value="true" checked/><span class="admin-check-text">可開放客戶填寫<span class="admin-field-key">readyToShare</span></span></label>
+        <label class="field admin-field"><span class="admin-field-label">確認時間<span class="admin-field-key">reviewedAt</span></span><input type="text" name="reviewedAt" value="" /></label>
+        <label class="field admin-field"><span class="admin-field-label">確認者<span class="admin-field-key">reviewedBy</span></span><input type="text" name="reviewedBy" value="小巴老師" /></label>
       </div>
     </article>
 
-    <article class="card"><h2 class="h2">6. 作品交件</h2>
-      <div class="portal-grid-2">
-        <label class="field"><span>交件狀態 deliveryStatus</span><input type="text" name="deliveryStatus" value="尚未拍攝" /></label>
-        <label class="field"><span>雲端照片連結 driveFolderUrl</span><input type="text" name="driveFolderUrl" value="" /></label>
-        <label class="field"><span>影片連結 videoUrl</span><input type="text" name="videoUrl" value="" /></label>
-        <label class="field"><span>交件備註 deliveryNote</span><textarea name="deliveryNote" rows="3"></textarea></label>
+    <article class="card admin-edit-card" id="edit-section-delivery"><h2 class="h2 admin-edit-section-title"><span class="admin-edit-section-num">6</span>作品交件</h2>
+      <div class="portal-grid-2 admin-edit-grid">
+        <label class="field admin-field"><span class="admin-field-label">交件狀態<span class="admin-field-key">deliveryStatus</span></span><input type="text" name="deliveryStatus" value="尚未拍攝" /></label>
+        <label class="field admin-field"><span class="admin-field-label">雲端照片連結<span class="admin-field-key">driveFolderUrl</span></span><input type="text" name="driveFolderUrl" value="" /></label>
+        <label class="field admin-field"><span class="admin-field-label">影片連結<span class="admin-field-key">videoUrl</span></span><input type="text" name="videoUrl" value="" /></label>
+        <label class="field admin-field admin-field--block"><span class="admin-field-label">交件備註<span class="admin-field-key">deliveryNote</span></span><textarea name="deliveryNote" rows="3"></textarea></label>
       </div>
     </article>
 
-    <article class="card"><h2 class="h2">7. 隱私與公開</h2>
-      <div class="portal-grid-2">
-        <label class="field"><span>隱私 privacy</span><input type="text" name="privacy" value="private" /></label>
-        <label class="check-row"><input type="checkbox" name="noindex" value="true" checked/> noindex</label>
-        <label class="check-row"><input type="checkbox" name="showInClientList" value="true"/> 顯示於客戶列表說明 showInClientList</label>
-        <label class="check-row"><input type="checkbox" name="publicPortfolio" value="true"/> 公開作品集 publicPortfolio</label>
-        <label class="check-row"><input type="checkbox" name="adminOnly" value="true"/> 僅後台 adminOnly</label>
+    <article class="card admin-edit-card" id="edit-section-privacy"><h2 class="h2 admin-edit-section-title"><span class="admin-edit-section-num">7</span>隱私與公開</h2>
+      <div class="portal-grid-2 admin-edit-grid admin-edit-grid--checks">
+        <label class="field admin-field"><span class="admin-field-label">隱私<span class="admin-field-key">privacy</span></span><input type="text" name="privacy" value="private" /></label>
+        <label class="check-row admin-check"><input type="checkbox" name="noindex" value="true" checked/><span class="admin-check-text">noindex</span></label>
+        <label class="check-row admin-check"><input type="checkbox" name="showInClientList" value="true"/><span class="admin-check-text">顯示於客戶列表說明<span class="admin-field-key">showInClientList</span></span></label>
+        <label class="check-row admin-check"><input type="checkbox" name="publicPortfolio" value="true"/><span class="admin-check-text">公開作品集<span class="admin-field-key">publicPortfolio</span></span></label>
+        <label class="check-row admin-check"><input type="checkbox" name="adminOnly" value="true"/><span class="admin-check-text">僅後台<span class="admin-field-key">adminOnly</span></span></label>
       </div>
     </article>
 
-    <article class="card"><h2 class="h2">8. 人數與其他</h2>
-      <div class="portal-grid-2">
-        <label class="field"><span>家庭數 familyCount</span><input type="text" name="familyCount" value="" inputmode="decimal" /></label>
-        <label class="field"><span>攝影師預設入鏡大人 adultCount</span><input type="text" name="adultCount" value="" inputmode="decimal" /></label>
-        <label class="field"><span>攝影師預設入鏡小孩 childCount</span><input type="text" name="childCount" value="" inputmode="decimal" /></label>
-        <label class="check-row"><input type="checkbox" name="elderIncluded" value="true"/> 是否含長輩 elderIncluded</label>
-        <label class="check-row"><input type="checkbox" name="petIncluded" value="true"/> 是否含寵物 petIncluded</label>
-        <label class="check-row"><input type="checkbox" name="paymentEnablePaypal" value="true" checked/> 啟用 PayPal 說明 paymentEnablePaypal</label>
-        <label class="check-row"><input type="checkbox" name="paymentEnableWise" value="true" checked/> 啟用 WISE 說明 paymentEnableWise</label>
-        <label class="check-row"><input type="checkbox" name="portfolioPublish" value="true"/> 作品集發佈 portfolioPublish</label>
-        <label class="check-row"><input type="checkbox" name="publish" value="true"/> 發佈 publish</label>
-        <label class="check-row"><input type="checkbox" name="hubPortal" value="true" checked/> 客戶專區 hubPortal</label>
-        <label class="check-row"><input type="checkbox" name="deliveryEnabled" value="true" checked/> 交件區 deliveryEnabled</label>
-        <label class="field"><span>客戶存取碼 clientAccessCode</span><input type="text" name="clientAccessCode" value="" /></label>
-        <label class="field"><span>精選照 selectedPhotoUrl</span><input type="text" name="selectedPhotoUrl" value="" /></label>
-        <label class="field"><span>封面 coverImage</span><input type="text" name="coverImage" value="" /></label>
+    <article class="card admin-edit-card" id="edit-section-extra"><h2 class="h2 admin-edit-section-title"><span class="admin-edit-section-num">8</span>人數與其他</h2>
+      <div class="portal-grid-2 admin-edit-grid">
+        <label class="field admin-field"><span class="admin-field-label">家庭數<span class="admin-field-key">familyCount</span></span><input type="text" name="familyCount" value="" inputmode="decimal" /></label>
+        <label class="field admin-field"><span class="admin-field-label">攝影師預設入鏡大人<span class="admin-field-key">adultCount</span></span><input type="text" name="adultCount" value="" inputmode="decimal" /></label>
+        <label class="field admin-field"><span class="admin-field-label">攝影師預設入鏡小孩<span class="admin-field-key">childCount</span></span><input type="text" name="childCount" value="" inputmode="decimal" /></label>
+        <label class="check-row admin-check"><input type="checkbox" name="elderIncluded" value="true"/><span class="admin-check-text">是否含長輩<span class="admin-field-key">elderIncluded</span></span></label>
+        <label class="check-row admin-check"><input type="checkbox" name="petIncluded" value="true"/><span class="admin-check-text">是否含寵物<span class="admin-field-key">petIncluded</span></span></label>
+        <label class="check-row admin-check"><input type="checkbox" name="paymentEnablePaypal" value="true" checked/><span class="admin-check-text">啟用 PayPal 說明<span class="admin-field-key">paymentEnablePaypal</span></span></label>
+        <label class="check-row admin-check"><input type="checkbox" name="paymentEnableWise" value="true" checked/><span class="admin-check-text">啟用 WISE 說明<span class="admin-field-key">paymentEnableWise</span></span></label>
+        <label class="check-row admin-check"><input type="checkbox" name="portfolioPublish" value="true"/><span class="admin-check-text">作品集發佈<span class="admin-field-key">portfolioPublish</span></span></label>
+        <label class="check-row admin-check"><input type="checkbox" name="publish" value="true"/><span class="admin-check-text">發佈<span class="admin-field-key">publish</span></span></label>
+        <label class="check-row admin-check"><input type="checkbox" name="hubPortal" value="true" checked/><span class="admin-check-text">客戶專區<span class="admin-field-key">hubPortal</span></span></label>
+        <label class="check-row admin-check"><input type="checkbox" name="deliveryEnabled" value="true" checked/><span class="admin-check-text">交件區<span class="admin-field-key">deliveryEnabled</span></span></label>
+        <label class="field admin-field"><span class="admin-field-label">客戶存取碼<span class="admin-field-key">clientAccessCode</span></span><input type="text" name="clientAccessCode" value="" /></label>
+        <label class="field admin-field"><span class="admin-field-label">精選照<span class="admin-field-key">selectedPhotoUrl</span></span><input type="text" name="selectedPhotoUrl" value="" /></label>
+        <label class="field admin-field"><span class="admin-field-label">封面<span class="admin-field-key">coverImage</span></span><input type="text" name="coverImage" value="" /></label>
       </div>
     </article>
 
-    <article class="card"><h2 class="h2">9. 內部備註</h2>
-      <label class="field"><span>internalNote</span><textarea name="internalNote" rows="5"></textarea></label>
+    <article class="card admin-edit-card" id="edit-section-internal"><h2 class="h2 admin-edit-section-title"><span class="admin-edit-section-num">9</span>內部備註</h2>
+      <label class="field admin-field admin-field--block"><span class="admin-field-label">內部備註<span class="admin-field-key">internalNote</span></span><textarea name="internalNote" rows="5"></textarea></label>
     </article>
 
-    <article class="card"><h2 class="h2">標籤與內文（Markdown body）</h2>
-      <label class="field"><span>tags（每行一項）</span><textarea name="tagsLines" rows="4">親子寫真
+    <article class="card admin-edit-card" id="edit-section-body"><h2 class="h2 admin-edit-section-title">標籤與內文</h2>
+      <p class="muted admin-edit-section-intro">Markdown <code>body</code>：會顯示在客戶頁下方故事區（若有使用）。</p>
+      <div class="admin-edit-stack">
+      <label class="field admin-field admin-field--block"><span class="admin-field-label">標籤 tags（每行一項）</span><textarea name="tagsLines" rows="4">親子寫真
 海外旅拍
 沖繩親子寫真</textarea></label>
-      <label class="field"><span>gallery（每行一個網址）</span><textarea name="galleryLines" rows="3"></textarea></label>
-      <label class="field"><span>Body</span><textarea name="bodyMd" rows="16">
+      <label class="field admin-field admin-field--block"><span class="admin-field-label">相簿網址 gallery（每行一個網址）</span><textarea name="galleryLines" rows="3"></textarea></label>
+      <label class="field admin-field admin-field--block"><span class="admin-field-label">內文<span class="admin-field-key">bodyMd</span></span><textarea name="bodyMd" rows="16">
 ## 客戶備註
 
 海外拍攝時段以日落前後為主，避免中午強光。
@@ -213,14 +224,15 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
 
 - 海外拍攝如遇不可抗力因素可協調改期
 </textarea></label>
+      </div>
     </article>
   </form>
 
-  <article class="card" id="admin-md-fallback-panel" hidden style="margin-top:var(--space-lg);">
-    <h2 class="h2">產生更新後的 Markdown</h2>
-    <p class="muted">目前尚未設定 GitHub 寫入 API，請複製此 Markdown 到 Cursor 對應檔案後儲存。</p>
-    <textarea id="admin-md-output" class="admin-template-box" rows="20" readonly></textarea>
-    <div class="admin-actions" style="margin-top:var(--space-md);">
+  <article class="card admin-edit-fallback" id="admin-md-fallback-panel" hidden>
+    <h2 class="h2 admin-edit-fallback-title">複製以下 Markdown</h2>
+    <p class="muted">請全選複製，貼到本專案 <code id="admin-md-path-hint"></code>（或 Cursor 中對應檔案）後存檔。</p>
+    <textarea id="admin-md-output" class="admin-template-box admin-md-output" rows="20" readonly></textarea>
+    <div class="admin-actions admin-edit-fallback-actions">
       <button type="button" class="btn btn--primary" id="admin-copy-md-output">複製 Markdown</button>
     </div>
   </article>

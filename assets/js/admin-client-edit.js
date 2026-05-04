@@ -7,8 +7,14 @@
   var mdOut = document.getElementById('admin-md-output');
   var copyMdBtn = document.getElementById('admin-copy-md-output');
   var copyUrlBtn = document.getElementById('admin-copy-client-url');
+  var githubBanner = document.getElementById('admin-github-banner');
+  var pathHintEl = document.getElementById('admin-md-path-hint');
 
   if (!form || !fmEl) return;
+
+  if (pathHintEl && form.getAttribute('data-md-path')) {
+    pathHintEl.textContent = form.getAttribute('data-md-path');
+  }
 
   var initialFm = {};
   try {
@@ -182,6 +188,36 @@
     return String(sessionStorage.getItem('family_admin_pw_for_api') || '').trim();
   }
 
+  function showMarkdownPanel(md, statusMessage) {
+    if (mdOut) mdOut.value = md;
+    if (fallbackPanel) {
+      fallbackPanel.hidden = false;
+      try {
+        fallbackPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } catch (_) {}
+    }
+    if (statusEl) statusEl.textContent = statusMessage || '';
+  }
+
+  function initGithubBanner() {
+    fetch('/api/admin/save-client', { method: 'GET' })
+      .then(function (r) {
+        if (!r.ok) throw new Error('no api');
+        return r.json();
+      })
+      .then(function (cfg) {
+        if (cfg && cfg.githubConfigured === true) return;
+        if (githubBanner) githubBanner.hidden = false;
+        if (saveBtn) saveBtn.textContent = '儲存（產生 Markdown）';
+      })
+      .catch(function () {
+        if (githubBanner) githubBanner.hidden = false;
+        if (saveBtn) saveBtn.textContent = '儲存（產生 Markdown）';
+      });
+  }
+
+  initGithubBanner();
+
   if (copyUrlBtn) {
     copyUrlBtn.addEventListener('click', function () {
       var u = copyUrlBtn.getAttribute('data-client-url') || '';
@@ -213,15 +249,19 @@
   if (saveBtn) {
     saveBtn.addEventListener('click', async function () {
       if (statusEl) statusEl.textContent = '';
-      if (fallbackPanel) fallbackPanel.hidden = true;
       var fm = mergeFrontmatter();
       var bodyMd = val('bodyMd');
       var md = buildMarkdown(fm, bodyMd);
+
       var pw = adminPassword();
       if (!pw) {
-        if (statusEl) statusEl.textContent = '找不到後台密碼工作階段，請登出後重新輸入後台密碼再試。';
+        showMarkdownPanel(
+          md,
+          '未偵測後台登入快取（或已清除）。已產生 Markdown；請複製後貼回檔案。若要從瀏覽器自動寫入 GitHub，請先從 /admin/ 登入後台。',
+        );
         return;
       }
+
       try {
         var res = await fetch('/api/admin/save-client', {
           method: 'POST',
@@ -233,28 +273,42 @@
             markdown: md,
           }),
         });
-        var json = await res.json().catch(function () {
-          return { ok: false, message: '回應格式錯誤' };
-        });
+        var text = await res.text();
+        var json = null;
+        try {
+          json = JSON.parse(text);
+        } catch (_) {
+          json = null;
+        }
+
         if (json && json.ok) {
           if (statusEl) statusEl.textContent = json.message || '客戶 MD 已更新';
+          if (fallbackPanel) fallbackPanel.hidden = true;
           return;
         }
+
         if (res.status === 401) {
-          if (statusEl) statusEl.textContent = (json && json.message) || '後台密碼錯誤，請登出後重新登入。';
+          showMarkdownPanel(
+            md,
+            (json && json.message) || '後台密碼驗證失敗。已產生 Markdown，請複製後手動貼回檔案。',
+          );
           return;
         }
+
         if (json && json.githubConfigured === false) {
-          if (mdOut) mdOut.value = md;
-          if (fallbackPanel) fallbackPanel.hidden = false;
-          if (statusEl) statusEl.textContent = json.message || '請複製 Markdown 手動存檔';
+          showMarkdownPanel(md, json.message || '請複製 Markdown 貼回檔案後存檔。');
           return;
         }
-        if (statusEl) statusEl.textContent = json.message || '儲存失敗';
-      } catch (e) {
-        if (statusEl) statusEl.textContent = '網路錯誤或尚未部署 API，已改為產生 Markdown。';
-        if (mdOut) mdOut.value = md;
-        if (fallbackPanel) fallbackPanel.hidden = false;
+
+        showMarkdownPanel(
+          md,
+          (json && json.message ? json.message + ' ' : '') + '已改為產生 Markdown，請複製下方內容手動更新。',
+        );
+      } catch (_) {
+        showMarkdownPanel(
+          md,
+          '無法連線 API（本機預覽或未部署 Cloudflare Functions）。請複製 Markdown 貼回專案 content/clients/ 路徑。',
+        );
       }
     });
   }

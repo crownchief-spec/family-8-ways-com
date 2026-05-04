@@ -54,8 +54,8 @@ export function buildClientPortalBody(c, site, { escapeHtml, isPresent }) {
       ${isPresent(c.shootingStartTime) || isPresent(c.shootingEndTime) ? `<p><strong>拍攝時間：</strong>${escapeHtml([c.shootingStartTime, c.shootingEndTime].filter(Boolean).join(' - '))}</p>` : ''}
       ${isPresent(c.duration) ? `<p><strong>拍攝時長：</strong>${escapeHtml(c.duration)}</p>` : ''}
       ${isPresent(c.packageName) ? `<p><strong>拍攝方案：</strong>${escapeHtml(c.packageName)}</p>` : ''}
-      ${isPresent(c.location) ? `<p><strong>拍攝地點：</strong>${escapeHtml(c.location)}</p>` : ''}
-      ${isPresent(c.meetingPoint) ? `<p><strong>集合地點：</strong>${escapeHtml(c.meetingPoint)}</p>` : ''}
+      ${isPresent(c.location) ? `<p><strong>行程／區域：</strong>${escapeHtml(c.location)}</p>` : ''}
+      ${isPresent(c.meetingPoint) ? `<p><strong>拍攝地點：</strong>${escapeHtml(c.meetingPoint)}</p>` : ''}
       ${isPresent(c.pickup) ? `<p><strong>是否含接送：</strong>${escapeHtml(c.pickup)}</p>` : ''}
       ${isPresent(c.totalFee) ? `<p><strong>總費用：</strong>NT$${Number(c.totalFee || 0).toLocaleString('zh-TW')}</p>` : ''}
       ${isPresent(c.deposit) ? `<p><strong>訂金：</strong>NT$${Number(c.deposit || 0).toLocaleString('zh-TW')}</p>` : ''}

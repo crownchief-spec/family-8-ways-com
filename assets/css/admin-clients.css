@@ -127,3 +127,304 @@
     padding: 0.35rem 0.4rem;
   }
 }
+
+/* ----- 客戶案件編輯頁（/admin/clients/.../edit/）閱讀與排版 ----- */
+.admin-edit-breadcrumb {
+  padding-bottom: 0.25rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+}
+
+.admin-edit-breadcrumb span[aria-hidden] {
+  margin: 0 0.25rem;
+  opacity: 0.55;
+}
+
+.admin-edit-hero {
+  padding-top: var(--space-lg);
+  padding-bottom: var(--space-xl);
+}
+
+.admin-edit-hero-inner {
+  max-width: 46rem;
+}
+
+.admin-edit-meta {
+  font-size: 0.86rem;
+  margin: 0 0 0.75rem;
+  line-height: 1.5;
+  word-break: break-all;
+}
+
+.admin-edit-meta code {
+  font-size: 0.8em;
+  padding: 0.12em 0.4em;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 6px;
+}
+
+.admin-edit-title {
+  font-size: clamp(1.35rem, 2.5vw, 1.65rem);
+  line-height: 1.25;
+  margin-bottom: 0.75rem;
+}
+
+.admin-edit-lead {
+  font-size: 1.02rem;
+  line-height: 1.7;
+  max-width: 40rem;
+  color: #4a4640;
+}
+
+.admin-edit-page {
+  padding-top: 0.5rem;
+  padding-bottom: var(--space-xl);
+}
+
+.admin-edit-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  padding: 1rem 1.1rem;
+  margin-bottom: var(--space-md);
+  background: linear-gradient(180deg, #faf7f0 0%, #f5f1e8 100%);
+  border: 1px solid #e5dfd3;
+  border-radius: 14px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.7) inset;
+}
+
+.admin-save-status-line {
+  min-height: 1.5em;
+  margin-bottom: var(--space-lg);
+  font-size: 0.92rem;
+}
+
+.admin-edit-banner {
+  margin-bottom: var(--space-md);
+  padding: 1rem 1.15rem;
+  border-radius: 12px;
+  border: 1px solid #e2cfa8;
+  background: #fffaf0;
+  line-height: 1.65;
+}
+
+.admin-edit-banner__title {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #5c4518;
+}
+
+.admin-edit-banner__body {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.admin-edit-banner code {
+  font-size: 0.82em;
+  padding: 0.08em 0.35em;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* 表單區：後台頁未載入 client-portal.css，需補齊雙欄網格 */
+.admin-edit-form .portal-grid-2,
+.admin-edit-grid {
+  display: grid;
+  gap: 1rem 1.25rem;
+}
+
+@media (min-width: 720px) {
+  .admin-edit-form .portal-grid-2,
+  .admin-edit-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.admin-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.admin-edit-card {
+  border-radius: 14px;
+  border: 1px solid #e8e2d6;
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(44, 42, 38, 0.04);
+  scroll-margin-top: 5rem;
+}
+
+.admin-edit-section-title {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  font-size: 1.12rem;
+  padding-bottom: 0.85rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #ebe6dd;
+  color: #222;
+  letter-spacing: 0.03em;
+}
+
+.admin-edit-section-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.65rem;
+  height: 1.65rem;
+  padding: 0 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(145deg, #9a7b4f 0%, #7d6340 100%);
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.admin-edit-section-intro {
+  margin: -0.25rem 0 1rem;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.admin-edit-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.admin-edit-stack .admin-field--block {
+  width: 100%;
+}
+
+.admin-field-label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #33302c;
+  line-height: 1.35;
+}
+
+.admin-field-key {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: #7d786f;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.03em;
+}
+
+.admin-field.admin-field {
+  gap: 0.45rem;
+}
+
+.admin-edit-form .admin-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.admin-edit-form .admin-field input[type='text'],
+.admin-edit-form .admin-field textarea {
+  font-size: 0.95rem;
+  line-height: 1.45;
+  padding: 0.62rem 0.85rem;
+  border-radius: 10px;
+  border: 1px solid #d4cdc2;
+  background: #fdfcfa;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.admin-edit-form .admin-field input[readonly] {
+  background: #f3f0ea;
+  color: #5c574f;
+}
+
+.admin-edit-form .admin-field input:focus,
+.admin-edit-form .admin-field textarea:focus {
+  outline: none;
+  border-color: #a88956;
+  box-shadow: 0 0 0 3px rgba(168, 137, 86, 0.2);
+  background: #fff;
+}
+
+.admin-edit-form .admin-field textarea {
+  min-height: 5em;
+  resize: vertical;
+}
+
+.admin-edit-checkgroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.75rem 0 1rem;
+  margin-bottom: 0.25rem;
+  border-bottom: 1px dashed #ebe6dd;
+}
+
+.admin-edit-grid--checks .field {
+  grid-column: 1 / -1;
+}
+
+.admin-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 0.4rem 0;
+  cursor: pointer;
+  font-size: 0.93rem;
+  line-height: 1.5;
+}
+
+.admin-check input {
+  margin-top: 0.28rem;
+  flex-shrink: 0;
+  width: 1.05rem;
+  height: 1.05rem;
+  accent-color: #8b6f47;
+}
+
+.admin-check-text .admin-field-key {
+  display: inline;
+  margin-left: 0.35rem;
+  margin-top: 0;
+  font-size: 0.78rem;
+  vertical-align: baseline;
+}
+
+.admin-edit-fallback {
+  margin-top: var(--space-xl);
+  padding: 1.25rem 1.35rem;
+  border-radius: 14px;
+  border: 2px dashed #c9b896;
+  background: linear-gradient(180deg, #fffefb 0%, #faf6ee 100%);
+}
+
+.admin-edit-fallback-title {
+  margin-top: 0;
+  font-size: 1.15rem;
+}
+
+.admin-edit-fallback .muted {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.admin-md-output,
+.admin-edit-fallback .admin-template-box {
+  min-height: 280px;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.admin-edit-fallback-actions {
+  margin-top: 1rem;
+}
