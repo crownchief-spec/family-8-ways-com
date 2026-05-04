@@ -57,6 +57,87 @@
   var latestPdfBlob = null;
   var latestPdfFilename = '';
 
+  /** 除錯模式：網址加 ?contract_debug=1 或 console 執行 localStorage.setItem('family_contract_debug','1') 後重整 */
+  var CONTRACT_DEBUG = false;
+  try {
+    CONTRACT_DEBUG =
+      /\bcontract_debug=1\b/.test(location.search) ||
+      localStorage.getItem('family_contract_debug') === '1';
+  } catch (e1) {}
+
+  function dbg(step, detail) {
+    if (!CONTRACT_DEBUG) return;
+    var msg = String(step || '');
+    if (detail !== undefined && detail !== null) msg += ' ' + String(detail);
+    try {
+      console.warn('[family-contract]', msg);
+    } catch (e2) {}
+    var panel = document.getElementById('client-contract-debug-panel');
+    if (!panel) return;
+    var line = document.createElement('div');
+    line.style.cssText =
+      'margin:3px 0;padding:4px 6px;background:rgba(255,255,255,0.06);border-radius:4px;word-break:break-all;';
+    line.textContent =
+      '[' +
+      new Date().toLocaleTimeString('zh-TW', { hour12: false }) +
+      '] ' +
+      msg;
+    panel.appendChild(line);
+    var w = document.getElementById('client-contract-debug-wrap');
+    if (w) w.scrollTop = w.scrollHeight;
+  }
+
+  function ensureDebugPanel() {
+    if (!CONTRACT_DEBUG || document.getElementById('client-contract-debug-wrap')) return;
+    var wrap = document.createElement('div');
+    wrap.id = 'client-contract-debug-wrap';
+    wrap.setAttribute('aria-live', 'polite');
+    wrap.style.cssText =
+      'position:fixed;left:0;right:0;bottom:0;max-height:42vh;overflow:auto;z-index:2147483647;' +
+      'background:rgba(15,18,22,0.94);color:#c8e6c9;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;' +
+      'font-size:11px;line-height:1.35;padding:10px 12px;border-top:3px solid #2e7d32;box-shadow:0 -4px 24px rgba(0,0,0,0.35);';
+    wrap.innerHTML =
+      '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px;color:#81c784;">' +
+      '<span><strong>合約除錯模式</strong>（僅你看得到）</span>' +
+      '<button type="button" id="client-contract-debug-close" style="flex-shrink:0;padding:4px 10px;font:inherit;cursor:pointer;border-radius:6px;border:1px solid #555;background:#333;color:#eee;">關閉並移除 ?contract_debug</button></div>' +
+      '<div style="color:#9ccc65;margin-bottom:8px;font-size:10px;">關閉後網址去掉 <code style="color:#ffcc80;">contract_debug=1</code>，或執行 <code style="color:#ffcc80;">localStorage.removeItem(\'family_contract_debug\')</code> 後重整。</div>' +
+      '<div id="client-contract-debug-panel"></div>';
+    document.body.appendChild(wrap);
+    var closeBtn = document.getElementById('client-contract-debug-close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function () {
+        try {
+          localStorage.removeItem('family_contract_debug');
+        } catch (e3) {}
+        try {
+          var u = new URL(location.href);
+          u.searchParams.delete('contract_debug');
+          location.href = u.toString();
+        } catch (e4) {
+          wrap.remove();
+        }
+      });
+    }
+    dbg('除錯面板', '已啟用');
+  }
+
+  if (CONTRACT_DEBUG && root) {
+    ensureDebugPanel();
+    dbg(
+      '載入',
+      'slug=' +
+        slug +
+        ' readyToShare=' +
+        (root.getAttribute('data-ready-to-share') || '') +
+        ' libs: SignaturePad=' +
+        !!window.SignaturePad +
+        ' html2canvas=' +
+        !!window.html2canvas +
+        ' jspdf=' +
+        !!(window.jspdf && window.jspdf.jsPDF),
+    );
+  }
+
   function pad(v) {
     return String(v).padStart(2, '0');
   }
@@ -190,7 +271,10 @@
   }
 
   function initPad() {
-    if (!window.SignaturePad || !canvas) return false;
+    if (!window.SignaturePad || !canvas) {
+      dbg('簽名區', 'SignaturePad 函式庫或 canvas 不存在');
+      return false;
+    }
     signaturePad = new window.SignaturePad(canvas, {
       minWidth: 0.7,
       maxWidth: 2.5,
@@ -273,22 +357,26 @@
     signError.hidden = true;
 
     if (!val('customerEmail')) {
+      dbg('驗證失敗', '未填 Email');
       formError.hidden = false;
       formError.textContent = '請填寫 Email';
       return false;
     }
     if (!anyNameFilled()) {
+      dbg('驗證失敗', '姓名／稱呼未填');
       formError.hidden = false;
       formError.textContent =
         '請至少填寫一項稱呼或姓名（主要聯絡人、爸爸／媽媽稱呼或簽名人姓名擇一即可）';
       return false;
     }
     if (!signatureConfirmed || !signatureInput.value) {
+      dbg('驗證失敗', '簽名未確認');
       signError.hidden = false;
       formError.hidden = false;
       formError.textContent = '請先完成電子簽名後再送出合約。';
       return false;
     }
+    dbg('驗證通過', '');
     return true;
   }
 
@@ -373,7 +461,9 @@
   }
 
   async function generatePdf(data) {
+    dbg('PDF', '開始 generatePdf');
     if (!window.html2canvas || !pdfContent) {
+      dbg('PDF 錯誤', '缺少 html2canvas 或 #contract-pdf-content');
       throw new Error('PDF 套件未載入');
     }
     var JsPdfCtor =
@@ -383,10 +473,12 @@
           ? window.jsPDF
           : null;
     if (!JsPdfCtor) {
+      dbg('PDF 錯誤', 'jspdf / jsPDF 不存在於 window');
       throw new Error('jsPDF 未載入，請重新整理頁面後再試');
     }
 
     pdfContent.innerHTML = pdfHtml(data);
+    dbg('PDF', '已寫入預覽 HTML，準備 html2canvas');
 
     var prevCssText = pdfContent.style.cssText;
     pdfContent.style.cssText =
@@ -395,24 +487,28 @@
 
     var canvasImg;
     try {
+      dbg('PDF', 'html2canvas 執行中（最多約 75 秒）…');
       canvasImg = await withTimeout(
         window.html2canvas(pdfContent, {
           scale: 1.5,
           backgroundColor: '#ffffff',
           useCORS: true,
           allowTaint: false,
-          logging: false,
+          logging: !!CONTRACT_DEBUG,
           imageTimeout: 20000,
           windowWidth: 820,
         }),
         75000,
         '產生 PDF 逾時（請關閉其他分頁或改用電腦瀏覽器後再試）',
       );
+      dbg('PDF', 'html2canvas 完成，canvas ' + canvasImg.width + 'x' + canvasImg.height);
     } finally {
       pdfContent.style.cssText = prevCssText;
     }
 
+    dbg('PDF', 'toDataURL(JPEG)…');
     var imgData = canvasImg.toDataURL('image/jpeg', 0.92);
+    dbg('PDF', 'JPEG 資料長度约 ' + Math.round(imgData.length / 1024) + ' KB');
     var doc = new JsPdfCtor('p', 'mm', 'a4');
     var pageWidth = doc.internal.pageSize.getWidth();
     var pageHeight = doc.internal.pageSize.getHeight();
@@ -433,6 +529,7 @@
       fileDate() +
       '.pdf';
     var blob = doc.output('blob');
+    dbg('PDF', 'jsPDF blob 已產生，約 ' + Math.round(blob.size / 1024) + ' KB');
     return { blob: blob, filename: filename };
   }
 
@@ -461,7 +558,9 @@
   }
 
   async function sendContract(data, pdf) {
+    dbg('寄信', 'blob → base64…');
     var base64 = await blobToBase64(pdf.blob);
+    dbg('寄信', 'base64 長度 ' + base64.length + ' 字元');
     var body = {
       slug: slug,
       clientName: clientName,
@@ -471,24 +570,29 @@
       pdfBase64: base64,
       pdfFilename: pdf.filename,
     };
+    var bodyStr = JSON.stringify(body);
+    dbg('寄信', 'POST /api/send-contract，JSON 約 ' + Math.round(bodyStr.length / 1024) + ' KB');
     var res = await fetchWithTimeout(
       '/api/send-contract',
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
+        body: bodyStr,
       },
       120000,
     );
+    dbg('寄信', 'HTTP 狀態 ' + res.status);
     var json = await res.json().catch(function () {
       return { ok: false, message: '伺服器回應格式錯誤' };
     });
     if (!res.ok || !json.ok) {
+      dbg('寄信失敗', (json && json.message) || res.statusText || '');
       var err = new Error(json.message || 'Email 寄送失敗');
       err._payload = json;
       err._status = res.status;
       throw err;
     }
+    dbg('寄信', 'API 回應成功');
     return json;
   }
 
@@ -516,7 +620,12 @@
   }
 
   function init() {
-    if (!form || !initPad()) return;
+    if (!form) {
+      dbg('init', '找不到表單 #client-contract-form');
+      return;
+    }
+    if (!initPad()) return;
+    dbg('init', '簽名區與表單已綁定');
     bindPaymentRadios();
     if (signedDate) signedDate.value = formatDate(new Date());
     if (paymentDateInput) paymentDateInput.value = formatDate(new Date());
@@ -558,6 +667,7 @@
       if (form.dataset.contractComplete === '1') return;
       if (isSubmitting) return;
       if (!validate()) return;
+      dbg('送出', '表單送出開始');
       updateSubmitState(true, false);
       formError.hidden = true;
       if (fallbackPanel) fallbackPanel.hidden = true;
@@ -577,6 +687,10 @@
           emailed = true;
         } catch (sendErr) {
           emailed = false;
+          dbg(
+            '寄信未完成',
+            sendErr && sendErr.message ? sendErr.message : String(sendErr),
+          );
         }
 
         // 第一階段：僅前端狀態與寄信，不會自動回寫 content/clients/*.md（重新整理會還原）。
@@ -598,12 +712,17 @@
         } else {
           showEmailFallback();
         }
+        dbg('流程結束', emailed ? '已嘗試寄信且成功' : 'PDF 完成（寄信失敗或未設定 API 時可下載）');
         form.dataset.contractComplete = '1';
       } catch (err) {
         formError.hidden = false;
         var msg = String(err && err.message ? err.message : '處理失敗');
         if (err && err.name === 'AbortError') {
           msg = '寄送合約逾時（網路或伺服器忙碌），請稍後再試或先下載 PDF。';
+        }
+        dbg('發生錯誤', msg);
+        if (err && err.stack) {
+          dbg('堆疊', String(err.stack).split('\n').slice(0, 4).join(' ← '));
         }
         formError.textContent = msg;
         updateSubmitState(false, false);
