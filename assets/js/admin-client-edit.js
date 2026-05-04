@@ -214,7 +214,6 @@
       .then(function (cfg) {
         if (cfg && cfg.githubConfigured === true) {
           if (githubBanner) githubBanner.hidden = true;
-          if (saveBtn) saveBtn.textContent = '儲存客戶 MD';
           if (detailEl) {
             detailEl.hidden = true;
             detailEl.textContent = '';
@@ -224,16 +223,16 @@
         if (detailEl && cfg && Array.isArray(cfg.missingGithubEnv) && cfg.missingGithubEnv.length) {
           detailEl.hidden = false;
           detailEl.innerHTML =
-            '<strong>目前無法連 GitHub：</strong>Cloudflare Pages 尚未設定環境變數「' +
+            '<strong>目前無法連 GitHub：</strong>Functions 讀不到環境變數「' +
             cfg.missingGithubEnv.join('」、「') +
-            '」。請到 Cloudflare Dashboard → 此專案 → Settings → Environment variables（Production）新增後，<strong>重新部署</strong>一次。';
+            '」。請到 Cloudflare → 此 Pages 專案 → Settings → Variables and Secrets → 環境選 <strong>Production</strong> → 新增（名稱須<strong>完全一致</strong>，<code>GITHUB_TOKEN</code> 請用 <strong>Secret</strong>），存檔後<strong>Retry deployment</strong>。' +
+            '<br/><span class="muted">原因確認：請用瀏覽器開 <code>/api/admin/save-client</code>，若 <code>missingGithubEnv</code> 仍列出變數，代表尚未套進線上。</span>';
         } else if (detailEl) {
           detailEl.hidden = false;
           detailEl.textContent =
             '無法確認 GitHub 設定（缺少設定資訊）。請確認已在 Cloudflare 設定 GITHUB_TOKEN、GITHUB_OWNER、GITHUB_REPO。';
         }
         if (githubBanner) githubBanner.hidden = false;
-        if (saveBtn) saveBtn.textContent = '儲存（產生 Markdown）';
       })
       .catch(function () {
         if (detailEl) {
@@ -242,7 +241,6 @@
             '無法呼叫 <code>/api/admin/save-client</code>（404 或離線）。若為<strong>本機直接開 HTML</strong>，請改用具 Functions 的預覽（例如 <code>wrangler pages dev</code>）；線上站請確認已部署最新版。';
         }
         if (githubBanner) githubBanner.hidden = false;
-        if (saveBtn) saveBtn.textContent = '儲存（產生 Markdown）';
       });
   }
 

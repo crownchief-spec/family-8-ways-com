@@ -84,6 +84,29 @@
       .replace(/'/g, '&#39;');
   }
 
+  /** html2canvas／fetch 無回應時避免按鈕永遠卡在「處理中」 */
+  function withTimeout(promise, ms, errMsg) {
+    return Promise.race([
+      promise,
+      new Promise(function (_, reject) {
+        setTimeout(function () {
+          reject(new Error(errMsg || '處理逾時，請重新整理頁面後再試'));
+        }, ms);
+      }),
+    ]);
+  }
+
+  function fetchWithTimeout(url, options, timeoutMs) {
+    var ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    var timer = setTimeout(function () {
+      if (ctrl) ctrl.abort();
+    }, timeoutMs);
+    var opts = ctrl ? Object.assign({}, options, { signal: ctrl.signal }) : options;
+    return fetch(url, opts).finally(function () {
+      clearTimeout(timer);
+    });
+  }
+
   function val(name) {
     var el = form.elements[name];
     if (!el) return '';
@@ -341,19 +364,47 @@
   }
 
   async function generatePdf(data) {
-    if (!window.html2canvas || !window.jspdf || !pdfContent) {
+    if (!window.html2canvas || !pdfContent) {
       throw new Error('PDF 套件未載入');
     }
+    var JsPdfCtor =
+      window.jspdf && typeof window.jspdf.jsPDF === 'function'
+        ? window.jspdf.jsPDF
+        : typeof window.jsPDF === 'function'
+          ? window.jsPDF
+          : null;
+    if (!JsPdfCtor) {
+      throw new Error('jsPDF 未載入，請重新整理頁面後再試');
+    }
+
     pdfContent.innerHTML = pdfHtml(data);
-    var canvasImg = await window.html2canvas(pdfContent, {
-      scale: 2,
-      backgroundColor: '#ffffff',
-      useCORS: true,
-      windowWidth: 820,
-    });
-    var imgData = canvasImg.toDataURL('image/jpeg', 0.95);
-    var jsPDF = window.jspdf.jsPDF;
-    var doc = new jsPDF('p', 'mm', 'a4');
+
+    var prevCssText = pdfContent.style.cssText;
+    pdfContent.style.cssText =
+      'position:fixed;left:0;top:0;width:820px;opacity:0;visibility:hidden;pointer-events:none;' +
+      'background:#fff;color:#111;padding:24px;z-index:2147483646;';
+
+    var canvasImg;
+    try {
+      canvasImg = await withTimeout(
+        window.html2canvas(pdfContent, {
+          scale: 1.5,
+          backgroundColor: '#ffffff',
+          useCORS: true,
+          allowTaint: false,
+          logging: false,
+          imageTimeout: 20000,
+          windowWidth: 820,
+        }),
+        75000,
+        '產生 PDF 逾時（請關閉其他分頁或改用電腦瀏覽器後再試）',
+      );
+    } finally {
+      pdfContent.style.cssText = prevCssText;
+    }
+
+    var imgData = canvasImg.toDataURL('image/jpeg', 0.92);
+    var doc = new JsPdfCtor('p', 'mm', 'a4');
     var pageWidth = doc.internal.pageSize.getWidth();
     var pageHeight = doc.internal.pageSize.getHeight();
     var imgHeight = (canvasImg.height * pageWidth) / canvasImg.width;
@@ -412,11 +463,15 @@
       pdfFilename: pdf.filename,
       formData: data,
     };
-    var res = await fetch('/api/send-contract', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    });
+    var res = await fetchWithTimeout(
+      '/api/send-contract',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      },
+      120000,
+    );
     var json = await res.json().catch(function () {
       return { ok: false, message: '伺服器回應格式錯誤' };
     });
@@ -528,7 +583,11 @@
         form.dataset.contractComplete = '1';
       } catch (err) {
         formError.hidden = false;
-        formError.textContent = String(err && err.message ? err.message : '處理失敗');
+        var msg = String(err && err.message ? err.message : '處理失敗');
+        if (err && err.name === 'AbortError') {
+          msg = '寄送合約逾時（網路或伺服器忙碌），請稍後再試或先下載 PDF。';
+        }
+        formError.textContent = msg;
         updateSubmitState(false, false);
       }
     });
