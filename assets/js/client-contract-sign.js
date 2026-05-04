@@ -138,16 +138,28 @@
   function bindExclusiveConsent() {
     function toggle(target, other) {
       if (target.checked) other.checked = false;
-      target.required = !target.checked;
-      other.required = !other.checked;
     }
-    consentYes.addEventListener('change', function () {
-      toggle(consentYes, consentNo);
-    });
-    consentNo.addEventListener('change', function () {
-      toggle(consentNo, consentYes);
-    });
-    toggle(consentYes, consentNo);
+    if (consentYes && consentNo) {
+      consentYes.addEventListener('change', function () {
+        toggle(consentYes, consentNo);
+      });
+      consentNo.addEventListener('change', function () {
+        toggle(consentNo, consentYes);
+      });
+    }
+  }
+
+  function resolvedSignerDisplay() {
+    var order = ['signerName', 'contactName', 'fatherName', 'motherName'];
+    for (var i = 0; i < order.length; i++) {
+      var v = val(order[i]);
+      if (v) return v;
+    }
+    return '';
+  }
+
+  function anyNameFilled() {
+    return !!(val('fatherName') || val('motherName') || val('contactName') || val('signerName'));
   }
 
   function initPad() {
@@ -179,6 +191,9 @@
   function collectData() {
     var signedAt = signedAtInput.value || nowText();
     var usageConsent = bool('usageConsentYes') ? '同意公開使用' : bool('usageConsentNo') ? '不同意公開使用' : '';
+    var signedDateVal = val('signedDate');
+    if (!signedDateVal) signedDateVal = formatDate(new Date());
+    var signerDisplay = resolvedSignerDisplay();
     return {
       slug: slug,
       clientName: clientName,
@@ -220,7 +235,8 @@
       confirmDeposit: bool('confirmDeposit'),
       confirmSignature: bool('confirmSignature'),
       signerName: val('signerName'),
-      signedDate: val('signedDate'),
+      signerDisplay: signerDisplay,
+      signedDate: signedDateVal,
       signedAt: signedAt,
       signatureDataUrl: signatureInput.value,
       contractVersion: contractVersion,
@@ -242,37 +258,15 @@
       formError.textContent = '請填寫 Email';
       return false;
     }
-    if (!valRadio('paymentStatus')) {
+    if (!anyNameFilled()) {
       formError.hidden = false;
-      formError.textContent = '請選擇目前付款狀態';
-      return false;
-    }
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      formError.hidden = false;
-      formError.textContent = '請先完成所有必填欄位。';
-      return false;
-    }
-    if (!bool('usageConsentYes') && !bool('usageConsentNo')) {
-      formError.hidden = false;
-      formError.textContent = '請選擇作品公開授權';
+      formError.textContent =
+        '請至少填寫一項稱呼或姓名（主要聯絡人、爸爸／媽媽稱呼或簽名人姓名擇一即可）';
       return false;
     }
     if (bool('usageConsentYes') && bool('usageConsentNo')) {
       formError.hidden = false;
-      formError.textContent = '作品公開授權只能二選一';
-      return false;
-    }
-    if (
-      !bool('confirmBookingInfo') ||
-      !bool('confirmPhotographerUpdate') ||
-      !bool('confirmPaymentStatus') ||
-      !bool('confirmTerms') ||
-      !bool('confirmDeposit') ||
-      !bool('confirmSignature')
-    ) {
-      formError.hidden = false;
-      formError.textContent = '請確認合約條款';
+      formError.textContent = '作品公開授權請擇一勾選（同意或不同意）';
       return false;
     }
     if (!signatureConfirmed || !signatureInput.value) {
@@ -345,7 +339,7 @@
       '</table>' +
       '<h2 style="font-size:18px;margin:18px 0 8px;">電子簽名</h2>' +
       '<p>簽名人姓名：' +
-      escapeHtml(data.signerName) +
+      escapeHtml(data.signerDisplay || data.signerName) +
       '</p>' +
       '<p>簽署日期：' +
       escapeHtml(data.signedDate) +
@@ -394,7 +388,13 @@
       doc.addImage(imgData, 'JPEG', 0, y, pageWidth, imgHeight);
     }
     var filename =
-      'contract-' + slug + '-' + safePdfClientPart(clientName) + '-' + fileDate() + '.pdf';
+      'contract-' +
+      slug +
+      '-' +
+      safePdfClientPart(data.signerDisplay || data.customerEmail || clientName) +
+      '-' +
+      fileDate() +
+      '.pdf';
     var blob = doc.output('blob');
     return { blob: blob, filename: filename };
   }

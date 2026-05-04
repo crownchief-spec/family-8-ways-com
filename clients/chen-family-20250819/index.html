@@ -114,7 +114,7 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
       <h3 class="h3" style="margin-top:var(--space-lg);">填寫目前付款狀態</h3>
       <fieldset class="portal-fieldset">
         <legend class="sr-only">客戶目前付款狀態</legend>
-        <label class="check-row"><input type="radio" name="paymentStatus" value="已匯款訂金" required /> 已匯款訂金</label>
+        <label class="check-row"><input type="radio" name="paymentStatus" value="已匯款訂金" /> 已匯款訂金</label>
         <label class="check-row"><input type="radio" name="paymentStatus" value="尚未匯款，稍後會完成訂金" /> 尚未匯款，稍後會完成訂金</label>
         <label class="check-row"><input type="radio" name="paymentStatus" value="想先確認合約內容，再完成訂金" /> 想先確認合約內容，再完成訂金</label>
         <label class="check-row"><input type="radio" name="paymentStatus" value="使用其他付款方式，已與攝影師確認" /> 使用其他付款方式，已與攝影師確認</label>
@@ -140,12 +140,13 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
       <p class="muted">若已匯款，建議填寫付款方式與末五碼，方便攝影師對帳。第一階段不會因未填末五碼而阻擋送出。</p>
 
       <h2 class="h2" style="margin-top:var(--space-xl);">客戶補充資料</h2>
+      <p class="muted" style="margin-top:0;">下列稱呼／姓名<strong>至少填寫一項</strong>即可（例如只填主要聯絡人或爸爸／媽媽稱呼均可）。</p>
       <div class="portal-grid-2">
         <label class="field"><span>攝影師如何稱呼爸爸</span><input name="fatherName" type="text" placeholder="例如：爸爸、John、阿宏" value="" /></label>
         <label class="field"><span>攝影師如何稱呼媽媽</span><input name="motherName" type="text" placeholder="例如：媽媽、Amy、小君" value="" /></label>
-        <label class="field"><span>主要聯絡人姓名</span><input name="contactName" type="text" value="陳小姐" required /></label>
-        <label class="field"><span>聯絡電話</span><input name="phone" type="text" value="" required /></label>
-        <label class="field"><span>Email</span><input name="customerEmail" type="email" value="" required /></label>
+        <label class="field"><span>主要聯絡人姓名</span><input name="contactName" type="text" value="陳小姐" /></label>
+        <label class="field"><span>聯絡電話</span><input name="phone" type="text" value="" /></label>
+        <label class="field"><span>Email（必填）</span><input name="customerEmail" type="email" value="" required /></label>
         <label class="field"><span>LINE 顯示名稱或 LINE ID</span><input name="lineName" type="text" value="" /></label>
         <label class="field"><span>客戶確認入鏡大人人數</span><input name="clientAdultCount" type="number" min="0" value="2" /></label>
         <label class="field"><span>客戶確認入鏡小孩人數</span><input name="clientChildCount" type="number" min="0" value="1" /></label>
@@ -157,17 +158,17 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
 
       <h2 class="h2" style="margin-top:var(--space-xl);">合約確認與簽名</h2>
       <p class="muted">請確認上方預約資訊、訂金付款狀態與家庭補充資料。拍攝日期、地點、方案、費用與成品內容由攝影師建立，客戶無法自行修改。如需調整，請先聯繫攝影師更新後台資料。確認無誤後，請完成電子簽名。</p>
-      <label class="check-row"><input type="checkbox" name="usageConsentYes" value="yes" required /> 我同意攝影師可將本次拍攝作品作為作品集、網站、社群平台、行銷宣傳與攝影服務介紹使用。</label>
-      <label class="check-row"><input type="checkbox" name="usageConsentNo" value="no" required /> 我不同意公開使用本次拍攝作品，僅供客戶私人保存。</label>
-      <label class="check-row"><input type="checkbox" name="confirmBookingInfo" required /> 我已確認以上拍攝日期、時間、地點、方案、費用與成品內容。</label>
-      <label class="check-row"><input type="checkbox" name="confirmPhotographerUpdate" required /> 我知道若以上拍攝資訊需要調整，需由攝影師更新後台資料。</label>
-      <label class="check-row"><input type="checkbox" name="confirmPaymentStatus" required /> 我已填寫目前訂金付款狀態。</label>
-      <label class="check-row"><input type="checkbox" name="confirmTerms" required /> 我已閱讀並同意本頁所載之服務內容與合約條款。</label>
-      <label class="check-row"><input type="checkbox" name="confirmDeposit" required /> 我了解完成訂金付款後，攝影師才會正式保留拍攝檔期。</label>
-      <label class="check-row"><input type="checkbox" name="confirmSignature" required /> 我確認以上客戶補充資料正確，並同意以電子簽名方式完成本次預約確認。</label>
+      <label class="check-row"><input type="checkbox" name="usageConsentYes" value="yes" /> 我同意攝影師可將本次拍攝作品作為作品集、網站、社群平台、行銷宣傳與攝影服務介紹使用。</label>
+      <label class="check-row"><input type="checkbox" name="usageConsentNo" value="no" /> 我不同意公開使用本次拍攝作品，僅供客戶私人保存。</label>
+      <label class="check-row"><input type="checkbox" name="confirmBookingInfo" /> 我已確認以上拍攝日期、時間、地點、方案、費用與成品內容。</label>
+      <label class="check-row"><input type="checkbox" name="confirmPhotographerUpdate" /> 我知道若以上拍攝資訊需要調整，需由攝影師更新後台資料。</label>
+      <label class="check-row"><input type="checkbox" name="confirmPaymentStatus" /> 我已填寫目前訂金付款狀態。</label>
+      <label class="check-row"><input type="checkbox" name="confirmTerms" /> 我已閱讀並同意本頁所載之服務內容與合約條款。</label>
+      <label class="check-row"><input type="checkbox" name="confirmDeposit" /> 我了解完成訂金付款後，攝影師才會正式保留拍攝檔期。</label>
+      <label class="check-row"><input type="checkbox" name="confirmSignature" /> 我確認以上客戶補充資料正確，並同意以電子簽名方式完成本次預約確認。</label>
       <div class="portal-grid-2">
-        <label class="field"><span>簽名人姓名</span><input type="text" name="signerName" required /></label>
-        <label class="field"><span>簽署日期</span><input type="date" id="client-signed-date" name="signedDate" required /></label>
+        <label class="field"><span>簽名人姓名</span><input type="text" name="signerName" placeholder="可留白，將沿用上方姓名" /></label>
+        <label class="field"><span>簽署日期</span><input type="date" id="client-signed-date" name="signedDate" /></label>
       </div>
       <div class="signature-wrap">
         <canvas id="client-signature-canvas" aria-label="客戶手寫簽名區"></canvas>
