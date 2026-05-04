@@ -6,6 +6,7 @@
   var fallbackPanel = document.getElementById('admin-md-fallback-panel');
   var mdOut = document.getElementById('admin-md-output');
   var copyMdBtn = document.getElementById('admin-copy-md-output');
+  var downloadMdBtn = document.getElementById('admin-download-md-output');
   var copyUrlBtn = document.getElementById('admin-copy-client-url');
   var githubBanner = document.getElementById('admin-github-banner');
   var pathHintEl = document.getElementById('admin-md-path-hint');
@@ -229,6 +230,30 @@
           function () {},
         );
       }
+    });
+  }
+
+  function mdDownloadFilename() {
+    var path = String(form.getAttribute('data-md-path') || '').trim();
+    var name = path.split('/').pop() || 'client.md';
+    return name.toLowerCase().endsWith('.md') ? name : name + '.md';
+  }
+
+  if (downloadMdBtn && mdOut && form) {
+    downloadMdBtn.addEventListener('click', function () {
+      var name = mdDownloadFilename();
+      var blob = new Blob([mdOut.value], { type: 'text/markdown;charset=utf-8' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = name;
+      a.rel = 'noopener';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      if (statusEl)
+        statusEl.textContent = '已下載「' + name + '」，請覆蓋專案中對應路徑後再建置。';
     });
   }
 

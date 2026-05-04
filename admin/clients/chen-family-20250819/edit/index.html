@@ -87,7 +87,7 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
 <section class="container section admin-wrap admin-edit-page">
   <article class="card card--flat admin-edit-banner" id="admin-github-banner" hidden>
     <p class="admin-edit-banner__title">手動更新 Markdown 模式</p>
-    <p class="muted admin-edit-banner__body">若 Cloudflare 未設定 <code>GITHUB_TOKEN</code>、<code>GITHUB_OWNER</code>、<code>GITHUB_REPO</code>，或正在本機預覽靜態檔，按下「儲存」會<strong>直接產生完整 Markdown</strong>；請複製後貼回專案對應的 <code>.md</code> 檔並存檔，再執行建置／部署。</p>
+    <p class="muted admin-edit-banner__body"><strong>已設定上述三項時</strong>，從後台登入後按「儲存」會<strong>透過 GitHub API 直接更新</strong>倉庫裡的客戶 MD，無須開 Cursor。若 Cloudflare 未設定、或在本機預覽靜態檔，按下「儲存」只會<strong>產生 Markdown</strong>；請用下方「下載」或複製後覆蓋專案對應 <code>.md</code>，再建置／部署。</p>
   </article>
   <div class="admin-edit-toolbar">
     <button type="button" class="btn btn--primary" id="admin-save-md">儲存客戶 MD</button>
@@ -231,10 +231,11 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
 
   <article class="card admin-edit-fallback" id="admin-md-fallback-panel" hidden>
     <h2 class="h2 admin-edit-fallback-title">複製以下 Markdown</h2>
-    <p class="muted">請全選複製，貼到本專案 <code id="admin-md-path-hint"></code>（或 Cursor 中對應檔案）後存檔。</p>
+    <p class="muted">可直接<strong>下載</strong>後覆蓋本機 <code id="admin-md-path-hint"></code>；或用全選複製貼回 Cursor／編輯器。</p>
     <textarea id="admin-md-output" class="admin-template-box admin-md-output" rows="20" readonly></textarea>
     <div class="admin-actions admin-edit-fallback-actions">
-      <button type="button" class="btn btn--primary" id="admin-copy-md-output">複製 Markdown</button>
+      <button type="button" class="btn btn--primary" id="admin-download-md-output">下載 .md 檔案</button>
+      <button type="button" class="btn btn--secondary" id="admin-copy-md-output">複製 Markdown</button>
     </div>
   </article>
 </section><script type="application/json" id="admin-client-initial-fm">{"title":"陳小姐家庭｜親子寫真客戶專區","clientName":"陳小姐家庭","slug":"chen-family-20250819","status":"active","hubPortal":true,"publish":false,"portfolioPublish":false,"noindex":true,"adminReviewed":true,"readyToShare":true,"reviewedAt":"","reviewedBy":"小巴老師","shootingDate":"2025-08-19","shootingWeekday":"週二","shootingStartTime":"上午11:00","shootingEndTime":"下午1:00","packageName":"親子寫真 - 半日旅拍方案","location":"桃園自然系公園（含接送）","pickup":"已包含接送","adultCount":2,"childCount":1,"totalFee":7800,"deposit":800,"balance":7000,"paymentStatus":"訂金待確認","paymentNoteFromAdmin":"餘款請於拍攝當天現場以現金支付","paymentNote":"","deliverables":"照片全給，包含攝影師篩選與基本處理後照片，不提供原始毛片，保證交件至少 200 張以上。","contactName":"陳小姐","phone":"","email":"","lineName":"","contractStatus":"尚未簽署","portfolioPermission":"","contractVersion":"family-contract-v2026-05","signedAt":"","signatureImage":"","driveFolderUrl":"","selectedPhotoUrl":"","videoUrl":"","deliveryStatus":"尚未拍攝","deliveryNote":"","coverImage":"","gallery":[],"tags":["親子寫真","家庭攝影","桃園親子寫真"],"createdAt":"2026-05-03","updatedAt":"2026-05-03"}</script>

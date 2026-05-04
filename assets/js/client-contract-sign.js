@@ -1,9 +1,26 @@
 (function () {
   var root = document.querySelector('[data-client-portal]');
   if (!root) return;
-  if (root.getAttribute('data-ready-to-share') !== '1') return;
 
   var slug = root.getAttribute('data-client-slug') || '';
+  var localKey = 'family-contract-signed-' + slug;
+  var deferredWrap = document.getElementById('portal-deferred-blocks');
+
+  function revealDeferredBlocks() {
+    if (deferredWrap) deferredWrap.hidden = false;
+  }
+
+  function tryRevealDeferredFromStorage() {
+    if (!deferredWrap || !deferredWrap.hidden) return;
+    try {
+      if (localStorage.getItem(localKey)) revealDeferredBlocks();
+    } catch (e) {}
+  }
+
+  tryRevealDeferredFromStorage();
+
+  if (root.getAttribute('data-ready-to-share') !== '1') return;
+
   var clientName = root.getAttribute('data-client-name') || '';
   var lineUrl = root.getAttribute('data-line-url') || 'https://line.me/ti/p/0911252302';
   var photographerEmail = root.getAttribute('data-photographer-email') || 'crownchief@gmail.com';
@@ -33,15 +50,12 @@
   var paymentDateInput = document.getElementById('client-payment-date');
   var bankLast5Hint = document.getElementById('bank-last5-hint');
   var pdfContent = document.getElementById('contract-pdf-content');
-  var consentYes = form.querySelector('input[name="usageConsentYes"]');
-  var consentNo = form.querySelector('input[name="usageConsentNo"]');
 
   var signaturePad = null;
   var signatureConfirmed = false;
   var isSubmitting = false;
   var latestPdfBlob = null;
   var latestPdfFilename = '';
-  var localKey = 'family-contract-signed-' + slug;
 
   function pad(v) {
     return String(v).padStart(2, '0');
@@ -100,26 +114,21 @@
   }
 
   function bindPaymentRadios() {
-    form.querySelectorAll('input[name="paymentStatus"]').forEach(function (r) {
-      r.addEventListener('change', function () {
-        updatePaymentPill();
-        if (bankLast5Hint) {
-          bankLast5Hint.hidden = valRadio('paymentStatus') !== '已匯款訂金';
-          if (!bankLast5Hint.hidden) {
-            bankLast5Hint.textContent =
-              '請填寫付款方式、付款金額與匯款末五碼，方便攝影師對帳。（第一階段不會因未填末五碼而阻擋送出）';
-          }
+    function onPaymentChange() {
+      updatePaymentPill();
+      if (valRadio('paymentStatus') === '已匯款訂金') revealDeferredBlocks();
+      if (bankLast5Hint) {
+        bankLast5Hint.hidden = valRadio('paymentStatus') !== '已匯款訂金';
+        if (!bankLast5Hint.hidden) {
+          bankLast5Hint.textContent =
+            '若已匯款訂金，請填寫付款方式、金額與匯款帳號後四碼（或末五碼），方便攝影師對帳。';
         }
-      });
-    });
-    updatePaymentPill();
-    if (bankLast5Hint) {
-      bankLast5Hint.hidden = valRadio('paymentStatus') !== '已匯款訂金';
-      if (!bankLast5Hint.hidden) {
-        bankLast5Hint.textContent =
-          '請填寫付款方式、付款金額與匯款末五碼，方便攝影師對帳。（第一階段不會因未填末五碼而阻擋送出）';
       }
     }
+    form.querySelectorAll('input[name="paymentStatus"]').forEach(function (r) {
+      r.addEventListener('change', onPaymentChange);
+    });
+    onPaymentChange();
   }
 
   function updateSubmitState(loading, done) {
@@ -132,20 +141,6 @@
       submitBtn.textContent = '合約處理中，請稍候';
     } else {
       submitBtn.textContent = '送出合約並產生 PDF';
-    }
-  }
-
-  function bindExclusiveConsent() {
-    function toggle(target, other) {
-      if (target.checked) other.checked = false;
-    }
-    if (consentYes && consentNo) {
-      consentYes.addEventListener('change', function () {
-        toggle(consentYes, consentNo);
-      });
-      consentNo.addEventListener('change', function () {
-        toggle(consentNo, consentYes);
-      });
     }
   }
 
@@ -190,7 +185,6 @@
 
   function collectData() {
     var signedAt = signedAtInput.value || nowText();
-    var usageConsent = bool('usageConsentYes') ? '同意公開使用' : bool('usageConsentNo') ? '不同意公開使用' : '';
     var signedDateVal = val('signedDate');
     if (!signedDateVal) signedDateVal = formatDate(new Date());
     var signerDisplay = resolvedSignerDisplay();
@@ -227,13 +221,6 @@
       familyIntro: val('familyIntro'),
       desiredShots: val('desiredShots'),
       specialNotes: val('specialNotes'),
-      usageConsent: usageConsent,
-      confirmBookingInfo: bool('confirmBookingInfo'),
-      confirmPhotographerUpdate: bool('confirmPhotographerUpdate'),
-      confirmPaymentStatus: bool('confirmPaymentStatus'),
-      confirmTerms: bool('confirmTerms'),
-      confirmDeposit: bool('confirmDeposit'),
-      confirmSignature: bool('confirmSignature'),
       signerName: val('signerName'),
       signerDisplay: signerDisplay,
       signedDate: signedDateVal,
@@ -262,11 +249,6 @@
       formError.hidden = false;
       formError.textContent =
         '請至少填寫一項稱呼或姓名（主要聯絡人、爸爸／媽媽稱呼或簽名人姓名擇一即可）';
-      return false;
-    }
-    if (bool('usageConsentYes') && bool('usageConsentNo')) {
-      formError.hidden = false;
-      formError.textContent = '作品公開授權請擇一勾選（同意或不同意）';
       return false;
     }
     if (!signatureConfirmed || !signatureInput.value) {
@@ -303,10 +285,13 @@
       row('餘款', data.balance ? 'NT$' + Number(data.balance).toLocaleString('zh-TW') : '') +
       row('成品內容', data.deliverables) +
       '</table>' +
-      '<h2 style="font-size:18px;margin:18px 0 8px;">訂金匯款與付款狀態</h2><table style="border-collapse:collapse;width:100%;">' +
+      '<h2 style="font-size:18px;margin:18px 0 8px;">費用與訂金匯款</h2><table style="border-collapse:collapse;width:100%;">' +
+      row('攝影總費用', data.totalFee ? 'NT$' + Number(data.totalFee).toLocaleString('zh-TW') : '') +
+      row('訂金金額', data.deposit ? 'NT$' + Number(data.deposit).toLocaleString('zh-TW') : '') +
+      row('餘款', data.balance ? 'NT$' + Number(data.balance).toLocaleString('zh-TW') : '') +
       row('客戶目前付款狀態', data.paymentStatus) +
       row('付款方式', data.paymentMethod) +
-      row('匯款末五碼', data.bankLast5) +
+      row('匯款帳號後四碼／末五碼', data.bankLast5) +
       row('付款金額', data.paymentAmount ? 'NT$' + Number(data.paymentAmount).toLocaleString('zh-TW') : '') +
       row('付款日期', data.paymentDate) +
       row('付款備註', data.paymentNote) +
@@ -328,15 +313,7 @@
       row('特別想拍的畫面', data.desiredShots) +
       row('注意事項', data.specialNotes) +
       '</table>' +
-      '<h2 style="font-size:18px;margin:18px 0 8px;">合約確認</h2><table style="border-collapse:collapse;width:100%;">' +
-      row('作品公開授權選擇', data.usageConsent) +
-      row('已確認拍攝資訊與成品', data.confirmBookingInfo ? '是' : '否') +
-      row('已知悉須由攝影師更新後台', data.confirmPhotographerUpdate ? '是' : '否') +
-      row('已填寫訂金付款狀態', data.confirmPaymentStatus ? '是' : '否') +
-      row('已閱讀並同意合約', data.confirmTerms ? '是' : '否') +
-      row('已了解訂金保留檔期', data.confirmDeposit ? '是' : '否') +
-      row('同意電子簽名', data.confirmSignature ? '是' : '否') +
-      '</table>' +
+      '<p style="margin:12px 0 0;font-size:13px;color:#333;">客戶已閱讀本頁預約與補充資料，並以下方電子簽名確認。</p>' +
       '<h2 style="font-size:18px;margin:18px 0 8px;">電子簽名</h2>' +
       '<p>簽名人姓名：' +
       escapeHtml(data.signerDisplay || data.signerName) +
@@ -477,7 +454,6 @@
 
   function init() {
     if (!form || !initPad()) return;
-    bindExclusiveConsent();
     bindPaymentRadios();
     if (signedDate) signedDate.value = formatDate(new Date());
     if (paymentDateInput) paymentDateInput.value = formatDate(new Date());
@@ -540,6 +516,7 @@
 
         // 第一階段：僅前端狀態與寄信，不會自動回寫 content/clients/*.md（重新整理會還原）。
         localStorage.setItem(localKey, JSON.stringify({ data: data, emailed: emailed }));
+        revealDeferredBlocks();
         setSignedPanel(data);
         updateSubmitState(false, true);
 

@@ -38,6 +38,14 @@ export function buildClientPortalBody(c, site, { escapeHtml, isPresent }) {
     ? c.specialRequests.filter(Boolean).map((x) => `<li>${escapeHtml(String(x))}</li>`).join('')
     : '';
 
+  /** 拍攝前準備／作品交件：未簽合約且 MD 未標註已付訂時先隱藏，由前端依 localStorage 或「已匯款訂金」顯示 */
+  const csForDefer = String(c.contractStatus || '').trim();
+  const psForDefer = String(c.paymentStatus || '').trim();
+  const mdShowsPostBooking =
+    /已簽|PDF|簽署完成|客戶已簽|已完成|確認完成/i.test(csForDefer) ||
+    /已匯款|已付款|已確認訂金|已收款|訂金已|款項已/i.test(psForDefer);
+  const deferredBlocksAttrs = mdShowsPostBooking ? '' : ' id="portal-deferred-blocks" hidden';
+
   const lockBanner = !readyShare
     ? `<article class="card card--flat portal-locked-banner" style="border:1px solid rgba(220,180,80,0.5);background:rgba(255,248,220,0.35);">
     <p style="margin:0 0 0.5rem;"><strong>此頁尚在攝影師確認中，尚未開放填寫</strong></p>
@@ -67,13 +75,30 @@ export function buildClientPortalBody(c, site, { escapeHtml, isPresent }) {
     <p class="portal-note muted" style="margin-top:var(--space-md);">以上拍攝資訊由攝影師依雙方討論內容建立。若內容需要修改，請先聯繫攝影師，由攝影師更新後台資料。</p>
   </article>`;
 
+  const feeSummaryLines = [
+    isPresent(c.totalFee)
+      ? `<p style="margin:0.35rem 0;"><strong>攝影總費用：</strong>NT$${Number(c.totalFee || 0).toLocaleString('zh-TW')}</p>`
+      : '',
+    isPresent(c.deposit)
+      ? `<p style="margin:0.35rem 0;"><strong>訂金金額：</strong>NT$${Number(c.deposit || 0).toLocaleString('zh-TW')}</p>`
+      : '',
+    isPresent(c.balance)
+      ? `<p style="margin:0.35rem 0;"><strong>餘款：</strong>NT$${Number(c.balance || 0).toLocaleString('zh-TW')}</p>`
+      : '',
+  ]
+    .filter(Boolean)
+    .join('');
+
   const formArticle = readyShare
     ? `<article class="card portal-form">
     <form id="client-contract-form" novalidate>
-      <h2 class="h2">訂金匯款與付款狀態</h2>
-      <p class="muted" style="margin-top:0;">請先依下方方式完成訂金匯款，或填寫您目前的付款狀態。完成訂金付款後，攝影師才會正式保留本次拍攝檔期。若您尚未匯款，也可以先送出合約，系統會在 PDF 中記錄目前付款狀態。</p>
+      <h2 class="h2">費用與訂金匯款</h2>
+      <p class="muted" style="margin-top:0;">下列為本次方案費用、訂金與匯款方式；匯款後請於下方回報付款方式與帳號末碼，方便攝影師對帳。</p>
+      ${feeSummaryLines ? `<div class="portal-fee-summary" style="margin:var(--space-md) 0;padding:var(--space-md);background:rgba(0,0,0,0.03);border-radius:10px;border:1px solid var(--color-line);">${feeSummaryLines}</div>` : ''}
       ${isPresent(photographerPayNote) ? `<p><strong>攝影師備註（付款相關）：</strong>${escapeHtml(photographerPayNote)}</p>` : ''}
-      <div class="portal-note" style="margin-top:var(--space-md);">
+
+      <h3 class="h3" style="margin-top:var(--space-lg);">訂金匯款方式</h3>
+      <div class="portal-note">
         <p><strong>Line Pay：</strong>可使用 Line Pay 支付訂金，請與攝影師確認付款方式。</p>
         <p><strong>銀行轉帳：</strong><br/>台新銀行（812）板橋分行<br/>分行代碼：0089<br/>帳號：20081000109398<br/>戶名：陳在紳</p>
         ${c.paymentEnablePaypal !== false ? '<p><strong>PayPal：</strong>海外用戶可使用 PayPal 支付訂金。<a href="https://paypal.me/bmpss96147/1800" target="_blank" rel="noopener noreferrer">付款連結一</a>、<a href="https://paypal.me/bmpss96147/2800" target="_blank" rel="noopener noreferrer">付款連結二</a></p>' : ''}
@@ -81,7 +106,7 @@ export function buildClientPortalBody(c, site, { escapeHtml, isPresent }) {
         ${c.paymentEnableWise !== false ? '<p><strong>WISE：</strong>海外用戶可支付約 USD 25（約 NT$800）作為訂金，實際匯率與手續費依平台顯示為準。</p>' : ''}
       </div>
 
-      <h3 class="h3" style="margin-top:var(--space-lg);">填寫目前付款狀態</h3>
+      <h3 class="h3" style="margin-top:var(--space-lg);">填寫目前付款狀態與匯款回報</h3>
       <fieldset class="portal-fieldset">
         <legend class="sr-only">客戶目前付款狀態</legend>
         <label class="check-row"><input type="radio" name="paymentStatus" value="已匯款訂金" /> 已匯款訂金</label>
@@ -89,7 +114,7 @@ export function buildClientPortalBody(c, site, { escapeHtml, isPresent }) {
         <label class="check-row"><input type="radio" name="paymentStatus" value="想先確認合約內容，再完成訂金" /> 想先確認合約內容，再完成訂金</label>
         <label class="check-row"><input type="radio" name="paymentStatus" value="使用其他付款方式，已與攝影師確認" /> 使用其他付款方式，已與攝影師確認</label>
       </fieldset>
-      <p class="muted" id="bank-last5-hint" hidden>請填寫付款方式、付款金額與匯款末五碼，方便攝影師對帳。</p>
+      <p class="muted" id="bank-last5-hint" hidden>若已匯款訂金，請填寫付款方式、金額與匯款帳號後四碼（或末五碼），方便攝影師對帳。</p>
       <div class="portal-grid-2">
         <label class="field"><span>付款方式</span>
           <select name="paymentMethod">
@@ -102,12 +127,12 @@ export function buildClientPortalBody(c, site, { escapeHtml, isPresent }) {
             <option value="其他">其他</option>
           </select>
         </label>
-        <label class="field"><span>匯款帳號末五碼</span><input type="text" name="bankLast5" maxlength="10" autocomplete="off" value="${escapeHtml(c.bankLast5 || '')}" /></label>
+        <label class="field"><span>匯款帳號後四碼（或末五碼）</span><input type="text" name="bankLast5" maxlength="10" autocomplete="off" placeholder="例如：81293 或 09398" value="${escapeHtml(c.bankLast5 || '')}" /></label>
         <label class="field"><span>付款金額（NT$）</span><input type="number" name="paymentAmount" min="0" step="1" value="${escapeHtml(depositDefault)}" /></label>
         <label class="field"><span>付款日期</span><input type="date" name="paymentDate" id="client-payment-date" value="${escapeHtml(c.paymentDate || '')}" /></label>
       </div>
       <label class="field"><span>付款備註（客戶）</span><textarea name="paymentNote" rows="3" placeholder="例如：家人代匯、Line Pay 已付款、稍後晚上匯款">${escapeHtml(c.paymentNote || '')}</textarea></label>
-      <p class="muted">若已匯款，建議填寫付款方式與末五碼，方便攝影師對帳。第一階段不會因未填末五碼而阻擋送出。</p>
+      <p class="muted">若已匯款，建議填寫後四碼或末五碼。未填寫仍可送出合約（第一階段不強制）。</p>
 
       <h2 class="h2" style="margin-top:var(--space-xl);">客戶補充資料</h2>
       <p class="muted" style="margin-top:0;">下列稱呼／姓名<strong>至少填寫一項</strong>即可（例如只填主要聯絡人或爸爸／媽媽稱呼均可）。</p>
@@ -127,15 +152,7 @@ export function buildClientPortalBody(c, site, { escapeHtml, isPresent }) {
       <label class="field"><span>需要攝影師注意的地方</span><textarea name="specialNotes" rows="4">${escapeHtml(c.specialNotes || '')}</textarea></label>
 
       <h2 class="h2" style="margin-top:var(--space-xl);">合約確認與簽名</h2>
-      <p class="muted">請確認上方預約資訊、訂金付款狀態與家庭補充資料。拍攝日期、地點、方案、費用與成品內容由攝影師建立，客戶無法自行修改。如需調整，請先聯繫攝影師更新後台資料。確認無誤後，請完成電子簽名。</p>
-      <label class="check-row"><input type="checkbox" name="usageConsentYes" value="yes" /> 我同意攝影師可將本次拍攝作品作為作品集、網站、社群平台、行銷宣傳與攝影服務介紹使用。</label>
-      <label class="check-row"><input type="checkbox" name="usageConsentNo" value="no" /> 我不同意公開使用本次拍攝作品，僅供客戶私人保存。</label>
-      <label class="check-row"><input type="checkbox" name="confirmBookingInfo" /> 我已確認以上拍攝日期、時間、地點、方案、費用與成品內容。</label>
-      <label class="check-row"><input type="checkbox" name="confirmPhotographerUpdate" /> 我知道若以上拍攝資訊需要調整，需由攝影師更新後台資料。</label>
-      <label class="check-row"><input type="checkbox" name="confirmPaymentStatus" /> 我已填寫目前訂金付款狀態。</label>
-      <label class="check-row"><input type="checkbox" name="confirmTerms" /> 我已閱讀並同意本頁所載之服務內容與合約條款。</label>
-      <label class="check-row"><input type="checkbox" name="confirmDeposit" /> 我了解完成訂金付款後，攝影師才會正式保留拍攝檔期。</label>
-      <label class="check-row"><input type="checkbox" name="confirmSignature" /> 我確認以上客戶補充資料正確，並同意以電子簽名方式完成本次預約確認。</label>
+      <p class="muted" style="margin-top:0;">請於下方簽名區手寫簽名並確認；送出後會產生 PDF 預約確認書。</p>
       <div class="portal-grid-2">
         <label class="field"><span>簽名人姓名</span><input type="text" name="signerName" placeholder="可留白，將沿用上方姓名" /></label>
         <label class="field"><span>簽署日期</span><input type="date" id="client-signed-date" name="signedDate" /></label>
@@ -182,7 +199,7 @@ export function buildClientPortalBody(c, site, { escapeHtml, isPresent }) {
   return `<section class="family-contract-hero">
   <div class="container family-contract-wrap">
     <h1 class="h1">${escapeHtml(c.clientName)}｜親子寫真預約與合約</h1>
-    <p class="lead">${readyShare ? '請依序確認預約資訊、填寫訂金狀態與家庭資料，並完成電子簽名。送出後會產生 PDF 合約作為本次預約確認紀錄。' : '此專屬頁面由攝影師建立中；開放填寫後即可在此完成訂金回報與合約簽署。'}</p>
+    <p class="lead">${readyShare ? '請確認預約資訊後，填寫訂金回報與家庭資料，並完成簽名。送出後可下載 PDF。' : '此專屬頁面由攝影師建立中；開放填寫後即可在此完成訂金回報與簽名。'}</p>
     <div class="portal-status">
       <span class="status-pill" id="contract-status-tag">合約狀態：${escapeHtml(c.contractStatus || '尚未簽署')}</span>
       <span class="status-pill" id="payment-status-pill">付款狀態：${paymentPillLine}</span>
@@ -196,6 +213,7 @@ export function buildClientPortalBody(c, site, { escapeHtml, isPresent }) {
   ${readonlyArticle}
   ${formArticle}
 
+  <div${deferredBlocksAttrs}>
   <article class="card">
     <h2 class="h2">拍攝前準備</h2>
     <p>拍攝前可以先簡單準備服裝、孩子喜歡的小物、簡單點心與水。親子寫真的重點不是擺拍，而是讓家人在自然互動中留下真實表情。</p>
@@ -220,6 +238,7 @@ export function buildClientPortalBody(c, site, { escapeHtml, isPresent }) {
     </div>
     ${isPresent(c.deliveryNote) ? `<p class="portal-note">${escapeHtml(c.deliveryNote)}</p>` : '<p class="portal-note">照片完成後會提供雲端下載連結。建議收到連結後先下載備份至自己的電腦或雲端硬碟，避免日後連結過期或雲端空間調整。</p>'}
   </article>
+  </div>
 
   <article class="card">
     <h2 class="h2">聯絡攝影師</h2>
