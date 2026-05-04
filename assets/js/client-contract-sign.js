@@ -56,6 +56,8 @@
   var isSubmitting = false;
   var latestPdfBlob = null;
   var latestPdfFilename = '';
+  /** 首次產生 PDF 時從 CDN 下載 Noto Sans TC（約 5.4MB），存成 base64 後本次分頁重複使用 */
+  var notoFontBase64Cache = null;
 
   /** 除錯模式：網址加 ?contract_debug=1 或 console 執行 localStorage.setItem('family_contract_debug','1') 後重整 */
   var CONTRACT_DEBUG = false;
@@ -131,10 +133,19 @@
         (root.getAttribute('data-ready-to-share') || '') +
         ' libs: SignaturePad=' +
         !!window.SignaturePad +
-        ' html2canvas=' +
-        !!window.html2canvas +
         ' jspdf=' +
-        !!(window.jspdf && window.jspdf.jsPDF),
+        !!(window.jspdf && window.jspdf.jsPDF) +
+        ' autoTable=' +
+        !!(function () {
+          try {
+            var Ctor = window.jspdf && window.jspdf.jsPDF;
+            if (!Ctor) return false;
+            var p = new Ctor({ unit: 'mm', format: 'a4' });
+            return typeof p.autoTable === 'function';
+          } catch (e) {
+            return false;
+          }
+        })(),
     );
   }
 
@@ -165,7 +176,7 @@
       .replace(/'/g, '&#39;');
   }
 
-  /** html2canvas／fetch 無回應時避免按鈕永遠卡在「處理中」 */
+  /** Promise／fetch 無回應時避免按鈕永遠卡在「處理中」 */
   function withTimeout(promise, ms, errMsg) {
     return Promise.race([
       promise,
@@ -380,7 +391,7 @@
     return true;
   }
 
-  /** 簽名 PNG 常為高解析 canvas，嵌入 PDF HTML 時縮小可減輕 html2canvas 解碼與記憶體 */
+  /** 簽名 PNG 常為高解析 canvas，縮小後再嵌入 PDF 可減輕檔案與記憶體 */
   function shrinkSignatureDataUrlForPdf(dataUrl, maxWidthPx) {
     return new Promise(function (resolve) {
       var url = String(dataUrl || '');
@@ -498,12 +509,137 @@
     return s;
   }
 
-  async function generatePdf(data) {
-    dbg('PDF', '開始 generatePdf');
-    if (!window.html2canvas) {
-      dbg('PDF 錯誤', '缺少 html2canvas');
-      throw new Error('PDF 套件未載入');
+  var NOTO_SANS_TC_OTF_URL =
+    'https://cdn.jsdelivr.net/gh/googlefonts/noto-cjk@Sans2.004/Sans/SubsetOTF/TC/NotoSansTC-Regular.otf';
+
+  function arrayBufferToBase64(ab) {
+    return new Promise(function (resolve, reject) {
+      var blob = new Blob([ab], { type: 'application/octet-stream' });
+      var fr = new FileReader();
+      fr.onload = function () {
+        var s = String(fr.result || '');
+        var i = s.indexOf(',');
+        resolve(i >= 0 ? s.substring(i + 1) : s);
+      };
+      fr.onerror = reject;
+      fr.readAsDataURL(blob);
+    });
+  }
+
+  async function ensureNotoChineseFont(doc) {
+    if (!notoFontBase64Cache) {
+      dbg('PDF', '下載 PDF 繁體字型 Noto Sans TC（約 5.4MB，僅首次）…');
+      var res = await withTimeout(
+        fetch(NOTO_SANS_TC_OTF_URL, { mode: 'cors', credentials: 'omit' }),
+        180000,
+        '字型下載逾時，請檢查網路後再試',
+      );
+      if (!res.ok) throw new Error('無法下載 PDF 中文字型（HTTP ' + res.status + '）');
+      var ab = await res.arrayBuffer();
+      notoFontBase64Cache = await arrayBufferToBase64(ab);
+      dbg('PDF', '字型已載入並快取於記憶體（本分頁不重複下載）');
     }
+    doc.addFileToVFS('NotoSansTC-Regular.otf', notoFontBase64Cache);
+    doc.addFont('NotoSansTC-Regular.otf', 'NotoSansTC', 'normal');
+    doc.setFont('NotoSansTC', 'normal');
+  }
+
+  function formatNtd(v) {
+    if (v === '' || v == null) return '';
+    var n = Number(v);
+    if (!isFinite(n)) return String(v);
+    return 'NT$' + n.toLocaleString('zh-TW');
+  }
+
+  function pdfSectionHeading(doc, y, margin, title) {
+    var pageH = doc.internal.pageSize.getHeight();
+    if (y > pageH - 35) {
+      doc.addPage();
+      y = margin;
+    }
+    doc.setFont('NotoSansTC', 'normal');
+    doc.setFontSize(11);
+    doc.setTextColor(30, 30, 30);
+    doc.text(String(title || ''), margin, y);
+    return y + 7;
+  }
+
+  function pdfTwoColumnTable(doc, startY, margin, rows) {
+    var body = rows.map(function (r) {
+      return [String(r[0] || ''), r[1] == null ? '' : String(r[1])];
+    });
+    doc.autoTable({
+      startY: startY,
+      margin: { left: margin, right: margin },
+      tableWidth: doc.internal.pageSize.getWidth() - margin * 2,
+      body: body,
+      theme: 'grid',
+      styles: {
+        font: 'NotoSansTC',
+        fontStyle: 'normal',
+        fontSize: 9,
+        cellPadding: 1.4,
+        valign: 'top',
+        overflow: 'linebreak',
+        lineColor: [210, 210, 210],
+        lineWidth: 0.05,
+      },
+      columnStyles: {
+        0: { cellWidth: 46 },
+        1: { cellWidth: 'auto' },
+      },
+    });
+    return doc.lastAutoTable.finalY + 4;
+  }
+
+  function pdfSignatureBlock(doc, data, margin, y) {
+    return new Promise(function (resolve) {
+      var pageH = doc.internal.pageSize.getHeight();
+      doc.setFont('NotoSansTC', 'normal');
+      doc.setFontSize(10);
+      if (y > pageH - 35) {
+        doc.addPage();
+        y = margin;
+      }
+      doc.text('簽名人姓名：' + String(data.signerDisplay || data.signerName || ''), margin, y);
+      y += 6;
+      doc.text('簽署日期：' + String(data.signedDate || ''), margin, y);
+      y += 6;
+      doc.text('簽署時間：' + String(data.signedAt || ''), margin, y);
+      y += 8;
+
+      var url = data.signatureDataUrl || '';
+      if (!url) {
+        resolve(y);
+        return;
+      }
+      var img = new Image();
+      img.onload = function () {
+        var maxW = 72;
+        var w = maxW;
+        var h = (img.height / img.width) * w;
+        var yy = y;
+        if (yy + h > pageH - margin) {
+          doc.addPage();
+          yy = margin;
+        }
+        var fmt = /^data:image\/png/i.test(url) ? 'PNG' : 'JPEG';
+        try {
+          doc.addImage(url, fmt, margin, yy, w, h);
+        } catch (imgErr) {
+          dbg('PDF', '簽名圖嵌入失敗，略過圖檔');
+        }
+        resolve(yy + h + 6);
+      };
+      img.onerror = function () {
+        resolve(y);
+      };
+      img.src = url;
+    });
+  }
+
+  async function generatePdf(data) {
+    dbg('PDF', '開始 generatePdf（jsPDF 向量文字＋表格，無截圖）');
     var JsPdfCtor =
       window.jspdf && typeof window.jspdf.jsPDF === 'function'
         ? window.jspdf.jsPDF
@@ -515,165 +651,131 @@
       throw new Error('jsPDF 未載入，請重新整理頁面後再試');
     }
 
-    var sigForPdf = await shrinkSignatureDataUrlForPdf(data.signatureDataUrl, 480);
-    if (sigForPdf !== data.signatureDataUrl) {
-      dbg('PDF', '簽名圖已縮小以利截圖');
+    var probe = new JsPdfCtor({ unit: 'mm', format: 'a4' });
+    if (typeof probe.autoTable !== 'function') {
+      dbg('PDF 錯誤', 'jspdf-autotable 未掛載');
+      throw new Error('PDF 表格元件未載入，請重新整理頁面後再試');
     }
-    var dataForPdf = Object.assign({}, data, { signatureDataUrl: sigForPdf });
-    var innerHtml = pdfHtml(dataForPdf);
-    dbg('PDF', '改以隱藏 iframe 載入 HTML，與主頁樣式隔離後再 html2canvas');
+
+    var sigForPdf = await shrinkSignatureDataUrlForPdf(data.signatureDataUrl, 560);
+    if (sigForPdf !== data.signatureDataUrl) {
+      dbg('PDF', '簽名圖已縮小以利嵌入 PDF');
+    }
+    var d = Object.assign({}, data, { signatureDataUrl: sigForPdf });
 
     if (pdfContent) {
-      pdfContent.innerHTML = innerHtml;
+      pdfContent.innerHTML = pdfHtml(d);
     }
 
-    if (document.fonts && document.fonts.ready) {
-      try {
-        await document.fonts.ready;
-        dbg('PDF', 'document.fonts.ready');
-      } catch (fontErr) {
-        dbg('PDF', 'fonts.ready 略過');
-      }
-    }
+    var doc = new JsPdfCtor({ orientation: 'p', unit: 'mm', format: 'a4', compress: true });
 
-    await new Promise(function (resolve) {
-      requestAnimationFrame(function () {
-        requestAnimationFrame(resolve);
-      });
-    });
+    await ensureNotoChineseFont(doc);
+    doc.setFont('NotoSansTC', 'normal');
 
-    var iframe = document.createElement('iframe');
-    iframe.setAttribute('title', 'contract-pdf-capture');
-    iframe.setAttribute('aria-hidden', 'true');
-    iframe.style.cssText =
-      'position:fixed;left:0;top:0;width:830px;height:100px;overflow:hidden;opacity:0.02;pointer-events:none;z-index:-1;border:0;';
-    document.body.appendChild(iframe);
+    var margin = 14;
+    var pageW = doc.internal.pageSize.getWidth();
+    var y = margin;
 
-    var idoc = iframe.contentDocument || iframe.contentWindow.document;
-    idoc.open();
-    idoc.write(
-      '<!DOCTYPE html><html><head><meta charset="utf-8">' +
-        '<style>' +
-        'html,body{margin:0;padding:0;background:#fff;color:#111;}' +
-        'body{width:820px;box-sizing:border-box;font-family:Arial,Helvetica,\"Microsoft JhengHei\",sans-serif;font-size:14px;line-height:1.5;}' +
-        'table{border-collapse:collapse;width:100%;}td{border:1px solid #ddd;padding:6px 8px;}' +
-        'h1{font-size:26px;margin:0 0 14px;}h2{font-size:18px;margin:18px 0 8px;}h3{font-size:16px;margin:12px 0 6px;}' +
-        'img{max-width:100%;height:auto;display:block;}' +
-        '*{animation:none!important;transition:none!important;}' +
-        '</style></head><body>' +
-        innerHtml +
-        '</body></html>',
+    doc.setFontSize(17);
+    doc.text('小巴老師親子寫真預約確認書', pageW / 2, y, { align: 'center' });
+    y += 11;
+
+    doc.setFontSize(10);
+
+    y = pdfSectionHeading(doc, y, margin, '預約資訊');
+    y = pdfTwoColumnTable(doc, y, margin, [
+      ['客戶名稱', d.clientName],
+      ['拍攝日期', d.shootingDate],
+      ['拍攝時間', [d.shootingStartTime, d.shootingEndTime].filter(Boolean).join(' - ')],
+      ['拍攝方案', d.packageName],
+      ['拍攝地點', d.location],
+      ['是否含接送', d.pickup],
+      ['總費用', formatNtd(d.totalFee)],
+      ['訂金', formatNtd(d.deposit)],
+      ['餘款', formatNtd(d.balance)],
+      ['成品內容', d.deliverables],
+    ]);
+
+    y = pdfSectionHeading(doc, y, margin, '費用與訂金匯款');
+    y = pdfTwoColumnTable(doc, y, margin, [
+      ['攝影總費用', formatNtd(d.totalFee)],
+      ['訂金金額', formatNtd(d.deposit)],
+      ['餘款', formatNtd(d.balance)],
+      ['客戶目前付款狀態', d.paymentStatus],
+      ['付款方式', d.paymentMethod],
+      ['匯款帳號後四碼／末五碼', d.bankLast5],
+      ['付款金額', formatNtd(d.paymentAmount)],
+      ['付款日期', d.paymentDate],
+      ['付款備註', d.paymentNote],
+    ]);
+
+    doc.setFontSize(9);
+    doc.setTextColor(70, 70, 70);
+    var tipLines = doc.splitTextToSize(
+      '付款提醒：完成訂金付款後，攝影師才會正式保留檔期。',
+      pageW - margin * 2,
     );
-    idoc.close();
-
-    var capEl = idoc.body;
-    var totalH = Math.min(Math.max(capEl.scrollHeight || 2000, 400), 12000);
-    dbg('PDF', 'iframe body 高度≈' + totalH + ' px（分段截圖以避免單張過高卡住）');
-
-    await new Promise(function (r) {
-      setTimeout(r, 100);
-    });
-
-    /** 單次 windowHeight 過大時 WebKit 上 html2canvas 易無限卡住，改以窄條分批擷取再垂直拼接 */
-    var STRIP_CSS_PX = 680;
-    var stripCount = Math.max(1, Math.ceil(totalH / STRIP_CSS_PX));
-
-    var canvasImg;
-    try {
-      var strips = [];
-      var yOff = 0;
-      for (var si = 0; si < stripCount; si++) {
-        var sliceH = Math.min(STRIP_CSS_PX, totalH - yOff);
-        if (sliceH <= 0) break;
-        dbg(
-          'PDF',
-          'html2canvas 分段 ' + (si + 1) + '/' + stripCount + '（translateY=-' + yOff + ' 高=' + sliceH + '）…',
-        );
-        var stripCanvas = await withTimeout(
-          window.html2canvas(capEl, {
-            scale: 1,
-            backgroundColor: '#ffffff',
-            useCORS: true,
-            allowTaint: false,
-            foreignObjectRendering: false,
-            logging: !!CONTRACT_DEBUG,
-            imageTimeout: 15000,
-            windowWidth: 820,
-            windowHeight: sliceH,
-            width: 820,
-            height: sliceH,
-            removeContainer: true,
-            onclone: function (clonedDoc) {
-              try {
-                var b = clonedDoc.body;
-                b.style.margin = '0';
-                b.style.padding = '0';
-                b.style.height = sliceH + 'px';
-                b.style.overflow = 'hidden';
-                b.style.background = '#ffffff';
-                var root = b.firstElementChild;
-                if (root && root.nodeType === 1) {
-                  root.style.transform = 'translateY(' + -yOff + 'px)';
-                  root.style.transformOrigin = 'top left';
-                }
-              } catch (ocErr) {}
-            },
-          }),
-          45000,
-          '產生 PDF 逾時（建議改用 Google Chrome；Safari 常見 html2canvas 卡住）',
-        );
-        strips.push(stripCanvas);
-        yOff += sliceH;
-      }
-      if (strips.length === 1) {
-        canvasImg = strips[0];
-      } else {
-        var tw = strips[0].width;
-        var thSum = 0;
-        for (var j = 0; j < strips.length; j++) thSum += strips[j].height;
-        var merged = document.createElement('canvas');
-        merged.width = tw;
-        merged.height = thSum;
-        var mctx = merged.getContext('2d');
-        if (!mctx) throw new Error('無法建立畫布');
-        mctx.fillStyle = '#ffffff';
-        mctx.fillRect(0, 0, tw, thSum);
-        var my = 0;
-        for (var k = 0; k < strips.length; k++) {
-          mctx.drawImage(strips[k], 0, my);
-          my += strips[k].height;
-        }
-        canvasImg = merged;
-      }
-      dbg('PDF', 'html2canvas 完成，canvas ' + canvasImg.width + 'x' + canvasImg.height);
-    } finally {
-      if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
-    }
-
-    dbg('PDF', 'toDataURL(JPEG)…');
-    var imgData = canvasImg.toDataURL('image/jpeg', 0.92);
-    dbg('PDF', 'JPEG 資料長度约 ' + Math.round(imgData.length / 1024) + ' KB');
-    var doc = new JsPdfCtor('p', 'mm', 'a4');
-    var pageWidth = doc.internal.pageSize.getWidth();
-    var pageHeight = doc.internal.pageSize.getHeight();
-    var imgHeight = (canvasImg.height * pageWidth) / canvasImg.width;
-    var y = 0;
-    doc.addImage(imgData, 'JPEG', 0, y, pageWidth, imgHeight);
-    while (imgHeight - y > pageHeight) {
-      y -= pageHeight;
+    if (y > doc.internal.pageSize.getHeight() - 25) {
       doc.addPage();
-      doc.addImage(imgData, 'JPEG', 0, y, pageWidth, imgHeight);
+      y = margin;
     }
+    doc.text(tipLines, margin, y);
+    y += tipLines.length * 4.5 + 4;
+    doc.setTextColor(0, 0, 0);
+    doc.setFontSize(10);
+
+    y = pdfSectionHeading(doc, y, margin, '客戶補充資料');
+    y = pdfTwoColumnTable(doc, y, margin, [
+      ['爸爸稱呼', d.fatherName],
+      ['媽媽稱呼', d.motherName],
+      ['主要聯絡人', d.contactName],
+      ['電話', d.phone],
+      ['Email', d.customerEmail],
+      ['LINE', d.lineName],
+      ['客戶確認入鏡大人人數', d.clientAdultCount],
+      ['客戶確認入鏡小孩人數', d.clientChildCount],
+      ['攝影師預設入鏡大人', d.photographerAdultCount],
+      ['攝影師預設入鏡小孩', d.photographerChildCount],
+      ['小朋友年齡與稱呼', d.childrenInfo],
+      ['家庭介紹', d.familyIntro],
+      ['特別想拍的畫面', d.desiredShots],
+      ['注意事項', d.specialNotes],
+    ]);
+
+    doc.setFontSize(9);
+    var ack = doc.splitTextToSize(
+      '客戶已閱讀本頁預約與補充資料，並以下方電子簽名確認。',
+      pageW - margin * 2,
+    );
+    if (y > doc.internal.pageSize.getHeight() - 30) {
+      doc.addPage();
+      y = margin;
+    }
+    doc.text(ack, margin, y);
+    y += ack.length * 4.5 + 6;
+    doc.setFontSize(10);
+
+    y = pdfSectionHeading(doc, y, margin, '電子簽名');
+    y = await pdfSignatureBlock(doc, d, margin, y);
+
+    y += 2;
+    y = pdfSectionHeading(doc, y, margin, '攝影師聯絡資訊');
+    var contactTxt =
+      '小巴老師｜親子寫真\nLine／電話：0911-252-302\nWhatsApp：+886 911252302\nEmail：crownchief@gmail.com';
+    doc.setFontSize(10);
+    var contactLines = doc.splitTextToSize(contactTxt, pageW - margin * 2);
+    doc.text(contactLines, margin, y);
+
     var filename =
       'contract-' +
       slug +
       '-' +
-      safePdfClientPart(data.signerDisplay || data.customerEmail || clientName) +
+      safePdfClientPart(d.signerDisplay || d.customerEmail || clientName) +
       '-' +
       fileDate() +
       '.pdf';
     var blob = doc.output('blob');
-    dbg('PDF', 'jsPDF blob 已產生，約 ' + Math.round(blob.size / 1024) + ' KB');
+    dbg('PDF', 'jsPDF 向量 PDF 完成，約 ' + Math.round(blob.size / 1024) + ' KB');
     return { blob: blob, filename: filename };
   }
 
