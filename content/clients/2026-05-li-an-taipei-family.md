@@ -1,93 +1,81 @@
 ---
-title: "Li-An 家庭｜親子寫真客戶專區"
-clientName: "Li-An 家庭"
-clientAlias: "li-an"
-slug: "2026-05-16family"
-status: "已報價"
-hubPortal: true
-publish: false
-portfolioPublish: false
-publicPortfolio: false
-noindex: true
-privacy: "private"
-showInClientList: false
-shareEnabled: true
 adminOnly: false
-contractEnabled: true
-deliveryEnabled: true
-clientAccessCode: ""
-internalNote: ""
-
 adminReviewed: true
+adultCount: "2"
+balance: 6000
+childCount: "2"
+childrenAges: ""
+clientAccessCode: ""
+clientAlias: "li-an"
+clientName: "Li-An 家庭"
+contactName: "Li-An"
+contractEnabled: true
+contractNote: "客戶明確表示不希望作品公開，攝影師已回覆不公開價格一樣。"
+contractSignedAt: ""
+contractStatus: "尚未簽署"
+contractVersion: "family-contract-v2026-05"
+coverImage: ""
+createdAt: "2026-05-04"
+deliverables: "照片全給，包含調色修圖處理，不提供原始毛片。"
+deliveryEnabled: true
+deliveryNote: ""
+deliveryStatus: "尚未拍攝"
+deposit: 1800
+driveFolderUrl: ""
+droneIncluded: false
+duration: "2 小時"
+elderIncluded: false
+email: ""
+familyCount: "1 組小家庭為主"
+gallery: []
+hubPortal: true
+internalNote: ""
+lineName: "親子寫真Li-An"
+location: "台北華山藝文特區"
+meetingPoint: ""
+mvIncluded: false
+noindex: true
+packageCategory: "台灣親子旅拍"
+packageName: "台北半日全家福方案"
+paymentEnablePaypal: false
+paymentEnableWise: false
+paymentNote: ""
+paymentNoteFromAdmin: ""
+paymentStatus: "尚未付款"
+petIncluded: false
+phone: ""
+photoDeliverables: ""
+pickup: "無"
+portfolioPublish: false
+privacy: "private"
+publicPortfolio: false
+publish: false
 readyToShare: true
 reviewedAt: ""
 reviewedBy: "小巴老師"
-
-serviceType: "親子寫真"
-packageCategory: "台灣親子旅拍"
-packageName: "台北半日全家福方案"
-
-shootingDate: "2026-05-16"
-shootingWeekday: ""
-shootingStartTime: "08:30"
-shootingEndTime: "10:30"
-duration: "2 小時"
-location: "台北（場地待確認）"
-meetingPoint: ""
-pickup: "未確認"
-transportationNote: ""
-
-familyCount: "1 組小家庭為主"
-adultCount: 2
-childCount: 2
-childrenAges: ""
-elderIncluded: false
-petIncluded: false
-
-totalFee: 7800
-deposit: 1800
-balance: ""
-paymentStatus: "尚未付款"
-paymentNoteFromAdmin: "本案訂金 NT$1,800。"
-paymentNote: ""
-paymentEnablePaypal: false
-paymentEnableWise: false
-
-deliverables: "照片全給，包含處理後照片，不提供原始毛片。"
-photoDeliverables: ""
-videoDeliverables: "半日方案通常不含影片"
-mvIncluded: false
-droneIncluded: false
-underwaterIncluded: false
-specialRequests: []
-
-contactName: "Li-An"
-phone: ""
-email: ""
-lineName: "親子寫真Li-An"
-
-contractStatus: "尚未簽署"
-contractVersion: "family-contract-v2026-05"
-contractSignedAt: ""
-contractNote: "客戶明確表示不希望作品公開，攝影師已回覆不公開價格一樣。"
-
-driveFolderUrl: ""
 selectedPhotoUrl: ""
-videoUrl: ""
-deliveryStatus: "尚未拍攝"
-deliveryNote: ""
-
-coverImage: ""
-gallery: []
-
+serviceType: "親子寫真"
+shareEnabled: true
+shootingDate: "2026-05-16"
+shootingEndTime: "10:30"
+shootingStartTime: "08:30"
+shootingWeekday: "六"
+showInClientList: false
+slug: "2026-05-16family"
+specialRequests: []
+status: "已報價"
 tags:
-  - 親子寫真
-  - 台北親子寫真
-  - 半日方案
-  - 不公開作品
-
-createdAt: "2026-05-04"
+  - "親子寫真"
+  - "台北親子寫真"
+  - "半日方案"
+  - "不公開作品"
+title: "Li-An 家庭｜親子寫真客戶專區"
+totalFee: 7800
+transportationNote: "祖父母、舅舅一起入鏡，加價優惠1000"
+underwaterIncluded: false
 updatedAt: "2026-05-04"
+videoDeliverables: "不含影片"
+videoUrl: ""
 ---
 
 ## 客戶需求
