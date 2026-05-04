@@ -76,22 +76,33 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   }
 
   const token = context.env.GITHUB_TOKEN?.trim();
+  const ownerPre = String(context.env.GITHUB_OWNER || '').trim();
+  const repoPre = String(context.env.GITHUB_REPO || '').trim();
   if (!token) {
     return json({
       ok: false,
       githubConfigured: false,
+      missingGithubEnv: ['GITHUB_TOKEN'],
       message:
-        '尚未設定 GitHub 環境變數，無法自動 commit。頁面會改為產生 Markdown，請複製後貼回 content/clients/ 對應檔案。',
+        '線上環境讀不到 GITHUB_TOKEN。請到 Cloudflare → Pages 專案 → Settings → Variables and Secrets → 選 Production → 新增類型為 Secret、名稱為 GITHUB_TOKEN（全大寫、無空格）的變數，貼上 GitHub PAT 後儲存，並到 Deployments 對最新部署執行 Retry deployment。',
     });
   }
 
-  const owner = String(context.env.GITHUB_OWNER || '').trim();
-  const repo = String(context.env.GITHUB_REPO || '').trim();
+  const owner = ownerPre;
+  const repo = repoPre;
   const branch = String(context.env.GITHUB_BRANCH || 'main').trim();
 
   if (!owner || !repo) {
+    const missing: string[] = [];
+    if (!owner) missing.push('GITHUB_OWNER');
+    if (!repo) missing.push('GITHUB_REPO');
     return json(
-      { ok: false, message: '尚未設定 GITHUB_OWNER / GITHUB_REPO' },
+      {
+        ok: false,
+        githubConfigured: false,
+        missingGithubEnv: missing,
+        message: '尚未設定 GITHUB_OWNER 或 GITHUB_REPO（Production 環境變數）。',
+      },
       500,
     );
   }

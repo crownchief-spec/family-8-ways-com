@@ -348,7 +348,14 @@
         }
 
         if (json && json.githubConfigured === false) {
-          showMarkdownPanel(md, json.message || '請複製 Markdown 貼回檔案後存檔。');
+          var ghMsg = json.message || '請複製 Markdown 貼回檔案後存檔。';
+          if (json.missingGithubEnv && json.missingGithubEnv.length) {
+            ghMsg +=
+              ' 【仍缺：' +
+              json.missingGithubEnv.join('、') +
+              '】驗證：瀏覽器開 /api/admin/save-client 應為 githubConfigured:true。';
+          }
+          showMarkdownPanel(md, ghMsg);
           return;
         }
 
