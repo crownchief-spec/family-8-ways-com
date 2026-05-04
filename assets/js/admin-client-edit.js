@@ -186,7 +186,11 @@
   }
 
   function adminPassword() {
-    return String(sessionStorage.getItem('family_admin_pw_for_api') || '').trim();
+    return String(
+      sessionStorage.getItem('family_admin_pw_for_api') ||
+        localStorage.getItem('family_admin_pw_for_api') ||
+        '',
+    ).trim();
   }
 
   function showMarkdownPanel(md, statusMessage) {
@@ -201,17 +205,42 @@
   }
 
   function initGithubBanner() {
+    var detailEl = document.getElementById('admin-github-banner-detail');
     fetch('/api/admin/save-client', { method: 'GET' })
       .then(function (r) {
         if (!r.ok) throw new Error('no api');
         return r.json();
       })
       .then(function (cfg) {
-        if (cfg && cfg.githubConfigured === true) return;
+        if (cfg && cfg.githubConfigured === true) {
+          if (githubBanner) githubBanner.hidden = true;
+          if (saveBtn) saveBtn.textContent = '儲存客戶 MD';
+          if (detailEl) {
+            detailEl.hidden = true;
+            detailEl.textContent = '';
+          }
+          return;
+        }
+        if (detailEl && cfg && Array.isArray(cfg.missingGithubEnv) && cfg.missingGithubEnv.length) {
+          detailEl.hidden = false;
+          detailEl.innerHTML =
+            '<strong>目前無法連 GitHub：</strong>Cloudflare Pages 尚未設定環境變數「' +
+            cfg.missingGithubEnv.join('」、「') +
+            '」。請到 Cloudflare Dashboard → 此專案 → Settings → Environment variables（Production）新增後，<strong>重新部署</strong>一次。';
+        } else if (detailEl) {
+          detailEl.hidden = false;
+          detailEl.textContent =
+            '無法確認 GitHub 設定（缺少設定資訊）。請確認已在 Cloudflare 設定 GITHUB_TOKEN、GITHUB_OWNER、GITHUB_REPO。';
+        }
         if (githubBanner) githubBanner.hidden = false;
         if (saveBtn) saveBtn.textContent = '儲存（產生 Markdown）';
       })
       .catch(function () {
+        if (detailEl) {
+          detailEl.hidden = false;
+          detailEl.innerHTML =
+            '無法呼叫 <code>/api/admin/save-client</code>（404 或離線）。若為<strong>本機直接開 HTML</strong>，請改用具 Functions 的預覽（例如 <code>wrangler pages dev</code>）；線上站請確認已部署最新版。';
+        }
         if (githubBanner) githubBanner.hidden = false;
         if (saveBtn) saveBtn.textContent = '儲存（產生 Markdown）';
       });

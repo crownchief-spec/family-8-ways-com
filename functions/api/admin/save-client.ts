@@ -34,14 +34,19 @@ function utf8ToBase64(s: string): string {
   return btoa(binary);
 }
 
-/** 供編輯頁偵測是否可自動寫入 GitHub（不需密碼） */
+/** 供編輯頁偵測是否可自動寫入 GitHub（不需密碼）；不回傳任何 secret */
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   const token = context.env.GITHUB_TOKEN?.trim();
   const owner = context.env.GITHUB_OWNER?.trim();
   const repo = context.env.GITHUB_REPO?.trim();
+  const missingGithubEnv: string[] = [];
+  if (!token) missingGithubEnv.push('GITHUB_TOKEN');
+  if (!owner) missingGithubEnv.push('GITHUB_OWNER');
+  if (!repo) missingGithubEnv.push('GITHUB_REPO');
   return json({
     ok: true,
-    githubConfigured: Boolean(token && owner && repo),
+    githubConfigured: missingGithubEnv.length === 0,
+    missingGithubEnv,
   });
 };
 

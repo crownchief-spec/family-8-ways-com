@@ -64,7 +64,8 @@ export function buildAdminClientEditBody(c, site) {
 <section class="container section admin-wrap admin-edit-page">
   <article class="card card--flat admin-edit-banner" id="admin-github-banner" hidden>
     <p class="admin-edit-banner__title">手動更新 Markdown 模式</p>
-    <p class="muted admin-edit-banner__body"><strong>已設定上述三項時</strong>，從後台登入後按「儲存」會<strong>透過 GitHub API 直接更新</strong>倉庫裡的客戶 MD，無須開 Cursor。若 Cloudflare 未設定、或在本機預覽靜態檔，按下「儲存」只會<strong>產生 Markdown</strong>；請用下方「下載」或複製後覆蓋專案對應 <code>.md</code>，再建置／部署。</p>
+    <p class="muted admin-edit-banner__body">線上環境若已設定 <code>GITHUB_TOKEN</code>、<code>GITHUB_OWNER</code>、<code>GITHUB_REPO</code>，登入後按「儲存」會<strong>直接寫入 GitHub</strong>。若未設定或 API 無法連線，按下「儲存」只會<strong>產生 Markdown</strong>，請用下方下載或複製後覆蓋專案 <code>.md</code> 再部署。</p>
+    <p class="muted admin-edit-banner__body admin-edit-banner__detail" id="admin-github-banner-detail" hidden></p>
   </article>
   <div class="admin-edit-toolbar">
     <button type="button" class="btn btn--primary" id="admin-save-md">儲存客戶 MD</button>

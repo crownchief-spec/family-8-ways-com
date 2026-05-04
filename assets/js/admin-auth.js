@@ -20,6 +20,7 @@
     sessionStorage.removeItem(STORAGE_KEY);
     sessionStorage.removeItem('family_admin_pw_for_api');
     localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem('family_admin_pw_for_api');
   }
 
   function mountLogout() {
@@ -67,6 +68,7 @@
         setAuthed();
         try {
           sessionStorage.setItem('family_admin_pw_for_api', val);
+          localStorage.setItem('family_admin_pw_for_api', val);
         } catch (_) {}
         gate.remove();
         mountLogout();
