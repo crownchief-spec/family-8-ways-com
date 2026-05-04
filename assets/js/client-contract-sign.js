@@ -462,8 +462,8 @@
 
   async function generatePdf(data) {
     dbg('PDF', '開始 generatePdf');
-    if (!window.html2canvas || !pdfContent) {
-      dbg('PDF 錯誤', '缺少 html2canvas 或 #contract-pdf-content');
+    if (!window.html2canvas) {
+      dbg('PDF 錯誤', '缺少 html2canvas');
       throw new Error('PDF 套件未載入');
     }
     var JsPdfCtor =
@@ -477,8 +477,12 @@
       throw new Error('jsPDF 未載入，請重新整理頁面後再試');
     }
 
-    pdfContent.innerHTML = pdfHtml(data);
-    dbg('PDF', '已寫入預覽 HTML，準備 html2canvas');
+    var innerHtml = pdfHtml(data);
+    dbg('PDF', '改以隱藏 iframe 載入 HTML，與主頁樣式隔離後再 html2canvas');
+
+    if (pdfContent) {
+      pdfContent.innerHTML = innerHtml;
+    }
 
     if (document.fonts && document.fonts.ready) {
       try {
@@ -495,20 +499,43 @@
       });
     });
 
-    var prevCssText = pdfContent.style.cssText;
-    pdfContent.style.cssText =
-      'position:absolute;left:-9999px;top:0;width:820px;max-width:820px;' +
-      'opacity:1;visibility:visible;pointer-events:none;overflow:visible;' +
-      'background:#fff;color:#111;padding:24px;z-index:1;' +
-      'font-family:Arial,Helvetica,\"Microsoft JhengHei\",sans-serif;';
-    var h = Math.min(Math.max(pdfContent.scrollHeight || 2400, 400), 12000);
-    dbg('PDF', '截取高度 windowHeight≈' + h + ' px');
+    var iframe = document.createElement('iframe');
+    iframe.setAttribute('title', 'contract-pdf-capture');
+    iframe.setAttribute('aria-hidden', 'true');
+    iframe.style.cssText =
+      'position:fixed;left:0;top:0;width:830px;height:100px;overflow:hidden;opacity:0.02;pointer-events:none;z-index:-1;border:0;';
+    document.body.appendChild(iframe);
+
+    var idoc = iframe.contentDocument || iframe.contentWindow.document;
+    idoc.open();
+    idoc.write(
+      '<!DOCTYPE html><html><head><meta charset="utf-8">' +
+        '<style>' +
+        'html,body{margin:0;padding:12px 16px 24px;background:#fff;color:#111;}' +
+        'body{width:820px;box-sizing:border-box;font-family:Arial,Helvetica,\"Microsoft JhengHei\",sans-serif;font-size:14px;line-height:1.5;}' +
+        'table{border-collapse:collapse;width:100%;}td{border:1px solid #ddd;padding:6px 8px;}' +
+        'h1{font-size:26px;margin:0 0 14px;}h2{font-size:18px;margin:18px 0 8px;}h3{font-size:16px;margin:12px 0 6px;}' +
+        'img{max-width:100%;height:auto;display:block;}' +
+        '*{animation:none!important;transition:none!important;}' +
+        '</style></head><body>' +
+        innerHtml +
+        '</body></html>',
+    );
+    idoc.close();
+
+    var capEl = idoc.body;
+    var h = Math.min(Math.max(capEl.scrollHeight || 2000, 400), 12000);
+    dbg('PDF', 'iframe body 高度≈' + h + ' px');
+
+    await new Promise(function (r) {
+      setTimeout(r, 100);
+    });
 
     var canvasImg;
     try {
-      dbg('PDF', 'html2canvas 執行中（離屏渲染，scale=1，最多約 75 秒）…');
+      dbg('PDF', 'html2canvas(iframe body) 執行中（scale=1，約 60 秒逾時）…');
       canvasImg = await withTimeout(
-        window.html2canvas(pdfContent, {
+        window.html2canvas(capEl, {
           scale: 1,
           backgroundColor: '#ffffff',
           useCORS: true,
@@ -519,22 +546,13 @@
           windowWidth: 820,
           windowHeight: h,
           removeContainer: true,
-          onclone: function (clonedDoc) {
-            try {
-              var st = clonedDoc.createElement('style');
-              st.textContent =
-                '*{animation:none!important;transition:none!important;text-shadow:none!important;}' +
-                'table{border-collapse:collapse;} img{max-width:100%;}';
-              if (clonedDoc.head) clonedDoc.head.appendChild(st);
-            } catch (ocErr) {}
-          },
         }),
-        75000,
-        '產生 PDF 逾時（請關閉其他分頁或改用電腦瀏覽器後再試）',
+        60000,
+        '產生 PDF 逾時（建議改用 Google Chrome；Safari 常見 html2canvas 卡住）',
       );
       dbg('PDF', 'html2canvas 完成，canvas ' + canvasImg.width + 'x' + canvasImg.height);
     } finally {
-      pdfContent.style.cssText = prevCssText;
+      if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
     }
 
     dbg('PDF', 'toDataURL(JPEG)…');
