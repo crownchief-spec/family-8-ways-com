@@ -380,6 +380,44 @@
     return true;
   }
 
+  /** 簽名 PNG 常為高解析 canvas，嵌入 PDF HTML 時縮小可減輕 html2canvas 解碼與記憶體 */
+  function shrinkSignatureDataUrlForPdf(dataUrl, maxWidthPx) {
+    return new Promise(function (resolve) {
+      var url = String(dataUrl || '');
+      if (!url || !/^data:image\/(png|jpeg|jpg);base64,/i.test(url)) {
+        resolve(url);
+        return;
+      }
+      var img = new Image();
+      img.onload = function () {
+        var w = img.naturalWidth || img.width;
+        var h = img.naturalHeight || img.height;
+        if (!w || !h || w <= maxWidthPx) {
+          resolve(url);
+          return;
+        }
+        var nw = maxWidthPx;
+        var nh = Math.max(1, Math.round(h * (nw / w)));
+        var c = document.createElement('canvas');
+        c.width = nw;
+        c.height = nh;
+        var ctx = c.getContext('2d');
+        if (!ctx) {
+          resolve(url);
+          return;
+        }
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, nw, nh);
+        ctx.drawImage(img, 0, 0, nw, nh);
+        resolve(c.toDataURL('image/jpeg', 0.9));
+      };
+      img.onerror = function () {
+        resolve(url);
+      };
+      img.src = url;
+    });
+  }
+
   function pdfHtml(data) {
     function row(label, value) {
       return (
@@ -391,7 +429,7 @@
       );
     }
     return (
-      '<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;color:#111;">' +
+      '<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;color:#111;padding:12px 16px 24px;box-sizing:border-box;">' +
       '<h1 style="font-size:26px;margin:0 0 14px;">小巴老師親子寫真預約確認書</h1>' +
       '<h2 style="font-size:18px;margin:18px 0 8px;">預約資訊</h2><table style="border-collapse:collapse;width:100%;">' +
       row('客戶名稱', data.clientName) +
@@ -477,7 +515,12 @@
       throw new Error('jsPDF 未載入，請重新整理頁面後再試');
     }
 
-    var innerHtml = pdfHtml(data);
+    var sigForPdf = await shrinkSignatureDataUrlForPdf(data.signatureDataUrl, 480);
+    if (sigForPdf !== data.signatureDataUrl) {
+      dbg('PDF', '簽名圖已縮小以利截圖');
+    }
+    var dataForPdf = Object.assign({}, data, { signatureDataUrl: sigForPdf });
+    var innerHtml = pdfHtml(dataForPdf);
     dbg('PDF', '改以隱藏 iframe 載入 HTML，與主頁樣式隔離後再 html2canvas');
 
     if (pdfContent) {
@@ -511,7 +554,7 @@
     idoc.write(
       '<!DOCTYPE html><html><head><meta charset="utf-8">' +
         '<style>' +
-        'html,body{margin:0;padding:12px 16px 24px;background:#fff;color:#111;}' +
+        'html,body{margin:0;padding:0;background:#fff;color:#111;}' +
         'body{width:820px;box-sizing:border-box;font-family:Arial,Helvetica,\"Microsoft JhengHei\",sans-serif;font-size:14px;line-height:1.5;}' +
         'table{border-collapse:collapse;width:100%;}td{border:1px solid #ddd;padding:6px 8px;}' +
         'h1{font-size:26px;margin:0 0 14px;}h2{font-size:18px;margin:18px 0 8px;}h3{font-size:16px;margin:12px 0 6px;}' +
@@ -524,32 +567,84 @@
     idoc.close();
 
     var capEl = idoc.body;
-    var h = Math.min(Math.max(capEl.scrollHeight || 2000, 400), 12000);
-    dbg('PDF', 'iframe body 高度≈' + h + ' px');
+    var totalH = Math.min(Math.max(capEl.scrollHeight || 2000, 400), 12000);
+    dbg('PDF', 'iframe body 高度≈' + totalH + ' px（分段截圖以避免單張過高卡住）');
 
     await new Promise(function (r) {
       setTimeout(r, 100);
     });
 
+    /** 單次 windowHeight 過大時 WebKit 上 html2canvas 易無限卡住，改以窄條分批擷取再垂直拼接 */
+    var STRIP_CSS_PX = 680;
+    var stripCount = Math.max(1, Math.ceil(totalH / STRIP_CSS_PX));
+
     var canvasImg;
     try {
-      dbg('PDF', 'html2canvas(iframe body) 執行中（scale=1，約 60 秒逾時）…');
-      canvasImg = await withTimeout(
-        window.html2canvas(capEl, {
-          scale: 1,
-          backgroundColor: '#ffffff',
-          useCORS: true,
-          allowTaint: false,
-          foreignObjectRendering: false,
-          logging: !!CONTRACT_DEBUG,
-          imageTimeout: 15000,
-          windowWidth: 820,
-          windowHeight: h,
-          removeContainer: true,
-        }),
-        60000,
-        '產生 PDF 逾時（建議改用 Google Chrome；Safari 常見 html2canvas 卡住）',
-      );
+      var strips = [];
+      var yOff = 0;
+      for (var si = 0; si < stripCount; si++) {
+        var sliceH = Math.min(STRIP_CSS_PX, totalH - yOff);
+        if (sliceH <= 0) break;
+        dbg(
+          'PDF',
+          'html2canvas 分段 ' + (si + 1) + '/' + stripCount + '（translateY=-' + yOff + ' 高=' + sliceH + '）…',
+        );
+        var stripCanvas = await withTimeout(
+          window.html2canvas(capEl, {
+            scale: 1,
+            backgroundColor: '#ffffff',
+            useCORS: true,
+            allowTaint: false,
+            foreignObjectRendering: false,
+            logging: !!CONTRACT_DEBUG,
+            imageTimeout: 15000,
+            windowWidth: 820,
+            windowHeight: sliceH,
+            width: 820,
+            height: sliceH,
+            removeContainer: true,
+            onclone: function (clonedDoc) {
+              try {
+                var b = clonedDoc.body;
+                b.style.margin = '0';
+                b.style.padding = '0';
+                b.style.height = sliceH + 'px';
+                b.style.overflow = 'hidden';
+                b.style.background = '#ffffff';
+                var root = b.firstElementChild;
+                if (root && root.nodeType === 1) {
+                  root.style.transform = 'translateY(' + -yOff + 'px)';
+                  root.style.transformOrigin = 'top left';
+                }
+              } catch (ocErr) {}
+            },
+          }),
+          45000,
+          '產生 PDF 逾時（建議改用 Google Chrome；Safari 常見 html2canvas 卡住）',
+        );
+        strips.push(stripCanvas);
+        yOff += sliceH;
+      }
+      if (strips.length === 1) {
+        canvasImg = strips[0];
+      } else {
+        var tw = strips[0].width;
+        var thSum = 0;
+        for (var j = 0; j < strips.length; j++) thSum += strips[j].height;
+        var merged = document.createElement('canvas');
+        merged.width = tw;
+        merged.height = thSum;
+        var mctx = merged.getContext('2d');
+        if (!mctx) throw new Error('無法建立畫布');
+        mctx.fillStyle = '#ffffff';
+        mctx.fillRect(0, 0, tw, thSum);
+        var my = 0;
+        for (var k = 0; k < strips.length; k++) {
+          mctx.drawImage(strips[k], 0, my);
+          my += strips[k].height;
+        }
+        canvasImg = merged;
+      }
       dbg('PDF', 'html2canvas 完成，canvas ' + canvasImg.width + 'x' + canvasImg.height);
     } finally {
       if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
