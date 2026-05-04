@@ -480,23 +480,54 @@
     pdfContent.innerHTML = pdfHtml(data);
     dbg('PDF', '已寫入預覽 HTML，準備 html2canvas');
 
+    if (document.fonts && document.fonts.ready) {
+      try {
+        await document.fonts.ready;
+        dbg('PDF', 'document.fonts.ready');
+      } catch (fontErr) {
+        dbg('PDF', 'fonts.ready 略過');
+      }
+    }
+
+    await new Promise(function (resolve) {
+      requestAnimationFrame(function () {
+        requestAnimationFrame(resolve);
+      });
+    });
+
     var prevCssText = pdfContent.style.cssText;
     pdfContent.style.cssText =
-      'position:fixed;left:0;top:0;width:820px;opacity:0;visibility:hidden;pointer-events:none;' +
-      'background:#fff;color:#111;padding:24px;z-index:2147483646;';
+      'position:absolute;left:-9999px;top:0;width:820px;max-width:820px;' +
+      'opacity:1;visibility:visible;pointer-events:none;overflow:visible;' +
+      'background:#fff;color:#111;padding:24px;z-index:1;' +
+      'font-family:Arial,Helvetica,\"Microsoft JhengHei\",sans-serif;';
+    var h = Math.min(Math.max(pdfContent.scrollHeight || 2400, 400), 12000);
+    dbg('PDF', '截取高度 windowHeight≈' + h + ' px');
 
     var canvasImg;
     try {
-      dbg('PDF', 'html2canvas 執行中（最多約 75 秒）…');
+      dbg('PDF', 'html2canvas 執行中（離屏渲染，scale=1，最多約 75 秒）…');
       canvasImg = await withTimeout(
         window.html2canvas(pdfContent, {
-          scale: 1.5,
+          scale: 1,
           backgroundColor: '#ffffff',
           useCORS: true,
           allowTaint: false,
+          foreignObjectRendering: false,
           logging: !!CONTRACT_DEBUG,
-          imageTimeout: 20000,
+          imageTimeout: 15000,
           windowWidth: 820,
+          windowHeight: h,
+          removeContainer: true,
+          onclone: function (clonedDoc) {
+            try {
+              var st = clonedDoc.createElement('style');
+              st.textContent =
+                '*{animation:none!important;transition:none!important;text-shadow:none!important;}' +
+                'table{border-collapse:collapse;} img{max-width:100%;}';
+              if (clonedDoc.head) clonedDoc.head.appendChild(st);
+            } catch (ocErr) {}
+          },
         }),
         75000,
         '產生 PDF 逾時（請關閉其他分頁或改用電腦瀏覽器後再試）',
