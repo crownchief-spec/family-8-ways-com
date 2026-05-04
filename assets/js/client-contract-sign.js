@@ -102,9 +102,18 @@
       if (ctrl) ctrl.abort();
     }, timeoutMs);
     var opts = ctrl ? Object.assign({}, options, { signal: ctrl.signal }) : options;
-    return fetch(url, opts).finally(function () {
+    var fetchPromise = fetch(url, opts).finally(function () {
       clearTimeout(timer);
     });
+    if (ctrl) return fetchPromise;
+    return Promise.race([
+      fetchPromise,
+      new Promise(function (_, reject) {
+        setTimeout(function () {
+          reject(new Error('寄送請求逾時（請檢查網路或稍後再試）'));
+        }, timeoutMs);
+      }),
+    ]);
   }
 
   function val(name) {
@@ -461,7 +470,6 @@
       subject: '小巴老師親子寫真｜預約確認書｜' + clientName,
       pdfBase64: base64,
       pdfFilename: pdf.filename,
-      formData: data,
     };
     var res = await fetchWithTimeout(
       '/api/send-contract',
@@ -553,13 +561,15 @@
       updateSubmitState(true, false);
       formError.hidden = true;
       if (fallbackPanel) fallbackPanel.hidden = true;
-      if (submitStatus) submitStatus.textContent = '';
+      if (submitStatus) submitStatus.textContent = '正在產生 PDF…';
 
       try {
         var data = collectData();
         var pdf = await generatePdf(data);
         latestPdfBlob = pdf.blob;
         latestPdfFilename = pdf.filename;
+
+        if (submitStatus) submitStatus.textContent = 'PDF 已產生，正在寄送 Email…';
 
         var emailed = false;
         try {
@@ -570,7 +580,15 @@
         }
 
         // 第一階段：僅前端狀態與寄信，不會自動回寫 content/clients/*.md（重新整理會還原）。
-        localStorage.setItem(localKey, JSON.stringify({ data: data, emailed: emailed }));
+        try {
+          localStorage.setItem(localKey, JSON.stringify({ data: data, emailed: emailed }));
+        } catch (quotaErr) {
+          try {
+            var slim = Object.assign({}, data);
+            slim.signatureDataUrl = '';
+            localStorage.setItem(localKey, JSON.stringify({ data: slim, emailed: emailed }));
+          } catch (_) {}
+        }
         revealDeferredBlocks();
         setSignedPanel(data);
         updateSubmitState(false, true);
