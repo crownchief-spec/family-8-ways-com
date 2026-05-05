@@ -10,6 +10,8 @@ type SendContractBody = {
   slug?: string;
   clientName?: string;
   customerEmail?: string;
+  phone?: string;
+  lineName?: string;
   photographerEmail?: string;
   subject?: string;
   pdfBase64?: string;
@@ -44,16 +46,40 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   const slug = String(body.slug || '').trim();
   const clientName = String(body.clientName || '').trim();
   const customerEmail = String(body.customerEmail || '').trim();
-  const pdfBase64 = String(body.pdfBase64 || '').trim();
+  const phone = String(body.phone || '').trim();
+  const lineName = String(body.lineName || '').trim();
+  let pdfBase64 = String(body.pdfBase64 || '').trim().replace(/\s/g, '');
   const pdfFilename = String(body.pdfFilename || '').trim() || `contract-${slug || 'client'}.pdf`;
   const photographerEmail = String(body.photographerEmail || '').trim()
     || context.env.CONTRACT_PHOTOGRAPHER_EMAIL
     || 'crownchief@gmail.com';
 
   if (!slug) return json({ ok: false, message: 'slug 不可空白' }, 400);
-  if (!customerEmail) return json({ ok: false, message: 'customerEmail 不可空白' }, 400);
-  if (!validEmail(customerEmail)) return json({ ok: false, message: 'Email 格式不正確' }, 400);
+  if (customerEmail && !validEmail(customerEmail)) {
+    return json({ ok: false, message: '客戶 Email 格式不正確' }, 400);
+  }
+  if (!phone && !lineName && !customerEmail) {
+    return json(
+      { ok: false, message: '至少需要一種客戶聯絡方式（電話、LINE 或 Email）' },
+      400,
+    );
+  }
   if (!pdfBase64) return json({ ok: false, message: 'pdfBase64 不可空白' }, 400);
+
+  try {
+    const binary = Uint8Array.from(atob(pdfBase64), (c) => c.charCodeAt(0));
+    const isPdf =
+      binary.length >= 4
+      && binary[0] === 0x25
+      && binary[1] === 0x50
+      && binary[2] === 0x44
+      && binary[3] === 0x46;
+    if (!isPdf) {
+      return json({ ok: false, message: '附件不是有效的 PDF（請重新送出合約）' }, 400);
+    }
+  } catch {
+    return json({ ok: false, message: 'PDF 附件編碼無法解析' }, 400);
+  }
   if (!validEmail(photographerEmail)) {
     return json({ ok: false, message: '攝影師信箱設定不正確' }, 400);
   }
@@ -80,14 +106,26 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   }
 
   const fromEmail = context.env.CONTRACT_FROM_EMAIL || 'Family Contract <onboarding@resend.dev>';
+  const contactBits = [
+    customerEmail ? `Email：${customerEmail}` : '',
+    phone ? `電話：${phone}` : '',
+    lineName ? `LINE：${lineName}` : '',
+  ].filter(Boolean);
+
   const subject =
     body.subject
-    || `【備份】預約確認書｜${clientName || slug}｜客戶 ${customerEmail}`;
+    || `【備份】預約確認書｜${clientName || slug}${
+      customerEmail ? `｜${customerEmail}` : ''
+    }`;
+
   const text = [
     '此為後台備份信：客戶已在網站完成簽名，並應已下載預約確認書 PDF。',
-    `客戶填寫的 Email：${customerEmail}`,
+    ...contactBits,
     '請保留附件以利對帳；若未收到此信，請請客戶轉傳已下載的 PDF。',
   ].join('\n');
+
+  /** 郵件附件檔名僅用 ASCII，避免部分信件閘道對檔名編碼異常導致附件毀損 */
+  const asciiAttachName = `contract-${slug.replace(/[^a-zA-Z0-9_-]/g, '-')}.pdf`;
 
   const basePayload = {
     from: fromEmail,
@@ -95,7 +133,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     text,
     attachments: [
       {
-        filename: pdfFilename,
+        filename: asciiAttachName,
         content: pdfBase64,
       },
     ],

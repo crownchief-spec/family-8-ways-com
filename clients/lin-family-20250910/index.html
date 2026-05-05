@@ -148,9 +148,10 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
         <label class="field"><span>攝影師如何稱呼爸爸</span><input name="fatherName" type="text" placeholder="例如：爸爸、John、阿宏" value="" /></label>
         <label class="field"><span>攝影師如何稱呼媽媽</span><input name="motherName" type="text" placeholder="例如：媽媽、Amy、小君" value="" /></label>
         <label class="field"><span>主要聯絡人姓名</span><input name="contactName" type="text" value="林先生" /></label>
-        <label class="field"><span>聯絡電話</span><input name="phone" type="text" value="" /></label>
-        <label class="field"><span>Email（必填）</span><input name="customerEmail" type="email" value="" required /></label>
-        <label class="field"><span>LINE 顯示名稱或 LINE ID</span><input name="lineName" type="text" value="" /></label>
+        <label class="field"><span>聯絡電話（建議填）</span><input name="phone" type="text" autocomplete="tel" value="" /></label>
+        <label class="field"><span>LINE 顯示名稱或 LINE ID（建議填）</span><input name="lineName" type="text" value="" /></label>
+        <label class="field"><span>Email（選填）</span><input name="customerEmail" type="email" autocomplete="email" value="" /></label>
+        <p class="muted" style="margin:-0.25rem 0 0.5rem;font-size:0.9rem;">電話、LINE、Email 請至少填寫一種，方便攝影師聯繫。</p>
         <label class="field"><span>客戶確認入鏡大人人數</span><input name="clientAdultCount" type="number" min="0" value="2" /></label>
         <label class="field"><span>客戶確認入鏡小孩人數</span><input name="clientChildCount" type="number" min="0" value="1" /></label>
       </div>

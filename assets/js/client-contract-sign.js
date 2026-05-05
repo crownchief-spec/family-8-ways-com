@@ -363,14 +363,30 @@
     if (data.signatureDataUrl) signedImageEl.src = data.signatureDataUrl;
   }
 
+  function validEmailFormat(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || '').trim());
+  }
+
+  /** 電話、LINE、Email 至少一種（Email 選填；有填則檢查格式） */
+  function hasAnyContactChannel() {
+    return !!(val('phone') || val('lineName') || val('customerEmail'));
+  }
+
   function validate() {
     formError.hidden = true;
     signError.hidden = true;
 
-    if (!val('customerEmail')) {
-      dbg('驗證失敗', '未填 Email');
+    if (!hasAnyContactChannel()) {
+      dbg('驗證失敗', '未填任何聯絡方式');
       formError.hidden = false;
-      formError.textContent = '請填寫 Email';
+      formError.textContent =
+        '請至少填寫一種聯絡方式：聯絡電話、LINE 或 Email（可擇一；Email 非必填）。';
+      return false;
+    }
+    if (val('customerEmail') && !validEmailFormat(val('customerEmail'))) {
+      dbg('驗證失敗', 'Email 格式錯誤');
+      formError.hidden = false;
+      formError.textContent = 'Email 格式不正確，若不需要留 Email 可清空欄位。';
       return false;
     }
     if (!anyNameFilled()) {
@@ -811,6 +827,8 @@
       slug: slug,
       clientName: clientName,
       customerEmail: data.customerEmail,
+      phone: data.phone,
+      lineName: data.lineName,
       photographerEmail: photographerEmail,
       subject: '小巴老師親子寫真｜預約確認書｜' + clientName,
       pdfBase64: base64,

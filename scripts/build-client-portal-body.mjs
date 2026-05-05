@@ -140,9 +140,10 @@ export function buildClientPortalBody(c, site, { escapeHtml, isPresent }) {
         <label class="field"><span>攝影師如何稱呼爸爸</span><input name="fatherName" type="text" placeholder="例如：爸爸、John、阿宏" value="${escapeHtml(c.fatherName || '')}" /></label>
         <label class="field"><span>攝影師如何稱呼媽媽</span><input name="motherName" type="text" placeholder="例如：媽媽、Amy、小君" value="${escapeHtml(c.motherName || '')}" /></label>
         <label class="field"><span>主要聯絡人姓名</span><input name="contactName" type="text" value="${escapeHtml(c.contactName || '')}" /></label>
-        <label class="field"><span>聯絡電話</span><input name="phone" type="text" value="${escapeHtml(c.phone || '')}" /></label>
-        <label class="field"><span>Email（必填）</span><input name="customerEmail" type="email" value="${escapeHtml(c.customerEmail || c.email || '')}" required /></label>
-        <label class="field"><span>LINE 顯示名稱或 LINE ID</span><input name="lineName" type="text" value="${escapeHtml(c.lineName || '')}" /></label>
+        <label class="field"><span>聯絡電話（建議填）</span><input name="phone" type="text" autocomplete="tel" value="${escapeHtml(c.phone || '')}" /></label>
+        <label class="field"><span>LINE 顯示名稱或 LINE ID（建議填）</span><input name="lineName" type="text" value="${escapeHtml(c.lineName || '')}" /></label>
+        <label class="field"><span>Email（選填）</span><input name="customerEmail" type="email" autocomplete="email" value="${escapeHtml(c.customerEmail || c.email || '')}" /></label>
+        <p class="muted" style="margin:-0.25rem 0 0.5rem;font-size:0.9rem;">電話、LINE、Email 請至少填寫一種，方便攝影師聯繫。</p>
         <label class="field"><span>客戶確認入鏡大人人數</span><input name="clientAdultCount" type="number" min="0" value="${escapeHtml(clientAdultDefault)}" /></label>
         <label class="field"><span>客戶確認入鏡小孩人數</span><input name="clientChildCount" type="number" min="0" value="${escapeHtml(clientChildDefault)}" /></label>
       </div>
