@@ -2,6 +2,8 @@ interface Env {
   RESEND_API_KEY?: string;
   CONTRACT_FROM_EMAIL?: string;
   CONTRACT_PHOTOGRAPHER_EMAIL?: string;
+  /** 設為 1 / true 時不呼叫 Resend（客戶端仍會收到 skipped 成功，方便純下載流程） */
+  CONTRACT_DISABLE_EMAIL?: string;
 }
 
 type SendContractBody = {
@@ -26,6 +28,11 @@ function validEmail(value: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
+function truthyEnv(v: string | undefined): boolean {
+  const s = String(v || '').trim().toLowerCase();
+  return s === '1' || s === 'true' || s === 'yes';
+}
+
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   let body: SendContractBody;
   try {
@@ -47,35 +54,40 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   if (!customerEmail) return json({ ok: false, message: 'customerEmail 不可空白' }, 400);
   if (!validEmail(customerEmail)) return json({ ok: false, message: 'Email 格式不正確' }, 400);
   if (!pdfBase64) return json({ ok: false, message: 'pdfBase64 不可空白' }, 400);
+  if (!validEmail(photographerEmail)) {
+    return json({ ok: false, message: '攝影師信箱設定不正確' }, 400);
+  }
+
+  /** 純下載流程：不寄任何信 */
+  if (truthyEnv(context.env.CONTRACT_DISABLE_EMAIL)) {
+    return json({
+      ok: true,
+      skipped: true,
+      reason: 'disabled',
+      message: '未寄信（後台已關閉合約備份信）',
+    });
+  }
 
   const apiKey = context.env.RESEND_API_KEY;
   if (!apiKey) {
-    return json({ ok: false, message: '尚未設定 Email API，請下載 PDF 後手動傳送。' }, 503);
+    /** 未設定 API 時不視為錯誤，避免客戶端以為整份流程失敗 */
+    return json({
+      ok: true,
+      skipped: true,
+      reason: 'no_api_key',
+      message: '未設定 Email API，略過攝影師信箱備份',
+    });
   }
 
   const fromEmail = context.env.CONTRACT_FROM_EMAIL || 'Family Contract <onboarding@resend.dev>';
-  const subject = body.subject || `小巴老師親子寫真｜預約確認書｜${clientName || slug}`;
+  const subject =
+    body.subject
+    || `【備份】預約確認書｜${clientName || slug}｜客戶 ${customerEmail}`;
   const text = [
-    '您好，附件為本次親子寫真的預約確認書 PDF。',
-    '請確認內容並完成訂金付款，匯款後請將末五碼傳給小巴老師確認。',
-    '若您已付款，攝影師確認款項後會正式保留拍攝檔期。',
-    '如內容有需要調整，請直接透過 Line 聯繫小巴老師。',
+    '此為後台備份信：客戶已在網站完成簽名，並應已下載預約確認書 PDF。',
+    `客戶填寫的 Email：${customerEmail}`,
+    '請保留附件以利對帳；若未收到此信，請請客戶轉傳已下載的 PDF。',
   ].join('\n');
-
-  /** 每位收件人各呼叫一次 Resend。測試模式若「客戶信」不允許，整批 to:[客戶,攝影師] 會全失敗，導致連攝影師也收不到。 */
-  const recipients = (() => {
-    const seen = new Set<string>();
-    const out: string[] = [];
-    for (const raw of [customerEmail, photographerEmail]) {
-      const e = String(raw || '').trim();
-      if (!e) continue;
-      const k = e.toLowerCase();
-      if (seen.has(k)) continue;
-      seen.add(k);
-      out.push(e);
-    }
-    return out;
-  })();
 
   const basePayload = {
     from: fromEmail,
@@ -89,48 +101,34 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     ],
   };
 
-  const sent: string[] = [];
-  const failures: { email: string; detail: string }[] = [];
+  /** 只寄給攝影師；不向客戶信箱寄送（避免 Resend／網域驗證問題打斷流程） */
+  const resp = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      ...basePayload,
+      to: [photographerEmail],
+    }),
+  });
 
-  for (const toAddr of recipients) {
-    const resp = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        ...basePayload,
-        to: [toAddr],
-      }),
-    });
-    if (resp.ok) {
-      sent.push(toAddr);
-    } else {
-      const detail = await resp.text();
-      failures.push({ email: toAddr, detail });
-    }
-  }
-
-  if (sent.length === 0) {
+  if (!resp.ok) {
+    const detail = await resp.text();
     return json(
       {
         ok: false,
-        message: `Resend 寄送失敗：${failures.map((f) => `${f.email}: ${f.detail}`).join(' | ')}`,
-        failures,
+        message: `Resend 寄送失敗（攝影師備份）：${detail}`,
       },
       500,
     );
   }
 
-  const partial = failures.length > 0;
   return json({
     ok: true,
-    message: partial
-      ? `已寄出 ${sent.length} 封；另有 ${failures.length} 個地址被拒（尚未驗證網域時，測試帳只能寄到特定信箱）。請至 Resend 驗證網域後再寄給客戶。`
-      : '合約 PDF 已寄出',
-    sentTo: sent,
-    partial,
-    failures: partial ? failures : undefined,
+    skipped: false,
+    message: '攝影師備份信已寄出',
+    sentTo: [photographerEmail],
   });
 };

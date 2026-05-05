@@ -178,7 +178,7 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
       <input type="hidden" id="client-signed-at" />
 
       <h2 class="h2" style="margin-top:var(--space-xl);">送出合約並產生 PDF</h2>
-      <p class="muted no-print">送出後會產生合約 PDF；若已設定 Email API，系統會將 PDF 寄到您填寫的 Email 與攝影師信箱。</p>
+      <p class="muted no-print">送出後會立即產生合約 PDF 並下載到您的裝置；攝影師端可能另收到備份信（依後台設定，用於存檔）。</p>
       <div class="hero__actions no-print">
         <button class="btn btn--primary" type="submit" id="client-submit-contract">送出合約並產生 PDF</button>
       </div>
@@ -187,7 +187,7 @@ if(lp===path||(path==="/"&&(h==="/"||h==="/index.html")))link.setAttribute("aria
         <button class="btn btn--secondary" type="button" id="client-download-pdf">下載合約 PDF</button>
       </div>
       <div class="card card--flat no-print" id="contract-email-fallback" hidden style="margin-top:var(--space-md);padding:var(--space-md);">
-        <p class="muted" style="margin-top:0;">合約 PDF 已產生，但目前系統尚未完成自動寄信設定。請先下載 PDF，並透過 Line 傳給小巴老師，或等待攝影師協助確認。</p>
+        <p class="muted" style="margin-top:0;">若攝影師端未自動收到備份，請將已下載的 PDF 傳給小巴老師（Line／Email），以免漏單。</p>
         <div class="hero__actions" style="flex-wrap:wrap;">
           <button class="btn btn--secondary" type="button" id="client-copy-photographer-email">複製攝影師 Email</button>
           <a class="btn btn--primary" id="client-fallback-line" href="https://line.me/ti/p/0911252302" target="_blank" rel="noopener noreferrer">開啟 Line 聯絡</a>

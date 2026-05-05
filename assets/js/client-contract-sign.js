@@ -842,38 +842,42 @@
     return json;
   }
 
-  function showEmailSuccess(data, sendResult) {
+  /**
+   * 主流程以「下載 PDF」為準；寄信僅嘗試傳 PDF 備份給攝影師，失敗不阻擋成功狀態。
+   */
+  function showContractFlowComplete(data, outcome) {
+    var sendResult = outcome.sendResult;
+    var mailErr = outcome.mailError;
+
+    if (downloadWrap) downloadWrap.hidden = false;
+
+    if (statusContract) {
+      statusContract.textContent = '合約狀態：PDF 已產生（已下載）';
+    }
+
+    if (mailErr) {
+      if (fallbackPanel) fallbackPanel.hidden = false;
+      if (submitStatus) {
+        submitStatus.textContent =
+          '合約 PDF 已下載到您的裝置。攝影師備份信未能自動送出，請將此 PDF 傳給小巴老師（Line／Email），以免漏單。';
+      }
+      return;
+    }
+
     if (fallbackPanel) fallbackPanel.hidden = true;
-    if (statusContract) statusContract.textContent = '合約狀態：PDF 已寄出';
+
     if (submitStatus) {
-      var sentList =
-        sendResult && Array.isArray(sendResult.sentTo) && sendResult.sentTo.length
-          ? sendResult.sentTo.join('、')
-          : [data.customerEmail, photographerEmail].filter(Boolean).join('、');
-      if (sendResult && sendResult.partial) {
+      var base =
+        '合約 PDF 已下載到您的裝置，請自行保留檔案。若瀏覽器未跳出下載，可按下方「下載合約 PDF」。';
+      if (sendResult && sendResult.skipped) {
+        submitStatus.textContent = base;
+      } else if (sendResult && sendResult.ok && sendResult.sentTo && sendResult.sentTo.length) {
         submitStatus.textContent =
-          '合約 PDF 已寄出至：' +
-          sentList +
-          '。（客戶信箱若未收到，可能是 Resend 測試限制：請驗證網域後再寄；請也檢查垃圾郵件匣。）';
+          base + ' 系統已將同一份 PDF 副本寄至攝影師信箱備份。';
       } else {
-        submitStatus.textContent =
-          '合約 PDF 已寄出至 ' +
-          data.customerEmail +
-          ' 與 ' +
-          photographerEmail +
-          '。請留意信箱；若未收到，請下載 PDF 並透過 Line 聯繫小巴老師。';
+        submitStatus.textContent = base;
       }
     }
-  }
-
-  function showEmailFallback() {
-    if (fallbackPanel) fallbackPanel.hidden = false;
-    if (statusContract) statusContract.textContent = '合約狀態：PDF 已產生，尚未寄出';
-    if (submitStatus) {
-      submitStatus.textContent =
-        '合約 PDF 已產生，但目前系統尚未完成自動寄信設定。請先下載 PDF，並透過 Line 傳給小巴老師，或等待攝影師協助確認。';
-    }
-    if (downloadWrap) downloadWrap.hidden = false;
   }
 
   function init() {
@@ -936,47 +940,49 @@
         latestPdfBlob = pdf.blob;
         latestPdfFilename = pdf.filename;
 
-        if (submitStatus) submitStatus.textContent = 'PDF 已產生，正在寄送 Email…';
+        if (submitStatus) submitStatus.textContent = 'PDF 已產生，正在下載…';
+        downloadPdf();
 
-        var emailed = false;
+        if (submitStatus) submitStatus.textContent = '正在傳送攝影師備份（可略過）…';
+
         var sendResult = null;
+        var mailError = null;
         try {
           sendResult = await sendContract(data, pdf);
-          emailed = true;
         } catch (sendErr) {
-          emailed = false;
-          dbg(
-            '寄信未完成',
-            sendErr && sendErr.message ? sendErr.message : String(sendErr),
-          );
+          mailError = sendErr && sendErr.message ? sendErr.message : String(sendErr);
+          dbg('攝影師備份信未完成', mailError);
         }
 
-        // 第一階段：僅前端狀態與寄信，不會自動回寫 content/clients/*.md（重新整理會還原）。
+        var photographerBackupSent = !!(sendResult && sendResult.ok && !sendResult.skipped);
+
         try {
-          localStorage.setItem(localKey, JSON.stringify({ data: data, emailed: emailed }));
+          localStorage.setItem(
+            localKey,
+            JSON.stringify({ data: data, emailed: photographerBackupSent }),
+          );
         } catch (quotaErr) {
           try {
             var slim = Object.assign({}, data);
             slim.signatureDataUrl = '';
-            localStorage.setItem(localKey, JSON.stringify({ data: slim, emailed: emailed }));
+            localStorage.setItem(
+              localKey,
+              JSON.stringify({ data: slim, emailed: photographerBackupSent }),
+            );
           } catch (_) {}
         }
         revealDeferredBlocks();
         setSignedPanel(data);
         updateSubmitState(false, true);
 
-        if (emailed) {
-          showEmailSuccess(data, sendResult);
-        } else {
-          showEmailFallback();
-        }
+        showContractFlowComplete(data, { sendResult: sendResult, mailError: mailError });
         dbg(
           '流程結束',
-          emailed
-            ? sendResult && sendResult.partial
-              ? '至少一封寄出成功（可能僅攝影師）'
-              : '已嘗試寄信且成功'
-            : 'PDF 完成（寄信失敗或未設定 API 時可下載）',
+          photographerBackupSent
+            ? 'PDF 已下載且攝影師備份信已送出'
+            : mailError
+              ? 'PDF 已下載；攝影師備份信失敗'
+              : 'PDF 已下載（未寄備份或未設定 API）',
         );
         form.dataset.contractComplete = '1';
       } catch (err) {
