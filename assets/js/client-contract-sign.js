@@ -56,8 +56,8 @@
   var isSubmitting = false;
   var latestPdfBlob = null;
   var latestPdfFilename = '';
-  /** 首次下載 Noto Sans TC 後，存成 binary string 供 addFileToVFS（不可誤用 base64 字串當字型檔） */
-  var notoFontBinaryStringCache = null;
+  /** jsPDF addFileToVFS 若傳二進位字串會導致字型 metrics 不完整（getCharWidthsArray 報錯）；改回與官方／fontconverter 相同：傳 base64 字串 */
+  var notoFontBase64Cache = null;
 
   /** 除錯模式：網址加 ?contract_debug=1 或 console 執行 localStorage.setItem('family_contract_debug','1') 後重整 */
   var CONTRACT_DEBUG = false;
@@ -542,22 +542,8 @@
     });
   }
 
-  /** jsPDF addFileToVFS 需要字型檔的「二進位字串」，誤傳 base64 會導致嵌入錯誤、中文全變亂碼 */
-  function arrayBufferToBinaryString(ab) {
-    var uint8 = new Uint8Array(ab);
-    var len = uint8.length;
-    var chunk = 0x8000;
-    var out = '';
-    for (var i = 0; i < len; i += chunk) {
-      var end = Math.min(i + chunk, len);
-      var slice = uint8.subarray(i, end);
-      out += String.fromCharCode.apply(null, slice);
-    }
-    return out;
-  }
-
   async function ensureNotoChineseFont(doc) {
-    if (!notoFontBinaryStringCache) {
+    if (!notoFontBase64Cache) {
       dbg('PDF', '下載 PDF 繁體字型 Noto Sans TC（約 5.4MB，僅首次）…');
       var res = await withTimeout(
         fetch(NOTO_SANS_TC_OTF_URL, { mode: 'cors', credentials: 'omit' }),
@@ -566,10 +552,10 @@
       );
       if (!res.ok) throw new Error('無法下載 PDF 中文字型（HTTP ' + res.status + '）');
       var ab = await res.arrayBuffer();
-      notoFontBinaryStringCache = arrayBufferToBinaryString(ab);
-      dbg('PDF', '字型二進位已快取於記憶體（本分頁不重複下載）');
+      notoFontBase64Cache = await arrayBufferToBase64(ab);
+      dbg('PDF', '字型 base64 已快取於記憶體（本分頁不重複下載）');
     }
-    doc.addFileToVFS('NotoSansTC-Regular.otf', notoFontBinaryStringCache);
+    doc.addFileToVFS('NotoSansTC-Regular.otf', notoFontBase64Cache);
     doc.addFont('NotoSansTC-Regular.otf', 'NotoSansTC', 'normal');
     doc.setFont('NotoSansTC', 'normal');
   }
