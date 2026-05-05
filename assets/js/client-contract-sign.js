@@ -842,16 +842,27 @@
     return json;
   }
 
-  function showEmailSuccess(data) {
+  function showEmailSuccess(data, sendResult) {
     if (fallbackPanel) fallbackPanel.hidden = true;
     if (statusContract) statusContract.textContent = '合約狀態：PDF 已寄出';
     if (submitStatus) {
-      submitStatus.textContent =
-        '合約 PDF 已寄出至 ' +
-        data.customerEmail +
-        ' 與 ' +
-        photographerEmail +
-        '。請留意信箱；若未收到，請下載 PDF 並透過 Line 聯繫小巴老師。';
+      var sentList =
+        sendResult && Array.isArray(sendResult.sentTo) && sendResult.sentTo.length
+          ? sendResult.sentTo.join('、')
+          : [data.customerEmail, photographerEmail].filter(Boolean).join('、');
+      if (sendResult && sendResult.partial) {
+        submitStatus.textContent =
+          '合約 PDF 已寄出至：' +
+          sentList +
+          '。（客戶信箱若未收到，可能是 Resend 測試限制：請驗證網域後再寄；請也檢查垃圾郵件匣。）';
+      } else {
+        submitStatus.textContent =
+          '合約 PDF 已寄出至 ' +
+          data.customerEmail +
+          ' 與 ' +
+          photographerEmail +
+          '。請留意信箱；若未收到，請下載 PDF 並透過 Line 聯繫小巴老師。';
+      }
     }
   }
 
@@ -928,8 +939,9 @@
         if (submitStatus) submitStatus.textContent = 'PDF 已產生，正在寄送 Email…';
 
         var emailed = false;
+        var sendResult = null;
         try {
-          await sendContract(data, pdf);
+          sendResult = await sendContract(data, pdf);
           emailed = true;
         } catch (sendErr) {
           emailed = false;
@@ -954,11 +966,18 @@
         updateSubmitState(false, true);
 
         if (emailed) {
-          showEmailSuccess(data);
+          showEmailSuccess(data, sendResult);
         } else {
           showEmailFallback();
         }
-        dbg('流程結束', emailed ? '已嘗試寄信且成功' : 'PDF 完成（寄信失敗或未設定 API 時可下載）');
+        dbg(
+          '流程結束',
+          emailed
+            ? sendResult && sendResult.partial
+              ? '至少一封寄出成功（可能僅攝影師）'
+              : '已嘗試寄信且成功'
+            : 'PDF 完成（寄信失敗或未設定 API 時可下載）',
+        );
         form.dataset.contractComplete = '1';
       } catch (err) {
         formError.hidden = false;

@@ -62,9 +62,23 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     '如內容有需要調整，請直接透過 Line 聯繫小巴老師。',
   ].join('\n');
 
-  const resendPayload = {
+  /** 每位收件人各呼叫一次 Resend。測試模式若「客戶信」不允許，整批 to:[客戶,攝影師] 會全失敗，導致連攝影師也收不到。 */
+  const recipients = (() => {
+    const seen = new Set<string>();
+    const out: string[] = [];
+    for (const raw of [customerEmail, photographerEmail]) {
+      const e = String(raw || '').trim();
+      if (!e) continue;
+      const k = e.toLowerCase();
+      if (seen.has(k)) continue;
+      seen.add(k);
+      out.push(e);
+    }
+    return out;
+  })();
+
+  const basePayload = {
     from: fromEmail,
-    to: [customerEmail, photographerEmail],
     subject,
     text,
     attachments: [
@@ -75,23 +89,48 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     ],
   };
 
-  const resp = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(resendPayload),
-  });
+  const sent: string[] = [];
+  const failures: { email: string; detail: string }[] = [];
 
-  if (!resp.ok) {
-    const detail = await resp.text();
-    return json({ ok: false, message: `Resend 寄送失敗：${detail}` }, 500);
+  for (const toAddr of recipients) {
+    const resp = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        ...basePayload,
+        to: [toAddr],
+      }),
+    });
+    if (resp.ok) {
+      sent.push(toAddr);
+    } else {
+      const detail = await resp.text();
+      failures.push({ email: toAddr, detail });
+    }
   }
 
+  if (sent.length === 0) {
+    return json(
+      {
+        ok: false,
+        message: `Resend 寄送失敗：${failures.map((f) => `${f.email}: ${f.detail}`).join(' | ')}`,
+        failures,
+      },
+      500,
+    );
+  }
+
+  const partial = failures.length > 0;
   return json({
     ok: true,
-    message: '合約 PDF 已寄出',
-    sentTo: [customerEmail, photographerEmail],
+    message: partial
+      ? `已寄出 ${sent.length} 封；另有 ${failures.length} 個地址被拒（尚未驗證網域時，測試帳只能寄到特定信箱）。請至 Resend 驗證網域後再寄給客戶。`
+      : '合約 PDF 已寄出',
+    sentTo: sent,
+    partial,
+    failures: partial ? failures : undefined,
   });
 };
