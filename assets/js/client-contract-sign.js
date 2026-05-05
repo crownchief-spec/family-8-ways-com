@@ -868,17 +868,18 @@
     dbg('寄信', 'blob → base64…');
     var base64 = await blobToBase64(pdf.blob);
     dbg('寄信', 'base64 長度 ' + base64.length + ' 字元');
-    var body = {
-      slug: slug,
-      clientName: clientName,
-      customerEmail: data.customerEmail,
-      phone: data.phone,
-      lineName: data.lineName,
+    /** 寄給攝影師的信件：後端依欄位組主旨與長文內文（供 Gmail 搜尋）；不上傳簽名圖 base64 減少 JSON 體積 */
+    var snapshot = {};
+    for (var k in data) {
+      if (!Object.prototype.hasOwnProperty.call(data, k)) continue;
+      if (k === 'signatureDataUrl') continue;
+      snapshot[k] = data[k];
+    }
+    var body = Object.assign({}, snapshot, {
       photographerEmail: photographerEmail,
-      subject: '小巴老師親子寫真｜預約確認書｜' + clientName,
       pdfBase64: base64,
       pdfFilename: pdf.filename,
-    };
+    });
     var bodyStr = JSON.stringify(body);
     dbg('寄信', 'POST /api/send-contract，JSON 約 ' + Math.round(bodyStr.length / 1024) + ' KB');
     var res = await fetchWithTimeout(
