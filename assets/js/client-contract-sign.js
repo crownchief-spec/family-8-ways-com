@@ -581,9 +581,14 @@
   }
 
   function pdfTwoColumnTable(doc, startY, margin, rows) {
+    doc.setFont('NotoSansTC', 'normal');
     var body = rows.map(function (r) {
       return [String(r[0] || ''), r[1] == null ? '' : String(r[1])];
     });
+    /**
+     * autotable 預設仍用 Helvetica 畫儲存格文字，中文會變成「空白」。
+     * 必須在每個儲存格強制 font，並同步 bodyStyles / columnStyles。
+     */
     doc.autoTable({
       startY: startY,
       margin: { left: margin, right: margin },
@@ -599,12 +604,35 @@
         overflow: 'linebreak',
         lineColor: [210, 210, 210],
         lineWidth: 0.05,
+        textColor: [20, 20, 20],
+      },
+      bodyStyles: {
+        font: 'NotoSansTC',
+        fontStyle: 'normal',
       },
       columnStyles: {
-        0: { cellWidth: 46 },
-        1: { cellWidth: 'auto' },
+        0: {
+          cellWidth: 46,
+          font: 'NotoSansTC',
+          fontStyle: 'normal',
+        },
+        1: {
+          cellWidth: 'auto',
+          font: 'NotoSansTC',
+          fontStyle: 'normal',
+        },
+      },
+      didParseCell: function (data) {
+        if (data.cell && data.cell.styles) {
+          data.cell.styles.font = 'NotoSansTC';
+          data.cell.styles.fontStyle = 'normal';
+        }
+      },
+      willDrawCell: function () {
+        doc.setFont('NotoSansTC', 'normal');
       },
     });
+    doc.setFont('NotoSansTC', 'normal');
     return doc.lastAutoTable.finalY + 4;
   }
 
@@ -725,6 +753,7 @@
       ['付款備註', d.paymentNote],
     ]);
 
+    doc.setFont('NotoSansTC', 'normal');
     doc.setFontSize(9);
     doc.setTextColor(70, 70, 70);
     var tipLines = doc.splitTextToSize(
@@ -758,6 +787,7 @@
       ['注意事項', d.specialNotes],
     ]);
 
+    doc.setFont('NotoSansTC', 'normal');
     doc.setFontSize(9);
     var ack = doc.splitTextToSize(
       '客戶已閱讀本頁預約與補充資料，並以下方電子簽名確認。',
@@ -778,6 +808,7 @@
     y = pdfSectionHeading(doc, y, margin, '攝影師聯絡資訊');
     var contactTxt =
       '小巴老師｜親子寫真\nLine／電話：0911-252-302\nWhatsApp：+886 911252302\nEmail：crownchief@gmail.com';
+    doc.setFont('NotoSansTC', 'normal');
     doc.setFontSize(10);
     var contactLines = doc.splitTextToSize(contactTxt, pageW - margin * 2);
     doc.text(contactLines, margin, y);
