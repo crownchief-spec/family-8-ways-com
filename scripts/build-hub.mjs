@@ -63,6 +63,65 @@ function readMdDir(dir) {
     });
 }
 
+/**
+ * 新作品採「日期＋中文案件名稱」資料夾保存；對外網址一律使用 article.md 的 slug。
+ * _template 與隱藏資料夾僅供建立案件時複製，不會被當成公開內容。
+ */
+function readPortfolioEntries() {
+  const base = join(ROOT, 'content', 'portfolio');
+  if (!existsSync(base)) return [];
+  const items = [];
+  const walk = (dir) => {
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      if (!entry.isDirectory() || entry.name.startsWith('.') || entry.name.startsWith('_')) continue;
+      const folder = join(dir, entry.name);
+      const article = join(folder, 'article.md');
+      if (existsSync(article)) {
+        const raw = readFileSync(article, 'utf8');
+        const { data, content } = matter(raw);
+        items.push({
+          file: 'article.md',
+          base: data.slug || entry.name,
+          data,
+          content,
+          bodyMd: content,
+          sourceFolder: folder,
+        });
+      }
+      walk(folder);
+    }
+  };
+  walk(base);
+  return items;
+}
+
+function readWorks() {
+  const legacy = readMdDir('content/works');
+  const portfolio = readPortfolioEntries();
+  const publishedPortfolio = portfolio.filter((entry) => {
+    const d = entry.data || {};
+    if (d.draft || d.status === 'draft' || d.status === 'private' || d.status === 'review') return false;
+    const required = ['caseId', 'slug', 'title', 'description', 'date', 'category', 'location', 'coverImage', 'coverImageAlt', 'privacy'];
+    const missing = required.filter((key) => !String(d[key] || '').trim());
+    if (missing.length) throw new Error(`作品資料不完整：${entry.sourceFolder}（缺少 ${missing.join('、')}）`);
+    if (d.privacy !== 'public-approved') throw new Error(`公開作品必須設定 privacy: public-approved：${entry.sourceFolder}`);
+    return true;
+  });
+  const works = [...legacy, ...publishedPortfolio].filter((entry) => !entry.data.draft);
+  const seenSlugs = new Set();
+  const seenCaseIds = new Set();
+  for (const work of works) {
+    const slug = String(work.data.slug || work.base);
+    if (seenSlugs.has(slug)) throw new Error(`作品 slug 重複：${slug}`);
+    seenSlugs.add(slug);
+    if (work.data.caseId) {
+      if (seenCaseIds.has(work.data.caseId)) throw new Error(`作品 caseId 重複：${work.data.caseId}`);
+      seenCaseIds.add(work.data.caseId);
+    }
+  }
+  return works;
+}
+
 /** 合併 content/clients 與 src/content/clients；同 slug 以 content/clients 為準 */
 function readAllClientEntries() {
   const dirs = ['content/clients', 'src/content/clients'];
@@ -153,7 +212,7 @@ function escapeXml(s) {
 /* ---------- prepare ---------- */
 
 export function runPrepare() {
-  const works = readMdDir('content/works').filter((e) => !e.data.draft);
+  const works = readWorks();
   const articles = readMdDir('content/articles').filter((e) => !e.data.draft);
 
   const sortedWorks = works.sort((a, b) => (a.data.date < b.data.date ? 1 : -1));
@@ -441,8 +500,9 @@ function relatedArticlesHtml(slugs, artBySlug) {
 }
 
 function runPages() {
-  const works = readMdDir('content/works').filter((e) => !e.data.draft);
+  const works = readWorks();
   const articles = readMdDir('content/articles').filter((e) => !e.data.draft);
+  const reviews = readMdDir('content/reviews').filter((e) => !e.data.draft && e.data.status !== 'private');
   const clientEntries = readAllClientEntries()
     .filter((e) => !e.data.draft)
     .map((entry) => {
@@ -571,6 +631,13 @@ function runPages() {
 <div class="lightbox" id="work-lightbox" hidden data-lightbox-modal><button type="button" class="lightbox__close" data-lightbox-close aria-label="關閉">×</button><button type="button" class="lightbox__prev" data-lightbox-prev aria-label="上一張">‹</button><button type="button" class="lightbox__next" data-lightbox-next aria-label="下一張">›</button><div class="lightbox__stage"><img src="" alt="" data-lightbox-img/></div></div>
 <script>(function(){var root=document.querySelector("[data-lightbox-root]");if(!root)return;var modal=document.querySelector("[data-lightbox-modal]");var img=modal.querySelector("[data-lightbox-img]");var btns=root.querySelectorAll("[data-lightbox-src]");var list=[].map.call(btns,function(b){return b.getAttribute("data-lightbox-src");});var idx=0;function open(i){idx=i;modal.hidden=false;img.src=list[idx];document.body.style.overflow="hidden";}function close(){modal.hidden=true;document.body.style.overflow="";}root.addEventListener("click",function(e){var b=e.target.closest("[data-lightbox-src]");if(!b)return;e.preventDefault();open(parseInt(b.getAttribute("data-lightbox-index"),10)||0);});modal.querySelector("[data-lightbox-close]").addEventListener("click",close);modal.querySelector("[data-lightbox-prev]").addEventListener("click",function(){open((idx+list.length-1)%list.length);});modal.querySelector("[data-lightbox-next]").addEventListener("click",function(){open((idx+1)%list.length);});document.addEventListener("keydown",function(e){if(modal.hidden)return;if(e.key==="Escape")close();if(e.key==="ArrowLeft")open((idx+list.length-1)%list.length);if(e.key==="ArrowRight")open((idx+1)%list.length);});})();</script>`;
 
+    const linkedReviews = reviews.filter((review) => review.data.relatedWorkSlug === slug);
+    const reviewHtml = linkedReviews.length
+      ? `<section class="container section card card--flat"><h2 class="h2">客戶推薦</h2><div class="prose">${linkedReviews
+          .map((review) => `<blockquote><p>「${escapeHtml(review.data.excerpt || review.content.trim())}」</p><footer>— ${escapeHtml(review.data.location || '拍攝客戶')} · <a href="/reviews/">看更多推薦</a></footer></blockquote>`)
+          .join('')}</div></section>`
+      : '';
+
     const pageBody = `${jsonLdBreadcrumb(['首頁', '作品案例', w.data.title])}
 <nav class="container section" style="padding-bottom:0;font-size:0.9rem;"><div class="muted"><a href="/">首頁</a> / <a href="/works/">作品案例</a> / <span>${escapeHtml(w.data.title)}</span></div></nav>
 <section class="hero" style="min-height:340px;margin-bottom:0;border-radius:0;"><div class="hero__bg" style="background-image:url('${escapeHtml(cov)}')"></div><div class="hero__overlay"></div><div class="hero__inner">
@@ -587,6 +654,7 @@ function runPages() {
 <div class="container section prose">${bodyMd}</div>
 ${videoBlock}
 <section class="container section"><h2 class="h2">照片作品</h2>${galleryHtml}</section>
+${reviewHtml}
 ${relHtml}
 ${relArtHtml}
 <section class="container section card card--flat"><h2 class="h2">想拍類似風格嗎？</h2><div class="hero__actions">
@@ -614,6 +682,31 @@ ${relArtHtml}
     writeRouteHtml(`/works/${slug}`, html);
     extraSitemapUrls.push(`${site.url}/works/${slug}/`);
   }
+
+  /* ----- public client recommendations ----- */
+  const reviewCards = reviews
+    .sort((a, b) => (a.data.sort ?? 999) - (b.data.sort ?? 999))
+    .map((review) => {
+      const related = workBySlug[review.data.relatedWorkSlug];
+      const quote = review.data.excerpt || review.content.trim().replace(/\s+/g, ' ').slice(0, 140);
+      return `<article class="card card--flat prose"><p class="muted" style="margin:0 0 var(--space-sm);">${escapeHtml(review.data.type || '親子寫真')} · ${escapeHtml(review.data.location || '')}</p><h2 class="h3">${escapeHtml(review.data.title)}</h2><blockquote><p>「${escapeHtml(quote)}」</p></blockquote>${related ? `<p><a class="btn btn--secondary btn--compact" href="/works/${escapeHtml(related.data.slug)}/">查看這組作品</a></p>` : ''}</article>`;
+    })
+    .join('');
+  const reviewsBody = `<nav class="container section" style="padding-bottom:0;"><div class="muted"><a href="/">首頁</a> / <span>客戶推薦</span></div></nav>
+<section class="hero hero--compact"><div class="hero__bg" style="background-image:url('${normImg('/public/images/wix-import/taiwan-yilan-family-portrait/taiwan-yilan-family-portrait-outdoor-lifestyle-01.jpg')}')"></div><div class="hero__overlay"></div><div class="hero__inner"><h1 class="hero__title">客戶推薦</h1><p class="hero__sub">拍攝結束後，最珍貴的是每個家庭留下的真實感受。</p></div></section>
+<section class="container section"><div class="grid-2">${reviewCards || '<p class="muted">推薦內容準備中。</p>'}</div></section>
+<section class="container section card card--flat"><h2 class="h2">也想留下這樣的家庭故事嗎？</h2><div class="hero__actions"><a class="btn btn--primary" href="${site.lineUrl}" target="_blank" rel="noopener noreferrer">加 Line 詢問</a><a class="btn btn--secondary" href="/works/">看作品案例</a></div></section>`;
+  writeRouteHtml(
+    '/reviews',
+    renderPage(cfg, {
+      title: '客戶推薦｜小巴老師親子寫真',
+      description: '來自親子寫真與家庭攝影客戶的真實拍攝回饋。',
+      canonical: `${site.url}/reviews/`,
+      body: reviewsBody,
+      ogImage: normImg('/public/images/wix-import/taiwan-yilan-family-portrait/taiwan-yilan-family-portrait-outdoor-lifestyle-01.jpg'),
+    }),
+  );
+  extraSitemapUrls.push(`${site.url}/reviews/`);
 
   /* ----- articles index ----- */
   const artList = articles
@@ -773,7 +866,10 @@ ${rs}
     writeRouteHtml(`/clients/${c.slug}`, html);
   }
 
-  const portfolioClients = clients.filter((c) => c.portfolioPublish === true);
+  // 客戶專屬頁只有在「作品發佈、公開同意、公開隱私狀態」都明確成立時才會公開。
+  const portfolioClients = clients.filter(
+    (c) => c.portfolioPublish === true && c.publicPortfolio === true && c.privacy === 'public-approved',
+  );
   for (const c of portfolioClients) {
     const storyHtml = marked.parse(c.bodyMd || '');
     const cover = normImg(c.coverImage || '', DEFAULT_IMG);
