@@ -26,6 +26,7 @@
       ]
     },
     { "href": "/works/", "label": "作品案例" },
+    { "href": "/reviews/", "label": "客戶推薦" },
     { "href": "/articles/", "label": "拍攝文章" },
     { "href": "/faq/", "label": "常見問題" },
     { "href": "/about/", "label": "關於小巴老師" },
