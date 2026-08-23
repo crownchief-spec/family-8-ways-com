@@ -625,7 +625,7 @@ function runPages() {
     const galleryHtml = `<div class="masonry-lightbox" data-lightbox-root>${allImgs
       .map(
         (src, i) =>
-          `<figure class="masonry-lightbox__item"><button type="button" class="masonry-lightbox__btn" data-lightbox-index="${i}" data-lightbox-src="${escapeHtml(src)}"><img src="${escapeHtml(src)}" alt="${escapeHtml(w.data.title)}｜親子寫真作品 ${i + 1}" loading="lazy" width="900" height="600"/></button></figure>`,
+          `<figure class="masonry-lightbox__item"><button type="button" class="masonry-lightbox__btn" data-lightbox-index="${i}" data-lightbox-src="${escapeHtml(src)}"><img src="${escapeHtml(src)}" alt="${escapeHtml(w.data.title)}｜親子寫真作品 ${i + 1}" loading="lazy" width="900" height="600" onerror="this.closest('figure').remove()"/></button></figure>`,
       )
       .join('')}</div>
 <div class="lightbox" id="work-lightbox" hidden data-lightbox-modal><button type="button" class="lightbox__close" data-lightbox-close aria-label="關閉">×</button><button type="button" class="lightbox__prev" data-lightbox-prev aria-label="上一張">‹</button><button type="button" class="lightbox__next" data-lightbox-next aria-label="下一張">›</button><div class="lightbox__stage"><img src="" alt="" data-lightbox-img/></div></div>
