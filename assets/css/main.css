@@ -1015,6 +1015,9 @@ a:hover {
   display: grid;
   place-items: center;
 }
+.lightbox[hidden] {
+  display: none;
+}
 .lightbox__stage img {
   max-width: min(96vw, 1200px);
   max-height: 86vh;
