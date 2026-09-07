@@ -24,6 +24,7 @@ const pages = JSON.parse(readFileSync(dataPath, 'utf8')).map((page) => ({
 }));
 const pageMap = new Map(pages.map((p) => [p.id, p]));
 const siteUrl = cfg.site.url;
+const reviewEvidencePath = join(ROOT, 'src', 'pages', 'reviews-evidence.html');
 
 function ensureDir(p) { mkdirSync(p, { recursive: true }); }
 function writeRoute(route, html) {
@@ -214,8 +215,13 @@ const rendered = [];
 for (const p of pages) {
   if (p.id === 'home') continue;
   if (p.id === 'works' || p.id === 'client' || p.id === 'overseas-index' || p.id === 'themes-index') continue;
+  if (p.newUrl === '/pages/reviews') continue;
   writeRoute(p.newUrl, buildStandardPage(p));
   rendered.push(p.newUrl);
+}
+if (existsSync(reviewEvidencePath)) {
+  writeRoute('/pages/reviews', readFileSync(reviewEvidencePath, 'utf8'));
+  rendered.push('/pages/reviews');
 }
 writeRoute('/', buildHome());
 writeRoute('/taiwan', buildIndexPage('/taiwan', '台灣親子旅拍地點', '整理台北、桃園、新竹、台中、宜蘭、花蓮、澎湖與南台灣等親子寫真拍攝地點，直接比較不同場景的家庭攝影作品。', (p) => p.pageType === 'taiwan'));
