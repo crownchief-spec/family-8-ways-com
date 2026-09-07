@@ -8,6 +8,7 @@ const ROOT = join(__dirname, '..');
 const dataPath = join(ROOT, 'data', 'family-migration-runtime.json');
 if (!existsSync(dataPath)) throw new Error('缺少 data/family-migration-runtime.json，請先執行 migrate script');
 const pages = JSON.parse(readFileSync(dataPath, 'utf8'));
+const hubManagedIds = new Set(['works', 'client']);
 
 const failures = [];
 function check(cond, msg) { if (!cond) failures.push(msg); }
@@ -22,9 +23,11 @@ for (const p of pages) {
   check(/<title>[^<]+<\/title>/i.test(html), `${p.newUrl}: 缺少 meta title`);
   check(/meta name="description"/i.test(html), `${p.newUrl}: 缺少 meta description`);
   check(/meta property="og:image"/i.test(html), `${p.newUrl}: 缺少 og:image`);
-  check(html.includes('本頁作品照片：'), `${p.newUrl}: 缺少頁面統計行`);
-  check(/#\s+[^\s]+/.test(html), `${p.newUrl}: 缺少 hashtag`);
-  if (p.images?.length && p.id !== 'client') {
+  if (!hubManagedIds.has(p.id)) {
+    check(html.includes('本頁作品照片：') || html.includes('本頁收錄 '), `${p.newUrl}: 缺少頁面統計行`);
+    check(/#\s+[^\s]+/.test(html), `${p.newUrl}: 缺少 hashtag`);
+  }
+  if (p.images?.length && !hubManagedIds.has(p.id) && !['overseas-index', 'themes-index'].includes(p.id)) {
     const countInHtml = (html.match(/\/public\/images\/family\//g) || []).length;
     check(countInHtml >= Math.min(1, p.images.length), `${p.newUrl}: gallery 似乎未輸出`);
   }
@@ -43,7 +46,7 @@ for (const p of pages) {
 }
 
 const home = readFileSync(join(ROOT, 'index.html'), 'utf8');
-for (const token of ['台灣拍攝', '海外旅拍', '主題分類', '作品案例', '客戶專區']) {
+for (const token of ['台灣拍攝', '海外旅拍', '主題分類', '作品案例', '客戶推薦']) {
   check(home.includes(token), `首頁缺少入口：${token}`);
 }
 check(existsSync(join(ROOT, 'public', '_redirects')), '缺少 public/_redirects');

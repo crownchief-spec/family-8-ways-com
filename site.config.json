@@ -25,7 +25,16 @@
         { "href": "/services/maternity-baby-family-photography/", "label": "孕婦／寶寶／三代同堂" }
       ]
     },
-    { "href": "/works/", "label": "作品案例" },
+    {
+      "href": "/works/",
+      "label": "作品案例",
+      "children": [
+        { "href": "/works/", "label": "最新作品案例" },
+        { "href": "/taiwan/", "label": "台灣拍攝地點" },
+        { "href": "/overseas/", "label": "海外旅拍地點" },
+        { "href": "/themes/", "label": "親子寫真主題" }
+      ]
+    },
     { "href": "/reviews/", "label": "客戶推薦" },
     { "href": "/articles/", "label": "拍攝文章" },
     { "href": "/faq/", "label": "常見問題" },
