@@ -84,12 +84,11 @@ function showcaseCards() {
 </section>`;
 }
 function reviewsPreview() {
-  const reviewsPage = pageMap.get('reviews');
-  const cover = reviewsPage?.images[0]?.src || '/public/og-default.svg';
+  const cover = '/assets/images/reviews/evidence/family-photography-testimonial-family-001-01.webp';
   return `<section class="container section">
   <div class="story-block">
     <a class="story-block__media" href="/pages/reviews/" aria-label="查看親子寫真真實客戶推薦">
-      <img src="${cover}" alt="親子寫真客戶家庭合照與真實推薦" loading="lazy" width="1200" height="800" />
+      <img src="${cover}" alt="三代同堂親子旅拍客戶原始推薦與家庭合照" title="三代同堂親子旅拍真實客戶推薦" loading="lazy" decoding="async" width="1016" height="1412" style="object-position:center bottom;" />
     </a>
     <div class="story-block__body">
       <p class="showcase-card__type">21 組客人分享・4 則 Google 五星</p>
