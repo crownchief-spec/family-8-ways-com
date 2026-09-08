@@ -49,6 +49,15 @@ const home = readFileSync(join(ROOT, 'index.html'), 'utf8');
 for (const token of ['台灣拍攝', '海外旅拍', '主題分類', '作品案例', '客戶推薦']) {
   check(home.includes(token), `首頁缺少入口：${token}`);
 }
+check(home.includes('href="/pages/reviews/"'), '首頁客戶推薦入口未指向完整推薦頁');
+const reviewPage = readFileSync(join(ROOT, 'pages', 'reviews', 'index.html'), 'utf8');
+check(reviewPage.includes('<link rel="canonical" href="https://family.8-ways.com/pages/reviews/"'), '完整推薦頁 canonical 錯誤');
+check(reviewPage.includes('"@type":"ItemList"'), '完整推薦頁缺少 ItemList 結構化資料');
+const redirects = readFileSync(join(ROOT, '_redirects'), 'utf8');
+check(redirects.includes('/reviews /pages/reviews/ 301'), '舊推薦網址缺少永久轉址');
+const sitemap = readFileSync(join(ROOT, 'sitemap.xml'), 'utf8');
+check(sitemap.includes('https://family.8-ways.com/pages/reviews/'), 'Sitemap 缺少完整推薦頁');
+check(!sitemap.includes('https://family.8-ways.com/reviews/'), 'Sitemap 仍含重複推薦頁');
 check(existsSync(join(ROOT, 'public', '_redirects')), '缺少 public/_redirects');
 
 if (failures.length) {

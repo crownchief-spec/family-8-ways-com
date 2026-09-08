@@ -83,6 +83,23 @@ function showcaseCards() {
   <div class="showcase-grid">${picks}</div>
 </section>`;
 }
+function reviewsPreview() {
+  const reviewsPage = pageMap.get('reviews');
+  const cover = reviewsPage?.images[0]?.src || '/public/og-default.svg';
+  return `<section class="container section">
+  <div class="story-block">
+    <a class="story-block__media" href="/pages/reviews/" aria-label="查看親子寫真真實客戶推薦">
+      <img src="${cover}" alt="親子寫真客戶家庭合照與真實推薦" loading="lazy" width="1200" height="800" />
+    </a>
+    <div class="story-block__body">
+      <p class="showcase-card__type">21 組客人分享・4 則 Google 五星</p>
+      <h2 class="h2">爸媽、親友與家庭客戶的真實推薦</h2>
+      <p class="muted">拍攝好不好，不只看作品，也可以直接看客人留下的原始訊息、親子旅拍分享與公開 Google 評價。每一段回饋都有真實截圖與可閱讀文字。</p>
+      <p><a class="btn btn--primary" href="/pages/reviews/">看真實客戶推薦</a></p>
+    </div>
+  </div>
+</section>`;
+}
 function related(p) {
   const pool = pages.filter((x) => x.id !== p.id && x.pageType === p.pageType).slice(0, 3);
   return `<section class="container section card card--flat"><h2 class="h2">相關頁面</h2><ul class="prose">${pool.map((x) => `<li><a href="${x.newUrl}/">${escapeHtml(x.newTitle)}</a></li>`).join('')}</ul></section>`;
@@ -179,6 +196,7 @@ ${statsRow(p)}
 <section class="container section"><h2 class="h2">價格與方案摘要</h2><div class="prose"><p>台灣旅拍：半天 $5800–8300、全天 $14800。海外旅拍：一日攝影費 $14800，第二日 $9800，攝影師機票費用八折優惠。成品照片檔案全給，可搭配微電影 MV。</p></div></section>
 ${showcaseCards()}
 ${hubHomeInject}
+${reviewsPreview()}
 <section class="container section card card--flat"><h2 class="h2">入口導覽</h2><ul class="prose"><li><a href="/services/">服務方案（Hub）</a></li><li><a href="/taiwan/">台灣拍攝地區</a></li><li><a href="/overseas/">海外旅拍地區</a></li><li><a href="/themes/">主題分類</a></li><li><a href="/works/">作品案例</a></li><li><a href="/articles/">拍攝文章</a></li><li><a href="/pages/reviews/">爸媽推薦</a></li><li><a href="/faq/">常見問題</a></li><li><a href="/pages/about-ba-wei/">關於小巴老師（完整）</a></li></ul></section>
 ${cta()}
 ${hashtags(p)}`;
@@ -238,7 +256,9 @@ const redirects = [
   '/family-tokyo /overseas/tokyo 301', '/family-kansai /overseas/kansai 301', '/family-southeast-asia /overseas/cebu-bali 301',
   '/family-australia /overseas/australia 301', '/family-korea /overseas/korea 301', '/family-generation /themes/generation 301',
   '/maternity /themes/maternity 301', '/family-faq /pages/faq 301', '/family-reviews /pages/reviews 301',
+  '/reviews /pages/reviews/ 301', '/reviews/ /pages/reviews/ 301',
 ];
+ensureDir(join(ROOT, 'public'));
 writeFileSync(join(ROOT, 'public', '_redirects'), redirects.join('\n') + '\n', 'utf8');
 writeFileSync(join(ROOT, '_redirects'), redirects.join('\n') + '\n', 'utf8');
 

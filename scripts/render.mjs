@@ -208,6 +208,7 @@ export function renderFooter(cfg, options = {}) {
         <li><a href="/services/camping-family-photography/">露營團拍／親子民宿</a></li>
         <li><a href="/services/family-event-photography/">生日派對／家庭活動紀錄</a></li>
         <li><a href="/services/maternity-baby-family-photography/">孕婦／寶寶／三代同堂</a></li>
+        <li><a href="/pages/reviews/">客戶真實推薦</a></li>
         <li><a href="/faq/">常見問題</a></li>
         <li><a href="/about/">關於小巴老師</a></li>
       </ul>
@@ -287,9 +288,7 @@ export function renderPage(cfg, { title, description, canonical, body, ogImage, 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>${escapeHtml(title)}</title>
   <meta name="description" content="${escapeHtml(desc)}" />
-  ${canonicalTag}
-  ${robots}
-  <meta property="og:type" content="website" />
+${canonicalTag ? `  ${canonicalTag}\n` : ''}${robots ? `  ${robots}\n` : ''}  <meta property="og:type" content="website" />
   <meta property="og:title" content="${escapeHtml(title)}" />
   <meta property="og:description" content="${escapeHtml(desc)}" />
   <meta property="og:url" content="${escapeHtml(ogUrl)}" />

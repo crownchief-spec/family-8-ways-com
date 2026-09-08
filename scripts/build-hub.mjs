@@ -634,7 +634,7 @@ function runPages() {
     const linkedReviews = reviews.filter((review) => review.data.relatedWorkSlug === slug);
     const reviewHtml = linkedReviews.length
       ? `<section class="container section card card--flat"><h2 class="h2">客戶推薦</h2><div class="prose">${linkedReviews
-          .map((review) => `<blockquote><p>「${escapeHtml(review.data.excerpt || review.content.trim())}」</p><footer>— ${escapeHtml(review.data.location || '拍攝客戶')} · <a href="/reviews/">看更多推薦</a></footer></blockquote>`)
+          .map((review) => `<blockquote><p>「${escapeHtml(review.data.excerpt || review.content.trim())}」</p><footer>— ${escapeHtml(review.data.location || '拍攝客戶')} · <a href="/pages/reviews/">看更多推薦</a></footer></blockquote>`)
           .join('')}</div></section>`
       : '';
 
@@ -682,31 +682,6 @@ ${relArtHtml}
     writeRouteHtml(`/works/${slug}`, html);
     extraSitemapUrls.push(`${site.url}/works/${slug}/`);
   }
-
-  /* ----- public client recommendations ----- */
-  const reviewCards = reviews
-    .sort((a, b) => (a.data.sort ?? 999) - (b.data.sort ?? 999))
-    .map((review) => {
-      const related = workBySlug[review.data.relatedWorkSlug];
-      const quote = review.data.excerpt || review.content.trim().replace(/\s+/g, ' ').slice(0, 140);
-      return `<article class="card card--flat prose"><p class="muted" style="margin:0 0 var(--space-sm);">${escapeHtml(review.data.type || '親子寫真')} · ${escapeHtml(review.data.location || '')}</p><h2 class="h3">${escapeHtml(review.data.title)}</h2><blockquote><p>「${escapeHtml(quote)}」</p></blockquote>${related ? `<p><a class="btn btn--secondary btn--compact" href="/works/${escapeHtml(related.data.slug)}/">查看這組作品</a></p>` : ''}</article>`;
-    })
-    .join('');
-  const reviewsBody = `<nav class="container section" style="padding-bottom:0;"><div class="muted"><a href="/">首頁</a> / <span>客戶推薦</span></div></nav>
-<section class="hero hero--compact"><div class="hero__bg" style="background-image:url('${normImg('/public/images/wix-import/taiwan-yilan-family-portrait/taiwan-yilan-family-portrait-outdoor-lifestyle-01.jpg')}')"></div><div class="hero__overlay"></div><div class="hero__inner"><h1 class="hero__title">客戶推薦</h1><p class="hero__sub">拍攝結束後，最珍貴的是每個家庭留下的真實感受。</p></div></section>
-<section class="container section"><div class="grid-2">${reviewCards || '<p class="muted">推薦內容準備中。</p>'}</div></section>
-<section class="container section card card--flat"><h2 class="h2">也想留下這樣的家庭故事嗎？</h2><div class="hero__actions"><a class="btn btn--primary" href="${site.lineUrl}" target="_blank" rel="noopener noreferrer">加 Line 詢問</a><a class="btn btn--secondary" href="/works/">看作品案例</a></div></section>`;
-  writeRouteHtml(
-    '/reviews',
-    renderPage(cfg, {
-      title: '客戶推薦｜小巴老師親子寫真',
-      description: '來自親子寫真與家庭攝影客戶的真實拍攝回饋。',
-      canonical: `${site.url}/reviews/`,
-      body: reviewsBody,
-      ogImage: normImg('/public/images/wix-import/taiwan-yilan-family-portrait/taiwan-yilan-family-portrait-outdoor-lifestyle-01.jpg'),
-    }),
-  );
-  extraSitemapUrls.push(`${site.url}/reviews/`);
 
   /* ----- articles index ----- */
   const artList = articles
