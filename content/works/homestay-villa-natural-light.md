@@ -22,6 +22,7 @@ seoDescription: "親子寫真作品案例：新竹｜民宿｜自然互動風格
 featured: true
 filterSlug: "homestay"
 relatedArticleSlugs:
+  - "family-photo-preparation-five-tips"
   - "camping-family-photography-guide"
   - "family-photo-outfit-guide"
 social:

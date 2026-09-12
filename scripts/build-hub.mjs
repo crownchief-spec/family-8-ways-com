@@ -262,7 +262,7 @@ export function runPrepare() {
     .map((a) => {
       const cov = normImg(a.data.coverImage, DEFAULT_IMG);
       return `<a class="showcase-card showcase-card--article" href="/articles/${escapeHtml(a.data.slug)}/">
-  <div class="showcase-card__media"><img src="${escapeHtml(cov)}" alt="" loading="lazy" width="640" height="420"/></div>
+  <div class="showcase-card__media"><img src="${escapeHtml(cov)}" alt="${escapeHtml(a.data.coverImageAlt || a.data.title)}" loading="lazy" width="640" height="420"/></div>
   <div class="showcase-card__body">
     <p class="showcase-card__type">${escapeHtml(a.data.category)}</p>
     <h3 class="showcase-card__title">${escapeHtml(a.data.title)}</h3>
@@ -691,7 +691,7 @@ ${relArtHtml}
       const cov = normImg(a.data.coverImage);
       return `<div class="hub-card-wrap" data-hub-article data-category="${escapeHtml(cs)}" data-search="${escapeHtml(`${a.data.title} ${(a.data.tags || []).join(' ')} ${a.data.description || ''}`)}">
 <a class="pcard" href="/articles/${escapeHtml(a.data.slug)}/">
-<div class="pcard__media"><img src="${escapeHtml(cov)}" alt="" loading="lazy" width="640" height="420"/></div>
+<div class="pcard__media"><img src="${escapeHtml(cov)}" alt="${escapeHtml(a.data.coverImageAlt || a.data.title)}" loading="lazy" width="640" height="420"/></div>
 <div class="pcard__body">
 <p class="pcard__loc muted">${escapeHtml(a.data.category)} · ${escapeHtml(a.data.date)}</p>
 <h3 class="pcard__title">${escapeHtml(a.data.title)}</h3>
@@ -781,9 +781,13 @@ ${rs}
         '@context': 'https://schema.org',
         '@type': 'Article',
         headline: a.data.title,
+        description: a.data.seoDescription || a.data.description,
         datePublished: a.data.date,
+        dateModified: a.data.dateModified || a.data.date,
         image: new URL(cov.replace(/^\//, ''), site.url + '/').href,
         author: { '@type': 'Person', name: '小巴老師' },
+        publisher: { '@type': 'Organization', name: '小巴老師｜親子寫真' },
+        mainEntityOfPage: `${site.url}/articles/${slug}/`,
       })}</script>\n</head>`,
     );
 

@@ -22,6 +22,7 @@ seoDescription: "親子寫真作品案例：宜蘭／桃園｜露營｜自然互
 featured: true
 filterSlug: "camping"
 relatedArticleSlugs:
+  - "family-photo-preparation-five-tips"
   - "camping-family-photography-guide"
 social:
   instagramCaption: ""
