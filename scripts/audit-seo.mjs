@@ -132,6 +132,7 @@ const pages = walkHtml().sort().map((file) => {
     themeColor: getMeta(html, 'name', 'theme-color'),
     schemaTypes: schema.types,
     invalidSchema: schema.invalid,
+    emptyMediaAttributes: [...html.matchAll(/\b(?:src|poster)=["']\s*["']/gi)].map((match) => match[0]),
     brokenRefs: [...new Set(refs.filter((ref) => !resolveLocalRef(ref, file, trackedFiles, redirectSources)))],
   };
 });
@@ -158,6 +159,7 @@ const issues = {
   invalidLang: pages.filter((page) => page.lang !== 'zh-Hant').map((page) => page.file),
   missingSchema: indexable.filter((page) => !page.schemaTypes.length).map((page) => page.file),
   invalidSchema: pages.filter((page) => page.invalidSchema).map((page) => page.file),
+  emptyMediaAttributes: pages.filter((page) => page.emptyMediaAttributes.length).map((page) => page.file),
   duplicateTitle: duplicateGroups('title'),
   duplicateDescription: duplicateGroups('description'),
   duplicateCanonical: duplicateGroups('canonical'),
@@ -185,7 +187,7 @@ const summary = {
 
 const criticalKeys = [
   'missingTitle', 'missingDescription', 'missingCanonical', 'missingOpenGraph', 'missingTwitter',
-  'missingAppMeta', 'invalidH1', 'invalidLang', 'missingSchema', 'invalidSchema',
+  'missingAppMeta', 'invalidH1', 'invalidLang', 'missingSchema', 'invalidSchema', 'emptyMediaAttributes',
   'duplicateTitle', 'duplicateDescription', 'duplicateCanonical', 'duplicateOgImage',
   'brokenReferences', 'sitemapMissing', 'sitemapExtra', 'hardcodedDefaultOg',
 ];
