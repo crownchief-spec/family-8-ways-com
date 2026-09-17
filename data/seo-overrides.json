@@ -1,0 +1,38 @@
+{
+  "/": {
+    "schemaType": "WebPage",
+    "ogImage": "/public/images/family/archive/home/home-002-636b95_f0c1601494024ed2b032358cadd4068a-mv.jpg"
+  },
+  "/about/": {
+    "schemaType": "AboutPage",
+    "ogImage": "/public/images/family/archive/about-ba-wei/about-ba-wei-003-636b95_4c98709e203d4bfd8478e8c7e14be1c9-mv.jpg"
+  },
+  "/contact/": {
+    "schemaType": "ContactPage",
+    "ogImage": "/public/images/wix-import/taiwan-taipei-family-portrait/taiwan-taipei-family-portrait-outdoor-lifestyle-03.jpg"
+  },
+  "/faq/": {
+    "schemaType": "WebPage",
+    "ogImage": "/public/images/family/archive/faq/faq-002-636b95_fc0816dc9d4d422987324d331171caad-mv.png"
+  },
+  "/services/": {
+    "schemaType": "CollectionPage",
+    "ogImage": "/public/images/wix-import/taiwan-taipei-family-portrait/taiwan-taipei-family-portrait-outdoor-lifestyle-02.jpg"
+  },
+  "/works/": {
+    "schemaType": "CollectionPage",
+    "ogImage": "/public/images/wix-import/taiwan-yilan-family-portrait/taiwan-yilan-family-portrait-outdoor-lifestyle-01.jpg"
+  },
+  "/articles/": {
+    "schemaType": "CollectionPage",
+    "ogImage": "/public/images/wix-import/theme-three-generation-grandparent-family/theme-three-generation-grandparent-family-outdoor-lifestyle-01.jpg"
+  },
+  "/sitemap/": {
+    "schemaType": "CollectionPage",
+    "ogImage": "/public/images/family/archive/home/home-010-636b95_3121814c969b41448efbd310bd047d94-mv.jpg"
+  },
+  "/projects/clients/": {
+    "noindex": true,
+    "schemaType": null
+  }
+}

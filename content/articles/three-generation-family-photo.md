@@ -2,7 +2,7 @@
 title: "三代同堂家庭照怎麼拍？祖父母、爸媽與孩子的自然互動"
 slug: "three-generation-family-photo"
 category: "親子寫真準備"
-description: "實用整理：協助你準備親子寫真與家庭旅拍，涵蓋行程、服裝與親子互動。"
+description: "三代同堂家庭照指南，整理祖父母體力、大家族分組、拍攝順序與祖孫自然互動安排。"
 coverImage: "/public/images/wix-import/theme-three-generation-grandparent-family/theme-three-generation-grandparent-family-outdoor-lifestyle-02.jpg"
 date: "2026-05-08"
 tags:
@@ -10,7 +10,7 @@ tags:
   - 家庭攝影
   - 小巴老師
 seoTitle: "三代同堂家庭照怎麼拍？祖父母、爸媽與孩子的自然互動｜指南｜小巴老師"
-seoDescription: "親子寫真與家庭旅拍實用指南：準備事項、穿搭與行程概念，適合首次拍攝的家庭閱讀。"
+seoDescription: "三代同堂家庭照怎麼拍？整理祖父母、爸媽與孩子的分組順序、休息節奏與自然互動。"
 featured: false
 relatedServices:
   - "/services/maternity-baby-family-photography"
@@ -20,7 +20,7 @@ relatedWorks:
 
 # 三代同堂家庭照怎麼拍？祖父母、爸媽與孩子的自然互動
 
-許多家庭在預約親子寫真或家庭旅拍前，會同時擔心「孩子不配合」「行程太赶」「衣服是否協調」。其實只要在時間、服裝與心理預期上先做輕量整理，就能讓拍攝當天的節奏更順，也容易拍到自然表情。
+許多家庭在預約親子寫真或家庭旅拍前，會同時擔心「孩子不配合」「行程太趕」「衣服是否協調」。其實只要在時間、服裝與心理預期上先做輕量整理，就能讓拍攝當天的節奏更順，也容易拍到自然表情。
 
 ## 快速重點
 
@@ -53,4 +53,3 @@ relatedWorks:
 ## 聯絡 CTA
 
 準備好日期、地點與家庭成員組合後，歡迎透過 Line 與小巴老師討論檔期與動線；也可先閱讀【服務方案】頁了解半天／全天與交付內容。
-

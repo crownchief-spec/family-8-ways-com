@@ -2,7 +2,7 @@
 title: "寶寶與幼兒親子寫真注意事項｜拍攝時間、午睡與情緒安排"
 slug: "baby-family-photography-tips"
 category: "親子寫真準備"
-description: "實用整理：協助你準備親子寫真與家庭旅拍，涵蓋行程、服裝與親子互動。"
+description: "寶寶與幼兒親子寫真準備指南，整理拍攝時間、午睡、點心、熟悉物品與情緒休息安排。"
 coverImage: "/public/images/wix-import/taiwan-animal-farm-family/taiwan-animal-farm-family-outdoor-lifestyle-02.jpg"
 date: "2026-05-09"
 tags:
@@ -10,7 +10,7 @@ tags:
   - 家庭攝影
   - 小巴老師
 seoTitle: "寶寶與幼兒親子寫真注意事項｜指南｜小巴老師"
-seoDescription: "親子寫真與家庭旅拍實用指南：準備事項、穿搭與行程概念，適合首次拍攝的家庭閱讀。"
+seoDescription: "寶寶與幼兒親子寫真怎麼安排？從午睡、餵食到情緒休息，整理適合嬰幼兒家庭的拍攝準備。"
 featured: false
 relatedServices:
   - "/services/maternity-baby-family-photography"
@@ -20,7 +20,7 @@ relatedWorks:
 
 # 寶寶與幼兒親子寫真注意事項｜拍攝時間、午睡與情緒安排
 
-許多家庭在預約親子寫真或家庭旅拍前，會同時擔心「孩子不配合」「行程太赶」「衣服是否協調」。其實只要在時間、服裝與心理預期上先做輕量整理，就能讓拍攝當天的節奏更順，也容易拍到自然表情。
+許多家庭在預約親子寫真或家庭旅拍前，會同時擔心「孩子不配合」「行程太趕」「衣服是否協調」。其實只要在時間、服裝與心理預期上先做輕量整理，就能讓拍攝當天的節奏更順，也容易拍到自然表情。
 
 ## 快速重點
 
@@ -53,4 +53,3 @@ relatedWorks:
 ## 聯絡 CTA
 
 準備好日期、地點與家庭成員組合後，歡迎透過 Line 與小巴老師討論檔期與動線；也可先閱讀【服務方案】頁了解半天／全天與交付內容。
-

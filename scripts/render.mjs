@@ -266,7 +266,7 @@ export function renderFooter(cfg, options = {}) {
 </footer>`;
 }
 
-export function renderPage(cfg, { title, description, canonical, body, ogImage, noIndex, hideAdminFooterLink, clientPortal }) {
+export function renderPage(cfg, { title, description, canonical, body, ogImage, imageAlt, ogType = 'website', noIndex, hideAdminFooterLink, clientPortal }) {
   const { site } = cfg;
   const desc = description || site.description;
   const og = ogImage
@@ -277,8 +277,10 @@ export function renderPage(cfg, { title, description, canonical, body, ogImage, 
   const robots = noIndex
     ? '<meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex" />'
     : '';
-  const canonicalTag = noIndex ? '' : `<link rel="canonical" href="${escapeHtml(canonical)}" />`;
-  const ogUrl = noIndex ? `${site.url}/` : canonical;
+  const canonicalUrl = canonical || `${site.url}/`;
+  const canonicalTag = `<link rel="canonical" href="${escapeHtml(canonicalUrl)}" />`;
+  const ogUrl = canonicalUrl;
+  const socialImageAlt = imageAlt || title;
   const nav = clientPortal ? renderClientPortalNavbar(cfg) : renderNavbar(cfg);
   const foot = clientPortal ? renderClientPortalFooter(cfg) : renderFooter(cfg, { showAdminLink: !hideAdminFooterLink });
   return `<!DOCTYPE html>
@@ -288,17 +290,26 @@ export function renderPage(cfg, { title, description, canonical, body, ogImage, 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>${escapeHtml(title)}</title>
   <meta name="description" content="${escapeHtml(desc)}" />
-${canonicalTag ? `  ${canonicalTag}\n` : ''}${robots ? `  ${robots}\n` : ''}  <meta property="og:type" content="website" />
+  ${canonicalTag}
+${robots ? `  ${robots}\n` : ''}  <meta property="og:type" content="${escapeHtml(ogType)}" />
+  <meta property="og:site_name" content="${escapeHtml(site.shortName)}" />
   <meta property="og:title" content="${escapeHtml(title)}" />
   <meta property="og:description" content="${escapeHtml(desc)}" />
   <meta property="og:url" content="${escapeHtml(ogUrl)}" />
   <meta property="og:image" content="${escapeHtml(og)}" />
+  <meta property="og:image:alt" content="${escapeHtml(socialImageAlt)}" />
   <meta property="og:locale" content="zh_TW" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="${escapeHtml(title)}" />
   <meta name="twitter:description" content="${escapeHtml(desc)}" />
   <meta name="twitter:image" content="${escapeHtml(og)}" />
+  <meta name="twitter:image:alt" content="${escapeHtml(socialImageAlt)}" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#3d5c4a" />
+  <!-- Analytics：GA4／GTM／Meta Pixel 可在這裡集中加入，目前未啟用追蹤。 -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet" />

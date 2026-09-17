@@ -746,7 +746,9 @@ ${relArtHtml}
   for (const a of articles) {
     const slug = a.data.slug;
     const cov = normImg(a.data.coverImage);
-    const prose = marked.parse(a.bodyMd);
+    // 頁面外殼已輸出唯一 H1；移除舊文章 Markdown 開頭重複的 H1。
+    const articleMarkdown = String(a.bodyMd || '').replace(/^\s*#\s+[^\n]+\n+/, '');
+    const prose = marked.parse(articleMarkdown);
     const relWorks = (a.data.relatedWorks || []).map((s) => workBySlug[s]).filter(Boolean);
     const relServ = a.data.relatedServices || [];
     const rw =
@@ -923,8 +925,9 @@ ${ra}
   }
 
   /* ----- static hub routes ----- */
+  const aboutHero = '/public/images/family/archive/about-ba-wei/about-ba-wei-003-636b95_4c98709e203d4bfd8478e8c7e14be1c9-mv.jpg';
   const aboutBody = `<nav class="container section" style="padding-bottom:0;"><div class="muted"><a href="/">首頁</a> / <span>關於小巴老師</span></div></nav>
-<section class="hero hero--compact"><div class="hero__bg" style="background-image:url('/assets/images/og/default.svg')"></div><div class="hero__overlay"></div><div class="hero__inner"><h1 class="hero__title">關於小巴老師</h1>
+<section class="hero hero--compact"><div class="hero__bg" role="img" aria-label="親子寫真攝影師小巴老師與家庭自然互動作品" style="background-image:url('${aboutHero}')"></div><div class="hero__overlay"></div><div class="hero__inner"><h1 class="hero__title">關於小巴老師</h1>
 <p class="hero__sub">全外拍自然互動、海外旅拍經驗豐富，長期服務親子與家庭品牌影像。</p></div></section>
 <div class="container section prose">
 <p>小巴老師專注親子寫真與家庭旅拍，相信照片應該留下真實互動與旅行中的情感，而非僵硬擺拍。</p>
@@ -939,13 +942,14 @@ ${ra}
       description: '小巴老師親子寫真與家庭旅拍理念、經歷與服務特色。',
       canonical: `${site.url}/about/`,
       body: `${jsonLdBreadcrumb(['首頁', '關於小巴老師'])}${aboutBody}`,
-      ogImage: '/assets/images/og/default.svg',
+      ogImage: aboutHero,
     }),
   );
   extraSitemapUrls.push(`${site.url}/about/`);
 
+  const faqHero = '/public/images/family/archive/faq/faq-002-636b95_fc0816dc9d4d422987324d331171caad-mv.png';
   const faqTeaser = `<nav class="container section" style="padding-bottom:0;"><div class="muted"><a href="/">首頁</a> / <span>常見問題</span></div></nav>
-<section class="hero hero--compact"><div class="hero__bg" style="background-image:url('/assets/images/og/default.svg')"></div><div class="hero__overlay"></div><div class="hero__inner"><h1 class="hero__title">常見問題</h1>
+<section class="hero hero--compact"><div class="hero__bg" role="img" aria-label="親子寫真拍攝前常見問題與準備說明" style="background-image:url('${faqHero}')"></div><div class="hero__overlay"></div><div class="hero__inner"><h1 class="hero__title">常見問題</h1>
 <p class="hero__sub">整理行程、外拍差異、下雨與交件等常見問題；完整內容請見詳細頁。</p></div></section>
 <div class="container section prose">
 <p>若你想先看最完整的 FAQ（含長篇整理），請前往：<a href="/pages/faq/">完整 FAQ 頁面</a>。</p>
@@ -957,7 +961,7 @@ ${ra}
       description: '親子寫真與家庭旅拍常見問題入口。',
       canonical: `${site.url}/faq/`,
       body: faqTeaser,
-      ogImage: '/assets/images/og/default.svg',
+      ogImage: faqHero,
     }),
   );
   extraSitemapUrls.push(`${site.url}/faq/`);

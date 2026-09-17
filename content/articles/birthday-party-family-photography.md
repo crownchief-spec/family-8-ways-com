@@ -2,7 +2,7 @@
 title: "生日派對需要請攝影師嗎？家庭活動紀錄的重點與拍法"
 slug: "birthday-party-family-photography"
 category: "家庭活動紀錄"
-description: "實用整理：協助你準備親子寫真與家庭旅拍，涵蓋行程、服裝與親子互動。"
+description: "生日派對與家庭活動攝影指南，說明流程紀錄、大合照、遊戲互動與重要親友畫面的安排方式。"
 coverImage: "/public/images/wix-import/taiwan-birthday-party-family/taiwan-birthday-party-family-outdoor-lifestyle-02.jpg"
 date: "2026-05-07"
 tags:
@@ -10,7 +10,7 @@ tags:
   - 家庭攝影
   - 小巴老師
 seoTitle: "生日派對需要請攝影師嗎？家庭活動紀錄的重點與拍法｜指南｜小巴老師"
-seoDescription: "親子寫真與家庭旅拍實用指南：準備事項、穿搭與行程概念，適合首次拍攝的家庭閱讀。"
+seoDescription: "生日派對需要請攝影師嗎？整理活動流程、大合照、親友互動與孩子情緒高峰的拍攝重點。"
 featured: false
 relatedServices:
   - "/services/family-event-photography"
@@ -20,7 +20,7 @@ relatedWorks:
 
 # 生日派對需要請攝影師嗎？家庭活動紀錄的重點與拍法
 
-許多家庭在預約親子寫真或家庭旅拍前，會同時擔心「孩子不配合」「行程太赶」「衣服是否協調」。其實只要在時間、服裝與心理預期上先做輕量整理，就能讓拍攝當天的節奏更順，也容易拍到自然表情。
+許多家庭在預約親子寫真或家庭旅拍前，會同時擔心「孩子不配合」「行程太趕」「衣服是否協調」。其實只要在時間、服裝與心理預期上先做輕量整理，就能讓拍攝當天的節奏更順，也容易拍到自然表情。
 
 ## 快速重點
 
@@ -53,4 +53,3 @@ relatedWorks:
 ## 聯絡 CTA
 
 準備好日期、地點與家庭成員組合後，歡迎透過 Line 與小巴老師討論檔期與動線；也可先閱讀【服務方案】頁了解半天／全天與交付內容。
-

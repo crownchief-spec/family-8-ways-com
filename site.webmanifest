@@ -1,0 +1,23 @@
+{
+  "name": "小巴老師｜親子寫真",
+  "short_name": "小巴老師",
+  "description": "台灣包車親子旅拍、海外家庭攝影、露營團拍與家庭活動紀錄。",
+  "lang": "zh-Hant",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f7f4ef",
+  "theme_color": "#3d5c4a",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

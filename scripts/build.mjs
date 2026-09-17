@@ -359,7 +359,7 @@ function buildClientPages(entries) {
       description: '專案連結與交付資訊（部分頁面需密碼）。',
       canonical: `${site.url}/projects/clients/index.html`,
       body: idx,
-      noIndex: false,
+      noIndex: true,
     }),
   );
 
@@ -417,7 +417,7 @@ ${notesBlock}
         canonical: `${site.url}/projects/clients/${slug}.html`,
         body,
         ogImage: cover,
-        noIndex: !!e.data.password_protected,
+        noIndex: true,
       }),
     );
   }
@@ -549,7 +549,7 @@ function main() {
 
   writeFileSync(
     join(ROOT, 'robots.txt'),
-    `User-agent: *\nDisallow: /admin/\nDisallow: /clients/\nDisallow: /family-contract/\nSitemap: ${site.url}/sitemap.xml\n`,
+    `User-agent: *\nDisallow: /admin/\nDisallow: /clients/\nDisallow: /family-contract/\nDisallow: /projects/clients/\nDisallow: /content/\nDisallow: /data/\nDisallow: /docs/\nDisallow: /scripts/\nDisallow: /src/\nDisallow: /templates/\nSitemap: ${site.url}/sitemap.xml\n`,
     'utf8',
   );
 

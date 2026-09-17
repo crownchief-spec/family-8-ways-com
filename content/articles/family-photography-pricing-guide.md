@@ -2,7 +2,7 @@
 title: "親子寫真費用怎麼看？半天、全天、海外旅拍與加人入鏡差異"
 slug: "family-photography-pricing-guide"
 category: "攝影費用"
-description: "實用整理：協助你準備親子寫真與家庭旅拍，涵蓋行程、服裝與親子互動。"
+description: "親子寫真費用比較指南，說明半天、全天、海外旅拍、多人同行與照片影片交付差異。"
 coverImage: "/public/images/wix-import/taiwan-tamsui-tamsui-river-family/taiwan-tamsui-tamsui-river-family-outdoor-lifestyle-03.jpg"
 date: "2026-05-10"
 tags:
@@ -10,7 +10,7 @@ tags:
   - 家庭攝影
   - 小巴老師
 seoTitle: "親子寫真費用怎麼看？半天、全天、海外旅拍與加人入鏡差異｜指南｜小巴老師"
-seoDescription: "親子寫真與家庭旅拍實用指南：準備事項、穿搭與行程概念，適合首次拍攝的家庭閱讀。"
+seoDescription: "親子寫真費用怎麼看？比較半天、全天、海外旅拍、加人入鏡及照片影片成品內容。"
 featured: false
 relatedServices:
   - "/services/taiwan-family-photography"
@@ -21,7 +21,7 @@ relatedWorks:
 
 # 親子寫真費用怎麼看？半天、全天、海外旅拍與加人入鏡差異
 
-許多家庭在預約親子寫真或家庭旅拍前，會同時擔心「孩子不配合」「行程太赶」「衣服是否協調」。其實只要在時間、服裝與心理預期上先做輕量整理，就能讓拍攝當天的節奏更順，也容易拍到自然表情。
+許多家庭在預約親子寫真或家庭旅拍前，會同時擔心「孩子不配合」「行程太趕」「衣服是否協調」。其實只要在時間、服裝與心理預期上先做輕量整理，就能讓拍攝當天的節奏更順，也容易拍到自然表情。
 
 ## 快速重點
 
@@ -54,4 +54,3 @@ relatedWorks:
 ## 聯絡 CTA
 
 準備好日期、地點與家庭成員組合後，歡迎透過 Line 與小巴老師討論檔期與動線；也可先閱讀【服務方案】頁了解半天／全天與交付內容。
-
