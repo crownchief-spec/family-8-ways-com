@@ -53,7 +53,7 @@ function videoBlock(p) {
 }
 function hashtags(p) { return `<p class="container section section--flush-top muted">${p.hashtags.map((h) => `# ${escapeHtml(h)}`).join(' ')}</p>`; }
 function cta() {
-  return `<section class="container section card card--flat"><h2 class="h2">想預約親子寫真或家庭攝影嗎？</h2><p class="muted">如果你正在規劃台灣親子旅拍、海外家庭寫真、露營團拍、生日派對或特定主題拍攝，歡迎先告訴我們拍攝地點、日期、家庭成員與想拍的風格，我們可以一起安排最適合的拍攝方式。</p><div class="hero__actions"><a class="btn btn--primary" href="${cfg.site.lineUrl}" target="_blank" rel="noopener noreferrer">LINE 預約諮詢</a><a class="btn btn--secondary" href="/pages/service-flow/">查看服務說明</a><a class="btn btn--secondary" href="/pages/faq/">查看常見問題</a></div></section>`;
+  return `<section class="container section card card--flat cta-block"><h2 class="h2">想預約親子寫真或家庭攝影嗎？</h2><p class="muted">如果你正在規劃台灣親子旅拍、海外家庭寫真、露營團拍、生日派對或特定主題拍攝，歡迎先告訴我們拍攝地點、日期、家庭成員與想拍的風格，我們可以一起安排最適合的拍攝方式。</p><div class="hero__actions"><a class="btn btn--primary" href="${cfg.site.lineUrl}" target="_blank" rel="noopener noreferrer">LINE 預約諮詢</a><a class="btn btn--secondary" href="/pages/service-flow/">查看服務說明</a><a class="btn btn--secondary" href="/pages/faq/">查看常見問題</a></div></section>`;
 }
 function showcaseCards() {
   const picks = [
