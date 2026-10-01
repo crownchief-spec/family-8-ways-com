@@ -1326,8 +1326,32 @@ body {
   pointer-events: none;
 }
 
-.site-footer :where(a, .footer-links a, .muted) {
+.site-footer a:not(.btn),
+.site-footer .footer-links a,
+.site-footer .muted {
   color: rgba(255, 253, 248, 0.86);
+}
+
+.site-footer .btn--primary {
+  color: #fff;
+  background: rgba(196, 200, 181, 0.32);
+  border-color: rgba(242, 236, 225, 0.28);
+}
+
+.site-footer .btn--primary:hover {
+  color: #fff;
+  background: rgba(196, 200, 181, 0.46);
+}
+
+.site-footer .btn--secondary {
+  color: var(--color-forest-dark);
+  background: var(--color-warm-white);
+  border-color: rgba(242, 236, 225, 0.72);
+}
+
+.site-footer .btn--secondary:hover {
+  color: var(--color-wood-deep);
+  background: #fffdf8;
 }
 
 .site-footer__bottom {
