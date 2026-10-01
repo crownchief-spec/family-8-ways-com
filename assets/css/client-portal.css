@@ -5,7 +5,7 @@
 
 .family-contract-hero {
   padding: var(--space-xl) 0 var(--space-lg);
-  background: linear-gradient(180deg, #f8f3e8 0%, #f7f4ef 100%);
+  background: linear-gradient(180deg, var(--color-oat-milk) 0%, var(--color-warm-white) 100%);
 }
 
 .portal-status {
@@ -23,7 +23,7 @@
   font-size: 0.85rem;
   font-weight: 600;
   border: 1px solid var(--color-line);
-  background: #fff;
+  background: var(--color-paper);
 }
 
 .portal-grid {
@@ -83,7 +83,57 @@
   padding: 0.8rem 0.95rem;
   border-radius: 10px;
   border: 1px dashed var(--color-line);
-  background: #fcfaf5;
+  background: var(--color-paper);
+}
+
+.portal-locked-banner {
+  border-color: var(--color-fog-gold);
+  background: color-mix(in srgb, var(--color-oat-milk) 28%, var(--color-paper));
+}
+
+.portal-locked-banner p:first-child {
+  margin: 0 0 0.5rem;
+}
+
+.portal-locked-banner p:last-child,
+.portal-intro-note {
+  margin-top: 0;
+}
+
+.portal-fee-summary {
+  margin: var(--space-md) 0;
+  padding: var(--space-md);
+  background: rgba(127, 135, 112, 0.07);
+  border: 1px solid var(--color-line);
+  border-radius: 10px;
+}
+
+.portal-fee-summary p {
+  margin: 0.35rem 0;
+}
+
+.portal-contact-hint {
+  margin: -0.25rem 0 0.5rem;
+  font-size: 0.9rem;
+}
+
+.portal-email-fallback {
+  padding: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.contract-pdf-source {
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 820px;
+  padding: 24px;
+  color: #111;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  background: #fff;
 }
 
 .portal-form .field {
@@ -98,7 +148,7 @@
   padding: 0.7rem 0.8rem;
   border-radius: 10px;
   border: 1px solid var(--color-line);
-  background: #fff;
+  background: var(--color-paper);
 }
 
 .portal-form textarea {

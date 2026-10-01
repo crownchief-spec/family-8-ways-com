@@ -38,10 +38,10 @@ function bread(route, title) {
   const bits = route.split('/').filter(Boolean);
   let acc = '';
   const links = ['<a href="/">首頁</a>'].concat(bits.map((b) => { acc += `/${b}`; return `<a href="${acc}/">${escapeHtml(b)}</a>`; }));
-  return `<nav class="container section" style="padding-bottom:0;font-size:0.9rem;"><div class="muted">${links.join(' / ')} / <span>${escapeHtml(title)}</span></div></nav>`;
+  return `<nav class="container section breadcrumb"><div class="muted">${links.join(' / ')} / <span>${escapeHtml(title)}</span></div></nav>`;
 }
 function statsRow(p) {
-  return `<p class="container section muted" style="padding-top:0;">本頁作品照片：${p.images.length} 張｜影片：${p.videos.length} 支</p>`;
+  return `<p class="container section section--flush-top muted">本頁作品照片：${p.images.length} 張｜影片：${p.videos.length} 支</p>`;
 }
 function gallery(p) {
   if (!p.images.length) return '<p class="muted">目前未抓到圖片，已標記待補件。</p>';
@@ -49,9 +49,9 @@ function gallery(p) {
 }
 function videoBlock(p) {
   if (!p.videos.length) return '<p class="muted">本頁暫無影片，請參考首頁精選影片。</p>';
-  return `<div class="grid-2">${p.videos.map((v) => `<div style="aspect-ratio:16/9;background:#000;border-radius:10px;overflow:hidden;"><iframe loading="lazy" width="100%" height="100%" src="${escapeHtml(v.embedUrl)}" title="YouTube video" frameborder="0" allowfullscreen></iframe></div>`).join('')}</div>`;
+  return `<div class="grid-2">${p.videos.map((v) => `<div class="embed-video"><iframe loading="lazy" src="${escapeHtml(v.embedUrl)}" title="YouTube video" allowfullscreen></iframe></div>`).join('')}</div>`;
 }
-function hashtags(p) { return `<p class="container section muted" style="padding-top:0;">${p.hashtags.map((h) => `# ${escapeHtml(h)}`).join(' ')}</p>`; }
+function hashtags(p) { return `<p class="container section section--flush-top muted">${p.hashtags.map((h) => `# ${escapeHtml(h)}`).join(' ')}</p>`; }
 function cta() {
   return `<section class="container section card card--flat"><h2 class="h2">想預約親子寫真或家庭攝影嗎？</h2><p class="muted">如果你正在規劃台灣親子旅拍、海外家庭寫真、露營團拍、生日派對或特定主題拍攝，歡迎先告訴我們拍攝地點、日期、家庭成員與想拍的風格，我們可以一起安排最適合的拍攝方式。</p><div class="hero__actions"><a class="btn btn--primary" href="${cfg.site.lineUrl}" target="_blank" rel="noopener noreferrer">LINE 預約諮詢</a><a class="btn btn--secondary" href="/pages/service-flow/">查看服務說明</a><a class="btn btn--secondary" href="/pages/faq/">查看常見問題</a></div></section>`;
 }
@@ -165,7 +165,7 @@ function buildStandardPage(p) {
   const desc = conciseSummary(p.paragraphs, `${p.newTitle.split('｜')[0]}，精選親子寫真與家庭攝影內容。`);
   const hero = p.images[0]?.src || '/public/og-default.svg';
   const body = `${bread(p.newUrl, p.newTitle)}
-<section class="hero" style="min-height:320px;margin-bottom:0;border-radius:0;"><div class="hero__bg" style="background-image:url('${hero}')"></div><div class="hero__overlay"></div><div class="hero__inner"><h1 class="hero__title">${escapeHtml(p.newTitle)}</h1><p class="hero__sub">${escapeHtml(desc)}</p><div class="hero__actions"><a class="btn btn--primary" href="${cfg.site.lineUrl}" target="_blank" rel="noopener noreferrer">LINE 預約</a><a class="btn btn--secondary" href="/pages/service-flow/">查看服務流程</a></div></div></section>
+<section class="hero hero--medium hero--edge"><div class="hero__bg" style="background-image:url('${hero}')"></div><div class="hero__overlay"></div><div class="hero__inner"><h1 class="hero__title">${escapeHtml(p.newTitle)}</h1><p class="hero__sub">${escapeHtml(desc)}</p><div class="hero__actions"><a class="btn btn--primary" href="${cfg.site.lineUrl}" target="_blank" rel="noopener noreferrer">LINE 預約</a><a class="btn btn--secondary" href="/pages/service-flow/">查看服務流程</a></div></div></section>
 ${statsRow(p)}
 ${renderContentSections(p)}
 <section class="container section"><h2 class="h2">作品圖庫</h2>${gallery(p)}</section>
@@ -188,7 +188,7 @@ function buildHome() {
   } catch {
     hubHomeInject = '';
   }
-  const body = `<section class="hero" style="min-height:420px;margin-bottom:0;border-radius:0;"><div class="hero__bg" style="background-image:url('${p.images[0]?.src || '/public/og-default.svg'}')"></div><div class="hero__overlay"></div><div class="hero__inner"><h1 class="hero__title">親子寫真｜台灣包車、海外旅拍、家庭攝影作品集</h1><p class="hero__sub">小巴老師以全外拍自然互動風格，陪家庭邊玩邊拍。從台灣包車旅拍到日本、韓國、新加坡、澳洲等海外親子寫真，讓家庭照像風景明信片一樣自然、有故事。</p><div class="hero__actions"><a class="btn btn--primary" href="/services/">查看服務方案與價格</a><a class="btn btn--secondary" href="/taiwan/">看台灣拍攝作品</a><a class="btn btn--secondary" href="/overseas/">看海外旅拍作品</a><a class="btn btn--secondary" href="${cfg.site.lineUrl}" target="_blank" rel="noopener noreferrer">LINE 預約諮詢</a></div></div></section>
+  const body = `<section class="hero hero--feature hero--edge"><div class="hero__bg" style="background-image:url('${p.images[0]?.src || '/public/og-default.svg'}')"></div><div class="hero__overlay"></div><div class="hero__inner"><h1 class="hero__title">親子寫真｜台灣包車、海外旅拍、家庭攝影作品集</h1><p class="hero__sub">小巴老師以全外拍自然互動風格，陪家庭邊玩邊拍。從台灣包車旅拍到日本、韓國、新加坡、澳洲等海外親子寫真，讓家庭照像風景明信片一樣自然、有故事。</p><div class="hero__actions"><a class="btn btn--primary" href="/services/">查看服務方案與價格</a><a class="btn btn--secondary" href="/taiwan/">看台灣拍攝作品</a><a class="btn btn--secondary" href="/overseas/">看海外旅拍作品</a><a class="btn btn--secondary" href="${cfg.site.lineUrl}" target="_blank" rel="noopener noreferrer">LINE 預約諮詢</a></div></div></section>
 ${statsRow(p)}
 <section class="container section"><h2 class="h2">核心賣點</h2><div class="grid-2"><div class="card card--flat"><h3 class="h3">全外拍自然互動風格</h3></div><div class="card card--flat"><h3 class="h3">台灣包車親子旅拍</h3></div><div class="card card--flat"><h3 class="h3">50 趟以上海外旅拍</h3></div><div class="card card--flat"><h3 class="h3">照片全給 / 微電影 MV</h3></div></div></section>
 <section class="container section"><h2 class="h2">精選影片</h2>${videoBlock(p)}<p><a href="https://www.youtube.com/playlist?list=PLlcWeCGlTvTTEDlFy5fNEjOKzUt5gBzVM" target="_blank" rel="noopener noreferrer">查看更多親子旅拍影片</a></p></section>
@@ -224,7 +224,7 @@ function buildIndexPage(id, title, intro, filterFn) {
       url: `${siteUrl}${p.newUrl}/`,
     })),
   })}</script>`;
-  const body = `${itemList}${bread(id, title)}<section class="container section"><h1 class="h1">${escapeHtml(title)}</h1><p class="muted">${escapeHtml(intro)}</p></section><p class="container section muted" style="padding-top:0;">本頁收錄 ${rows.length} 個拍攝地點或主題，共 ${rows.reduce((a,b)=>a+b.images.length,0)} 張作品照片、${rows.reduce((a,b)=>a+b.videos.length,0)} 支影片。</p><section class="container section" style="padding-top:0;"><div class="grid-2">${cards}</div></section>${cta()}${hashtags({ hashtags: ['親子寫真', '家庭攝影', '小巴老師'] })}`;
+  const body = `${itemList}${bread(id, title)}<section class="container section"><h1 class="h1">${escapeHtml(title)}</h1><p class="muted">${escapeHtml(intro)}</p></section><p class="container section section--flush-top muted">本頁收錄 ${rows.length} 個拍攝地點或主題，共 ${rows.reduce((a,b)=>a+b.images.length,0)} 張作品照片、${rows.reduce((a,b)=>a+b.videos.length,0)} 支影片。</p><section class="container section section--flush-top"><div class="grid-2">${cards}</div></section>${cta()}${hashtags({ hashtags: ['親子寫真', '家庭攝影', '小巴老師'] })}`;
   return renderPage(cfg, { title: `${title}｜小巴老師親子寫真`, description: intro, canonical: `${siteUrl}${id}/`, body, ogImage: rows[0]?.images[0]?.src || '/public/og-default.svg' });
 }
 

@@ -277,13 +277,13 @@ export function runPrepare() {
   <h2 class="h2">最新親子寫真作品</h2>
   <p class="muted">從真實案例看拍攝風格與場景氛圍。</p>
   <div class="showcase-grid">${worksCards || '<p class="muted">作品資料準備中。</p>'}</div>
-  <p style="margin-top:var(--space-md);"><a class="btn btn--secondary" href="/works/">看更多作品</a></p>
+  <p class="content-actions-row"><a class="btn btn--secondary" href="/works/">看更多作品</a></p>
 </section>
 <section class="container section hub-three-systems">
   <h2 class="h2">親子寫真文章</h2>
   <p class="muted">拍攝準備、地點、穿搭與費用等實用指南。</p>
   <div class="showcase-grid">${artCards || '<p class="muted">文章準備中。</p>'}</div>
-  <p style="margin-top:var(--space-md);"><a class="btn btn--secondary" href="/articles/">閱讀更多文章</a></p>
+  <p class="content-actions-row"><a class="btn btn--secondary" href="/articles/">閱讀更多文章</a></p>
 </section>`;
 
   writeFileSync(join(ROOT, 'data/hub-home-inject.html'), inject, 'utf8');
@@ -535,7 +535,7 @@ function runPages() {
       <p class="pcard__loc muted">${escapeHtml(w.data.category)} · ${escapeHtml(w.data.location)}</p>
       <h3 class="pcard__title">${escapeHtml(w.data.title)}</h3>
       <p class="pcard__excerpt muted">${escapeHtml(w.data.excerpt || '')}</p>
-      <span class="btn btn--ghost btn--compact" style="margin-top:0.5rem;display:inline-block;">查看作品</span>
+      <span class="btn btn--ghost btn--compact content-action">查看作品</span>
     </div>
   </a></div>`;
     })
@@ -562,17 +562,17 @@ function runPages() {
     )
     .join('');
 
-  const worksIndexBody = `<nav class="container section" style="padding-bottom:0;font-size:0.9rem;"><div class="muted"><a href="/">首頁</a> / <span>親子寫真作品</span></div></nav>
+  const worksIndexBody = `<nav class="container section breadcrumb"><div class="muted"><a href="/">首頁</a> / <span>親子寫真作品</span></div></nav>
 <section class="hero hero--compact"><div class="hero__bg" style="background-image:url('${normImg('/public/images/wix-import/taiwan-yilan-family-portrait/taiwan-yilan-family-portrait-outdoor-lifestyle-01.jpg')}')"></div><div class="hero__overlay"></div><div class="hero__inner">
 <h1 class="hero__title">親子寫真作品案例</h1>
 <p class="hero__sub">收錄台灣親子旅拍、海外家庭攝影、露營團拍、生日派對、孕婦寶寶與三代同堂作品。</p>
 </div></section>
 <div class="container section">
 <label class="field hub-search"><span class="muted">搜尋作品</span><input type="search" data-hub-search placeholder="標題、地點、標籤…" class="hub-search__input"/></label>
-<div class="chips chips--wrap" style="margin-top:var(--space-md);">${filterButtons}</div>
+<div class="chips chips--wrap">${filterButtons}</div>
 </div>
-<div class="container section" style="padding-top:0;"><div class="grid-2" id="hub-works-grid">${workCards}</div>
-<p class="muted" id="hub-works-empty" hidden style="text-align:center;">此條件目前沒有作品。</p>
+<div class="container section section--flush-top"><div class="grid-2" id="hub-works-grid">${workCards}</div>
+<p class="muted empty-state empty-state--compact" id="hub-works-empty" hidden>此條件目前沒有作品。</p>
 </div>
 <script>(function(){function norm(){return(new URL(location.href)).searchParams.get("category")||"";}var active=norm();var chips=document.querySelectorAll("[data-hub-filter]");var items=document.querySelectorAll("[data-hub-work]");var q="";var searchEl=document.querySelector("[data-hub-search]");function apply(){var n=0;items.forEach(function(el){var cat=el.getAttribute("data-category")||"";var okCat=active===""||active==="all"||cat===active;var text=(el.getAttribute("data-search")||"").toLowerCase();var okSearch=!q||text.indexOf(q.toLowerCase())!==-1;var ok=okCat&&okSearch;el.toggleAttribute("hidden",!ok);if(ok)n++;});var empty=document.getElementById("hub-works-empty");if(empty)empty.hidden=n!==0;}if(active){chips.forEach(function(c){c.classList.toggle("is-active",c.getAttribute("data-hub-filter")===active);});}chips.forEach(function(btn){btn.addEventListener("click",function(){active=btn.getAttribute("data-hub-filter")||"all";chips.forEach(function(c){c.classList.remove("is-active");});btn.classList.add("is-active");apply();});});if(searchEl){searchEl.addEventListener("input",function(){q=String(searchEl.value||"").trim();apply();});}apply();})();</script>`;
 
@@ -639,8 +639,8 @@ function runPages() {
       : '';
 
     const pageBody = `${jsonLdBreadcrumb(['首頁', '作品案例', w.data.title])}
-<nav class="container section" style="padding-bottom:0;font-size:0.9rem;"><div class="muted"><a href="/">首頁</a> / <a href="/works/">作品案例</a> / <span>${escapeHtml(w.data.title)}</span></div></nav>
-<section class="hero" style="min-height:340px;margin-bottom:0;border-radius:0;"><div class="hero__bg" style="background-image:url('${escapeHtml(cov)}')"></div><div class="hero__overlay"></div><div class="hero__inner">
+<nav class="container section breadcrumb"><div class="muted"><a href="/">首頁</a> / <a href="/works/">作品案例</a> / <span>${escapeHtml(w.data.title)}</span></div></nav>
+<section class="hero hero--medium hero--edge"><div class="hero__bg" style="background-image:url('${escapeHtml(cov)}')"></div><div class="hero__overlay"></div><div class="hero__inner">
 <p class="hero__eyebrow">${escapeHtml(w.data.category)} · ${escapeHtml(w.data.location)}</p>
 <h1 class="hero__title">${escapeHtml(w.data.title)}</h1>
 <p class="hero__sub">${escapeHtml(w.data.excerpt || '')}</p>
@@ -696,8 +696,8 @@ ${relArtHtml}
 <p class="pcard__loc muted">${escapeHtml(a.data.category)} · ${escapeHtml(a.data.date)}</p>
 <h3 class="pcard__title">${escapeHtml(a.data.title)}</h3>
 <p class="pcard__excerpt muted">${escapeHtml(a.data.description || '')}</p>
-<p class="muted" style="font-size:0.85rem;">${(a.data.tags || []).map((t) => `<span class="tag">${escapeHtml(t)}</span>`).join(' ')}</p>
-<span class="btn btn--ghost btn--compact" style="margin-top:0.5rem;display:inline-block;">閱讀文章</span>
+<p class="muted content-meta">${(a.data.tags || []).map((t) => `<span class="tag">${escapeHtml(t)}</span>`).join(' ')}</p>
+<span class="btn btn--ghost btn--compact content-action">閱讀文章</span>
 </div>
 </a></div>`;
     })
@@ -721,14 +721,14 @@ ${relArtHtml}
     )
     .join('');
 
-  const articlesIndexBody = `<nav class="container section" style="padding-bottom:0;"><div class="muted"><a href="/">首頁</a> / <span>親子寫真文章</span></div></nav>
+  const articlesIndexBody = `<nav class="container section breadcrumb"><div class="muted"><a href="/">首頁</a> / <span>親子寫真文章</span></div></nav>
 <section class="hero hero--compact"><div class="hero__bg" style="background-image:url('${normImg('/public/images/wix-import/theme-three-generation-grandparent-family/theme-three-generation-grandparent-family-outdoor-lifestyle-01.jpg')}')"></div><div class="hero__overlay"></div><div class="hero__inner">
 <h1 class="hero__title">親子寫真文章｜拍攝準備、地點推薦、穿搭與家庭攝影指南</h1>
 <p class="hero__sub">整理親子寫真、家庭攝影、台灣旅拍、海外旅拍、露營團拍與家庭照準備資訊。</p>
 </div></section>
 <div class="container section"><div class="chips chips--wrap">${artFilters}</div></div>
-<div class="container section" style="padding-top:0;"><div class="grid-2" id="hub-art-grid">${artList}</div>
-<p class="muted" id="hub-art-empty" hidden style="text-align:center;">此分類目前沒有文章。</p></div>
+<div class="container section section--flush-top"><div class="grid-2" id="hub-art-grid">${artList}</div>
+<p class="muted empty-state empty-state--compact" id="hub-art-empty" hidden>此分類目前沒有文章。</p></div>
 <script>(function(){var active="";try{active=(new URL(location.href)).searchParams.get("category")||"";}catch(e){}var chips=document.querySelectorAll("[data-hub-afilter]");var items=document.querySelectorAll("[data-hub-article]");function apply(){var n=0;items.forEach(function(el){var cat=el.getAttribute("data-category")||"";var ok=!active||active==="all"||cat===active;el.toggleAttribute("hidden",!ok);if(ok)n++;});var empty=document.getElementById("hub-art-empty");if(empty)empty.hidden=n!==0;}if(active){chips.forEach(function(c){c.classList.toggle("is-active",c.getAttribute("data-hub-afilter")===active);});}chips.forEach(function(btn){btn.addEventListener("click",function(){active=btn.getAttribute("data-hub-afilter")||"all";chips.forEach(function(c){c.classList.remove("is-active");});btn.classList.add("is-active");apply();});});apply();})();</script>`;
 
   writeRouteHtml(
@@ -761,8 +761,8 @@ ${relArtHtml}
         : '';
 
     const articleBody = `${jsonLdBreadcrumb(['首頁', '文章', a.data.title])}
-<nav class="container section" style="padding-bottom:0;"><div class="muted"><a href="/">首頁</a> / <a href="/articles/">文章</a> / <span>${escapeHtml(a.data.title)}</span></div></nav>
-<section class="hero" style="min-height:300px;margin-bottom:0;border-radius:0;"><div class="hero__bg" style="background-image:url('${escapeHtml(cov)}')"></div><div class="hero__overlay"></div><div class="hero__inner">
+<nav class="container section breadcrumb"><div class="muted"><a href="/">首頁</a> / <a href="/articles/">文章</a> / <span>${escapeHtml(a.data.title)}</span></div></nav>
+<section class="hero hero--medium hero--edge"><div class="hero__bg" style="background-image:url('${escapeHtml(cov)}')"></div><div class="hero__overlay"></div><div class="hero__inner">
 <p class="hero__eyebrow">${escapeHtml(a.data.category)} · ${escapeHtml(a.data.date)}</p>
 <h1 class="hero__title">${escapeHtml(a.data.title)}</h1>
 </div></section>
@@ -800,7 +800,7 @@ ${rs}
   /* ----- clients ----- */
   const clientsForPortal = clients.filter((c) => c.status !== 'archived' && c.shareEnabled !== false && c.adminOnly !== true);
 
-  const clientsIndexBody = `<nav class="container section" style="padding-bottom:0;"><div class="muted"><a href="/">首頁</a> / <span>客戶分享頁說明</span></div></nav>
+  const clientsIndexBody = `<nav class="container section breadcrumb"><div class="muted"><a href="/">首頁</a> / <span>客戶分享頁說明</span></div></nav>
 <section class="hero hero--compact"><div class="hero__bg" style="background-image:url('${CLIENT_OG}')"></div><div class="hero__overlay"></div><div class="hero__inner">
 <h1 class="hero__title">客戶分享頁使用說明</h1>
 <p class="hero__sub">這裡不是公開查詢頁。已預約客戶請使用攝影師提供的專屬連結進入合約確認與作品交件頁。如找不到連結，請直接聯絡小巴老師。</p>
@@ -854,7 +854,7 @@ ${rs}
   for (const c of portfolioClients) {
     const storyHtml = marked.parse(c.bodyMd || '');
     const cover = normImg(c.coverImage || '', DEFAULT_IMG);
-    const publicBody = `<nav class="container section" style="padding-bottom:0;"><div class="muted"><a href="/">首頁</a> / <a href="/works/">作品案例</a> / <span>${escapeHtml(c.clientName)}</span></div></nav>
+    const publicBody = `<nav class="container section breadcrumb"><div class="muted"><a href="/">首頁</a> / <a href="/works/">作品案例</a> / <span>${escapeHtml(c.clientName)}</span></div></nav>
 <section class="hero hero--compact"><div class="hero__bg" style="background-image:url('${escapeHtml(cover)}')"></div><div class="hero__overlay"></div><div class="hero__inner"><h1 class="hero__title">${escapeHtml(c.title)}</h1>${isPresent(c.shootingDate) || isPresent(c.location) ? `<p class="hero__sub">${escapeHtml([c.shootingDate, c.location].filter(Boolean).join(' · '))}</p>` : ''}</div></section>
 <section class="container section prose">${storyHtml}</section>`;
     writeRouteHtml(
@@ -879,7 +879,7 @@ ${rs}
     )
     .join('');
 
-  const servicesIndexBody = `<nav class="container section" style="padding-bottom:0;"><div class="muted"><a href="/">首頁</a> / <span>服務方案</span></div></nav>
+  const servicesIndexBody = `<nav class="container section breadcrumb"><div class="muted"><a href="/">首頁</a> / <span>服務方案</span></div></nav>
 <section class="hero hero--compact"><div class="hero__bg" style="background-image:url('${normImg('/public/images/wix-import/taiwan-camping-glamping-family/taiwan-camping-glamping-family-outdoor-lifestyle-01.jpg')}')"></div><div class="hero__overlay"></div><div class="hero__inner">
 <h1 class="hero__title">親子寫真服務方案</h1>
 <p class="hero__sub">依旅行方式與家庭需求選擇台灣旅拍、海外旅拍、露營民宿、活動紀錄與孕婦／三代同堂主題。</p>
@@ -904,8 +904,8 @@ ${rs}
     const rw = relatedWorksHtml(s.relatedWorks, workBySlug);
     const ra = relatedArticlesHtml(s.relatedArticles, artBySlug);
     const hero = normImg(s.heroImage);
-    const body = `<nav class="container section" style="padding-bottom:0;"><div class="muted"><a href="/">首頁</a> / <a href="/services/">服務方案</a> / <span>${escapeHtml(s.title)}</span></div></nav>
-<section class="hero" style="min-height:320px;margin-bottom:0;border-radius:0;"><div class="hero__bg" style="background-image:url('${escapeHtml(hero)}')"></div><div class="hero__overlay"></div><div class="hero__inner"><h1 class="hero__title">${escapeHtml(s.title)}</h1><p class="hero__sub">${escapeHtml(s.summary)}</p></div></section>
+    const body = `<nav class="container section breadcrumb"><div class="muted"><a href="/">首頁</a> / <a href="/services/">服務方案</a> / <span>${escapeHtml(s.title)}</span></div></nav>
+<section class="hero hero--medium hero--edge"><div class="hero__bg" style="background-image:url('${escapeHtml(hero)}')"></div><div class="hero__overlay"></div><div class="hero__inner"><h1 class="hero__title">${escapeHtml(s.title)}</h1><p class="hero__sub">${escapeHtml(s.summary)}</p></div></section>
 <div class="container section prose">${prose}</div>
 ${rw}
 ${ra}
@@ -926,7 +926,7 @@ ${ra}
 
   /* ----- static hub routes ----- */
   const aboutHero = '/public/images/family/archive/about-ba-wei/about-ba-wei-003-636b95_4c98709e203d4bfd8478e8c7e14be1c9-mv.jpg';
-  const aboutBody = `<nav class="container section" style="padding-bottom:0;"><div class="muted"><a href="/">首頁</a> / <span>關於小巴老師</span></div></nav>
+  const aboutBody = `<nav class="container section breadcrumb"><div class="muted"><a href="/">首頁</a> / <span>關於小巴老師</span></div></nav>
 <section class="hero hero--compact"><div class="hero__bg" role="img" aria-label="親子寫真攝影師小巴老師與家庭自然互動作品" style="background-image:url('${aboutHero}')"></div><div class="hero__overlay"></div><div class="hero__inner"><h1 class="hero__title">關於小巴老師</h1>
 <p class="hero__sub">全外拍自然互動、海外旅拍經驗豐富，長期服務親子與家庭品牌影像。</p></div></section>
 <div class="container section prose">
@@ -948,7 +948,7 @@ ${ra}
   extraSitemapUrls.push(`${site.url}/about/`);
 
   const faqHero = '/public/images/family/archive/faq/faq-002-636b95_fc0816dc9d4d422987324d331171caad-mv.png';
-  const faqTeaser = `<nav class="container section" style="padding-bottom:0;"><div class="muted"><a href="/">首頁</a> / <span>常見問題</span></div></nav>
+  const faqTeaser = `<nav class="container section breadcrumb"><div class="muted"><a href="/">首頁</a> / <span>常見問題</span></div></nav>
 <section class="hero hero--compact"><div class="hero__bg" role="img" aria-label="親子寫真拍攝前常見問題與準備說明" style="background-image:url('${faqHero}')"></div><div class="hero__overlay"></div><div class="hero__inner"><h1 class="hero__title">常見問題</h1>
 <p class="hero__sub">整理行程、外拍差異、下雨與交件等常見問題；完整內容請見詳細頁。</p></div></section>
 <div class="container section prose">
@@ -982,7 +982,7 @@ ${ra}
       title: '聯絡預約｜小巴老師親子寫真',
       description: '預約親子寫真、家庭旅拍或詢問檔期與報價。',
       canonical: `${site.url}/contact/`,
-      body: `<nav class="container section" style="padding-bottom:0;"><div class="muted"><a href="/">首頁</a> / <span>聯絡預約</span></div></nav>${contactTpl}`,
+      body: `<nav class="container section breadcrumb"><div class="muted"><a href="/">首頁</a> / <span>聯絡預約</span></div></nav>${contactTpl}`,
       ogImage: '/assets/images/og/default.svg',
     }),
   );
@@ -1019,7 +1019,7 @@ ${ra}
 <td><a class="btn btn--ghost btn--compact" href="/admin/clients/${escapeHtml(c.slug)}/edit/">編輯</a></td>
 <td><a href="/clients/${escapeHtml(c.slug)}/" target="_blank" rel="noopener noreferrer">預覽</a></td>
 <td>${copyBtn}</td>
-<td><a href="/clients/${escapeHtml(c.slug)}/" target="_blank" rel="noopener noreferrer" class="muted" style="font-size:0.85rem;">/clients/${escapeHtml(c.slug)}/</a></td>
+<td><a href="/clients/${escapeHtml(c.slug)}/" target="_blank" rel="noopener noreferrer" class="muted content-meta">/clients/${escapeHtml(c.slug)}/</a></td>
 <td>${portfolioLink ? `<a href="${escapeHtml(portfolioLink)}" target="_blank" rel="noopener noreferrer">${escapeHtml(portfolioLink)}</a>` : ''}</td>
 </tr>`;
     })

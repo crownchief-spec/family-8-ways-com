@@ -186,25 +186,25 @@ function buildCasePages(entries) {
 <div class="container section">
   <h2 class="h2">依你喜歡的方式來看作品</h2>
   <div class="prose muted"><p>我一直很喜歡用「故事」來看每一次拍攝。你可以用拍攝類型、地區或場景主題來看。</p></div>
-  <h3 class="h3" style="margin-top:var(--space-lg);">依拍攝類型</h3>
+  <h3 class="h3 portal-section-title">依拍攝類型</h3>
   ${chips('type', typeLabels)}
 </div>
-<div class="container section" style="padding-top:0;">
+<div class="container section section--flush-top">
   <h3 class="h3">依場景主題</h3>
   <div class="chips chips--wrap" data-filter-group="theme">
   <button type="button" class="chip is-active" data-value="all">全部</button>${themeLabels.map((t) => `<button type="button" class="chip" data-value="${escapeHtml(t)}">${escapeHtml(t)}</button>`).join('')}
   </div>
 </div>
-<div class="container section" style="padding-top:0;">
+<div class="container section section--flush-top">
   <h3 class="h3">依地區</h3>
   <div class="chips" data-filter-group="region">
   <button type="button" class="chip is-active" data-value="all">全部</button>${regions.map((r) => `<button type="button" class="chip" data-value="${escapeHtml(r)}">${escapeHtml(r)}</button>`).join('')}
   </div>
 </div>
-<div class="container section" style="padding-top:0;">
+<div class="container section section--flush-top">
   <h2 class="h2">最新作品與精選案例</h2>
   <div class="grid-2" id="portfolio-grid">${listCards}</div>
-  <p class="muted" id="portfolio-empty" hidden style="text-align:center;padding:2rem;">此條件目前沒有作品。</p>
+  <p class="muted empty-state" id="portfolio-empty" hidden>此條件目前沒有作品。</p>
 </div>
 <script>
 (function(){var groups={type:'all',theme:'all',region:'all'};function apply(){var items=document.querySelectorAll('.pf-item');var n=0;items.forEach(function(el){var types=el.dataset.type||'',region=el.dataset.region||'',tags=el.dataset.tags||'';var ok=true;if(groups.type!=='all'&&!types.includes(groups.type))ok=false;if(groups.region!=='all'&&region!==groups.region)ok=false;if(groups.theme!=='all'){var parts=groups.theme.split('/').map(function(p){return p.trim()});var blob=tags+' '+types;if(!parts.some(function(part){return blob.includes(part)}))ok=false;}el.toggleAttribute('hidden',!ok);if(ok)n++;});var empty=document.getElementById('portfolio-empty');if(empty)empty.hidden=n!==0;}document.querySelectorAll('[data-filter-group]').forEach(function(wrap){wrap.addEventListener('click',function(e){var t=e.target;var btn=t.closest('button[data-value]');if(!btn)return;var g=wrap.getAttribute('data-filter-group');if(!g)return;groups[g]=btn.dataset.value||'all';wrap.querySelectorAll('.chip').forEach(function(c){c.classList.remove('is-active')});btn.classList.add('is-active');apply();});});apply();})();
@@ -237,14 +237,14 @@ function buildCasePages(entries) {
       .join('');
     const locHref = hrefForPortfolioLocation(e.data.location);
     const article = `<article>
-<section class="hero" style="min-height:360px;margin-bottom:0;border-radius:0;">
+<section class="hero hero--tall hero--edge">
 <div class="hero__bg" style="background-image:url('${escapeHtml(cover)}')"></div>
 <div class="hero__overlay"></div>
-<div class="hero__inner" style="padding-bottom:var(--space-xl);">
+<div class="hero__inner hero__inner--padded">
 <p class="hero__eyebrow">${escapeHtml(e.data.location)}${e.data.country ? ` · ${escapeHtml(e.data.country)}` : ''}</p>
-<h1 class="hero__title" style="max-width:24ch;">${escapeHtml(e.data.title)}</h1>
+<h1 class="hero__title hero__title--article">${escapeHtml(e.data.title)}</h1>
 <p class="hero__sub">${escapeHtml((e.data.category || []).join('、'))}${e.data.season ? ` · ${escapeHtml(e.data.season)}` : ''}</p>
-<div class="hero__tags" style="display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:0.75rem;">${(e.data.tags || []).map((t) => `<span class="tag">${escapeHtml(t)}</span>`).join('')}</div>
+<div class="hero__tags">${(e.data.tags || []).map((t) => `<span class="tag">${escapeHtml(t)}</span>`).join('')}</div>
 </div>
 </section>
 <div class="container section prose">${htmlBody}</div>
@@ -289,11 +289,11 @@ function buildLocationPages(entries) {
       )
       .join('');
 
-  const idxBody = `<section class="hero" style="min-height:300px;margin-bottom:0;border-radius:0;">
+  const idxBody = `<section class="hero hero--medium hero--edge">
 <div class="hero__bg" style="background-image:url('/assets/images/home/kids-portrait-evening-lights-locations-005.png')"></div>
 <div class="hero__overlay"></div>
-<div class="hero__inner" style="padding-bottom:var(--space-xl);"><h1 class="hero__title" style="max-width:none;">地區拍攝</h1>
-<p class="hero__sub" style="max-width:58ch;">每個地區都有適合的家庭旅拍方式。</p></div></section>
+<div class="hero__inner hero__inner--padded"><h1 class="hero__title hero__title--wide">地區拍攝</h1>
+<p class="hero__sub hero__sub--wide">每個地區都有適合的家庭旅拍方式。</p></div></section>
 <div class="container section"><p class="lead">想找<strong>海外旅行跟拍</strong>，請到「<a href="/pages/overseas.html">海外旅拍</a>」與「<a href="/pages/spotlights.html">拍攝主題</a>」。</p></div>
 <div class="container section"><h2 class="h2">台灣地區拍攝</h2><div class="loc-grid">${cards(taiwan)}</div></div>
 <div class="container section"><h2 class="h2">海外地區拍攝</h2><div class="loc-grid">${cards(overseas)}</div></div>`;
@@ -313,12 +313,12 @@ function buildLocationPages(entries) {
       e.data.cover,
       '/public/images/wix-import/taiwan-taipei-family-portrait/taiwan-taipei-family-portrait-outdoor-lifestyle-04.jpg',
     );
-    const body = `<section class="hero" style="min-height:340px;margin-bottom:0;border-radius:0;">
+    const body = `<section class="hero hero--medium hero--edge">
 <div class="hero__bg" style="background-image:url('${escapeHtml(hero)}')"></div>
 <div class="hero__overlay"></div>
-<div class="hero__inner" style="padding-bottom:var(--space-xl);">
-<h1 class="hero__title" style="max-width:none;">${escapeHtml(e.data.title)}</h1>
-${e.data.subtitle ? `<p class="hero__sub" style="max-width:52ch;">${escapeHtml(e.data.subtitle)}</p>` : ''}
+<div class="hero__inner hero__inner--padded">
+<h1 class="hero__title hero__title--wide">${escapeHtml(e.data.title)}</h1>
+${e.data.subtitle ? `<p class="hero__sub">${escapeHtml(e.data.subtitle)}</p>` : ''}
 </div></section>
 ${locationBody(e.bodyMd)}
 ${e.data.why_great?.length ? `<div class="container section"><h2 class="h2">為什麼適合拍</h2><ul class="prose">${e.data.why_great.map((x) => `<li>${escapeHtml(x)}</li>`).join('')}</ul></div>` : ''}
@@ -342,10 +342,10 @@ ${e.data.why_great?.length ? `<div class="container section"><h2 class="h2">為�
 
 function buildClientPages(entries) {
   const list = entries.filter((e) => !e.data.draft && !e.data.hubPortal);
-  const idx = `<section class="hero" style="min-height:260px;margin-bottom:0;border-radius:0;">
+  const idx = `<section class="hero hero--compact hero--edge">
 <div class="hero__bg" style="background-image:url('/assets/images/home/family-portrait-kimono-clients-index-009.png')"></div>
 <div class="hero__overlay"></div>
-<div class="hero__inner" style="padding-bottom:var(--space-xl);"><h1 class="hero__title" style="max-width:none;">客戶專屬頁面</h1>
+<div class="hero__inner hero__inner--padded"><h1 class="hero__title hero__title--wide">客戶專屬頁面</h1>
 <p class="hero__sub">依專案名稱搜尋或從下方清單進入。</p></div></section>
 <div class="container section"><ul class="prose">${list.map((e) => {
       const out = e.data.output_slug || slugOf(e);
@@ -382,32 +382,32 @@ function buildClientPages(entries) {
         ? `<ul class="prose link-list">${links.join('')}</ul>`
         : `<p class="muted">連結將於檔案就緒後更新，或由另訊提供。</p>`;
     const notesBlock = e.data.notes
-      ? `<section class="section card card--flat" style="padding-top:var(--space-md);"><h2 class="h2">注意事項</h2><p class="muted" style="margin:0;">${escapeHtml(e.data.notes)}</p></section>`
+      ? `<section class="section card card--flat"><h2 class="h2">注意事項</h2><p class="muted">${escapeHtml(e.data.notes)}</p></section>`
       : '';
     const body = `<article class="client-page">
-<section class="hero" style="min-height:280px;margin-bottom:0;border-radius:0;">
+<section class="hero hero--short hero--edge">
 <div class="hero__bg" style="background-image:url('${escapeHtml(cover)}')"></div>
 <div class="hero__overlay"></div>
-<div class="hero__inner" style="padding-bottom:var(--space-xl);">
+<div class="hero__inner hero__inner--padded">
 <p class="hero__eyebrow">${escapeHtml(e.data.project_type)}</p>
-<h1 class="hero__title" style="max-width:none;">${escapeHtml(e.data.client_name)}</h1>
+<h1 class="hero__title hero__title--wide">${escapeHtml(e.data.client_name)}</h1>
 <p class="hero__sub">拍攝日期：${escapeHtml(e.data.shoot_date)}</p>
 </div></section>
 <div class="container section" data-pw-root data-pw-hash="${passwordHash}" data-pw-slug="${escapeHtml(slug)}">
 ${gate}
 <div data-pw-content class="${passwordHash ? 'is-locked' : ''}">
-<div class="section" style="padding-top:0;"><h2 class="h2">專案狀態</h2><p><strong>目前狀態：</strong>${escapeHtml(e.data.status)}</p>${e.data.estimated_delivery ? `<p class="muted"><strong>預計交件：</strong>${escapeHtml(e.data.estimated_delivery)}</p>` : ''}</div>
-${e.data.shoot_includes?.length ? `<div class="section" style="padding-top:0;"><h2 class="h2">本次拍攝內容</h2><ul class="prose">${e.data.shoot_includes.map((x) => `<li>${escapeHtml(x)}</li>`).join('')}</ul></div>` : ''}
-<section class="section" style="padding-top:0;"><h2 class="h2">重要連結</h2>${linksBlock}</section>
+<div class="section section--flush-top"><h2 class="h2">專案狀態</h2><p><strong>目前狀態：</strong>${escapeHtml(e.data.status)}</p>${e.data.estimated_delivery ? `<p class="muted"><strong>預計交件：</strong>${escapeHtml(e.data.estimated_delivery)}</p>` : ''}</div>
+${e.data.shoot_includes?.length ? `<div class="section section--flush-top"><h2 class="h2">本次拍攝內容</h2><ul class="prose">${e.data.shoot_includes.map((x) => `<li>${escapeHtml(x)}</li>`).join('')}</ul></div>` : ''}
+<section class="section section--flush-top"><h2 class="h2">重要連結</h2>${linksBlock}</section>
 ${notesBlock}
-<section class="section prose" style="padding-top:0;"><h2 class="h2">其他說明</h2>${htmlContent}</section>
+<section class="section prose section--flush-top"><h2 class="h2">其他說明</h2>${htmlContent}</section>
 <section class="section card card--flat"><h2 class="h2">延伸推薦</h2><ul class="prose"><li><a href="/case/index.html">類似作品風格</a></li><li><a href="/services/">服務方案</a></li><li><a href="/contact/">再次預約</a></li></ul>
-<div class="hero__actions" style="margin-top:var(--space-md);"><a class="btn btn--primary" href="${site.lineUrl}" target="_blank" rel="noopener noreferrer">聯絡小巴老師</a></div></section>
+<div class="hero__actions content-actions-row"><a class="btn btn--primary" href="${site.lineUrl}" target="_blank" rel="noopener noreferrer">聯絡小巴老師</a></div></section>
 </div></div></article>
 <script>
 (function(){var root=document.querySelector("[data-pw-root]");if(!root)return;var hash=root.dataset.pwHash||"";var slug=root.dataset.pwSlug||"";var form=root.querySelector("[data-pw-form]");var content=root.querySelector("[data-pw-content]");var err=root.querySelector("[data-pw-error]");var key="client_unlock_"+slug;async function sha256Hex(m){var b=new TextEncoder().encode(m);var d=await crypto.subtle.digest("SHA-256",b);return Array.from(new Uint8Array(d)).map(function(x){return x.toString(16).padStart(2,"0")}).join("");}function unlock(){if(content)content.classList.remove("is-locked");if(form)form.hidden=true;}if(!hash)return;if(sessionStorage.getItem(key)===hash)unlock();if(!form)return;form.addEventListener("submit",async function(ev){ev.preventDefault();var fd=new FormData(form);var pw=String(fd.get("password")||"");var entered=await sha256Hex(pw);if(entered===hash){sessionStorage.setItem(key,hash);if(err)err.hidden=true;unlock();}else if(err)err.hidden=false;});})();
 </script>
-<style>.hero__eyebrow{margin:0 0 var(--space-sm);letter-spacing:0.06em;font-size:0.9rem;opacity:0.95;}.pw-gate{max-width:420px;padding:var(--space-lg);margin-bottom:var(--space-lg);}.pw-gate .field{display:grid;gap:0.35rem;margin-bottom:var(--space-sm);}.pw-gate input{font:inherit;padding:0.55rem 0.75rem;border:1px solid var(--color-line);border-radius:8px;}.is-locked{display:none;}</style>`;
+`;
 
     writeHtml(
       `projects/clients/${slug}.html`,
@@ -433,15 +433,15 @@ function buildReviewsPage(entries) {
         ? `<div class="rev__photo"><img src="${escapeHtml(reviewPhoto)}" alt="${escapeHtml(e.data.title)}｜${escapeHtml(e.data.location)} 親子寫真推薦" loading="lazy" width="800" height="520" /></div>`
         : '';
       return `<article class="rev card card--flat">${photo}<div class="rev__body"><h2 class="h3">${escapeHtml(e.data.title)}</h2>
-<p class="muted" style="margin:0 0 var(--space-sm);font-size:0.92rem;">${escapeHtml(e.data.location)} · ${escapeHtml(e.data.type)}</p>
-<div class="prose" style="font-size:0.98rem;">${inner}</div></div></article>`;
+<p class="muted review-card__meta">${escapeHtml(e.data.location)} · ${escapeHtml(e.data.type)}</p>
+<div class="prose review-card__copy">${inner}</div></div></article>`;
     })
     .join('');
 
-  const body = `<section class="hero" style="min-height:280px;margin-bottom:0;border-radius:0;">
+  const body = `<section class="hero hero--short hero--edge">
 <div class="hero__bg" style="background-image:url('/assets/images/home/family-portrait-japanese-kimono-reviews-006.png')"></div>
 <div class="hero__overlay"></div>
-<div class="hero__inner" style="padding-bottom:var(--space-xl);"><h1 class="hero__title" style="max-width:none;">爸媽推薦</h1></div></section>
+<div class="hero__inner hero__inner--padded"><h1 class="hero__title hero__title--wide">爸媽推薦</h1></div></section>
 <div class="container section"><div class="rev-grid">${blocks}</div></div>`;
 
   writeHtml(
@@ -476,7 +476,7 @@ function buildIndex(caseEntries) {
     .join('');
 
   let body = loadFixed('index.html');
-  body = body.replace('{{FEATURED_CASES}}', `<div class="grid-2" style="margin-top:var(--space-lg);">${cards}</div>`);
+  body = body.replace('{{FEATURED_CASES}}', `<div class="grid-2 featured-cases">${cards}</div>`);
   writeHtml(
     'index.html',
     renderPage(cfg, {

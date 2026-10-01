@@ -1,6 +1,6 @@
 .admin-hero {
   padding: var(--space-xl) 0 var(--space-lg);
-  background: linear-gradient(180deg, #f1ede3 0%, #f7f4ef 100%);
+  background: linear-gradient(180deg, var(--color-oat-milk) 0%, var(--color-warm-white) 100%);
 }
 
 .admin-wrap {
@@ -9,9 +9,9 @@
 }
 
 .admin-warning {
-  border: 1px solid #e5c68f;
-  background: #fff6e8;
-  color: #6a4e26;
+  border: 1px solid var(--color-fog-gold);
+  background: color-mix(in srgb, var(--color-oat-milk) 30%, var(--color-paper));
+  color: var(--color-wood-deep);
   border-radius: 10px;
   padding: 0.85rem 1rem;
 }
@@ -62,7 +62,7 @@
   padding: 0.66rem 0.76rem;
   border-radius: 10px;
   border: 1px solid var(--color-line);
-  background: #fff;
+  background: var(--color-paper);
 }
 
 .admin-form-grid textarea {
@@ -94,7 +94,7 @@
   padding: 0.75rem;
   border-radius: 10px;
   border: 1px solid var(--color-line);
-  background: #fff;
+  background: var(--color-paper);
 }
 
 @media (max-width: 860px) {
@@ -118,7 +118,7 @@
   .admin-table tr {
     border: 1px solid var(--color-line);
     border-radius: 10px;
-    background: #fff;
+    background: var(--color-paper);
     padding: 0.5rem;
   }
 
@@ -173,7 +173,7 @@
   font-size: 1.02rem;
   line-height: 1.7;
   max-width: 40rem;
-  color: #4a4640;
+  color: var(--color-muted);
 }
 
 .admin-edit-page {
@@ -188,8 +188,8 @@
   gap: 0.5rem 0.75rem;
   padding: 1rem 1.1rem;
   margin-bottom: var(--space-md);
-  background: linear-gradient(180deg, #faf7f0 0%, #f5f1e8 100%);
-  border: 1px solid #e5dfd3;
+  background: linear-gradient(180deg, var(--color-paper) 0%, var(--color-warm-white) 100%);
+  border: 1px solid var(--color-line);
   border-radius: 14px;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.7) inset;
 }
@@ -204,8 +204,8 @@
   margin-bottom: var(--space-md);
   padding: 1rem 1.15rem;
   border-radius: 12px;
-  border: 1px solid #e2cfa8;
-  background: #fffaf0;
+  border: 1px solid var(--color-oat-milk);
+  background: color-mix(in srgb, var(--color-oat-milk) 20%, var(--color-paper));
   line-height: 1.65;
 }
 
@@ -213,7 +213,7 @@
   margin: 0 0 0.5rem;
   font-size: 1rem;
   font-weight: 700;
-  color: #5c4518;
+  color: var(--color-wood-deep);
 }
 
 .admin-edit-banner__body {

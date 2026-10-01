@@ -145,12 +145,12 @@ export function renderClientPortalFooter(cfg) {
     <div class="site-footer__grid site-footer__grid--client-portal">
       <section class="site-footer__col site-footer__col--brand">
         <p class="h3 site-footer__title">小巴老師｜親子寫真</p>
-        <p class="muted" style="margin:0 0 var(--space-md);max-width:42ch;font-size:0.95rem;line-height:1.65;">
+        <p class="muted site-footer__about">
           Line／電話：${escapeHtml(site.phoneDisplay || '0911-252-302')}<br/>
           WhatsApp：+886 911252302<br/>
           E-mail：<a href="mailto:${escapeHtml(site.email)}">${escapeHtml(site.email)}</a>
         </p>
-        <div class="site-footer__cta" style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+        <div class="site-footer__cta">
           <a class="btn btn--primary btn--compact" href="${escapeHtml(site.lineUrl)}" target="_blank" rel="noopener noreferrer">開啟 Line</a>
           <a class="btn btn--secondary btn--compact" href="${escapeHtml(site.phoneTel)}">撥打電話</a>
         </div>
@@ -167,7 +167,7 @@ export function renderClientPortalFooter(cfg) {
     </div>
   </div>
   <div class="container site-footer__bottom">
-    <p class="muted" style="margin:0;font-size:0.82rem;">© ${y} 小巴老師｜親子寫真．八威創意有限公司</p>
+    <p class="muted site-footer__copyright">© ${y} 小巴老師｜親子寫真．八威創意有限公司</p>
   </div>
 </footer>`;
 }
@@ -188,13 +188,13 @@ export function renderFooter(cfg, options = {}) {
 
   const colBrand = `<section class="site-footer__col site-footer__col--brand">
       <p class="h3 site-footer__title">小巴老師｜親子寫真</p>
-      <p class="muted" style="margin:0 0 var(--space-md);max-width:42ch;font-size:0.95rem;">親子寫真、家庭攝影、台灣包車旅拍、海外親子旅拍、露營團拍與家庭活動紀錄。自然互動、不死板，讓孩子在旅行與遊戲中留下真實表情。</p>
-      <p class="muted" style="margin:0;font-size:0.92rem;line-height:1.65;">
+      <p class="muted site-footer__about">親子寫真、家庭攝影、台灣包車旅拍、海外親子旅拍、露營團拍與家庭活動紀錄。自然互動、不死板，讓孩子在旅行與遊戲中留下真實表情。</p>
+      <p class="muted site-footer__contact">
         Line／電話：${escapeHtml(site.phoneDisplay || '0911-252-302')}<br/>
         WhatsApp：+886 911252302<br/>
         E-mail：<a href="mailto:${escapeHtml(site.email)}">${escapeHtml(site.email)}</a>
       </p>
-      <div class="site-footer__cta" style="margin-top:var(--space-md);display:flex;flex-wrap:wrap;gap:0.5rem;">
+      <div class="site-footer__cta">
         <a class="btn btn--primary btn--compact" href="${escapeHtml(site.lineUrl)}" target="_blank" rel="noopener noreferrer">加 Line 詢問</a>
         <a class="btn btn--secondary btn--compact" href="/contact/">預約拍攝</a>
       </div>
@@ -226,7 +226,7 @@ export function renderFooter(cfg, options = {}) {
         <li><a href="/works/?category=baby">孕婦與寶寶作品</a></li>
         <li><a href="/works/?category=three-generation">三代同堂作品</a></li>
       </ul>
-      ${worksMini ? `<p class="muted" style="margin:var(--space-sm) 0 0;font-size:0.85rem;">最新作品</p><ul class="footer-links footer-links--single" style="margin-top:0.35rem;">${worksMini}</ul>` : ''}
+      ${worksMini ? `<p class="muted site-footer__latest-label">最新作品</p><ul class="footer-links footer-links--single footer-links--latest">${worksMini}</ul>` : ''}
     </section>`;
 
   const colArticles = `<section class="site-footer__col">
@@ -241,7 +241,7 @@ export function renderFooter(cfg, options = {}) {
         <li><a href="/articles/?category=location">親子攝影地點</a></li>
         <li><a href="/articles/?category=pricing">家庭攝影費用</a></li>
       </ul>
-      ${artsMini ? `<p class="muted" style="margin:var(--space-sm) 0 0;font-size:0.85rem;">最新文章</p><ul class="footer-links footer-links--single" style="margin-top:0.35rem;">${artsMini}</ul>` : ''}
+      ${artsMini ? `<p class="muted site-footer__latest-label">最新文章</p><ul class="footer-links footer-links--single footer-links--latest">${artsMini}</ul>` : ''}
     </section>`;
 
   return `<footer class="site-footer">
@@ -254,7 +254,7 @@ export function renderFooter(cfg, options = {}) {
     </div>
   </div>
   <div class="container site-footer__bottom">
-    <p class="muted" style="margin:0;font-size:0.82rem;">
+    <p class="muted site-footer__copyright">
       <a href="/sitemap/">網站地圖</a>
       ・
       <a href="/privacy/">隱私權說明</a>
@@ -308,11 +308,11 @@ ${robots ? `  ${robots}\n` : ''}  <meta property="og:type" content="${escapeHtml
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
-  <meta name="theme-color" content="#3d5c4a" />
+  <meta name="theme-color" content="#7f8770" />
   <!-- Analytics：GA4／GTM／Meta Pixel 可在這裡集中加入，目前未啟用追蹤。 -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&amp;family=Noto+Serif+TC:wght@500;600;700&amp;display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/css/main.css" />
 </head>
 <body>

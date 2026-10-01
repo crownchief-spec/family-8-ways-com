@@ -1,6 +1,6 @@
 .family-contract-hero {
   padding: var(--space-xl) 0 var(--space-lg);
-  background: linear-gradient(180deg, #f7f1e8 0%, #f7f4ef 100%);
+  background: linear-gradient(180deg, var(--color-oat-milk) 0%, var(--color-warm-white) 100%);
 }
 
 .family-contract-wrap {
@@ -21,7 +21,7 @@
   padding: 0.7rem 0.8rem;
   border-radius: 10px;
   border: 1px solid var(--color-line);
-  background: #fff;
+  background: var(--color-paper);
 }
 
 .contract-form textarea {
@@ -58,7 +58,7 @@
   margin-top: 0.6rem;
   border: 1px solid var(--color-line);
   border-radius: 10px;
-  background: #fff;
+  background: var(--color-paper);
   padding: 0.75rem 0.95rem;
 }
 
@@ -112,7 +112,7 @@
   padding: var(--space-md);
   border-radius: 12px;
   border: 1px dashed var(--color-line);
-  background: #fbf8f2;
+  background: color-mix(in srgb, var(--color-pale-sage) 24%, var(--color-paper));
 }
 
 .contract-submit__btn {

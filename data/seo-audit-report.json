@@ -76,7 +76,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -100,7 +100,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "AboutPage"
       ],
@@ -126,7 +126,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "AboutPage",
         "BreadcrumbList"
@@ -153,7 +153,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -177,7 +177,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -201,7 +201,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -225,7 +225,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -249,7 +249,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -273,7 +273,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -297,7 +297,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -321,7 +321,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -345,7 +345,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -369,7 +369,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -393,7 +393,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -417,7 +417,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "Article",
         "BlogPosting",
@@ -445,7 +445,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "Article",
         "BlogPosting",
@@ -473,7 +473,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "Article",
         "BlogPosting",
@@ -501,7 +501,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "Article",
         "BlogPosting",
@@ -529,7 +529,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "Article",
         "BlogPosting",
@@ -557,7 +557,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "Article",
         "BlogPosting",
@@ -585,7 +585,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "Article",
         "BlogPosting",
@@ -613,7 +613,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "Article",
         "BlogPosting",
@@ -641,7 +641,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "CollectionPage"
       ],
@@ -667,7 +667,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "Article",
         "BlogPosting",
@@ -695,7 +695,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "Article",
         "BlogPosting",
@@ -723,7 +723,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "Article",
         "BlogPosting",
@@ -751,7 +751,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "Article",
         "BlogPosting",
@@ -779,7 +779,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "Article",
         "BlogPosting",
@@ -807,7 +807,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "ImageGallery"
       ],
@@ -833,7 +833,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "ImageGallery"
       ],
@@ -859,7 +859,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "ImageGallery"
       ],
@@ -885,7 +885,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "ImageGallery"
       ],
@@ -911,7 +911,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "ImageGallery"
       ],
@@ -937,7 +937,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "ImageGallery"
       ],
@@ -963,7 +963,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "ImageGallery"
       ],
@@ -989,7 +989,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "ImageGallery"
       ],
@@ -1015,7 +1015,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "ImageGallery"
       ],
@@ -1041,7 +1041,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "ImageGallery"
       ],
@@ -1067,7 +1067,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -1093,7 +1093,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -1117,7 +1117,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -1141,7 +1141,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -1165,7 +1165,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -1189,7 +1189,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -1213,7 +1213,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -1237,7 +1237,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -1261,7 +1261,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "ContactPage"
       ],
@@ -1287,7 +1287,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -1311,7 +1311,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -1337,7 +1337,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "Organization",
         "LocalBusiness",
@@ -1366,7 +1366,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -1392,7 +1392,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -1418,7 +1418,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -1444,7 +1444,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -1470,7 +1470,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -1496,7 +1496,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -1522,7 +1522,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -1548,7 +1548,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -1574,7 +1574,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -1600,7 +1600,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -1626,7 +1626,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -1652,7 +1652,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -1678,7 +1678,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -1704,7 +1704,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -1730,7 +1730,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -1756,7 +1756,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -1782,7 +1782,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -1808,7 +1808,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -1819,12 +1819,12 @@
     {
       "file": "maternity/index.html",
       "route": "/maternity/",
-      "title": "&amp;amp;amp;amp;lt;服務說明｜小巴老師親子寫真",
-      "description": "親子寫真旅拍爸媽推薦文方案-露營團拍/親子民宿方案-生日派對方案-野柳/十分天燈鐵道方案-台北方案-台北攝影基地方案-淡水方案-宜蘭方案-動物農場方案-桃園方案-台中方案-澎湖方案-花蓮方案-高雄/墾丁/台南方案-畢業照/戶外教學/畢業典禮方案-孕婦照方案-日本冬季滑雪/玩雪方案-日本北海道夏季/東北方案-日本沖繩方案-日本東京方案-日本迪士尼方案-日本京都大阪奈良方案-宿霧/峇里島方案-新加坡方案-韓國方案-澳洲雪梨主題-大合照主題-草地/森林主題-黃昏/日暮主題-和服/韓服/旗袍主題-夜拍/玩煙火/聖誕節主題-室內/飯店villa民宿主題-春季櫻花/繡球花主題-秋季楓葉/銀杏/落羽松主題-海灘/玩水主題-水中/潛水主題-雨中/下雨主題-祖父母/三代同堂主題-寶寶Baby常見問題Q&amp;amp;amp;amp;amp;A",
+      "title": "&amp;amp;amp;amp;amp;amp;amp;lt;服務說明｜小巴老師親子寫真",
+      "description": "親子寫真旅拍爸媽推薦文方案-露營團拍/親子民宿方案-生日派對方案-野柳/十分天燈鐵道方案-台北方案-台北攝影基地方案-淡水方案-宜蘭方案-動物農場方案-桃園方案-台中方案-澎湖方案-花蓮方案-高雄/墾丁/台南方案-畢業照/戶外教學/畢業典禮方案-孕婦照方案-日本冬季滑雪/玩雪方案-日本北海道夏季/東北方案-日本沖繩方案-日本東京方案-日本迪士尼方案-日本京都大阪奈良方案-宿霧/峇里島方案-新加坡方案-韓國方案-澳洲雪梨主題-大合照主題-草地/森林主題-黃昏/日暮主題-和服/韓服/旗袍主題-夜拍/玩煙火/聖誕節主題-室內/飯店villa民宿主題-春季櫻花/繡球花主題-秋季楓葉/銀杏/落羽松主題-海灘/玩水主題-水中/潛水主題-雨中/下雨主題-祖父母/三代同堂主題-寶寶Baby常見問題Q&amp;amp;amp;amp;amp;amp;amp;amp;A",
       "canonical": "https://family.8-ways.com/maternity/",
       "heroImage": "/public/images/family/themes/maternity/001-48469bcf20.jpg",
-      "ogTitle": "&amp;amp;amp;amp;lt;服務說明｜小巴老師親子寫真",
-      "ogDescription": "親子寫真旅拍爸媽推薦文方案-露營團拍/親子民宿方案-生日派對方案-野柳/十分天燈鐵道方案-台北方案-台北攝影基地方案-淡水方案-宜蘭方案-動物農場方案-桃園方案-台中方案-澎湖方案-花蓮方案-高雄/墾丁/台南方案-畢業照/戶外教學/畢業典禮方案-孕婦照方案-日本冬季滑雪/玩雪方案-日本北海道夏季/東北方案-日本沖繩方案-日本東京方案-日本迪士尼方案-日本京都大阪奈良方案-宿霧/峇里島方案-新加坡方案-韓國方案-澳洲雪梨主題-大合照主題-草地/森林主題-黃昏/日暮主題-和服/韓服/旗袍主題-夜拍/玩煙火/聖誕節主題-室內/飯店villa民宿主題-春季櫻花/繡球花主題-秋季楓葉/銀杏/落羽松主題-海灘/玩水主題-水中/潛水主題-雨中/下雨主題-祖父母/三代同堂主題-寶寶Baby常見問題Q&amp;amp;amp;amp;amp;A",
+      "ogTitle": "&amp;amp;amp;amp;amp;amp;amp;lt;服務說明｜小巴老師親子寫真",
+      "ogDescription": "親子寫真旅拍爸媽推薦文方案-露營團拍/親子民宿方案-生日派對方案-野柳/十分天燈鐵道方案-台北方案-台北攝影基地方案-淡水方案-宜蘭方案-動物農場方案-桃園方案-台中方案-澎湖方案-花蓮方案-高雄/墾丁/台南方案-畢業照/戶外教學/畢業典禮方案-孕婦照方案-日本冬季滑雪/玩雪方案-日本北海道夏季/東北方案-日本沖繩方案-日本東京方案-日本迪士尼方案-日本京都大阪奈良方案-宿霧/峇里島方案-新加坡方案-韓國方案-澳洲雪梨主題-大合照主題-草地/森林主題-黃昏/日暮主題-和服/韓服/旗袍主題-夜拍/玩煙火/聖誕節主題-室內/飯店villa民宿主題-春季櫻花/繡球花主題-秋季楓葉/銀杏/落羽松主題-海灘/玩水主題-水中/潛水主題-雨中/下雨主題-祖父母/三代同堂主題-寶寶Baby常見問題Q&amp;amp;amp;amp;amp;amp;amp;amp;A",
       "ogUrl": "https://family.8-ways.com/maternity/",
       "ogImage": "https://family.8-ways.com/public/images/family/themes/maternity/001-48469bcf20.jpg",
       "twitterCard": "summary_large_image",
@@ -1834,7 +1834,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -1860,7 +1860,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -1886,7 +1886,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -1912,7 +1912,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -1938,7 +1938,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -1964,7 +1964,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage",
         "ItemList"
@@ -1991,7 +1991,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -2017,7 +2017,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -2043,7 +2043,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -2069,7 +2069,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -2095,7 +2095,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -2121,7 +2121,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -2147,7 +2147,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "AboutPage"
       ],
@@ -2173,7 +2173,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -2197,7 +2197,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -2223,7 +2223,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -2247,7 +2247,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -2273,7 +2273,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "FAQPage"
       ],
@@ -2299,7 +2299,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -2325,7 +2325,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -2351,7 +2351,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -2375,7 +2375,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "ItemList",
         "WebPage"
@@ -2402,7 +2402,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -2428,7 +2428,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -2452,7 +2452,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -2478,7 +2478,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -2502,7 +2502,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -2526,7 +2526,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -2550,7 +2550,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -2574,7 +2574,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -2598,7 +2598,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -2622,7 +2622,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [],
       "invalidSchema": false,
       "emptyMediaAttributes": [],
@@ -2646,7 +2646,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "Service"
       ],
@@ -2672,7 +2672,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "Service"
       ],
@@ -2698,7 +2698,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "CollectionPage"
       ],
@@ -2724,7 +2724,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "Service"
       ],
@@ -2750,7 +2750,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "Service"
       ],
@@ -2776,7 +2776,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "Service"
       ],
@@ -2802,7 +2802,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "CollectionPage"
       ],
@@ -2828,7 +2828,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -2854,7 +2854,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -2880,7 +2880,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -2906,7 +2906,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -2932,7 +2932,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -2958,7 +2958,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -2984,7 +2984,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage",
         "ItemList"
@@ -3011,7 +3011,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -3037,7 +3037,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -3063,7 +3063,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -3089,7 +3089,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -3115,7 +3115,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -3141,7 +3141,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -3167,7 +3167,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -3193,7 +3193,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -3219,7 +3219,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -3245,7 +3245,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -3271,7 +3271,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -3297,7 +3297,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -3323,7 +3323,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -3349,7 +3349,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -3375,7 +3375,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -3401,7 +3401,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -3427,7 +3427,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -3453,7 +3453,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage",
         "ItemList"
@@ -3480,7 +3480,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -3506,7 +3506,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -3532,7 +3532,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -3558,7 +3558,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -3584,7 +3584,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -3610,7 +3610,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -3636,7 +3636,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "WebPage"
       ],
@@ -3662,7 +3662,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "CreativeWork",
         "ImageGallery",
@@ -3690,7 +3690,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "CreativeWork",
         "ImageGallery",
@@ -3718,7 +3718,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "CreativeWork",
         "ImageGallery",
@@ -3746,7 +3746,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "CollectionPage"
       ],
@@ -3772,7 +3772,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "CreativeWork",
         "ImageGallery",
@@ -3800,7 +3800,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "CreativeWork",
         "ImageGallery",
@@ -3828,7 +3828,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "CreativeWork",
         "ImageGallery",
@@ -3856,7 +3856,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "CreativeWork",
         "ImageGallery",
@@ -3884,7 +3884,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "CreativeWork",
         "ImageGallery",
@@ -3912,7 +3912,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "CreativeWork",
         "ImageGallery",
@@ -3940,7 +3940,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "CreativeWork",
         "ImageGallery",
@@ -3968,7 +3968,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "CreativeWork",
         "ImageGallery",
@@ -3996,7 +3996,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "CreativeWork",
         "ImageGallery",
@@ -4024,7 +4024,7 @@
       "lang": "zh-Hant",
       "manifest": "/site.webmanifest",
       "appleTouchIcon": "/apple-touch-icon.png",
-      "themeColor": "#3d5c4a",
+      "themeColor": "#7f8770",
       "schemaTypes": [
         "CreativeWork",
         "ImageGallery",

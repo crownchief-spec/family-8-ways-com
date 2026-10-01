@@ -47,15 +47,15 @@ export function buildClientPortalBody(c, site, { escapeHtml, isPresent }) {
   const deferredBlocksAttrs = mdShowsPostBooking ? '' : ' id="portal-deferred-blocks" hidden';
 
   const lockBanner = !readyShare
-    ? `<article class="card card--flat portal-locked-banner" style="border:1px solid rgba(220,180,80,0.5);background:rgba(255,248,220,0.35);">
-    <p style="margin:0 0 0.5rem;"><strong>此頁尚在攝影師確認中，尚未開放填寫</strong></p>
-    <p class="muted" style="margin:0;">攝影師於後台確認並開放後，您即可在此填寫訂金狀態、家庭資料與完成電子簽名。若您已收到連結但看到此訊息，請稍候或聯繫攝影師。</p>
+    ? `<article class="card card--flat portal-locked-banner">
+    <p><strong>此頁尚在攝影師確認中，尚未開放填寫</strong></p>
+    <p class="muted">攝影師於後台確認並開放後，您即可在此填寫訂金狀態、家庭資料與完成電子簽名。若您已收到連結但看到此訊息，請稍候或聯繫攝影師。</p>
   </article>`
     : '';
 
   const readonlyArticle = `<article class="card">
     <h2 class="h2">預約資訊</h2>
-    <p class="muted" style="margin-top:0;">以下為攝影師依雙方討論建立的合約內容，僅供檢視。</p>
+    <p class="muted portal-intro-note">以下為攝影師依雙方討論建立的合約內容，僅供檢視。</p>
     <div class="portal-grid-2">
       <p><strong>客戶名稱：</strong>${escapeHtml(c.clientName)}</p>
       ${isPresent(c.shootingDate) ? `<p><strong>拍攝日期：</strong>${escapeHtml(c.shootingDate)}${isPresent(c.shootingWeekday) ? `（${escapeHtml(c.shootingWeekday)}）` : ''}</p>` : ''}
@@ -72,18 +72,18 @@ export function buildClientPortalBody(c, site, { escapeHtml, isPresent }) {
     ${isPresent(deliverablesMerged) ? `<p><strong>成品內容：</strong><span data-deliverables-text>${escapeHtml(deliverablesMerged)}</span></p>` : ''}
     ${isPresent(c.contractNote) ? `<p><strong>合約補充條款：</strong>${escapeHtml(c.contractNote)}</p>` : ''}
     ${specLines ? `<p><strong>特殊約定：</strong></p><ul class="prose">${specLines}</ul>` : ''}
-    <p class="portal-note muted" style="margin-top:var(--space-md);">以上拍攝資訊由攝影師依雙方討論內容建立。若內容需要修改，請先聯繫攝影師，由攝影師更新後台資料。</p>
+    <p class="portal-note muted">以上拍攝資訊由攝影師依雙方討論內容建立。若內容需要修改，請先聯繫攝影師，由攝影師更新後台資料。</p>
   </article>`;
 
   const feeSummaryLines = [
     isPresent(c.totalFee)
-      ? `<p style="margin:0.35rem 0;"><strong>攝影總費用：</strong>NT$${Number(c.totalFee || 0).toLocaleString('zh-TW')}</p>`
+      ? `<p><strong>攝影總費用：</strong>NT$${Number(c.totalFee || 0).toLocaleString('zh-TW')}</p>`
       : '',
     isPresent(c.deposit)
-      ? `<p style="margin:0.35rem 0;"><strong>訂金金額：</strong>NT$${Number(c.deposit || 0).toLocaleString('zh-TW')}</p>`
+      ? `<p><strong>訂金金額：</strong>NT$${Number(c.deposit || 0).toLocaleString('zh-TW')}</p>`
       : '',
     isPresent(c.balance)
-      ? `<p style="margin:0.35rem 0;"><strong>餘款：</strong>NT$${Number(c.balance || 0).toLocaleString('zh-TW')}</p>`
+      ? `<p><strong>餘款：</strong>NT$${Number(c.balance || 0).toLocaleString('zh-TW')}</p>`
       : '',
   ]
     .filter(Boolean)
@@ -93,11 +93,11 @@ export function buildClientPortalBody(c, site, { escapeHtml, isPresent }) {
     ? `<article class="card portal-form">
     <form id="client-contract-form" novalidate>
       <h2 class="h2">費用與訂金匯款</h2>
-      <p class="muted" style="margin-top:0;">下列為本次方案費用、訂金與匯款方式；匯款後請於下方回報付款方式與帳號末碼，方便攝影師對帳。</p>
-      ${feeSummaryLines ? `<div class="portal-fee-summary" style="margin:var(--space-md) 0;padding:var(--space-md);background:rgba(0,0,0,0.03);border-radius:10px;border:1px solid var(--color-line);">${feeSummaryLines}</div>` : ''}
+      <p class="muted portal-intro-note">下列為本次方案費用、訂金與匯款方式；匯款後請於下方回報付款方式與帳號末碼，方便攝影師對帳。</p>
+      ${feeSummaryLines ? `<div class="portal-fee-summary">${feeSummaryLines}</div>` : ''}
       ${isPresent(photographerPayNote) ? `<p><strong>攝影師備註（付款相關）：</strong>${escapeHtml(photographerPayNote)}</p>` : ''}
 
-      <h3 class="h3" style="margin-top:var(--space-lg);">訂金匯款方式</h3>
+      <h3 class="h3 portal-section-title">訂金匯款方式</h3>
       <div class="portal-note">
         <p><strong>Line Pay：</strong>可使用 Line Pay 支付訂金，請與攝影師確認付款方式。</p>
         <p><strong>銀行轉帳：</strong><br/>台新銀行（812）板橋分行<br/>分行代碼：0089<br/>帳號：20081000109398<br/>戶名：陳在紳</p>
@@ -106,7 +106,7 @@ export function buildClientPortalBody(c, site, { escapeHtml, isPresent }) {
         ${c.paymentEnableWise !== false ? '<p><strong>WISE：</strong>海外用戶可支付約 USD 25（約 NT$800）作為訂金，實際匯率與手續費依平台顯示為準。</p>' : ''}
       </div>
 
-      <h3 class="h3" style="margin-top:var(--space-lg);">填寫目前付款狀態與匯款回報</h3>
+      <h3 class="h3 portal-section-title">填寫目前付款狀態與匯款回報</h3>
       <fieldset class="portal-fieldset">
         <legend class="sr-only">客戶目前付款狀態</legend>
         <label class="check-row"><input type="radio" name="paymentStatus" value="已匯款訂金" /> 已匯款訂金</label>
@@ -134,8 +134,8 @@ export function buildClientPortalBody(c, site, { escapeHtml, isPresent }) {
       <label class="field"><span>付款備註（客戶）</span><textarea name="paymentNote" rows="3" placeholder="例如：家人代匯、Line Pay 已付款、稍後晚上匯款">${escapeHtml(c.paymentNote || '')}</textarea></label>
       <p class="muted">若已匯款，建議填寫後四碼或末五碼。未填寫仍可送出合約（第一階段不強制）。</p>
 
-      <h2 class="h2" style="margin-top:var(--space-xl);">客戶補充資料</h2>
-      <p class="muted" style="margin-top:0;">下列稱呼／姓名<strong>至少填寫一項</strong>即可（例如只填主要聯絡人或爸爸／媽媽稱呼均可）。</p>
+      <h2 class="h2 portal-section-title">客戶補充資料</h2>
+      <p class="muted portal-intro-note">下列稱呼／姓名<strong>至少填寫一項</strong>即可（例如只填主要聯絡人或爸爸／媽媽稱呼均可）。</p>
       <div class="portal-grid-2">
         <label class="field"><span>攝影師如何稱呼爸爸</span><input name="fatherName" type="text" placeholder="例如：爸爸、John、阿宏" value="${escapeHtml(c.fatherName || '')}" /></label>
         <label class="field"><span>攝影師如何稱呼媽媽</span><input name="motherName" type="text" placeholder="例如：媽媽、Amy、小君" value="${escapeHtml(c.motherName || '')}" /></label>
@@ -143,7 +143,7 @@ export function buildClientPortalBody(c, site, { escapeHtml, isPresent }) {
         <label class="field"><span>聯絡電話（建議填）</span><input name="phone" type="text" autocomplete="tel" value="${escapeHtml(c.phone || '')}" /></label>
         <label class="field"><span>LINE 顯示名稱或 LINE ID（建議填）</span><input name="lineName" type="text" value="${escapeHtml(c.lineName || '')}" /></label>
         <label class="field"><span>Email（選填）</span><input name="customerEmail" type="email" autocomplete="email" value="${escapeHtml(c.customerEmail || c.email || '')}" /></label>
-        <p class="muted" style="margin:-0.25rem 0 0.5rem;font-size:0.9rem;">電話、LINE、Email 請至少填寫一種，方便攝影師聯繫。</p>
+        <p class="muted portal-contact-hint">電話、LINE、Email 請至少填寫一種，方便攝影師聯繫。</p>
         <label class="field"><span>客戶確認入鏡大人人數</span><input name="clientAdultCount" type="number" min="0" value="${escapeHtml(clientAdultDefault)}" /></label>
         <label class="field"><span>客戶確認入鏡小孩人數</span><input name="clientChildCount" type="number" min="0" value="${escapeHtml(clientChildDefault)}" /></label>
       </div>
@@ -152,8 +152,8 @@ export function buildClientPortalBody(c, site, { escapeHtml, isPresent }) {
       <label class="field"><span>特別想拍的畫面</span><textarea name="desiredShots" rows="4">${escapeHtml(c.desiredShots || '')}</textarea></label>
       <label class="field"><span>需要攝影師注意的地方</span><textarea name="specialNotes" rows="4">${escapeHtml(c.specialNotes || '')}</textarea></label>
 
-      <h2 class="h2" style="margin-top:var(--space-xl);">合約確認與簽名</h2>
-      <p class="muted" style="margin-top:0;">請於下方簽名區手寫簽名並確認；送出後會產生 PDF 預約確認書。</p>
+      <h2 class="h2 portal-section-title">合約確認與簽名</h2>
+      <p class="muted portal-intro-note">請於下方簽名區手寫簽名並確認；送出後會產生 PDF 預約確認書。</p>
       <div class="portal-grid-2">
         <label class="field"><span>簽名人姓名</span><input type="text" name="signerName" placeholder="可留白，將沿用上方姓名" /></label>
         <label class="field"><span>簽署日期</span><input type="date" id="client-signed-date" name="signedDate" /></label>
@@ -170,7 +170,7 @@ export function buildClientPortalBody(c, site, { escapeHtml, isPresent }) {
       <input type="hidden" id="client-signature-image-base64" />
       <input type="hidden" id="client-signed-at" />
 
-      <h2 class="h2" style="margin-top:var(--space-xl);">送出合約並產生 PDF</h2>
+      <h2 class="h2 portal-section-title">送出合約並產生 PDF</h2>
       <p class="muted no-print">送出後會立即產生合約 PDF 並下載到您的裝置；攝影師端可能另收到備份信（依後台設定，用於存檔）。</p>
       <div class="hero__actions no-print">
         <button class="btn btn--primary" type="submit" id="client-submit-contract">送出合約並產生 PDF</button>
@@ -179,9 +179,9 @@ export function buildClientPortalBody(c, site, { escapeHtml, isPresent }) {
       <div class="hero__actions no-print" id="client-download-wrap" hidden>
         <button class="btn btn--secondary" type="button" id="client-download-pdf">下載合約 PDF</button>
       </div>
-      <div class="card card--flat no-print" id="contract-email-fallback" hidden style="margin-top:var(--space-md);padding:var(--space-md);">
-        <p class="muted" style="margin-top:0;">若攝影師端未自動收到備份，請將已下載的 PDF 傳給小巴老師（Line／Email），以免漏單。</p>
-        <div class="hero__actions" style="flex-wrap:wrap;">
+      <div class="card card--flat no-print portal-email-fallback" id="contract-email-fallback" hidden>
+        <p class="muted portal-intro-note">若攝影師端未自動收到備份，請將已下載的 PDF 傳給小巴老師（Line／Email），以免漏單。</p>
+        <div class="hero__actions">
           <button class="btn btn--secondary" type="button" id="client-copy-photographer-email">複製攝影師 Email</button>
           <a class="btn btn--primary" id="client-fallback-line" href="${escapeHtml(site.lineUrl)}" target="_blank" rel="noopener noreferrer">開啟 Line 聯絡</a>
         </div>
@@ -193,7 +193,7 @@ export function buildClientPortalBody(c, site, { escapeHtml, isPresent }) {
         <img id="signed-image" alt="簽名影像" />
       </div>
     </form>
-    <div id="contract-pdf-content" style="position:fixed;left:0;top:0;width:820px;opacity:0;visibility:hidden;pointer-events:none;background:#fff;color:#111;padding:24px;z-index:-1;"></div>
+    <div class="contract-pdf-source" id="contract-pdf-content"></div>
   </article>`
     : '';
 

@@ -210,11 +210,11 @@ function injectSchema(html, schema) {
 }
 
 function ensure404() {
-  const body = `<section class="container section" style="text-align:center;min-height:60vh;display:grid;place-content:center;">
+  const body = `<section class="container section centered-message">
   <p class="muted">404</p>
   <h1 class="h1">找不到這個頁面</h1>
   <p class="muted">網址可能已更新，請回到首頁、作品案例或服務方案繼續瀏覽。</p>
-  <div class="hero__actions" style="justify-content:center;"><a class="btn btn--primary" href="/">回首頁</a><a class="btn btn--secondary" href="/works/">看作品</a><a class="btn btn--secondary" href="/services/">看服務方案</a></div>
+  <div class="hero__actions centered-actions"><a class="btn btn--primary" href="/">回首頁</a><a class="btn btn--secondary" href="/works/">看作品</a><a class="btn btn--secondary" href="/services/">看服務方案</a></div>
   </section>`;
   writeFileSync(
     join(ROOT, '404.html'),
@@ -321,7 +321,7 @@ for (const page of pageRecords) {
   html = upsertMeta(html, 'name', 'twitter:description', page.description);
   html = upsertMeta(html, 'name', 'twitter:image', absoluteImage);
   html = upsertMeta(html, 'name', 'twitter:image:alt', imageAlt);
-  html = upsertMeta(html, 'name', 'theme-color', '#3d5c4a');
+  html = upsertMeta(html, 'name', 'theme-color', '#7f8770');
   html = upsertLink(html, 'icon', '/favicon.svg', 'type="image/svg+xml"');
   if (!/href=["']\/favicon\.ico["']/i.test(html)) html = html.replace('</head>', '  <link rel="icon" href="/favicon.ico" sizes="any" />\n</head>');
   html = upsertLink(html, 'apple-touch-icon', '/apple-touch-icon.png', 'sizes="180x180"');
