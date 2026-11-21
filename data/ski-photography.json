@@ -1,5 +1,5 @@
 {
-  "heroSlug": "hoshino-family-ski-trip-2023",
+  "heroSlug": "hokkaido-family-sled-forest-2018",
   "stories": [
     {
       "slug": "hoshino-family-ski-trip-2023",
@@ -9,15 +9,15 @@
       "promotion": null,
       "featureOrder": 1,
       "cover": {
-        "file": "hoshino-family-ski-trip-2023-snow-story-01.webp",
-        "thumb": "hoshino-family-ski-trip-2023-snow-story-01-thumb.webp",
-        "width": 1600,
-        "height": 1065,
+        "file": "hoshino-family-ski-trip-2023-snow-story-25.webp",
+        "thumb": "hoshino-family-ski-trip-2023-snow-story-25-thumb.webp",
+        "width": 1200,
+        "height": 798,
         "thumbWidth": 600,
         "thumbHeight": 399,
-        "alt": "家人在星野雪林前依偎合影",
-        "title": "家人在星野雪林前依偎合影",
-        "src": "/media/works/hoshino-family-ski-trip-2023/hoshino-family-ski-trip-2023-snow-story-01.webp"
+        "alt": "雪花落下時家人牽手往前走",
+        "title": "雪花落下時家人牽手往前走",
+        "src": "/media/works/hoshino-family-ski-trip-2023/hoshino-family-ski-trip-2023-snow-story-25.webp"
       }
     },
     {
@@ -305,5 +305,27 @@
         "src": "/media/works/japan-winter-family-trip-2025/japan-winter-family-trip-2025-snow-story-26.webp"
       }
     }
-  ]
+  ],
+  "heroImage": {
+    "file": "hokkaido-family-sled-forest-2018-03.webp",
+    "thumb": "hokkaido-family-sled-forest-2018-03-thumb.webp",
+    "alt": "孩子坐著雪橇在白色樹林前滑行",
+    "title": "孩子坐著雪橇在白色樹林前滑行",
+    "width": 1200,
+    "height": 798,
+    "thumbWidth": 600,
+    "thumbHeight": 399,
+    "src": "/media/works/hokkaido-family-sled-forest-2018/hokkaido-family-sled-forest-2018-03.webp"
+  },
+  "homeFeatureImage": {
+    "file": "hokkaido-family-sled-forest-2018-05.webp",
+    "thumb": "hokkaido-family-sled-forest-2018-05-thumb.webp",
+    "alt": "媽媽牽著孩子站在遠山與雪景前",
+    "title": "媽媽牽著孩子站在遠山與雪景前",
+    "width": 1200,
+    "height": 798,
+    "thumbWidth": 600,
+    "thumbHeight": 399,
+    "src": "/media/works/hokkaido-family-sled-forest-2018/hokkaido-family-sled-forest-2018-05.webp"
+  }
 }
