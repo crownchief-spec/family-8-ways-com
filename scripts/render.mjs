@@ -77,7 +77,7 @@ export function renderNavbar(cfg) {
 </div>
 <script>
 (function(){
-function normPath(p){p=p||"/";if(p.endsWith("/index.html"))p=p.slice(0,-10)||"/";return p.replace(/\/+$/,"")||"/";}
+function normPath(p){p=p||"/";if(p.endsWith("/index.html"))p=p.slice(0,-10)||"/";return p.replace(new RegExp("/+$"),"")||"/";}
 var t=document.querySelector("[data-nav-toggle]"),p=document.querySelector("[data-nav-panel]");
 if(t&&p){t.addEventListener("click",function(){var o=!p.classList.contains("is-open");p.classList.toggle("is-open",o);t.setAttribute("aria-expanded",String(o))});p.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){p.classList.remove("is-open");t.setAttribute("aria-expanded","false")})})}
 document.querySelectorAll("[data-dropdown-toggle]").forEach(function(btn){
