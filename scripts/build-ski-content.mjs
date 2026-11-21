@@ -35,3 +35,5 @@ home = home.slice(0, sectionEnd + 10) + feature + home.slice(sectionEnd + 10);
 if (!home.includes('.family-ski{')) home = home.replace('</head>', `${css}</head>`);
 writeFileSync(homePath, home);
 console.log('Built family snow landing page and homepage feature');
+
+await import('./build-photographer-profile.mjs');

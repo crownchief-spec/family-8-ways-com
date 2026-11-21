@@ -1,0 +1,62 @@
+{
+  "name": "小巴老師 Benson Chen",
+  "company": "八威創意有限公司",
+  "taxId": "86936915",
+  "experience": "近20年專業攝影經驗",
+  "overseas": "約60趟海外拍攝工作行程",
+  "skiExperience": "近10年滑雪攝影經驗",
+  "overview": "我是小巴老師，八威創意有限公司的專業攝影師。累積近20年的攝影經驗，拍攝商業品牌、電商商品、企業活動、美食廣告、家庭寫真與婚禮紀錄，也長期投入海外旅拍、滑雪攝影及空拍。",
+  "travel": "累積約60趟海外拍攝工作行程，足跡遍及日本、韓國、新加坡、東南亞、澳洲雪梨與美國。從品牌需要的空間與產品，到旅行裡的人物與互動，依影像用途安排拍攝。",
+  "clients": [
+    "飛利浦",
+    "希爾頓",
+    "喜來登",
+    "福容",
+    "華碩",
+    "日本星野集團",
+    "八方雲集",
+    "弘爺漢堡",
+    "劍湖山世界"
+  ],
+  "skiHeadline": "能手持專業單眼相機，邊滑邊拍的攝影師",
+  "skiBody": "近10年的滑雪攝影經驗，讓我能把滑雪能力與專業攝影結合：手持專業單眼相機，邊滑邊拍，捕捉滑行動態、人物表情與雪地裡的光線。從構圖、曝光到動作瞬間，都以專業攝影的方式記錄；同一趟旅程也能拍親子寫真、玩雪與雪地家庭合照。",
+  "phone": "0911252302",
+  "email": "crownchief@gmail.com",
+  "website": "https://www.8-ways.com/",
+  "businessUrl": "https://www.8-ways.com/service",
+  "lineUrl": "https://line.me/ti/p/~0911252302",
+  "instagram": "https://www.instagram.com/travel.photo.tw/",
+  "facebook": "https://www.facebook.com/benson.tw",
+  "images": {
+    "sketch": {
+      "src": "/public/media/photographer/benson-snowboard-sketch.webp",
+      "width": 665,
+      "height": 1182,
+      "alt": "滑雪人物手繪插畫",
+      "title": "滑雪人物手繪插畫"
+    },
+    "skiPortrait": {
+      "src": "/public/media/photographer/benson-chen-ski-portrait.webp",
+      "width": 360,
+      "height": 540,
+      "alt": "小巴老師穿著藍色雪衣，拿著雙板站在雪場",
+      "title": "小巴老師穿著藍色雪衣，拿著雙板站在雪場"
+    },
+    "camera": {
+      "src": "/public/media/photographer/benson-chen-professional-camera-snow.webp",
+      "width": 480,
+      "height": 360,
+      "alt": "小巴老師在下雪的戶外手持專業單眼相機拍攝",
+      "title": "小巴老師在下雪的戶外手持專業單眼相機拍攝"
+    },
+    "working": {
+      "src": "/public/media/photographer/benson-chen-ski-slope-photographer.webp",
+      "width": 540,
+      "height": 360,
+      "alt": "小巴老師在雪道旁低姿勢手持專業相機拍攝",
+      "title": "小巴老師在雪道旁低姿勢手持專業相機拍攝"
+    }
+  },
+  "verifiedAt": "2026-11-22",
+  "verification": "本人於本次對話提供並確認；年資採近20年、滑雪攝影近10年、海外工作約60趟。"
+}
