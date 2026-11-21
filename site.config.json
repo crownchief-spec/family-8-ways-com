@@ -4,7 +4,7 @@
     "shortName": "小巴老師｜親子寫真",
     "description": "親子寫真品牌官網：台灣包車旅拍、海外親子旅拍、全外拍自然互動風格。照片全給，可搭配微電影 MV。",
     "url": "https://family.8-ways.com",
-    "lineUrl": "https://line.me/ti/p/0911252302",
+    "lineUrl": "https://line.me/ti/p/~0911252302",
     "phone": "+886 911252302",
     "phoneDisplay": "0911-252-302",
     "phoneTel": "tel:+886911252302",
@@ -13,32 +13,81 @@
     "email": "crownchief@gmail.com"
   },
   "nav": [
-    { "href": "/", "label": "首頁" },
+    {
+      "href": "/",
+      "label": "首頁"
+    },
     {
       "href": "/services/",
       "label": "服務方案",
       "children": [
-        { "href": "/services/taiwan-family-photography/", "label": "台灣親子旅拍" },
-        { "href": "/services/overseas-family-photography/", "label": "海外親子旅拍" },
-        { "href": "/services/camping-family-photography/", "label": "露營團拍／親子民宿" },
-        { "href": "/services/family-event-photography/", "label": "生日派對／家庭活動紀錄" },
-        { "href": "/services/maternity-baby-family-photography/", "label": "孕婦／寶寶／三代同堂" }
+        {
+          "href": "/services/taiwan-family-photography/",
+          "label": "台灣親子旅拍"
+        },
+        {
+          "href": "/services/overseas-family-photography/",
+          "label": "海外親子旅拍"
+        },
+        {
+          "href": "/services/camping-family-photography/",
+          "label": "露營團拍／親子民宿"
+        },
+        {
+          "href": "/services/family-event-photography/",
+          "label": "生日派對／家庭活動紀錄"
+        },
+        {
+          "href": "/services/maternity-baby-family-photography/",
+          "label": "孕婦／寶寶／三代同堂"
+        }
       ]
+    },
+    {
+      "href": "/overseas/japan-winter/",
+      "label": "滑雪玩雪"
     },
     {
       "href": "/works/",
       "label": "作品案例",
       "children": [
-        { "href": "/works/", "label": "最新作品案例" },
-        { "href": "/taiwan/", "label": "台灣拍攝地點" },
-        { "href": "/overseas/", "label": "海外旅拍地點" },
-        { "href": "/themes/", "label": "親子寫真主題" }
+        {
+          "href": "/works/",
+          "label": "最新作品案例"
+        },
+        {
+          "href": "/taiwan/",
+          "label": "台灣拍攝地點"
+        },
+        {
+          "href": "/overseas/",
+          "label": "海外旅拍地點"
+        },
+        {
+          "href": "/themes/",
+          "label": "親子寫真主題"
+        }
       ]
     },
-    { "href": "/pages/reviews/", "label": "客戶推薦" },
-    { "href": "/articles/", "label": "拍攝文章" },
-    { "href": "/faq/", "label": "常見問題" },
-    { "href": "/about/", "label": "關於小巴老師" },
-    { "href": "/contact/", "label": "聯絡預約" }
+    {
+      "href": "/pages/reviews/",
+      "label": "客戶推薦"
+    },
+    {
+      "href": "/articles/",
+      "label": "拍攝文章"
+    },
+    {
+      "href": "/faq/",
+      "label": "常見問題"
+    },
+    {
+      "href": "/about/",
+      "label": "關於小巴老師"
+    },
+    {
+      "href": "/contact/",
+      "label": "聯絡預約"
+    }
   ]
 }

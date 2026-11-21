@@ -34,5 +34,10 @@
   "/projects/clients/": {
     "noindex": true,
     "schemaType": null
+  },
+  "/overseas/japan-winter/": {
+    "title": "日本親子滑雪・玩雪旅拍｜北海道與輕井澤雪地家庭寫真｜小巴老師",
+    "description": "日本親子滑雪、玩雪與冬季雪景家庭攝影。小巴老師分享北海道、星野與輕井澤實拍故事，依孩子年齡、滑雪程度、課程與行程討論照片、影片及雪季檔期。",
+    "ogImage": "/public/images/family/archive/japan-winter/japan-winter-030-636b95_71d6169f593a4ffbb2b08126218b23ce-mv.jpg"
   }
 }

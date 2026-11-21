@@ -1,0 +1,55 @@
+{
+  "stories": [
+    {
+      "slug": "hokkaido-family-snow-trip-2026",
+      "title": "北海道滑雪玩雪旅拍｜孩子的雪板與夜晚的燈光",
+      "description": "北海道冬季家庭影像，從孩子滑雪、單板與雪地遊戲，到森林木屋和夜晚的親子互動，記錄一趟有動態也有溫度的旅程。",
+      "location": "日本・北海道",
+      "cover": {
+        "file": "hokkaido-family-snow-trip-2026-snow-story-22.webp",
+        "thumb": "hokkaido-family-snow-trip-2026-snow-story-22-thumb.webp",
+        "width": 1600,
+        "height": 1067,
+        "thumbWidth": 600,
+        "thumbHeight": 400,
+        "alt": "母女牽手走在雪地木階上",
+        "title": "母女牽手走在雪地木階上",
+        "src": "/media/works/hokkaido-family-snow-trip-2026/hokkaido-family-snow-trip-2026-snow-story-22.webp"
+      }
+    },
+    {
+      "slug": "japan-winter-family-trip-2025",
+      "title": "日本冬季親子旅拍｜從輕井澤滑雪到白色雪景寫真",
+      "description": "一趟日本冬季親子旅程，從孩子練習滑雪、母女玩雪，到木屋夜景、雪林與白色服裝的自然寫真。",
+      "location": "日本・輕井澤與冬季旅程",
+      "cover": {
+        "file": "japan-winter-family-trip-2025-snow-story-26.webp",
+        "thumb": "japan-winter-family-trip-2025-snow-story-26-thumb.webp",
+        "width": 1600,
+        "height": 1070,
+        "thumbWidth": 600,
+        "thumbHeight": 401,
+        "alt": "媽媽陪孩子在雪道上滑行與合照",
+        "title": "媽媽陪孩子在雪道上滑行與合照",
+        "src": "/media/works/japan-winter-family-trip-2025/japan-winter-family-trip-2025-snow-story-26.webp"
+      }
+    },
+    {
+      "slug": "hoshino-family-ski-trip-2023",
+      "title": "星野滑雪生日旅拍｜雪林、夜景與一家人的冬天",
+      "description": "從白天的霧淞與滑雪，到夜間雪景、煙火與家人相伴的背影，記錄一趟星野冬季生日旅程。",
+      "location": "日本・北海道星野",
+      "cover": {
+        "file": "hoshino-family-ski-trip-2023-snow-story-01.webp",
+        "thumb": "hoshino-family-ski-trip-2023-snow-story-01-thumb.webp",
+        "width": 1600,
+        "height": 1065,
+        "thumbWidth": 600,
+        "thumbHeight": 399,
+        "alt": "家人在星野雪林前依偎合影",
+        "title": "家人在星野雪林前依偎合影",
+        "src": "/media/works/hoshino-family-ski-trip-2023/hoshino-family-ski-trip-2023-snow-story-01.webp"
+      }
+    }
+  ]
+}
