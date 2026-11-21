@@ -10,7 +10,7 @@
     "check:family": "node scripts/check-family-migration.mjs",
     "import:family": "node scripts/import-family-pages.mjs",
     "build:family": "node scripts/build-family-migration.mjs",
-    "preview": "npx --yes serve .",
+    "preview": "npx --yes serve dist",
     "audit:seo": "node scripts/audit-seo.mjs --write --check",
     "check:brand": "python3 scripts/check-brand.py"
   },

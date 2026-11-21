@@ -1,6 +1,6 @@
 # family-8-ways.com（純靜態站）
 
-小巴老師親子寫真品牌官網。**不使用 Astro**：以 HTML + `assets/` + `scripts/build.mjs`（Markdown → HTML）維護，適合 Cloudflare Pages 直接部署根目錄。
+小巴老師親子寫真品牌官網。**不使用 Astro**：以 HTML + `assets/` + `scripts/build.mjs`（Markdown → HTML）維護，透過 Cloudflare Pages 部署建置完成的 `dist/`。原始資料夾不作公開部署。
 
 ## 目錄結構（重點）
 
@@ -45,16 +45,30 @@ npm run preview
 ## Cloudflare Pages
 
 - **Build command**：`npm run build`
-- **Build output directory**：`/`（專案根目錄，含已產生之 `index.html`）
+- **Build output directory**：`dist`（最後由 `scripts/package-public.mjs` 收集公開頁面與必要資產）
 - **Functions**：使用 `functions/api/send-contract.ts` 接收合約 PDF 並寄送 Email（Resend）。
 - **Environment Variables**：
   - `RESEND_API_KEY`
   - `CONTRACT_FROM_EMAIL`
   - `CONTRACT_PHOTOGRAPHER_EMAIL`（可留空，預設 `crownchief@gmail.com`）
 
-若只上傳靜態檔、不跑建置，請在本地先 `npm run build` 再部署整個資料夾。
+若只上傳靜態檔、不跑建置，請在本地先 `npm run build` 再部署 `dist/`，不要上傳專案根目錄。
 
 ## 與舊 Astro 版差異
 
 - 已移除 `src/`、`astro.config.mjs`、Astro content collections。
 - 網址改為明確檔名（例：`/pages/services.html`），較利於非工程師理解路徑。
+
+## 2026-11-22 親子作品整合
+
+新首頁、分類、影片庫與指南由 `scripts/build-brand.mjs` 產生。
+
+- `content/brand-portfolio/YYYY-MM-DD 中文案件/article.md`：新整理作品，JSON frontmatter與Markdown內文。
+- 每案 `photos/`：壓縮WebP和縮圖；原始照片與影片留在原圖庫或來源位置。
+- `content/brand-data/site.json`：首頁、分類、指南、精選順序與既有作品入口。
+- `content/brand-data/videos.json`：103支公開親子作品影片與逐支封面；點選才播放。
+- 既有 `content/portfolio/`、`content/works/`、`content/clients/`、地區頁與客戶功能仍由原建置器處理。
+- `npm run build` 先建置舊頁，再疊加新作品，最後檢查SEO並打包 `dist/`。
+- `npm run check:brand` 驗證新整合頁面的連結、照片與SEO。
+
+本地根目錄HTML為建置中間產物；預覽及部署請使用 `dist/`。
