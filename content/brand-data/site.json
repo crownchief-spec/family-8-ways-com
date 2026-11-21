@@ -1,0 +1,255 @@
+{
+  "label": "親子寫真・家庭旅拍",
+  "brand": "小巴老師親子寫真",
+  "url": "https://family.8-ways.com",
+  "keyword": "親子寫真",
+  "homeTitle": "親子寫真、家庭攝影與海內外旅行跟拍",
+  "heading": [
+    "親子寫真，一起玩。",
+    "全家都在照片裡。"
+  ],
+  "eyebrow": "FAMILY STORIES BY BENSON CHEN",
+  "description": "台灣親子旅拍、海外家庭寫真、生日抓周、露營與滑雪玩雪。小巴老師陪一家人邊玩邊拍，讓風景、表情和相處，都成為值得留下的家庭回憶。",
+  "heroSlug": "bali-riverside-family",
+  "heroPhoto": 0,
+  "categories": [
+    {
+      "id": "taiwan",
+      "name": "台灣親子旅拍／全家福",
+      "short": "台灣親子旅拍",
+      "description": "台北、桃園、宜蘭、台中、阿里山與各地家庭寫真，邊玩邊拍留下自然互動。",
+      "body": "## 把拍攝放進一家人的步調\n\n親子寫真可以從散步、遊戲與探索開始，不要求孩子整段時間看鏡頭。安排少量好移動的場景，穿插家庭合照和自由活動，讓爸媽也一起出現在回憶裡。\n\n## 預約前提供\n\n日期、地區、家庭人數、孩子年齡、長輩行動需求和喜歡的照片。若需要包車或多家庭同行，先確認交通、座位和休息，拍攝與交通內容分別列清楚。\n\n## 當天準備\n\n帶水、換洗衣物、好走的鞋子和孩子熟悉的小玩具。拍攝安排配合午睡和用餐，雨天或高溫則先討論備案。\n\n## 服務方案與費用\n\n[查看既有親子寫真服務方案與價格](/services/)。拍攝時數、交通與照片影片內容，依這次需求逐項確認。",
+      "serviceSlug": "taiwan-family-photography"
+    },
+    {
+      "id": "japan",
+      "name": "日本與海外親子旅拍",
+      "short": "日本",
+      "description": "京都和服、東京城市、奈良與海外旅行，在風景中留下全家相處的故事。",
+      "body": "## 一趟旅行，也能有自然的家庭照片\n\n海外親子旅拍從全家的旅行安排出發，先選喜歡的地區與活動，再把拍攝加入行程。京都和服、東京街景、北海道花海或其他海外地區，都要把孩子的體力和交通時間一起考慮。\n\n## 不用追求景點數量\n\n一段好好散步和玩耍的時間，比匆忙跑完很多地點更容易留下表情。安排換裝、吃飯與休息，將室內備案和集合地點一起確認。\n\n## 出國工作確認\n\n提供旅行日期、住宿區域、人數和希望的照片影片內容，確認攝影師可拍檔期、交通住宿及交付方式。各景點規範與可拍範圍依當地條件確認。\n\n## 服務方案與費用\n\n[查看既有親子寫真服務方案與價格](/services/)。拍攝時數、交通與照片影片內容，依這次需求逐項確認。",
+      "serviceSlug": "overseas-family-photography"
+    },
+    {
+      "id": "snow",
+      "name": "滑雪玩雪／雪地親子寫真",
+      "short": "滑雪玩雪",
+      "description": "北海道、輕井澤和日本雪場，拍滑雪動態，也拍玩雪、雪林散步與家庭合照。",
+      "body": "## 全家人的冬天，都值得留下\n\n會滑雪的家人可以安排雪道跟拍，不滑雪的孩子與長輩也能在玩雪、雪林散步和休息時一起入鏡。小巴老師近10年滑雪攝影經驗，能手持專業單眼相機邊滑邊拍。\n\n## 課程、體力和保暖\n\n先提供雪場、課程時間、每人程度及孩子年齡，將拍攝安排在不影響上課的時段。保暖、補充水分和休息優先，天候與可拍區域依現場狀況調整。\n\n## 更完整的滑雪作品\n\n[前往Ski滑雪玩雪專站](https://ski.8-ways.com/)可閱讀完整雪地作品、雪場與行前指南。Family這裡著重家庭互動與親子旅拍安排。",
+      "serviceSlug": "snow-family-photography"
+    },
+    {
+      "id": "island",
+      "name": "海島親子旅拍／海灘寫真",
+      "short": "海島親子旅拍",
+      "description": "澎湖、沖繩、峇里島、宿霧等旅行場景，留下海灘、夕陽與一家人的夏天。",
+      "body": "## 海邊的照片，跟著孩子的節奏\n\n玩沙、踩水、散步和在樹蔭下休息，都是海島家庭寫真的一部分。先選適合家庭的海岸與交通，避開行程太滿和長時間曝曬。\n\n## 穿著與補給\n\n準備防曬、飲水、毛巾、替換衣物和容易走路的鞋子。若有水上活動，依活動業者的年齡、裝備和天候條件安排；拍攝不取代照顧與活動安全人員。\n\n## 多家庭同行\n\n團拍先分清各家庭需要的照片，再安排朋友合照。人數、交通與活動時間提前確認，讓大家既能一起玩，也有自己的家庭回憶。",
+      "serviceSlug": "island-family-photography"
+    },
+    {
+      "id": "camping",
+      "name": "親子露營／家庭團拍",
+      "short": "親子露營",
+      "description": "帳篷、草地、泳池、營火與星空，把住宿旅行和家人相處一起留下。",
+      "body": "## 拍一段真實的露營生活\n\n從入住、玩耍、用餐到夜間燈光，露營提供不同節奏的親子畫面。先選幾個全家喜歡的活動，不必整個行程都面對鏡頭。\n\n## 團拍與個別家庭\n\n多家庭同行時，分別保留家庭拍攝時段，再集合完成朋友與團體合照。若要夜景或星空，需配合天候、現場光線和孩子睡眠安排。\n\n## 場地與行程\n\n先確認營區拍攝規範、可使用區域與住宿內容，交通和訂房由雙方依需求確認。攝影、住宿及其他活動費用分開列清楚。",
+      "serviceSlug": "camping-family-photography"
+    },
+    {
+      "id": "birthday",
+      "name": "生日派對／抓周攝影",
+      "short": "生日派對",
+      "description": "寶寶抓周、生日、家庭聚會與孩子的成長時刻，記錄儀式和親友陪伴。",
+      "body": "## 先看活動，再安排寫真\n\n抓周、唱生日歌、吹蠟燭和家族合照有固定流程，先標出時間與重要家人。若希望同時拍自然寫真，可在活動前後另外保留一段時間。\n\n## 幫孩子保留休息\n\n活動時間配合吃飯和午睡，現場安排熟悉的家人協助。孩子不需要一直被要求看鏡頭，攝影師會記錄動作、表情和親友反應。\n\n## 照片影片的選擇\n\n照片留下瞬間，影片保留唱歌、祝福與互動聲音。預約時確認需要的版本、交付和拍攝時數，讓影像工作配合慶祝的節奏。",
+      "serviceSlug": "family-event-photography"
+    },
+    {
+      "id": "pets",
+      "name": "寵物家庭寫真",
+      "short": "寵物家庭寫真",
+      "description": "帶著毛孩和孩子一起出門，在自然互動中留下完整的一家人。",
+      "body": "## 毛孩也是家人\n\n先了解寵物年齡、個性和外出習慣，選擇允許寵物進入且方便休息的場地。畫面可以是陪伴、散步、玩耍，也可以安排全家合照。\n\n## 出門前準備\n\n飲水、牽繩、清潔用品、熟悉的玩具與獎勵零食都可先備妥，並安排一位熟悉寵物的家人照顧。場地規範和活動範圍先確認，拍攝配合動物狀況調整。\n\n## 合照與自然互動\n\n不必勉強每個人同時看鏡頭。可以先讓孩子與毛孩熟悉環境，再分段完成不同組合，留下自在的家庭回憶。",
+      "serviceSlug": "pet-family-photography"
+    }
+  ],
+  "guides": [
+    {
+      "slug": "family-dress-guide",
+      "title": "親子寫真服裝搭配｜同色系、場景與好活動的衣服",
+      "description": "讓全家衣服互相呼應，同時保留每個人的個性與舒適度。",
+      "body": "## 同色系就能有一致感\n\n可以準備同款親子裝，也可以用白、米、淺灰、淺藍或牛仔色彼此呼應。先把全家衣服放在一起看，比各自挑好後才到現場更容易掌握整體。避免每個人的圖案、字樣和顏色都很強烈。\n\n## 依場景選擇\n\n森林與草地可用自然柔和的色調；海灘適合輕鬆、方便走路與換洗的衣服；城市與夜景可依希望的風格選擇俐落或活潑的搭配。和服或韓服另確認租借、換裝與歸還時間。\n\n## 孩子舒服，照片才自在\n\n衣服要能蹲、跑、坐下和被抱起，鞋子先試穿，不為了造型讓孩子整段行程都不舒服。準備替換衣物、薄外套和容易穿脫的鞋，依天候調整。\n\n## 配件適量就好\n\n帽子、小包和熟悉的玩具可增加互動，但不需要每張都拿不同道具。挑一兩件與全家顏色呼應的配件，讓注意力留在人與人之間。",
+      "category": null
+    },
+    {
+      "slug": "family-photo-day-preparation",
+      "title": "親子寫真當天準備｜午睡、交通、換衣與孩子步調",
+      "description": "安排舒服的拍攝節奏，讓孩子和爸媽都能自然入鏡。",
+      "body": "## 選一段孩子狀況穩定的時間\n\n先提供平常午睡、吃飯和容易疲累的時間，拍攝安排跟著日常作息。不要為了跑景點把休息全刪掉，旅拍移動也會消耗體力。\n\n## 行李分成拍攝與備用\n\n隨身帶水、毛巾、替換衣物和熟悉的小玩具，其他物品放在容易拿取的位置。多套衣服先依順序收好，避免換裝時才翻找。長輩同行則考慮座位、廁所和步行距離。\n\n## 不必一直要求看鏡頭\n\n先陪孩子散步、觀察或玩遊戲，攝影師會從互動中找畫面。需要家庭合照時再分段引導，爸媽不用把整段拍攝變成提醒孩子微笑的工作。\n\n## 天候與行程調整\n\n下雨、高溫或風勢都會影響安排，拍攝前確認室內備案、是否改時段，以及延期條件。當天若身體不舒服或孩子狀況改變，立即和攝影師討論。",
+      "category": null
+    },
+    {
+      "slug": "overseas-family-travel-planning",
+      "title": "海外親子旅拍怎麼安排？地區、交通與拍攝天數",
+      "description": "用旅行本來的步調規劃照片影片，保留休息和自由活動。",
+      "body": "## 先提供已確定的旅程\n\n旅行日期、航班、住宿區域、家庭人數及孩子年齡是基本資料。再告訴攝影師最想留下的風景與活動，從中挑選適合拍攝的路線。\n\n## 少一點地點，多一點相處\n\n地圖距離不等於實際移動時間，還有找車、停車、走路和換裝。用相鄰區域安排一天，留出吃飯、午睡與自由活動，較容易拍到全家自在的樣子。\n\n## 先分清照片與影片\n\n想要家庭合照、旅程微電影或多日紀錄，都要在預約時提出。聲音、橫直構圖與拍攝節奏會因交付方式不同而調整。\n\n## 費用與場地\n\n攝影時數、工作天、交通住宿、攝影師機票及當地支出分別確認。景點或租借場地是否允許商業拍攝，依當時規範核對，避免照著舊照片直接安排。",
+      "category": "japan"
+    },
+    {
+      "slug": "family-snow-trip-photography",
+      "title": "北海道親子滑雪玩雪攝影｜課程、保暖與家庭合照",
+      "description": "讓滑雪和不滑雪的家人都能參與，安排適合孩子的雪地攝影。",
+      "body": "## 先排課程，再排攝影\n\n提供雪場、單板或雙板、每人程度與課程時間，攝影師依教學動線及可拍區域安排。想要家庭合照，可以放在課前、休息或大家容易會合的位置。\n\n## 不滑雪也能拍\n\n玩雪、雪橇、堆雪與雪林散步，都是冬季親子寫真的主題。家人程度不同時可以分段拍，最後再集合，不必為了一張合照勉強使用同一條雪道。\n\n## 保暖與體力\n\n孩子的保暖、乾燥與休息優先，替換手套、飲水和室內休息點先備妥。低溫下拍攝分成幾段，依現場風雪與孩子反應調整。\n\n## 邊滑邊拍的攝影師\n\n小巴老師能手持專業單眼相機邊滑邊拍，結合近20年攝影和近10年滑雪攝影經驗，記錄滑行動態，也觀察親子表情與光線。更多雪場和行前資料可閱讀[Ski滑雪玩雪指南](https://ski.8-ways.com/guides/)。",
+      "category": "snow"
+    },
+    {
+      "slug": "family-birthday-event-planning",
+      "title": "生日抓周攝影怎麼排？儀式、遊戲與家族合照",
+      "description": "先保留重要流程，再安排自然互動與孩子休息。",
+      "body": "## 先列不能錯過的時間\n\n抓周、唱歌、吹蠟燭、切蛋糕與親友合照，先確認預計時間和位置。由一位家人或活動窗口統一協調，流程改動時即時通知攝影師。\n\n## 親友與空間\n\n列出重要長輩、需要的合照組合與現場人數。拍攝區保留移動空間，布置前先考慮背景、光線及賓客視線，不用把所有道具擠在同一面牆。\n\n## 活動與寫真的安排\n\n想同時拍家庭寫真，可在賓客抵達前或儀式後保留一段時段。活動紀錄會跟著流程走，寫真需要不同的互動與光線安排，預約時先分清需求。\n\n## 交付照片影片\n\n確認照片調色、影片版本、祝福收音及交件期限。需要即時照片、直式短片或完整儀式影片時，請預先提出，讓人力與設備能一起準備。",
+      "category": "birthday"
+    },
+    {
+      "slug": "camping-family-group-photography",
+      "title": "露營親子團拍怎麼安排？家庭時段與朋友合照",
+      "description": "多家庭同行，既留下共同旅行，也保留每個家庭的回憶。",
+      "body": "## 先統計每個家庭的資料\n\n家庭人數、孩子年齡、住宿位置與活動時間，先整理給攝影師。團體活動與個別家庭拍攝分開排，避免大家同時在不同地方等待。\n\n## 白天與夜晚各有重點\n\n白天適合草地、遊戲、泳池與探索；傍晚可安排散步和家庭合照；夜間則看燈光、營火與孩子體力決定。星空與夜景受天候影響，不把它當成一定能完成的固定交付。\n\n## 留出自由活動\n\n團拍不需要整天集合，安排清楚的拍攝窗口，其餘時間讓家庭自己享受旅行。需要同一張大合照時，提前通知地點、時間與服裝方向。\n\n## 場地與方案\n\n營區規範、住宿、餐飲和其他活動內容，依業者提供資訊確認。攝影時數、參與家庭數和交件範圍先寫清楚，若增加家庭或更改行程，再討論調整。",
+      "category": "camping"
+    }
+  ],
+  "categoryHeading": "找到適合全家的拍攝方式",
+  "categoryTitle": "親子家庭攝影分類",
+  "categoryIntro": "依台灣旅拍、日本與海外、滑雪玩雪、海島、露營、生日及寵物分類，先選全家喜歡的生活與旅行。",
+  "worksTitle": "親子寫真作品｜家庭旅行與自然互動",
+  "worksIntro": "從各地旅拍、日常相處到冬季玩雪，以家庭為主角，一篇一篇看真實故事。",
+  "searchPlaceholder": "親子、北海道、玩雪、海灘、露營",
+  "videoTitle": "親子寫真與家庭旅拍影片",
+  "guideTitle": "親子寫真拍攝指南",
+  "guideIntro": "從服裝、孩子作息、交通和海外行程開始，準備一趟全家都舒服的拍攝。",
+  "cta": "讓下一張家庭照片，也有你在裡面。",
+  "contactTitle": "親子寫真與家庭旅拍預約",
+  "inquiry": "想詢問親子寫真／家庭旅拍\n日期：\n地點與旅行行程：\n家庭人數與孩子年齡：\n長輩／寵物同行：\n照片／影片需求：\n最想留下的畫面：",
+  "mode": "family",
+  "legacyLinks": [
+    {
+      "title": "露營團拍｜草地帳篷親子家庭寫真",
+      "url": "/works/camping-tent-family-photo/"
+    },
+    {
+      "title": "生日派對紀錄｜家庭活動攝影",
+      "url": "/works/birthday-party-family-doc/"
+    },
+    {
+      "title": "淡水北海岸親子旅拍｜海邊玩水家庭照",
+      "url": "/works/tamsui-coastal-family-beach/"
+    },
+    {
+      "title": "台北親子旅拍｜大草地自然互動家庭寫真",
+      "url": "/works/taipei-family-grassland-photo/"
+    },
+    {
+      "title": "日本滑雪親子旅拍｜玩雪家庭寫真",
+      "url": "/works/japan-ski-family-play-snow/"
+    },
+    {
+      "title": "三代同堂家庭寫真｜祖父母與孩子自然互動",
+      "url": "/works/three-generation-outdoor-family/"
+    },
+    {
+      "title": "桃園動物農場親子寫真｜孩子與動物互動",
+      "url": "/works/taoyuan-farm-animals-photo/"
+    },
+    {
+      "title": "東京迪士尼親子旅拍｜旅行紀念寫真",
+      "url": "/works/tokyo-disney-family-trip-photo/"
+    },
+    {
+      "title": "宜蘭親子旅拍｜自然風家庭攝影",
+      "url": "/works/yilan-nature-family-photo/"
+    },
+    {
+      "title": "沖繩親子旅拍｜海島家庭攝影",
+      "url": "/works/okinawa-island-family-photo/"
+    },
+    {
+      "title": "京都大阪親子旅拍｜和服家庭照",
+      "url": "/works/kyoto-osaka-kimono-family/"
+    },
+    {
+      "title": "親子民宿旅拍｜室內 Villa 與戶外自然光",
+      "url": "/works/homestay-villa-natural-light/"
+    },
+    {
+      "title": "首爾親子英語遊學攝影｜昕閱森林世界學習旅程",
+      "url": "/works/seoul-family-english-study-tour/"
+    }
+  ],
+  "featureSlugs": [
+    "taoyuan-farm-family-story",
+    "kyoto-kobe-family-journey",
+    "penghu-beach-cactus-family",
+    "nayang-family-glamping-story",
+    "suao-picnic-birthday-family",
+    "hokkaido-family-sled-forest-2018"
+  ],
+  "categoryCovers": {
+    "taiwan": "taoyuan-farm-family-story",
+    "japan": "kyoto-kobe-family-journey",
+    "snow": "hokkaido-family-sled-forest-2018",
+    "island": "penghu-beach-cactus-family",
+    "camping": "nayang-family-glamping-story",
+    "birthday": "suao-picnic-birthday-family",
+    "pets": "pet-and-family-outdoors"
+  },
+  "legacyArticleLinks": [
+    {
+      "url": "/articles/overseas-family-photography-guide/",
+      "title": "overseas-family-photography-guide"
+    },
+    {
+      "url": "/articles/family-photography-pricing-guide/",
+      "title": "family-photography-pricing-guide"
+    },
+    {
+      "url": "/articles/beach-family-photography/",
+      "title": "beach-family-photography"
+    },
+    {
+      "url": "/articles/family-photography-preparation/",
+      "title": "family-photography-preparation"
+    },
+    {
+      "url": "/articles/taiwan-family-travel-photography-guide/",
+      "title": "taiwan-family-travel-photography-guide"
+    },
+    {
+      "url": "/articles/camping-family-photography-guide/",
+      "title": "camping-family-photography-guide"
+    },
+    {
+      "url": "/articles/japan-ski-family-photography/",
+      "title": "japan-ski-family-photography"
+    },
+    {
+      "url": "/articles/baby-family-photography-tips/",
+      "title": "baby-family-photography-tips"
+    },
+    {
+      "url": "/articles/three-generation-family-photo/",
+      "title": "three-generation-family-photo"
+    },
+    {
+      "url": "/articles/birthday-party-family-photography/",
+      "title": "birthday-party-family-photography"
+    },
+    {
+      "url": "/articles/family-photo-outfit-guide/",
+      "title": "family-photo-outfit-guide"
+    },
+    {
+      "url": "/articles/family-photo-preparation-five-tips/",
+      "title": "family-photo-preparation-five-tips"
+    },
+    {
+      "url": "/articles/taipei-family-photo-location/",
+      "title": "taipei-family-photo-location"
+    }
+  ]
+}

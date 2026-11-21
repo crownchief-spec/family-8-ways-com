@@ -4,3 +4,7 @@ scripts/.wix-cache/
 *.log
 .env
 .env.*
+dist/
+reports/
+/brand/
+/media/

@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SITE = 'https://family.8-ways.com';
-const SKIP_DIRS = new Set(['node_modules', 'templates', 'src', 'data', 'content', 'components']);
+const SKIP_DIRS = new Set(['node_modules', 'templates', 'src', 'data', 'content', 'components', 'dist', 'reports', 'scripts', '.git', 'functions']);
 const REDIRECTED_ROUTES = new Set(['/pages/about.html', '/pages/contact.html', '/pages/reviews.html', '/pages/services.html']);
 const args = new Set(process.argv.slice(2));
 
@@ -156,7 +156,7 @@ const issues = {
   missingTwitter: pages.filter((page) => page.twitterCard !== 'summary_large_image' || !page.twitterImage).map((page) => page.file),
   missingAppMeta: pages.filter((page) => !page.manifest || !page.appleTouchIcon || !page.themeColor).map((page) => page.file),
   invalidH1: pages.filter((page) => page.h1Count !== 1).map((page) => `${page.file} (${page.h1Count})`),
-  invalidLang: pages.filter((page) => page.lang !== 'zh-Hant').map((page) => page.file),
+  invalidLang: pages.filter((page) => !['zh-Hant', 'zh-Hant-TW'].includes(page.lang)).map((page) => page.file),
   missingSchema: indexable.filter((page) => !page.schemaTypes.length).map((page) => page.file),
   invalidSchema: pages.filter((page) => page.invalidSchema).map((page) => page.file),
   emptyMediaAttributes: pages.filter((page) => page.emptyMediaAttributes.length).map((page) => page.file),

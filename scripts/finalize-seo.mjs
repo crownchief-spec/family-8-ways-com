@@ -12,7 +12,7 @@ import { loadSiteConfig, renderPage } from './render.mjs';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const cfg = loadSiteConfig();
 const { site } = cfg;
-const SKIP_DIRS = new Set(['node_modules', 'templates', 'src', 'data', 'content', 'components']);
+const SKIP_DIRS = new Set(['node_modules', 'templates', 'src', 'data', 'content', 'components', 'dist', 'reports', 'scripts', '.git', 'functions']);
 const REDIRECTED_ROUTES = new Set(['/pages/about.html', '/pages/contact.html', '/pages/reviews.html', '/pages/services.html']);
 const PRIVATE_PREFIXES = ['/admin/', '/clients/', '/family-contract/', '/projects/clients/', '/privacy/'];
 const IMAGE_EXTENSIONS = new Set(['.avif', '.gif', '.jpeg', '.jpg', '.png', '.svg', '.webp']);
@@ -101,7 +101,9 @@ function extractPageImages(html) {
 }
 
 function isUsefulSocialImage(path, trackedMedia) {
-  if (!path || !trackedMedia.has(path.replace(/^\//, ''))) return false;
+  if (!path) return false;
+  const generated = /^(?:\/media\/works\/|\/brand\/)/.test(path) && existsSync(join(ROOT,path));
+  if (!generated && !trackedMedia.has(path.replace(/^\//, ''))) return false;
   return !/(?:^|\/)(?:favicon|logo|icon|qr|og-default|default\.svg)(?:$|[./_-])/i.test(path);
 }
 
