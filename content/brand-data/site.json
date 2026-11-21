@@ -68,6 +68,13 @@
       "description": "帶著毛孩和孩子一起出門，在自然互動中留下完整的一家人。",
       "body": "## 毛孩也是家人\n\n先了解寵物年齡、個性和外出習慣，選擇允許寵物進入且方便休息的場地。畫面可以是陪伴、散步、玩耍，也可以安排全家合照。\n\n## 出門前準備\n\n飲水、牽繩、清潔用品、熟悉的玩具與獎勵零食都可先備妥，並安排一位熟悉寵物的家人照顧。場地規範和活動範圍先確認，拍攝配合動物狀況調整。\n\n## 合照與自然互動\n\n不必勉強每個人同時看鏡頭。可以先讓孩子與毛孩熟悉環境，再分段完成不同組合，留下自在的家庭回憶。",
       "serviceSlug": "pet-family-photography"
+    },
+    {
+      "id": "baby",
+      "name": "孕婦寶寶／三代同堂",
+      "short": "孕婦寶寶與三代同堂",
+      "description": "孕期、寶寶成長、祖父母與大家庭，在不同人生階段留下一家人的照片。",
+      "body": "## 不同階段，都有值得留下的相處\n\n孕婦寫真依孕期狀況和體力安排，寶寶寫真配合吃飯、換尿布與休息，三代同堂則先確認長輩的行動需求和重要合照組合。拍攝不追求繁複流程，讓每位家人都能舒服參與。\n\n## 從已有作品找方向\n\n- [自然風孕婦與孕期家庭攝影](/themes/maternity/)。\n- [寶寶Baby親子寫真作品](/themes/baby/)。\n- [祖父母、三代同堂與大家庭全家福](/themes/generation/)。\n\n## 預約前準備\n\n提供家庭人數、寶寶年齡、孕期階段、長輩行動需求和拍攝地區，先討論室內或戶外、拍攝長度與休息。若有身體狀況或需要調整的活動，依家人實際需求安排，不為了拍照勉強動作。"
     }
   ],
   "guides": [
@@ -201,55 +208,55 @@
   "legacyArticleLinks": [
     {
       "url": "/articles/overseas-family-photography-guide/",
-      "title": "overseas-family-photography-guide"
+      "title": "海外親子旅拍適合哪些家庭？日本、沖繩、韓國、新加坡拍攝整理｜指南"
     },
     {
       "url": "/articles/family-photography-pricing-guide/",
-      "title": "family-photography-pricing-guide"
+      "title": "親子寫真費用怎麼看？半天、全天、海外旅拍與加人入鏡差異｜指南"
     },
     {
       "url": "/articles/beach-family-photography/",
-      "title": "beach-family-photography"
+      "title": "海邊親子寫真怎麼拍？玩水、夕陽與安全注意事項｜指南"
     },
     {
       "url": "/articles/family-photography-preparation/",
-      "title": "family-photography-preparation"
+      "title": "親子寫真要怎麼準備？服裝、道具、時間與孩子狀態整理｜指南"
     },
     {
       "url": "/articles/taiwan-family-travel-photography-guide/",
-      "title": "taiwan-family-travel-photography-guide"
+      "title": "台灣親子旅拍怎麼安排？包車、景點、拍攝時間一次整理｜指南"
     },
     {
       "url": "/articles/camping-family-photography-guide/",
-      "title": "camping-family-photography-guide"
+      "title": "露營團拍怎麼拍才自然？親子露營與民宿家庭照建議｜指南"
     },
     {
       "url": "/articles/japan-ski-family-photography/",
-      "title": "japan-ski-family-photography"
+      "title": "日本滑雪親子旅拍怎麼安排？玩雪家庭照與旅拍注意事項｜指南"
     },
     {
       "url": "/articles/baby-family-photography-tips/",
-      "title": "baby-family-photography-tips"
+      "title": "寶寶與幼兒親子寫真注意事項｜指南"
     },
     {
       "url": "/articles/three-generation-family-photo/",
-      "title": "three-generation-family-photo"
+      "title": "三代同堂家庭照怎麼拍？祖父母、爸媽與孩子的自然互動｜指南"
     },
     {
       "url": "/articles/birthday-party-family-photography/",
-      "title": "birthday-party-family-photography"
+      "title": "生日派對需要請攝影師嗎？家庭活動紀錄的重點與拍法｜指南"
     },
     {
       "url": "/articles/family-photo-outfit-guide/",
-      "title": "family-photo-outfit-guide"
+      "title": "親子寫真穿搭怎麼選？家庭照衣服顏色與搭配建議｜指南"
     },
     {
       "url": "/articles/family-photo-preparation-five-tips/",
-      "title": "family-photo-preparation-five-tips"
+      "title": "全家福拍攝準備｜穿搭、民宿場地與自然互動 5 個技巧"
     },
     {
       "url": "/articles/taipei-family-photo-location/",
-      "title": "taipei-family-photo-location"
+      "title": "台北親子寫真地點推薦｜指南"
     }
   ]
 }
