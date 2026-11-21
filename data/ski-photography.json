@@ -1,10 +1,260 @@
 {
+  "heroSlug": "hoshino-family-ski-trip-2023",
   "stories": [
+    {
+      "slug": "hoshino-family-ski-trip-2023",
+      "title": "星野滑雪生日旅拍｜雪林、夜景與一家人的冬天",
+      "description": "從白天的霧淞與滑雪，到夜間雪景、煙火與家人相伴的背影，記錄一趟星野冬季生日旅程。",
+      "location": "日本・北海道星野",
+      "promotion": null,
+      "featureOrder": 3,
+      "cover": {
+        "file": "hoshino-family-ski-trip-2023-snow-story-01.webp",
+        "thumb": "hoshino-family-ski-trip-2023-snow-story-01-thumb.webp",
+        "width": 1600,
+        "height": 1065,
+        "thumbWidth": 600,
+        "thumbHeight": 399,
+        "alt": "家人在星野雪林前依偎合影",
+        "title": "家人在星野雪林前依偎合影",
+        "src": "/media/works/hoshino-family-ski-trip-2023/hoshino-family-ski-trip-2023-snow-story-01.webp"
+      }
+    },
+    {
+      "slug": "karuizawa-family-ski-trip-2024",
+      "title": "輕井澤滑雪旅拍｜藍天雪道與同行的笑容",
+      "description": "以輕井澤雪道、山景與冬季人物為背景，將滑雪練習、同行合照和旅行日常整理成一組完整作品。",
+      "location": "日本・輕井澤",
+      "promotion": null,
+      "featureOrder": 12,
+      "cover": {
+        "file": "karuizawa-family-ski-trip-2024-snow-story-03.webp",
+        "thumb": "karuizawa-family-ski-trip-2024-snow-story-03-thumb.webp",
+        "width": 1600,
+        "height": 1065,
+        "thumbWidth": 600,
+        "thumbHeight": 399,
+        "alt": "旅人抱著雪板在山景前留影",
+        "title": "旅人抱著雪板在山景前留影",
+        "src": "/media/works/karuizawa-family-ski-trip-2024/karuizawa-family-ski-trip-2024-snow-story-03.webp"
+      }
+    },
+    {
+      "slug": "furano-winter-family-trip-2024",
+      "title": "富良野雪地親子旅拍｜森林木屋、玩雪與冬夜燈光",
+      "description": "從雪地露營車與森林木屋，到孩子玩雪、親子滑行和藍調夜景，把富良野冬季旅程的不同表情留下來。",
+      "location": "日本・北海道富良野",
+      "promotion": null,
+      "featureOrder": 13,
+      "cover": {
+        "file": "furano-winter-family-trip-2024-snow-story-05.webp",
+        "thumb": "furano-winter-family-trip-2024-snow-story-05-thumb.webp",
+        "width": 1600,
+        "height": 1010,
+        "thumbWidth": 600,
+        "thumbHeight": 379,
+        "alt": "家人在暖色木屋前依偎",
+        "title": "家人在暖色木屋前依偎",
+        "src": "/media/works/furano-winter-family-trip-2024/furano-winter-family-trip-2024-snow-story-05.webp"
+      }
+    },
+    {
+      "slug": "karuizawa-family-snowboard-2019",
+      "title": "輕井澤家庭單板旅拍｜一起坐進雪地，也一起出發",
+      "description": "在輕井澤的藍天、樹林與雪道旁，記錄家人拿著雪板合影、一起休息，以及準備再次滑行的冬季片段。",
+      "location": "日本・輕井澤",
+      "promotion": null,
+      "featureOrder": 30,
+      "cover": {
+        "file": "karuizawa-family-snowboard-2019-01.webp",
+        "thumb": "karuizawa-family-snowboard-2019-01-thumb.webp",
+        "alt": "家人在輕井澤雪道旁拿著雪板合影",
+        "title": "家人在輕井澤雪道旁拿著雪板合影",
+        "width": 1200,
+        "height": 798,
+        "thumbWidth": 600,
+        "thumbHeight": 399,
+        "src": "/media/works/karuizawa-family-snowboard-2019/karuizawa-family-snowboard-2019-01.webp"
+      }
+    },
+    {
+      "slug": "niseko-family-snow-house-2019",
+      "title": "二世谷親子蓋雪屋｜羊蹄山前的小小冬季基地",
+      "description": "孩子在羊蹄山前堆雪、鑽進雪屋、趴在雪地上玩耍；二世谷的冬季親子旅拍，也能從不穿雪板的日常開始。",
+      "location": "日本・北海道二世谷",
+      "promotion": null,
+      "featureOrder": 31,
+      "cover": {
+        "file": "niseko-family-snow-house-2019-01.webp",
+        "thumb": "niseko-family-snow-house-2019-01-thumb.webp",
+        "alt": "孩子與家人在羊蹄山前的雪屋旁合照",
+        "title": "孩子與家人在羊蹄山前的雪屋旁合照",
+        "width": 1200,
+        "height": 798,
+        "thumbWidth": 600,
+        "thumbHeight": 399,
+        "src": "/media/works/niseko-family-snow-house-2019/niseko-family-snow-house-2019-01.webp"
+      }
+    },
+    {
+      "slug": "tomamu-family-snow-ice-village-2018",
+      "title": "星野親子玩雪旅拍｜白樺林、雪橇與冰城的夜晚",
+      "description": "白天在白樺林裡和爸爸玩雪，夜晚走進冰雪造景與燈光；這組北海道星野親子作品串起白天到冬夜的自然互動。",
+      "location": "日本・北海道星野",
+      "promotion": null,
+      "featureOrder": 32,
+      "cover": {
+        "file": "tomamu-family-snow-ice-village-2018-01.webp",
+        "thumb": "tomamu-family-snow-ice-village-2018-01-thumb.webp",
+        "alt": "爸爸抱著孩子在星野白樺林間合影",
+        "title": "爸爸抱著孩子在星野白樺林間合影",
+        "width": 1200,
+        "height": 798,
+        "thumbWidth": 600,
+        "thumbHeight": 399,
+        "src": "/media/works/tomamu-family-snow-ice-village-2018/tomamu-family-snow-ice-village-2018-01.webp"
+      }
+    },
+    {
+      "slug": "hokkaido-family-snow-horse-2018",
+      "title": "北海道雪地騎馬旅拍｜孩子、馬兒與粉色的冬日天空",
+      "description": "雪地騎馬、餵馬、揚起雪花與全家合照，將北海道冬季旅行裡的戶外體驗，拍成一組有活動也有溫度的家庭故事。",
+      "location": "日本・北海道",
+      "promotion": null,
+      "featureOrder": 33,
+      "cover": {
+        "file": "hokkaido-family-snow-horse-2018-01.webp",
+        "thumb": "hokkaido-family-snow-horse-2018-01-thumb.webp",
+        "alt": "家人騎著馬在冬日天空下合影",
+        "title": "家人騎著馬在冬日天空下合影",
+        "width": 1200,
+        "height": 798,
+        "thumbWidth": 600,
+        "thumbHeight": 399,
+        "src": "/media/works/hokkaido-family-snow-horse-2018/hokkaido-family-snow-horse-2018-01.webp"
+      }
+    },
+    {
+      "slug": "hokkaido-family-sled-forest-2018",
+      "title": "北海道雪橇玩雪旅拍｜雪林裡的笑聲與傍晚燈光",
+      "description": "孩子坐上雪橇滑進白色森林，家人走在開闊雪景前；北海道冬季旅拍從早上的山景，一直延伸到傍晚樹下的燈光。",
+      "location": "日本・北海道",
+      "promotion": null,
+      "featureOrder": 34,
+      "cover": {
+        "file": "hokkaido-family-sled-forest-2018-01.webp",
+        "thumb": "hokkaido-family-sled-forest-2018-01-thumb.webp",
+        "alt": "孩子坐著粉紅雪橇經過亮起燈光的雪林",
+        "title": "孩子坐著粉紅雪橇經過亮起燈光的雪林",
+        "width": 1200,
+        "height": 798,
+        "thumbWidth": 600,
+        "thumbHeight": 399,
+        "src": "/media/works/hokkaido-family-sled-forest-2018/hokkaido-family-sled-forest-2018-01.webp"
+      }
+    },
+    {
+      "slug": "hakodate-family-winter-2018",
+      "title": "函館親子玩雪旅拍｜從湖畔白雪走到城市夜色",
+      "description": "北海道函館冬季親子作品，從雪地散步、親子雪橇與孩子的跳躍，到夜晚牽著家人走過街頭，記錄冬季旅行的不同表情。",
+      "location": "日本・北海道函館一帶",
+      "promotion": null,
+      "featureOrder": 35,
+      "cover": {
+        "file": "hakodate-family-winter-2018-01.webp",
+        "thumb": "hakodate-family-winter-2018-01-thumb.webp",
+        "alt": "孩子在湖畔白色雪景前開心跳躍",
+        "title": "孩子在湖畔白色雪景前開心跳躍",
+        "width": 1200,
+        "height": 798,
+        "thumbWidth": 600,
+        "thumbHeight": 399,
+        "src": "/media/works/hakodate-family-winter-2018/hakodate-family-winter-2018-01.webp"
+      }
+    },
+    {
+      "slug": "niseko-family-night-snowboard-2018",
+      "title": "二世谷親子單板紀錄｜雪夜裡發亮的雪鏡與小雪板",
+      "description": "從親子單板滑行，到雪花與夜間照明下的孩子人像，以二世谷冬季作品記錄家庭滑雪和夜滑的不同氣氛。",
+      "location": "日本・北海道二世谷",
+      "promotion": null,
+      "featureOrder": 36,
+      "cover": {
+        "file": "niseko-family-night-snowboard-2018-01.webp",
+        "thumb": "niseko-family-night-snowboard-2018-01-thumb.webp",
+        "alt": "孩子拿著單板站在雪花與夜間燈光前",
+        "title": "孩子拿著單板站在雪花與夜間燈光前",
+        "width": 1200,
+        "height": 799,
+        "thumbWidth": 600,
+        "thumbHeight": 400,
+        "src": "/media/works/niseko-family-night-snowboard-2018/niseko-family-night-snowboard-2018-01.webp"
+      }
+    },
+    {
+      "slug": "hachimantai-family-ski-group-2018",
+      "title": "八幡平家庭滑雪團｜從孩子的小轉彎到全團合照",
+      "description": "日本八幡平滑雪團的家庭影像，記錄孩子單板、家人雙板練習、雪林裡的互動與全團合照，展現雪道動態和團體紀錄的拍攝方式。",
+      "location": "日本・岩手八幡平",
+      "promotion": null,
+      "featureOrder": 37,
+      "cover": {
+        "file": "hachimantai-family-ski-group-2018-01.webp",
+        "thumb": "hachimantai-family-ski-group-2018-01-thumb.webp",
+        "alt": "家人在八幡平雪道上揚起白雪合影",
+        "title": "家人在八幡平雪道上揚起白雪合影",
+        "width": 1200,
+        "height": 798,
+        "thumbWidth": 600,
+        "thumbHeight": 399,
+        "src": "/media/works/hachimantai-family-ski-group-2018/hachimantai-family-ski-group-2018-01.webp"
+      }
+    },
+    {
+      "slug": "niseko-family-ski-days-2019",
+      "title": "二世谷家庭滑雪日記｜單板、雙板與雪林裡的相伴",
+      "description": "二世谷多日滑雪影像，從孩子練習雙板、同行者單板滑行，到雪林合照與夜間雪道，保留家庭滑雪旅行的連續片段。",
+      "location": "日本・北海道二世谷",
+      "promotion": null,
+      "featureOrder": 38,
+      "cover": {
+        "file": "niseko-family-ski-days-2019-01.webp",
+        "thumb": "niseko-family-ski-days-2019-01-thumb.webp",
+        "alt": "單板旅人在雪道上舉起雪板",
+        "title": "單板旅人在雪道上舉起雪板",
+        "width": 798,
+        "height": 1200,
+        "thumbWidth": 399,
+        "thumbHeight": 600,
+        "src": "/media/works/niseko-family-ski-days-2019/niseko-family-ski-days-2019-01.webp"
+      }
+    },
+    {
+      "slug": "hokkaido-family-winter-play-2019",
+      "title": "北海道親子玩雪日記｜雪上活動、冰屋與藍調時刻",
+      "description": "雪上摩托車、雪地遊戲與入夜前的燈光，讓北海道親子旅拍有更多玩法；這組作品記錄滑雪以外的冬季旅行片段。",
+      "location": "日本・北海道",
+      "promotion": null,
+      "featureOrder": 39,
+      "cover": {
+        "file": "hokkaido-family-winter-play-2019-01.webp",
+        "thumb": "hokkaido-family-winter-play-2019-01-thumb.webp",
+        "alt": "家人坐在雪上摩托車上合影",
+        "title": "家人坐在雪上摩托車上合影",
+        "width": 1200,
+        "height": 798,
+        "thumbWidth": 600,
+        "thumbHeight": 399,
+        "src": "/media/works/hokkaido-family-winter-play-2019/hokkaido-family-winter-play-2019-01.webp"
+      }
+    },
     {
       "slug": "hokkaido-family-snow-trip-2026",
       "title": "北海道滑雪玩雪旅拍｜孩子的雪板與夜晚的燈光",
       "description": "北海道冬季家庭影像，從孩子滑雪、單板與雪地遊戲，到森林木屋和夜晚的親子互動，記錄一趟有動態也有溫度的旅程。",
       "location": "日本・北海道",
+      "promotion": "quiet",
+      "featureOrder": 9999,
       "cover": {
         "file": "hokkaido-family-snow-trip-2026-snow-story-22.webp",
         "thumb": "hokkaido-family-snow-trip-2026-snow-story-22-thumb.webp",
@@ -22,6 +272,8 @@
       "title": "日本冬季親子旅拍｜從輕井澤滑雪到白色雪景寫真",
       "description": "一趟日本冬季親子旅程，從孩子練習滑雪、母女玩雪，到木屋夜景、雪林與白色服裝的自然寫真。",
       "location": "日本・輕井澤與冬季旅程",
+      "promotion": "quiet",
+      "featureOrder": 10000,
       "cover": {
         "file": "japan-winter-family-trip-2025-snow-story-26.webp",
         "thumb": "japan-winter-family-trip-2025-snow-story-26-thumb.webp",
@@ -32,23 +284,6 @@
         "alt": "媽媽陪孩子在雪道上滑行與合照",
         "title": "媽媽陪孩子在雪道上滑行與合照",
         "src": "/media/works/japan-winter-family-trip-2025/japan-winter-family-trip-2025-snow-story-26.webp"
-      }
-    },
-    {
-      "slug": "hoshino-family-ski-trip-2023",
-      "title": "星野滑雪生日旅拍｜雪林、夜景與一家人的冬天",
-      "description": "從白天的霧淞與滑雪，到夜間雪景、煙火與家人相伴的背影，記錄一趟星野冬季生日旅程。",
-      "location": "日本・北海道星野",
-      "cover": {
-        "file": "hoshino-family-ski-trip-2023-snow-story-01.webp",
-        "thumb": "hoshino-family-ski-trip-2023-snow-story-01-thumb.webp",
-        "width": 1600,
-        "height": 1065,
-        "thumbWidth": 600,
-        "thumbHeight": 399,
-        "alt": "家人在星野雪林前依偎合影",
-        "title": "家人在星野雪林前依偎合影",
-        "src": "/media/works/hoshino-family-ski-trip-2023/hoshino-family-ski-trip-2023-snow-story-01.webp"
       }
     }
   ]
