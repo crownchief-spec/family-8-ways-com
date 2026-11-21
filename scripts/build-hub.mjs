@@ -622,10 +622,13 @@ function runPages() {
       ? `<section class="container section card card--flat"><h2 class="h2">相關文章</h2><ul class="prose">${relArts.map((a) => `<li><a href="/articles/${escapeHtml(a.data.slug)}/">${escapeHtml(a.data.title)}</a></li>`).join('')}</ul></section>`
       : '';
 
+    const publicTags = [...new Set([...(w.data.tags || []), w.data.location, w.data.category, '親子寫真', '家庭攝影', '全家福', '親子攝影師', '小巴老師'].filter(Boolean))].slice(0, 10);
+    const publicTagHtml = `<section class="container section" aria-label="文章主題標籤"><h2 class="h2">相關主題</h2><p>${publicTags.map(tag => `<span class="tag">#${escapeHtml(tag)}</span>`).join(' ')}</p></section>`;
+
     const galleryHtml = `<div class="masonry-lightbox" data-lightbox-root>${allImgs
       .map(
         (src, i) =>
-          `<figure class="masonry-lightbox__item"><button type="button" class="masonry-lightbox__btn" data-lightbox-index="${i}" data-lightbox-src="${escapeHtml(src)}"><img src="${escapeHtml(src)}" alt="${escapeHtml(w.data.title)}｜親子寫真作品 ${i + 1}" loading="lazy" width="900" height="600" onerror="this.closest('figure').remove()"/></button></figure>`,
+          `<figure class="masonry-lightbox__item"><button type="button" class="masonry-lightbox__btn" data-lightbox-index="${i}" data-lightbox-src="${escapeHtml(src)}"><img src="${escapeHtml(src)}" alt="${escapeHtml(w.data.title)}｜親子寫真作品 ${i + 1}" title="${escapeHtml(w.data.title)}｜小巴老師攝影 ${i + 1}" decoding="async" loading="lazy" width="900" height="600" onerror="this.closest('figure').remove()"/></button></figure>`,
       )
       .join('')}</div>
 <div class="lightbox" id="work-lightbox" hidden data-lightbox-modal><button type="button" class="lightbox__close" data-lightbox-close aria-label="關閉">×</button><button type="button" class="lightbox__prev" data-lightbox-prev aria-label="上一張">‹</button><button type="button" class="lightbox__next" data-lightbox-next aria-label="下一張">›</button><div class="lightbox__stage"><img alt="" data-lightbox-img/></div></div>
@@ -654,6 +657,7 @@ function runPages() {
 <div class="container section prose">${bodyMd}</div>
 ${videoBlock}
 <section class="container section"><h2 class="h2">照片作品</h2>${galleryHtml}</section>
+${publicTagHtml}
 ${reviewHtml}
 ${relHtml}
 ${relArtHtml}
