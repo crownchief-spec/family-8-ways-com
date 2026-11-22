@@ -7,7 +7,7 @@
   "title": "日本秋季親子寫真｜楓葉、銀杏與林間遊戲",
   "description": "落葉鋪滿地面，孩子把手伸向天空，也和爸媽坐在樹下休息。這組秋季家庭寫真用散步和遊戲串起畫面，把旅行的季節感和家人的陪伴一起留下。",
   "category": "japan",
-  "location": "台灣",
+  "location": "日本",
   "shootDate": null,
   "publishedDate": "2026-11-22",
   "modifiedDate": "2026-11-22",

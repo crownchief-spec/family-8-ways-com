@@ -4,11 +4,11 @@
   "slug": "hachimantai-family-ski-group-2018",
   "status": "published",
   "privacy": "public-approved",
-  "title": "日本八幡平親子滑雪親子寫真｜雪道跟拍與家庭合照",
+  "title": "日本八幡平親子滑雪寫真｜雪道跟拍與家庭合照",
   "description": "日本八幡平滑雪團的家庭影像，記錄孩子單板、家人雙板練習、雪林裡的互動與全團合照，展現雪道動態和團體紀錄的拍攝方式。",
   "category": "snow",
-  "location": "台灣",
-  "shootDate": null,
+  "location": "日本・岩手八幡平",
+  "shootDate": "2018-01-28",
   "publishedDate": "2026-11-22",
   "modifiedDate": "2026-11-22",
   "coverImage": "hachimantai-family-ski-group-2018-01.webp",
@@ -188,7 +188,7 @@
     "https://ski.8-ways.com/works/hachimantai-family-ski-group-2018/"
   ],
   "promotion": "normal",
-  "dateNote": "來源未能一致核實案件拍攝日，公開頁面不顯示推估日期。"
+  "dateNote": "拍攝日期與地點沿用同一組Ski原始作品紀錄；文章整理日期另列。"
 }
 ---
 

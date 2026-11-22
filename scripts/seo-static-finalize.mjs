@@ -48,7 +48,7 @@ const rel=relative(D,f).replaceAll('\\','/'),route=rel==='index.html'?'/':rel.en
  if(o.schema)graphs.push(o.schema);
  if(isArticle&&!has('Article')&&!has('BlogPosting'))graphs.push({'@type':'Article',headline:h1,description,mainEntityOfPage:canonical,image,author:{'@type':'Person',name:'小巴老師 Benson Chen'}});
  if(route!=='/'&&!has('BreadcrumbList')&&!noindex)graphs.push({'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'首頁',item:cfg.url+'/'},{'@type':'ListItem',position:2,name:h1,item:canonical}]});
- const faq=[...h.matchAll(/<details\b[^>]*>\s*<summary\b[^>]*>([\s\S]*?)<\/summary>([\s\S]*?)<\/details>/ig)].filter(m=>!m[2].includes('<nav')).map(m=>({q:plain(m[1]),a:plain(m[2])})).filter(x=>x.q&&x.a);
+ const faq=[...h.matchAll(/<details\b[^>]*>\s*<summary\b[^>]*>([\s\S]*?)<\/summary>([\s\S]*?)<\/details>/ig)].filter(m=>!m[2].includes('<nav')&&/[?？]\s*$/.test(plain(m[1]))).map(m=>({q:plain(m[1]),a:plain(m[2])})).filter(x=>x.q&&x.a);
  if(faq.length&&!has('FAQPage'))graphs.push({'@type':'FAQPage',mainEntity:faq.map(x=>({'@type':'Question',name:x.q,acceptedAnswer:{'@type':'Answer',text:x.a}}))});
  h=h.replace(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>[\s\S]*?<\/script>/ig,'');h=h.replace('</head>',`<script type="application/ld+json">${JSON.stringify({'@context':'https://schema.org','@graph':graphs}).replaceAll('<','\\u003c')}</script>\n<!-- Analytics insertion point: set the verified GA4/GTM ID in content/seo/site.json before enabling tracking. -->\n</head>`);
  // Metadata and Organization may never identify the two anonymized sports-day clients.

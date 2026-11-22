@@ -4,11 +4,11 @@
   "slug": "karuizawa-family-snowboard-2019",
   "status": "published",
   "privacy": "public-approved",
-  "title": "輕井澤親子滑雪親子寫真｜家庭單板與冬季雪地寫真",
+  "title": "輕井澤親子滑雪寫真｜家庭單板與冬季雪地寫真",
   "description": "在輕井澤的藍天、樹林與雪道旁，記錄家人拿著雪板合影、一起休息，以及準備再次滑行的冬季片段。",
   "category": "snow",
-  "location": "台灣",
-  "shootDate": null,
+  "location": "日本・輕井澤",
+  "shootDate": "2019-01-15",
   "publishedDate": "2026-11-22",
   "modifiedDate": "2026-11-22",
   "coverImage": "karuizawa-family-snowboard-2019-01.webp",
@@ -68,7 +68,7 @@
     "https://ski.8-ways.com/works/karuizawa-family-snowboard-2019/"
   ],
   "promotion": "normal",
-  "dateNote": "來源未能一致核實案件拍攝日，公開頁面不顯示推估日期。"
+  "dateNote": "拍攝日期與地點沿用同一組Ski原始作品紀錄；文章整理日期另列。"
 }
 ---
 

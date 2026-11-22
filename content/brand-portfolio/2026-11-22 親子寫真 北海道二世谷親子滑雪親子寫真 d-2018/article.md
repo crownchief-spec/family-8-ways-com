@@ -4,11 +4,11 @@
   "slug": "niseko-family-night-snowboard-2018",
   "status": "published",
   "privacy": "public-approved",
-  "title": "北海道二世谷親子滑雪親子寫真｜單板、雪鏡與雪夜",
+  "title": "北海道二世谷親子滑雪寫真｜單板、雪鏡與雪夜",
   "description": "從親子單板滑行，到雪花與夜間照明下的孩子人像，以二世谷冬季作品記錄家庭滑雪和夜滑的不同氣氛。",
   "category": "snow",
-  "location": "北海道",
-  "shootDate": null,
+  "location": "日本・北海道二世谷",
+  "shootDate": "2018-01-10",
   "publishedDate": "2026-11-22",
   "modifiedDate": "2026-11-22",
   "coverImage": "niseko-family-night-snowboard-2018-01.webp",
@@ -88,7 +88,7 @@
     "https://ski.8-ways.com/works/niseko-family-night-snowboard-2018/"
   ],
   "promotion": "normal",
-  "dateNote": "來源未能一致核實案件拍攝日，公開頁面不顯示推估日期。"
+  "dateNote": "拍攝日期與地點沿用同一組Ski原始作品紀錄；文章整理日期另列。"
 }
 ---
 

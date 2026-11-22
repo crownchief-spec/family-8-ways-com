@@ -7,7 +7,7 @@
   "title": "日本和服親子旅拍｜古街散步與秋色合照",
   "description": "和服、木造街屋與秋季樹色交錯，記錄家人一路走訪的片刻。拍攝穿插孩子自己的探索與全家合照，讓和服寫真也保留自然互動。",
   "category": "japan",
-  "location": "台灣",
+  "location": "日本",
   "shootDate": null,
   "publishedDate": "2026-11-22",
   "modifiedDate": "2026-11-22",

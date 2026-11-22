@@ -1,10 +1,10 @@
 {
   "/404.html": {
     "ogImage": "/assets/seo/og/404-html-846c879e19.jpg",
-    "heroImage": null,
+    "heroImage": "/assets/seo/og/404-html-846c879e19.jpg",
     "width": 1200,
     "height": 630,
-    "imageSource": "brand-graphic",
+    "imageSource": "related-page-image",
     "imageNote": "TODO：資訊或系統頁未設專用首圖；目前使用該頁主題文字與相關影像製作獨立分享圖。"
   },
   "/about/": {
@@ -17,10 +17,10 @@
   },
   "/about-ba-wei/": {
     "ogImage": "/assets/seo/og/about-ba-wei-968ccfe5be.jpg",
-    "heroImage": null,
+    "heroImage": "/assets/seo/og/about-ba-wei-968ccfe5be.jpg",
     "width": 1200,
     "height": 630,
-    "imageSource": "brand-graphic",
+    "imageSource": "related-page-image",
     "imageNote": "TODO：資訊或系統頁未設專用首圖；目前使用該頁主題文字與相關影像製作獨立分享圖。"
   },
   "/admin/clients/2026-05-16family/edit/": {
@@ -137,7 +137,7 @@
   },
   "/articles/camping-family-group-photography/": {
     "ogImage": "/assets/seo/og/articles-camping-family-group-photography-409c110a71.jpg",
-    "heroImage": "/media/works/bali-riverside-family/bali-riverside-family-01.webp",
+    "heroImage": "/assets/seo/og/articles-camping-family-group-photography-409c110a71.jpg",
     "width": 1200,
     "height": 630,
     "imageSource": "related-page-image",
@@ -153,26 +153,26 @@
   },
   "/articles/family-birthday-event-planning/": {
     "ogImage": "/assets/seo/og/articles-family-birthday-event-planning-c8eab1b434.jpg",
-    "heroImage": null,
+    "heroImage": "/assets/seo/og/articles-family-birthday-event-planning-c8eab1b434.jpg",
     "width": 1200,
     "height": 630,
-    "imageSource": "brand-graphic",
+    "imageSource": "related-page-image",
     "imageNote": "TODO：資訊或系統頁未設專用首圖；目前使用該頁主題文字與相關影像製作獨立分享圖。"
   },
   "/articles/family-dress-guide/": {
     "ogImage": "/assets/seo/og/articles-family-dress-guide-5a96af5291.jpg",
-    "heroImage": null,
+    "heroImage": "/assets/seo/og/articles-family-dress-guide-5a96af5291.jpg",
     "width": 1200,
     "height": 630,
-    "imageSource": "brand-graphic",
+    "imageSource": "related-page-image",
     "imageNote": "TODO：資訊或系統頁未設專用首圖；目前使用該頁主題文字與相關影像製作獨立分享圖。"
   },
   "/articles/family-photo-day-preparation/": {
     "ogImage": "/assets/seo/og/articles-family-photo-day-preparation-e23f6ae49c.jpg",
-    "heroImage": null,
+    "heroImage": "/assets/seo/og/articles-family-photo-day-preparation-e23f6ae49c.jpg",
     "width": 1200,
     "height": 630,
-    "imageSource": "brand-graphic",
+    "imageSource": "related-page-image",
     "imageNote": "TODO：資訊或系統頁未設專用首圖；目前使用該頁主題文字與相關影像製作獨立分享圖。"
   },
   "/articles/family-photo-outfit-guide/": {
@@ -209,15 +209,15 @@
   },
   "/articles/family-snow-trip-photography/": {
     "ogImage": "/assets/seo/og/articles-family-snow-trip-photography-fc19b2c20d.jpg",
-    "heroImage": null,
+    "heroImage": "/assets/seo/og/articles-family-snow-trip-photography-fc19b2c20d.jpg",
     "width": 1200,
     "height": 630,
-    "imageSource": "brand-graphic",
+    "imageSource": "related-page-image",
     "imageNote": "TODO：資訊或系統頁未設專用首圖；目前使用該頁主題文字與相關影像製作獨立分享圖。"
   },
   "/articles/": {
     "ogImage": "/assets/seo/og/articles-424adc5d85.jpg",
-    "heroImage": "/public/images/wix-import/theme-three-generation-grandparent-family/theme-three-generation-grandparent-family-outdoor-lifestyle-01.jpg",
+    "heroImage": "/assets/seo/og/articles-424adc5d85.jpg",
     "width": 1200,
     "height": 630,
     "imageSource": "related-page-image",
@@ -241,10 +241,10 @@
   },
   "/articles/overseas-family-travel-planning/": {
     "ogImage": "/assets/seo/og/articles-overseas-family-travel-planning-a8d51037cc.jpg",
-    "heroImage": null,
+    "heroImage": "/assets/seo/og/articles-overseas-family-travel-planning-a8d51037cc.jpg",
     "width": 1200,
     "height": 630,
-    "imageSource": "brand-graphic",
+    "imageSource": "related-page-image",
     "imageNote": "TODO：資訊或系統頁未設專用首圖；目前使用該頁主題文字與相關影像製作獨立分享圖。"
   },
   "/articles/taipei-family-photo-location/": {
@@ -353,10 +353,10 @@
   },
   "/categories/baby/": {
     "ogImage": "/assets/seo/og/categories-baby-59035bbb10.jpg",
-    "heroImage": null,
+    "heroImage": "/assets/seo/og/categories-baby-59035bbb10.jpg",
     "width": 1200,
     "height": 630,
-    "imageSource": "brand-graphic",
+    "imageSource": "related-page-image",
     "imageNote": "TODO：資訊或系統頁未設專用首圖；目前使用該頁主題文字與相關影像製作獨立分享圖。"
   },
   "/categories/birthday/": {
@@ -489,7 +489,7 @@
   },
   "/contact/": {
     "ogImage": "/assets/seo/og/contact-cfd191cd4f.jpg",
-    "heroImage": "/public/images/wix-import/taiwan-taipei-family-portrait/taiwan-taipei-family-portrait-outdoor-lifestyle-03.jpg",
+    "heroImage": "/assets/seo/og/contact-cfd191cd4f.jpg",
     "width": 1200,
     "height": 630,
     "imageSource": "related-page-image",
@@ -713,10 +713,10 @@
   },
   "/overseas/japan-winter/": {
     "ogImage": "/assets/seo/og/overseas-japan-winter-324c89911c.jpg",
-    "heroImage": null,
+    "heroImage": "/assets/seo/og/overseas-japan-winter-324c89911c.jpg",
     "width": 1200,
     "height": 630,
-    "imageSource": "brand-graphic",
+    "imageSource": "related-page-image",
     "imageNote": "TODO：資訊或系統頁未設專用首圖；目前使用該頁主題文字與相關影像製作獨立分享圖。"
   },
   "/overseas/kansai/": {
@@ -865,10 +865,10 @@
   },
   "/privacy/": {
     "ogImage": "/assets/seo/og/privacy-0d1b773b2e.jpg",
-    "heroImage": null,
+    "heroImage": "/assets/seo/og/privacy-0d1b773b2e.jpg",
     "width": 1200,
     "height": 630,
-    "imageSource": "brand-graphic",
+    "imageSource": "related-page-image",
     "imageNote": "TODO：資訊或系統頁未設專用首圖；目前使用該頁主題文字與相關影像製作獨立分享圖。"
   },
   "/projects/clients/chen-family-20250819.html": {
@@ -993,10 +993,10 @@
   },
   "/sitemap/": {
     "ogImage": "/assets/seo/og/sitemap-1c6a2aa318.jpg",
-    "heroImage": null,
+    "heroImage": "/assets/seo/og/sitemap-1c6a2aa318.jpg",
     "width": 1200,
     "height": 630,
-    "imageSource": "brand-graphic",
+    "imageSource": "related-page-image",
     "imageNote": "TODO：資訊或系統頁未設專用首圖；目前使用該頁主題文字與相關影像製作獨立分享圖。"
   },
   "/taiwan/birthday/": {

@@ -7,8 +7,8 @@
   "title": "日本滑雪親子寫真｜輕井澤玩雪與冬季雪地攝影",
   "description": "一趟日本冬季親子旅程，從孩子練習滑雪、母女玩雪，到木屋夜景、雪林與白色服裝的自然寫真。",
   "category": "snow",
-  "location": "台灣",
-  "shootDate": null,
+  "location": "日本・輕井澤與冬季旅程",
+  "shootDate": "2025-01-31",
   "publishedDate": "2026-11-22",
   "modifiedDate": "2026-11-22",
   "coverImage": "japan-winter-family-trip-2025-01.webp",
@@ -188,7 +188,7 @@
     "https://ski.8-ways.com/works/japan-winter-family-trip-2025/"
   ],
   "promotion": "quiet",
-  "dateNote": "來源未能一致核實案件拍攝日，公開頁面不顯示推估日期。"
+  "dateNote": "拍攝日期與地點沿用同一組Ski原始作品紀錄；文章整理日期另列。"
 }
 ---
 

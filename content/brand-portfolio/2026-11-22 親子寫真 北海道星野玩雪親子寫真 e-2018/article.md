@@ -7,8 +7,8 @@
   "title": "北海道星野玩雪親子寫真｜雪林、雪橇與冰城夜景",
   "description": "白天在白樺林裡和爸爸玩雪，夜晚走進冰雪造景與燈光；這組北海道星野親子作品串起白天到冬夜的自然互動。",
   "category": "snow",
-  "location": "北海道",
-  "shootDate": null,
+  "location": "日本・北海道星野",
+  "shootDate": "2018-02-24",
   "publishedDate": "2026-11-22",
   "modifiedDate": "2026-11-22",
   "coverImage": "tomamu-family-snow-ice-village-2018-01.webp",
@@ -118,7 +118,7 @@
     "https://ski.8-ways.com/works/tomamu-family-snow-ice-village-2018/"
   ],
   "promotion": "normal",
-  "dateNote": "來源未能一致核實案件拍攝日，公開頁面不顯示推估日期。"
+  "dateNote": "拍攝日期與地點沿用同一組Ski原始作品紀錄；文章整理日期另列。"
 }
 ---
 

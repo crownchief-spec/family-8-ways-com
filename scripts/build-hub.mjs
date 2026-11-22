@@ -13,6 +13,7 @@ import { marked } from 'marked';
 import { loadSiteConfig, renderPage, escapeHtml } from './render.mjs';
 import { buildAdminClientEditBody } from './build-admin-client-edit.mjs';
 import { buildClientPortalBody } from './build-client-portal-body.mjs';
+import { portfolioFacts,geoCss } from './geo-content.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -648,12 +649,7 @@ function runPages() {
 <h1 class="hero__title">${escapeHtml(w.data.title)}</h1>
 <p class="hero__sub">${escapeHtml(w.data.excerpt || '')}</p>
 </div></section>
-<div class="container section"><div class="card card--flat hub-meta-grid">
-<div><span class="muted">拍攝類型</span><p><strong>${escapeHtml(w.data.shootType || '親子寫真')}</strong></p></div>
-<div><span class="muted">地點</span><p><strong>${escapeHtml(w.data.location)}</strong></p></div>
-<div><span class="muted">主題分類</span><p><strong>${escapeHtml(w.data.subCategory || w.data.category)}</strong></p></div>
-<div><span class="muted">日期</span><p><strong>${escapeHtml(w.data.date)}</strong></p></div>
-</div></div>
+<div class="container section"><style>${geoCss}</style>${portfolioFacts({...w.data,photos:allImgs,videos:vids,description:w.data.excerpt},w.data.shootType||w.data.category||'親子寫真','/services/')}<p class="muted">作品資料日期：${escapeHtml(w.data.date)}</p></div>
 <div class="container section prose">${bodyMd}</div>
 ${videoBlock}
 <section class="container section"><h2 class="h2">照片作品</h2>${galleryHtml}</section>

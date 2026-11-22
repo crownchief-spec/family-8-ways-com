@@ -7,8 +7,8 @@
   "title": "北海道二世谷滑雪親子寫真｜單雙板跟拍與雪林合照",
   "description": "二世谷多日滑雪影像，從孩子練習雙板、同行者單板滑行，到雪林合照與夜間雪道，保留家庭滑雪旅行的連續片段。",
   "category": "snow",
-  "location": "北海道",
-  "shootDate": null,
+  "location": "日本・北海道二世谷",
+  "shootDate": "2019-01-24",
   "publishedDate": "2026-11-22",
   "modifiedDate": "2026-11-22",
   "coverImage": "niseko-family-ski-days-2019-01.webp",
@@ -188,7 +188,7 @@
     "https://ski.8-ways.com/works/niseko-family-ski-days-2019/"
   ],
   "promotion": "normal",
-  "dateNote": "來源未能一致核實案件拍攝日，公開頁面不顯示推估日期。"
+  "dateNote": "拍攝日期與地點沿用同一組Ski原始作品紀錄；文章整理日期另列。"
 }
 ---
 

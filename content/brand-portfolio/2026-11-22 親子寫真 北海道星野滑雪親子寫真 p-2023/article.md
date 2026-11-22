@@ -7,8 +7,8 @@
   "title": "北海道星野滑雪親子寫真｜生日旅程、雪林與冬夜",
   "description": "從白天的霧淞與滑雪，到夜間雪景、煙火與家人相伴的背影，記錄一趟星野冬季生日旅程。",
   "category": "snow",
-  "location": "北海道",
-  "shootDate": null,
+  "location": "日本・北海道星野",
+  "shootDate": "2023-01-16",
   "publishedDate": "2026-11-22",
   "modifiedDate": "2026-11-22",
   "coverImage": "hoshino-family-ski-trip-2023-01.webp",
@@ -188,7 +188,7 @@
     "https://ski.8-ways.com/works/hoshino-family-ski-trip-2023/"
   ],
   "promotion": "normal",
-  "dateNote": "來源未能一致核實案件拍攝日，公開頁面不顯示推估日期。"
+  "dateNote": "拍攝日期與地點沿用同一組Ski原始作品紀錄；文章整理日期另列。"
 }
 ---
 

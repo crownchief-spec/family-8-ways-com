@@ -7,8 +7,8 @@
   "title": "北海道雪地親子寫真｜騎馬、玩雪與冬日天空",
   "description": "雪地騎馬、餵馬、揚起雪花與全家合照，將北海道冬季旅行裡的戶外體驗，拍成一組有活動也有溫度的家庭故事。",
   "category": "snow",
-  "location": "北海道",
-  "shootDate": null,
+  "location": "日本・北海道",
+  "shootDate": "2018-01-07",
   "publishedDate": "2026-11-22",
   "modifiedDate": "2026-11-22",
   "coverImage": "hokkaido-family-snow-horse-2018-01.webp",
@@ -188,7 +188,7 @@
     "https://ski.8-ways.com/works/hokkaido-family-snow-horse-2018/"
   ],
   "promotion": "normal",
-  "dateNote": "來源未能一致核實案件拍攝日，公開頁面不顯示推估日期。"
+  "dateNote": "拍攝日期與地點沿用同一組Ski原始作品紀錄；文章整理日期另列。"
 }
 ---
 

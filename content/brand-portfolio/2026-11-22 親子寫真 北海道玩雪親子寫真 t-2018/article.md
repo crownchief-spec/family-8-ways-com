@@ -7,8 +7,8 @@
   "title": "北海道玩雪親子寫真｜雪橇、雪林與傍晚燈光",
   "description": "孩子坐上雪橇滑進白色森林，家人走在開闊雪景前；北海道冬季旅拍從早上的山景，一直延伸到傍晚樹下的燈光。",
   "category": "snow",
-  "location": "北海道",
-  "shootDate": null,
+  "location": "日本・北海道",
+  "shootDate": "2018-01-13",
   "publishedDate": "2026-11-22",
   "modifiedDate": "2026-11-22",
   "coverImage": "hokkaido-family-sled-forest-2018-01.webp",
@@ -118,7 +118,7 @@
     "https://ski.8-ways.com/works/hokkaido-family-sled-forest-2018/"
   ],
   "promotion": "normal",
-  "dateNote": "來源未能一致核實案件拍攝日，公開頁面不顯示推估日期。"
+  "dateNote": "拍攝日期與地點沿用同一組Ski原始作品紀錄；文章整理日期另列。"
 }
 ---
 

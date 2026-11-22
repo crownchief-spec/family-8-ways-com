@@ -7,7 +7,7 @@
   "title": "北海道滑雪與玩雪親子寫真｜雪板、雪林與冬季夜景",
   "description": "北海道冬季家庭影像，從孩子滑雪、單板與雪地遊戲，到森林木屋和夜晚的親子互動，記錄一趟有動態也有溫度的旅程。",
   "category": "snow",
-  "location": "北海道",
+  "location": "日本・北海道",
   "shootDate": null,
   "publishedDate": "2026-11-22",
   "modifiedDate": "2026-11-22",
@@ -188,7 +188,7 @@
     "https://ski.8-ways.com/works/hokkaido-family-snow-trip-2026/"
   ],
   "promotion": "quiet",
-  "dateNote": "來源未能一致核實案件拍攝日，公開頁面不顯示推估日期。"
+  "dateNote": "拍攝日期與地點沿用同一組Ski原始作品紀錄；文章整理日期另列。"
 }
 ---
 

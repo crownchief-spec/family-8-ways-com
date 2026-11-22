@@ -7,8 +7,8 @@
   "title": "日本松島雪地親子寫真｜海邊紅橋與冬季玩雪旅拍",
   "description": "日本東北松島的冬季親子影像，從海邊紅橋合照、雪地裡的遊戲到林間散步，記錄滑雪行程之外的家庭旅行。",
   "category": "snow",
-  "location": "台灣",
-  "shootDate": null,
+  "location": "日本・宮城松島",
+  "shootDate": "2018-01-31",
   "publishedDate": "2026-11-22",
   "modifiedDate": "2026-11-22",
   "coverImage": "matsushima-family-snow-coast-2018-02.webp",
@@ -118,7 +118,7 @@
     "https://ski.8-ways.com/works/matsushima-family-snow-coast-2018/"
   ],
   "promotion": "normal",
-  "dateNote": "來源未能一致核實案件拍攝日，公開頁面不顯示推估日期。"
+  "dateNote": "拍攝日期與地點沿用同一組Ski原始作品紀錄；文章整理日期另列。"
 }
 ---
 

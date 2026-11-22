@@ -7,8 +7,8 @@
   "title": "北海道玩雪親子寫真｜雪上活動、雪屋與冬夜",
   "description": "雪上摩托車、雪地遊戲與入夜前的燈光，讓北海道親子旅拍有更多玩法；這組作品記錄滑雪以外的冬季旅行片段。",
   "category": "snow",
-  "location": "北海道",
-  "shootDate": null,
+  "location": "日本・北海道",
+  "shootDate": "2019-01-22",
   "publishedDate": "2026-11-22",
   "modifiedDate": "2026-11-22",
   "coverImage": "hokkaido-family-winter-play-2019-01.webp",
@@ -108,7 +108,7 @@
     "https://ski.8-ways.com/works/hokkaido-family-winter-play-2019/"
   ],
   "promotion": "normal",
-  "dateNote": "來源未能一致核實案件拍攝日，公開頁面不顯示推估日期。"
+  "dateNote": "拍攝日期與地點沿用同一組Ski原始作品紀錄；文章整理日期另列。"
 }
 ---
 

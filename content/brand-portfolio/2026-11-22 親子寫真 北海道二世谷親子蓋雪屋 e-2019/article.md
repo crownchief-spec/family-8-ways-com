@@ -7,8 +7,8 @@
   "title": "北海道二世谷親子蓋雪屋｜羊蹄山前的玩雪親子寫真",
   "description": "孩子在羊蹄山前堆雪、鑽進雪屋、趴在雪地上玩耍；二世谷的冬季親子旅拍，也能從不穿雪板的日常開始。",
   "category": "snow",
-  "location": "北海道",
-  "shootDate": null,
+  "location": "日本・北海道二世谷",
+  "shootDate": "2019-01-26",
   "publishedDate": "2026-11-22",
   "modifiedDate": "2026-11-22",
   "coverImage": "niseko-family-snow-house-2019-01.webp",
@@ -98,7 +98,7 @@
     "https://ski.8-ways.com/works/niseko-family-snow-house-2019/"
   ],
   "promotion": "normal",
-  "dateNote": "來源未能一致核實案件拍攝日，公開頁面不顯示推估日期。"
+  "dateNote": "拍攝日期與地點沿用同一組Ski原始作品紀錄；文章整理日期另列。"
 }
 ---
 

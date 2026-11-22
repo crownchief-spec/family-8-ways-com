@@ -7,8 +7,8 @@
   "title": "北海道函館玩雪親子寫真｜湖畔雪景與城市夜拍",
   "description": "北海道函館冬季親子作品，從雪地散步、親子雪橇與孩子的跳躍，到夜晚牽著家人走過街頭，記錄冬季旅行的不同表情。",
   "category": "snow",
-  "location": "北海道",
-  "shootDate": null,
+  "location": "日本・北海道函館一帶",
+  "shootDate": "2018-02-26",
   "publishedDate": "2026-11-22",
   "modifiedDate": "2026-11-22",
   "coverImage": "hakodate-family-winter-2018-01.webp",
@@ -168,7 +168,7 @@
     "https://ski.8-ways.com/works/hakodate-family-winter-2018/"
   ],
   "promotion": "normal",
-  "dateNote": "來源未能一致核實案件拍攝日，公開頁面不顯示推估日期。"
+  "dateNote": "拍攝日期與地點沿用同一組Ski原始作品紀錄；文章整理日期另列。"
 }
 ---
 

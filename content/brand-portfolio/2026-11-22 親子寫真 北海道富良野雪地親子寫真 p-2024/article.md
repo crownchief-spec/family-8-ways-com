@@ -7,8 +7,8 @@
   "title": "北海道富良野雪地親子寫真｜玩雪、森林木屋與冬夜",
   "description": "從雪地露營車與森林木屋，到孩子玩雪、親子滑行和藍調夜景，把富良野冬季旅程的不同表情留下來。",
   "category": "snow",
-  "location": "北海道",
-  "shootDate": null,
+  "location": "日本・北海道富良野",
+  "shootDate": "2024-01-08",
   "publishedDate": "2026-11-22",
   "modifiedDate": "2026-11-22",
   "coverImage": "furano-winter-family-trip-2024-05.webp",
@@ -188,7 +188,7 @@
     "https://ski.8-ways.com/works/furano-winter-family-trip-2024/"
   ],
   "promotion": "normal",
-  "dateNote": "來源未能一致核實案件拍攝日，公開頁面不顯示推估日期。"
+  "dateNote": "拍攝日期與地點沿用同一組Ski原始作品紀錄；文章整理日期另列。"
 }
 ---
 
