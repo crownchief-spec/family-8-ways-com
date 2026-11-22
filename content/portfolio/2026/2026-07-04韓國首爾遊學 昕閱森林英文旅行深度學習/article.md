@@ -119,11 +119,11 @@ social:
 
 本次合作也包含活動海報製作。以昕閱森林官方 Logo 與既有品牌內容為基礎，將照片、英文任務與學習重點整理成可直接用於社群傳播的視覺作品；重點不是只說「去了哪裡」，而是清楚告訴家長：孩子在那裡練習了什麼。
 
-![首爾英語學習旅程地圖海報，標示五天活動與學習站點](/public/images/portfolio/seoul-family-english-study-tour/poster-seoul-learning-map.webp)
+<img src="/public/images/portfolio/seoul-family-english-study-tour/poster-seoul-learning-map.webp" alt="首爾英語學習旅程地圖海報，標示五天活動與學習站點" title="首爾英語學習旅程地圖海報，標示五天活動與學習站點" width="720" height="1200" loading="lazy" decoding="async">
 
-![昕閱森林首爾學習旅程回憶錄封面海報](/public/images/portfolio/seoul-family-english-study-tour/poster-seoul-memory-cover.webp)
+<img src="/public/images/portfolio/seoul-family-english-study-tour/poster-seoul-memory-cover.webp" alt="昕閱森林首爾學習旅程回憶錄封面海報" title="昕閱森林首爾學習旅程回憶錄封面海報" width="800" height="1200" loading="lazy" decoding="async">
 
-![首爾親子英語遊學任務海報，呈現孩子在廚藝課完成英語任務](/public/images/portfolio/seoul-family-english-study-tour/poster-cooking-english-mission.webp)
+<img src="/public/images/portfolio/seoul-family-english-study-tour/poster-cooking-english-mission.webp" alt="首爾親子英語遊學任務海報，呈現孩子在廚藝課完成英語任務" title="首爾親子英語遊學任務海報，呈現孩子在廚藝課完成英語任務" width="800" height="1200" loading="lazy" decoding="async">
 
 ## 影片將在完成後補入
 

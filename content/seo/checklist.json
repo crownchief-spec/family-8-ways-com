@@ -1,0 +1,402 @@
+[
+  {
+    "id": 1,
+    "item": "favicon.ico"
+  },
+  {
+    "id": 2,
+    "item": "SVG favicon"
+  },
+  {
+    "id": 3,
+    "item": "favicon link tags"
+  },
+  {
+    "id": 4,
+    "item": "apple-touch-icon"
+  },
+  {
+    "id": 5,
+    "item": "manifest 檔"
+  },
+  {
+    "id": 6,
+    "item": "manifest 引用"
+  },
+  {
+    "id": 7,
+    "item": "theme-color"
+  },
+  {
+    "id": 8,
+    "item": "logo alt"
+  },
+  {
+    "id": 9,
+    "item": "品牌名稱一致"
+  },
+  {
+    "id": 10,
+    "item": "品牌名稱集中管理"
+  },
+  {
+    "id": 11,
+    "item": "每頁獨立 title"
+  },
+  {
+    "id": 12,
+    "item": "每頁獨立 meta description"
+  },
+  {
+    "id": 13,
+    "item": "每頁獨立 canonical"
+  },
+  {
+    "id": 14,
+    "item": "每頁 og:url"
+  },
+  {
+    "id": 15,
+    "item": "每頁 og:type"
+  },
+  {
+    "id": 16,
+    "item": "HTML lang"
+  },
+  {
+    "id": 17,
+    "item": "每頁 H1"
+  },
+  {
+    "id": 18,
+    "item": "H2 / H3 結構"
+  },
+  {
+    "id": 19,
+    "item": "title 重複問題"
+  },
+  {
+    "id": 20,
+    "item": "description 重複問題"
+  },
+  {
+    "id": 21,
+    "item": "每頁 og:title"
+  },
+  {
+    "id": 22,
+    "item": "每頁 og:description"
+  },
+  {
+    "id": 23,
+    "item": "每頁 og:image"
+  },
+  {
+    "id": 24,
+    "item": "每頁 og:url"
+  },
+  {
+    "id": 25,
+    "item": "twitter:card"
+  },
+  {
+    "id": 26,
+    "item": "每頁 twitter:title"
+  },
+  {
+    "id": 27,
+    "item": "每頁 twitter:description"
+  },
+  {
+    "id": 28,
+    "item": "每頁 twitter:image"
+  },
+  {
+    "id": 29,
+    "item": "找出寫死共用 og:image 的地方"
+  },
+  {
+    "id": 30,
+    "item": "驗證不同頁面不再同圖"
+  },
+  {
+    "id": 31,
+    "item": "hero 圖優先做 og:image"
+  },
+  {
+    "id": 32,
+    "item": "支援專用 og:image"
+  },
+  {
+    "id": 33,
+    "item": "選圖邏輯"
+  },
+  {
+    "id": 34,
+    "item": "og:image 用絕對網址"
+  },
+  {
+    "id": 35,
+    "item": "確認 og:image 可直接讀取"
+  },
+  {
+    "id": 36,
+    "item": "檢查圖片 404"
+  },
+  {
+    "id": 37,
+    "item": "不要抓 lazy-load 小圖"
+  },
+  {
+    "id": 38,
+    "item": "多主圖頁面處理規則"
+  },
+  {
+    "id": 39,
+    "item": "首頁專用 og:image"
+  },
+  {
+    "id": 40,
+    "item": "建立 ogImage 欄位"
+  },
+  {
+    "id": 41,
+    "item": "建立共用 SEO head 結構"
+  },
+  {
+    "id": 42,
+    "item": "共用 SEO 區塊支援完整欄位"
+  },
+  {
+    "id": 43,
+    "item": "建立 per-page SEO 資料來源"
+  },
+  {
+    "id": 44,
+    "item": "每頁可獨立設定 title"
+  },
+  {
+    "id": 45,
+    "item": "每頁可獨立設定 description"
+  },
+  {
+    "id": 46,
+    "item": "每頁可獨立設定 heroImage / ogImage"
+  },
+  {
+    "id": 47,
+    "item": "每頁可獨立設定 canonical"
+  },
+  {
+    "id": 48,
+    "item": "每頁可獨立設定 noindex"
+  },
+  {
+    "id": 49,
+    "item": "每頁可獨立設定 schemaType"
+  },
+  {
+    "id": 50,
+    "item": "即使沒有模板系統也要可維護"
+  },
+  {
+    "id": 51,
+    "item": "每頁 canonical"
+  },
+  {
+    "id": 52,
+    "item": "canonical 用正式網域"
+  },
+  {
+    "id": 53,
+    "item": "www / non-www 統一"
+  },
+  {
+    "id": 54,
+    "item": "http / https 統一"
+  },
+  {
+    "id": 55,
+    "item": "尾斜線一致"
+  },
+  {
+    "id": 56,
+    "item": "類似頁的 canonical 策略"
+  },
+  {
+    "id": 57,
+    "item": "內部連結格式一致"
+  },
+  {
+    "id": 58,
+    "item": "舊頁面 redirect 規劃"
+  },
+  {
+    "id": 59,
+    "item": "sitemap 與 canonical 一致"
+  },
+  {
+    "id": 60,
+    "item": "query 參數不作正式頁"
+  },
+  {
+    "id": 61,
+    "item": "robots.txt"
+  },
+  {
+    "id": 62,
+    "item": "robots.txt 加上 sitemap"
+  },
+  {
+    "id": 63,
+    "item": "sitemap.xml"
+  },
+  {
+    "id": 64,
+    "item": "sitemap 僅收錄正式頁"
+  },
+  {
+    "id": 65,
+    "item": "排除重複頁"
+  },
+  {
+    "id": 66,
+    "item": "noindex 支援"
+  },
+  {
+    "id": 67,
+    "item": "404.html"
+  },
+  {
+    "id": 68,
+    "item": "薄內容頁處理"
+  },
+  {
+    "id": 69,
+    "item": "staging / demo 頁避索引"
+  },
+  {
+    "id": 70,
+    "item": "死連結掃描"
+  },
+  {
+    "id": 71,
+    "item": "首頁加入 Organization schema"
+  },
+  {
+    "id": 72,
+    "item": "視情況加入 LocalBusiness schema"
+  },
+  {
+    "id": 73,
+    "item": "首頁加入 WebSite schema"
+  },
+  {
+    "id": 74,
+    "item": "一般頁加入 WebPage schema"
+  },
+  {
+    "id": 75,
+    "item": "服務頁加入 Service schema"
+  },
+  {
+    "id": 76,
+    "item": "麵包屑頁加入 BreadcrumbList"
+  },
+  {
+    "id": 77,
+    "item": "FAQ 區塊加入 FAQPage"
+  },
+  {
+    "id": 78,
+    "item": "文章頁加入 Article / BlogPosting"
+  },
+  {
+    "id": 79,
+    "item": "圖片主導頁補 ImageObject"
+  },
+  {
+    "id": 80,
+    "item": "Schema 內容需與頁面一致"
+  },
+  {
+    "id": 81,
+    "item": "主要圖片 alt"
+  },
+  {
+    "id": 82,
+    "item": "hero 圖 alt"
+  },
+  {
+    "id": 83,
+    "item": "避免 IMG_1234 命名"
+  },
+  {
+    "id": 84,
+    "item": "重要圖片 SEO 命名"
+  },
+  {
+    "id": 85,
+    "item": "圖片尺寸合理"
+  },
+  {
+    "id": 86,
+    "item": "首圖不要過度 lazy-load"
+  },
+  {
+    "id": 87,
+    "item": "width / height"
+  },
+  {
+    "id": 88,
+    "item": "壞圖修正"
+  },
+  {
+    "id": 89,
+    "item": "WebP / AVIF 優先"
+  },
+  {
+    "id": 90,
+    "item": "圖片資源整理"
+  },
+  {
+    "id": 91,
+    "item": "建立 /llms.txt"
+  },
+  {
+    "id": 92,
+    "item": "llms.txt 內容結構清楚"
+  },
+  {
+    "id": 93,
+    "item": "頁面摘要"
+  },
+  {
+    "id": 94,
+    "item": "關鍵資訊用 HTML 呈現"
+  },
+  {
+    "id": 95,
+    "item": "AI 能理解品牌與服務"
+  },
+  {
+    "id": 96,
+    "item": "內部連結結構"
+  },
+  {
+    "id": 97,
+    "item": "手機版與桌機版 head 一致"
+  },
+  {
+    "id": 98,
+    "item": "Core Web Vitals 風險盤點"
+  },
+  {
+    "id": 99,
+    "item": "analytics / tracking 預留"
+  },
+  {
+    "id": 100,
+    "item": "建立維護總表"
+  }
+]
