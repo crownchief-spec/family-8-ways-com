@@ -1,0 +1,24 @@
+// Owner-confirmed public photography prices, updated 2026-11-22.
+const money = n => new Intl.NumberFormat('en-US').format(n);
+const card = (title, amount, unit, note, href='') => `<article class="price-card"><h3>${title}</h3><p class="price-value"><span>NT$</span> ${amount}<small>／${unit}</small></p><p>${note}</p>${href?`<a class="price-link" href="${href}">查看服務與作品 →</a>`:''}</article>`;
+export function familyPricing(scope='all') {
+ const domestic=card('國內親子寫真・半天','6,800–9,800','半天','固定方案：NT$6,800、NT$8,800、NT$9,800。依這次拍攝安排確認適用方案。','/services/taiwan-family-photography/');
+ const full=card('國內親子寫真・全天','18,000','天','適合把一家人的旅行、互動與合照安排在同一天。','/services/taiwan-family-photography/');
+ const overseas=card('海外親子旅拍','18,000','天','機票、住宿及拍攝所需的交通等費用另計，實報實銷。','/services/overseas-family-photography/');
+ return `<section class="pricing-section" id="photography-prices" aria-label="親子寫真價格"><p class="eyebrow">PHOTOGRAPHY PRICES</p><h2>親子寫真，價格清楚看</h2><div class="price-grid">${scope==='overseas'?overseas:scope==='domestic'?domestic+full:domestic+full+overseas}</div><p class="price-note">以上為新臺幣拍攝費。拍攝時段、地點、照片與影片需求及交付內容，於預約前確認。</p></section>`;
+}
+export function skiPricing() {
+ return `<section class="pricing-section ski-offer" id="ski-offer" aria-label="滑雪攝影優惠"><div><p class="offer-label">滑雪攝影推廣活動</p><h2>滑雪、玩雪，讓攝影師陪你留下冬天</h2><p>海外滑雪跟拍・玩雪親子寫真・雪地家庭旅拍</p><p class="price-original">原價 <s>NT$18,000／天</s></p><p class="price-value offer-price"><span>活動價 NT$</span> 9,800<small>／天</small></p><p class="offer-fee">每日拍攝費 NT$9,800 ＋ 拍攝相關費用實報實銷</p><p class="price-note">機票、住宿、拍攝所需交通、雪票／纜車票與必要滑雪裝備租借等費用另計，實報實銷；不包含在 NT$9,800 拍攝費內。</p><p class="price-note">出發日期、雪場、拍攝時段與照片影片交付內容，預約前一起確認。</p><a class="btn btn--primary" href="https://line.me/ti/p/~0911252302" target="_blank" rel="noopener">詢問滑雪攝影優惠檔期</a></div></section>`;
+}
+export function businessPricing(category='all') {
+ const rows={
+  event:card('活動攝影・3小時方案','8,800','3小時','企業活動、公司運動會、家庭日、會議與品牌活動紀錄。','/categories/event/'),
+  architecture:card('建築攝影／空間攝影','4,800–14,800','案','依空間規模、拍攝範圍與需求確認適用方案。','/categories/architecture/'),
+  hotel:card('飯店民宿／旅宿攝影','18,800','天','房型、公共空間與住宿情境，依現場與拍攝清單規劃。','/categories/hotel/')
+ };
+ if(category!=='all'&&!rows[category])return '';
+ return `<section class="pricing-section" id="photography-prices" aria-label="商業攝影價格方案"><p class="eyebrow">PHOTOGRAPHY PRICES</p><h2>${category==='all'?'商業攝影價格方案':'拍攝價格方案'}</h2><div class="price-grid">${category==='all'?Object.values(rows).join(''):rows[category]}</div><p class="price-note">以上金額為新臺幣。照片、影片需求、拍攝範圍、交通及交付方式，於預約前確認。</p></section>`;
+}
+export const pricingCss=`
+.pricing-section{margin:42px 0 58px;scroll-margin-top:100px;color:var(--ink,#193d4c)}.pricing-section h2{font-size:clamp(1.65rem,2.7vw,2.25rem);line-height:1.4;margin:0 0 24px}.price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:18px}.price-card{min-width:0;border:2px solid var(--accent,#276882);border-radius:16px;background:#fff;padding:25px 24px;box-shadow:0 7px 22px #193d4c08}.price-card h3{font-size:1.08rem;margin:0 0 20px;line-height:1.5}.pricing-section .price-value{font-size:clamp(2rem,3.4vw,2.85rem);line-height:1.3;letter-spacing:-.035em;font-weight:800;margin:0 0 18px;font-variant-numeric:tabular-nums;overflow-wrap:normal}.price-value span{font-size:.87rem;letter-spacing:0;white-space:nowrap}.price-value small{font-size:.9rem;font-weight:500;letter-spacing:0;white-space:nowrap}.price-card p:not(.price-value){font-size:.92rem;line-height:1.85}.price-link{font-size:.9rem;font-weight:700;display:inline-block;margin-top:8px}.pricing-section .price-note{font-size:.9rem;line-height:1.9;margin-top:18px;max-width:78ch}.ski-offer{padding:34px 36px;border:2px solid #306c83;border-radius:18px;background:#edf6f9;box-shadow:0 10px 28px #1534490a}.offer-label{display:inline-block;background:#245870;color:white;font-weight:700;font-size:.9rem;border-radius:30px;padding:6px 15px;margin:0 0 18px}.ski-offer h2{margin-bottom:12px}.ski-offer .price-original{margin:24px 0 8px;font-size:1rem;color:#435d68}.ski-offer .offer-price{font-size:clamp(2.8rem,5vw,4rem);color:#16445c;margin-bottom:10px}.offer-fee{font-weight:700;line-height:1.7}.ski-offer .btn{margin-top:10px}.pricing-hero-link{font-weight:700}.topic .topic-price{font-size:1.17rem;font-weight:800;color:var(--accent,#245870);margin:12px 0;border:1px solid currentColor;border-radius:8px;padding:9px 12px;display:inline-block;background:#f5faf9}.topic-price small{font-size:.82rem;font-weight:500}@media(max-width:600px){.pricing-section{margin:30px 0 42px}.price-card{padding:24px 20px}.price-grid{grid-template-columns:1fr}.pricing-section .price-value{font-size:2.5rem}.ski-offer{padding:27px 22px}.ski-offer .offer-price{font-size:3rem}.price-value small{display:inline-block}.offer-fee{font-size:.95rem}}
+`;

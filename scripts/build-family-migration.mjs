@@ -3,6 +3,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { loadSiteConfig, renderPage, escapeHtml } from './render.mjs';
+import { familyPricing, skiPricing, pricingCss } from './photography-pricing.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -20,6 +21,8 @@ function isPortfolioPhoto(img) {
 }
 const pages = JSON.parse(readFileSync(dataPath, 'utf8')).map((page) => ({
   ...page,
+  hasArchivedPricing: (page.paragraphs || []).some(t => /(?:NT\$|台幣|攝影費|機票.*(?:八折|優惠)|半天.*\$|全天.*\$|已含.*機票)/.test(t)),
+  paragraphs: (page.paragraphs || []).map(t => String(t).split(/\n|\\n/).filter(line => !/(?:NT\$|台幣|攝影費|機票.*(?:八折|優惠)|住宿.*免費|半天.*\$|全天.*\$|第二日.*\d|第二天.*\d|已含.*機票)/.test(line)).join('\n')).filter(Boolean),
   images: (page.images || []).filter(isPortfolioPhoto),
 }));
 const pageMap = new Map(pages.map((p) => [p.id, p]));
@@ -167,6 +170,7 @@ function buildStandardPage(p) {
   const body = `${bread(p.newUrl, p.newTitle)}
 <section class="hero hero--medium hero--edge"><div class="hero__bg" style="background-image:url('${hero}')"></div><div class="hero__overlay"></div><div class="hero__inner"><h1 class="hero__title">${escapeHtml(p.newTitle)}</h1><p class="hero__sub">${escapeHtml(desc)}</p><div class="hero__actions"><a class="btn btn--primary" href="${cfg.site.lineUrl}" target="_blank" rel="noopener noreferrer">LINE 預約</a><a class="btn btn--secondary" href="/pages/service-flow/">查看服務流程</a></div></div></section>
 ${statsRow(p)}
+${p.hasArchivedPricing?`<div class="container"><style>${pricingCss}</style>${p.pageType==='overseas'?familyPricing('overseas'):familyPricing()}${/雪|滑雪/.test(p.newTitle)?skiPricing():''}</div>`:''}
 ${renderContentSections(p)}
 <section class="container section"><h2 class="h2">作品圖庫</h2>${gallery(p)}</section>
 <section class="container section"><h2 class="h2">影片</h2>${videoBlock(p)}</section>
@@ -192,7 +196,7 @@ function buildHome() {
 ${statsRow(p)}
 <section class="container section"><h2 class="h2">核心賣點</h2><div class="grid-2"><div class="card card--flat"><h3 class="h3">全外拍自然互動風格</h3></div><div class="card card--flat"><h3 class="h3">台灣包車親子旅拍</h3></div><div class="card card--flat"><h3 class="h3">50 趟以上海外旅拍</h3></div><div class="card card--flat"><h3 class="h3">照片全給 / 微電影 MV</h3></div></div></section>
 <section class="container section"><h2 class="h2">精選影片</h2>${videoBlock(p)}<p><a href="https://www.youtube.com/playlist?list=PLlcWeCGlTvTTEDlFy5fNEjOKzUt5gBzVM" target="_blank" rel="noopener noreferrer">查看更多親子旅拍影片</a></p></section>
-<section class="container section"><h2 class="h2">價格與方案摘要</h2><div class="prose"><p>台灣旅拍：半天 $5800–8300、全天 $14800。海外旅拍：一日攝影費 $14800，第二日 $9800，攝影師機票費用八折優惠。成品照片檔案全給，可搭配微電影 MV。</p></div></section>
+<section class="container section"><h2 class="h2">價格與方案摘要</h2><div class="prose"><p>台灣旅拍：半天 NT$6,800、NT$8,800、NT$9,800；全天 NT$18,000。海外旅拍：每日 NT$18,000，機票、住宿等拍攝相關費用另計、實報實銷。成品照片檔案全給，可搭配微電影 MV。</p></div></section>
 ${showcaseCards()}
 ${hubHomeInject}
 ${reviewsPreview()}

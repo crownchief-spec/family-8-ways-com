@@ -12,7 +12,6 @@
     "希爾頓",
     "喜來登",
     "福容",
-    "華碩",
     "日本星野集團",
     "八方雲集",
     "弘爺漢堡",
@@ -29,34 +28,43 @@
   "facebook": "https://www.facebook.com/benson.tw",
   "images": {
     "sketch": {
-      "src": "/public/media/photographer/benson-snowboard-sketch.webp",
-      "width": 665,
-      "height": 1182,
-      "alt": "滑雪人物手繪插畫",
-      "title": "滑雪人物手繪插畫"
-    },
-    "skiPortrait": {
-      "src": "/public/media/photographer/benson-chen-ski-portrait.webp",
-      "width": 360,
-      "height": 540,
-      "alt": "小巴老師穿著藍色雪衣，拿著雙板站在雪場",
-      "title": "小巴老師穿著藍色雪衣，拿著雙板站在雪場"
-    },
-    "camera": {
-      "src": "/public/media/photographer/benson-chen-professional-camera-snow.webp",
+      "src": "/brand/photographer/benson-chen-outdoor-family-session.webp",
       "width": 480,
       "height": 360,
-      "alt": "小巴老師在下雪的戶外手持專業單眼相機拍攝",
-      "title": "小巴老師在下雪的戶外手持專業單眼相機拍攝"
+      "alt": "小巴老師在草地上拍攝拿著彩色氣球的一家人",
+      "title": "小巴老師在草地上拍攝拿著彩色氣球的一家人"
+    },
+    "skiPortrait": {
+      "src": "/brand/photographer/benson-chen-family-travel-photographer.webp",
+      "width": 1086,
+      "height": 723,
+      "alt": "小巴老師手持相機站在海邊，背景是夕陽與海景",
+      "title": "小巴老師手持相機站在海邊，背景是夕陽與海景"
+    },
+    "camera": {
+      "src": "/brand/photographer/benson-chen-family-photo-session.webp",
+      "width": 480,
+      "height": 360,
+      "alt": "小巴老師在草地上引導孩子並拍攝家庭互動",
+      "title": "小巴老師在草地上引導孩子並拍攝家庭互動"
     },
     "working": {
-      "src": "/public/media/photographer/benson-chen-ski-slope-photographer.webp",
+      "src": "/brand/photographer/benson-chen-parent-child-photography.webp",
       "width": 540,
       "height": 360,
-      "alt": "小巴老師在雪道旁低姿勢手持專業相機拍攝",
-      "title": "小巴老師在雪道旁低姿勢手持專業相機拍攝"
+      "alt": "小巴老師蹲下與孩子互動，捕捉自然的親子表情",
+      "title": "小巴老師蹲下與孩子互動，捕捉自然的親子表情"
     }
   },
   "verifiedAt": "2026-11-22",
-  "verification": "本人於本次對話提供並確認；年資採近20年、滑雪攝影近10年、海外工作約60趟。"
+  "verification": "本人於本次對話提供並確認；年資採近20年、滑雪攝影近10年、海外工作約60趟。",
+  "presentation": {
+    "lede": "陪孩子玩，也讓爸媽留在照片裡。從台灣親子寫真到海外家庭旅拍，用自然互動留下全家人的故事。",
+    "eyebrow": "FAMILY PHOTOGRAPHY AT WORK",
+    "heading": "先和孩子熟悉，再留下自然的相處",
+    "body": "拍攝可以從一起散步、遊戲和觀察開始。小巴老師會配合孩子的高度與節奏引導互動，也安排爸媽、兄弟姊妹與長輩的合照。攝影師在鏡頭後，家人就能更安心地一起玩、一起入鏡。",
+    "galleryHeading": "陪一家人邊玩邊拍",
+    "link": "/works/",
+    "linkLabel": "看親子寫真與家庭旅拍作品"
+  }
 }
