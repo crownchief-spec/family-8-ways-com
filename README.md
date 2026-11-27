@@ -72,3 +72,7 @@ npm run preview
 - `npm run check:brand` 驗證新整合頁面的連結、照片與SEO。
 
 本地根目錄HTML為建置中間產物；預覽及部署請使用 `dist/`。
+
+## LINE 聯絡入口
+
+所有網站加好友、預約及詢價按鈕統一使用官方帳號 `@281uducw`：`https://line.me/R/ti/p/@281uducw`。不得恢復個人 LINE ID 或舊的個人加好友連結。電話連結與 LINE 分享文章功能維持原用途。

@@ -65,7 +65,7 @@ export function renderNavbar(cfg) {
     <nav class="site-nav" id="site-nav" data-nav-panel>
       <ul class="site-nav__list">${items}</ul>
       <div class="site-nav__cta">
-        <a class="btn btn--ghost btn--compact" href="${escapeHtml(site.lineUrl)}" target="_blank" rel="noopener noreferrer">加 Line 詢問</a>
+        <a class="btn btn--ghost btn--compact" href="${escapeHtml(site.lineUrl)}" target="_blank" rel="noopener noreferrer">加 LINE 官方帳號 詢問</a>
         <a class="btn btn--primary btn--compact" href="/contact/">預約拍攝</a>
       </div>
     </nav>
@@ -112,7 +112,7 @@ export function renderClientPortalNavbar(cfg) {
         <li class="site-nav__item"><a href="/contact/">聯絡預約</a></li>
       </ul>
       <div class="site-nav__cta">
-        <a class="btn btn--ghost btn--compact" href="${escapeHtml(site.lineUrl)}" target="_blank" rel="noopener noreferrer">加 Line</a>
+        <a class="btn btn--ghost btn--compact" href="${escapeHtml(site.lineUrl)}" target="_blank" rel="noopener noreferrer">加 LINE 官方帳號</a>
       </div>
     </nav>
   </div>
@@ -195,7 +195,7 @@ export function renderFooter(cfg, options = {}) {
         E-mail：<a href="mailto:${escapeHtml(site.email)}">${escapeHtml(site.email)}</a>
       </p>
       <div class="site-footer__cta">
-        <a class="btn btn--primary btn--compact" href="${escapeHtml(site.lineUrl)}" target="_blank" rel="noopener noreferrer">加 Line 詢問</a>
+        <a class="btn btn--primary btn--compact" href="${escapeHtml(site.lineUrl)}" target="_blank" rel="noopener noreferrer">加 LINE 官方帳號 詢問</a>
         <a class="btn btn--secondary btn--compact" href="/contact/">預約拍攝</a>
       </div>
     </section>`;

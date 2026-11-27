@@ -9,7 +9,7 @@ const cfg = loadSiteConfig();
 const data = JSON.parse(readFileSync(join(ROOT, 'data/ski-photography.json'), 'utf8'));
 const SITE = 'https://ski.8-ways.com';
 const MEDIA = process.env.SKI_ASSET_BASE || SITE;
-const LINE = 'https://line.me/ti/p/~0911252302';
+const LINE = 'https://line.me/R/ti/p/@281uducw';
 const promotedStories = data.stories.filter(story => story.promotion !== 'quiet');
 const photo = data.heroImage || (promotedStories.find(story => story.slug === data.heroSlug) || promotedStories[0]).cover;
 const homePhoto = data.homeFeatureImage || photo;

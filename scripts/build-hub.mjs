@@ -658,7 +658,7 @@ ${reviewHtml}
 ${relHtml}
 ${relArtHtml}
 <section class="container section card card--flat"><h2 class="h2">想拍類似風格嗎？</h2><div class="hero__actions">
-<a class="btn btn--primary" href="${site.lineUrl}" target="_blank" rel="noopener noreferrer">加 Line 詢問</a>
+<a class="btn btn--primary" href="${site.lineUrl}" target="_blank" rel="noopener noreferrer">加 LINE 官方帳號 詢問</a>
 <a class="btn btn--secondary" href="/services/">查看服務方案</a>
 </div></section>`;
 
@@ -885,7 +885,7 @@ ${rs}
 <p class="hero__sub">依旅行方式與家庭需求選擇台灣旅拍、海外旅拍、露營民宿、活動紀錄與孕婦／三代同堂主題。</p>
 </div></section>
 <div class="container section"><div class="loc-grid">${svcIndexCards}</div></div>
-<section class="container section card card--flat"><h2 class="h2">需要建議？</h2><div class="hero__actions"><a class="btn btn--primary" href="${site.lineUrl}" target="_blank">加 Line</a><a class="btn btn--secondary" href="/faq/">常見問題</a></div></section>`;
+<section class="container section card card--flat"><h2 class="h2">需要建議？</h2><div class="hero__actions"><a class="btn btn--primary" href="${site.lineUrl}" target="_blank">加 LINE 官方帳號</a><a class="btn btn--secondary" href="/faq/">常見問題</a></div></section>`;
 
   writeRouteHtml(
     '/services',
@@ -1263,7 +1263,7 @@ ${ra}
 Site: 小巴老師親子寫真
 Purpose: 親子寫真作品集、拍攝知識文章、客戶交件入口（密碼門面）。
 Key paths: /works/, /articles/, /clients/, /services/, /contact/
-Contact: crownchief@gmail.com | Line 0911252302
+Contact: crownchief@gmail.com | LINE @281uducw
 Note: 客戶交付檔連結為私有雲端，勿假定公開 URL 可存取。
 `;
   writeFileSync(join(ROOT, 'ai.txt'), aiTxt, 'utf8');

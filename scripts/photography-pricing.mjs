@@ -8,7 +8,7 @@ export function familyPricing(scope='all') {
  return `<section class="pricing-section" id="photography-prices" aria-label="親子寫真價格"><p class="eyebrow">PHOTOGRAPHY PRICES</p><h2>親子寫真，價格清楚看</h2><div class="price-grid">${scope==='overseas'?overseas:scope==='domestic'?domestic+full:domestic+full+overseas}</div><p class="price-note">以上為新臺幣拍攝費。拍攝時段、地點、照片與影片需求及交付內容，於預約前確認。</p></section>`;
 }
 export function skiPricing() {
- return `<section class="pricing-section ski-offer" id="ski-offer" aria-label="滑雪攝影優惠"><div><p class="offer-label">滑雪攝影推廣活動</p><h2>滑雪、玩雪，讓攝影師陪你留下冬天</h2><p>海外滑雪跟拍・玩雪親子寫真・雪地家庭旅拍</p><p class="price-original">原價 <s>NT$14,800／天</s></p><p class="price-value offer-price"><span>活動價 NT$</span> 9,800<small>／天</small></p><p class="offer-fee">每日拍攝費 NT$9,800 ＋ 拍攝相關費用實報實銷</p><p class="price-note">機票、住宿、拍攝所需交通、雪票／纜車票與必要滑雪裝備租借等費用另計，實報實銷；不包含在 NT$9,800 拍攝費內。</p><p class="price-note">出發日期、雪場、拍攝時段與照片影片交付內容，預約前一起確認。</p><a class="btn btn--primary" href="https://line.me/ti/p/~0911252302" target="_blank" rel="noopener">詢問滑雪攝影優惠檔期</a></div></section>`;
+ return `<section class="pricing-section ski-offer" id="ski-offer" aria-label="滑雪攝影優惠"><div><p class="offer-label">滑雪攝影推廣活動</p><h2>滑雪、玩雪，讓攝影師陪你留下冬天</h2><p>海外滑雪跟拍・玩雪親子寫真・雪地家庭旅拍</p><p class="price-original">原價 <s>NT$14,800／天</s></p><p class="price-value offer-price"><span>活動價 NT$</span> 9,800<small>／天</small></p><p class="offer-fee">每日拍攝費 NT$9,800 ＋ 拍攝相關費用實報實銷</p><p class="price-note">機票、住宿、拍攝所需交通、雪票／纜車票與必要滑雪裝備租借等費用另計，實報實銷；不包含在 NT$9,800 拍攝費內。</p><p class="price-note">出發日期、雪場、拍攝時段與照片影片交付內容，預約前一起確認。</p><a class="btn btn--primary" href="https://line.me/R/ti/p/@281uducw" target="_blank" rel="noopener">詢問滑雪攝影優惠檔期</a></div></section>`;
 }
 export function businessPricing(category='all') {
  const rows={

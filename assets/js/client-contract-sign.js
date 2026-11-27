@@ -22,7 +22,7 @@
   if (root.getAttribute('data-ready-to-share') !== '1') return;
 
   var clientName = root.getAttribute('data-client-name') || '';
-  var lineUrl = root.getAttribute('data-line-url') || 'https://line.me/ti/p/0911252302';
+  var lineUrl = root.getAttribute('data-line-url') || 'https://line.me/R/ti/p/@281uducw';
   var photographerEmail = root.getAttribute('data-photographer-email') || 'crownchief@gmail.com';
   var contractVersion = root.getAttribute('data-contract-version') || 'family-contract-v2026-05';
   var form = document.getElementById('client-contract-form');

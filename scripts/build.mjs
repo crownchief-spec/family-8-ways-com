@@ -323,7 +323,7 @@ ${e.data.subtitle ? `<p class="hero__sub">${escapeHtml(e.data.subtitle)}</p>` : 
 ${locationBody(e.bodyMd)}
 ${e.data.why_great?.length ? `<div class="container section"><h2 class="h2">為什麼適合拍</h2><ul class="prose">${e.data.why_great.map((x) => `<li>${escapeHtml(x)}</li>`).join('')}</ul></div>` : ''}
 <div class="container section cta-mini"><h2 class="h2">想安排此區親子／家庭旅拍</h2><div class="hero__actions">
-<a class="btn btn--primary" href="${site.lineUrl}" target="_blank" rel="noopener noreferrer">加 Line 詢問</a>
+<a class="btn btn--primary" href="${site.lineUrl}" target="_blank" rel="noopener noreferrer">加 LINE 官方帳號 詢問</a>
 <a class="btn btn--secondary" href="/contact/">預約拍攝</a>
 </div></div>`;
 
